@@ -1,0 +1,6 @@
+/home/camoth/HelloWorld/HelloWorld/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/camoth/HelloWorld/HelloWorld/obj/x86/Debug/HelloWorld.gtk-gui.gui.stetic
+/home/camoth/HelloWorld/HelloWorld/bin/Debug/HelloWorld.exe.mdb
+/home/camoth/HelloWorld/HelloWorld/bin/Debug/HelloWorld.exe
+/home/camoth/HelloWorld/HelloWorld/obj/x86/Debug/HelloWorld.exe
+/home/camoth/HelloWorld/HelloWorld/obj/x86/Debug/HelloWorld.exe.mdb
