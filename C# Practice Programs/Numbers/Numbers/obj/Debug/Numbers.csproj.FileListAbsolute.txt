@@ -1,0 +1,9 @@
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\bin\Debug\Numbers.exe.config
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\bin\Debug\Numbers.exe
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\bin\Debug\Numbers.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\obj\Debug\Numbers.csprojResolveAssemblyReference.cache
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\obj\Debug\Numbers.Form1.resources
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\obj\Debug\Numbers.Properties.Resources.resources
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\obj\Debug\Numbers.csproj.GenerateResource.Cache
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\obj\Debug\Numbers.exe
+C:\GitHub\camoth\Projects\C# Practice Programs\Numbers\Numbers\obj\Debug\Numbers.pdb

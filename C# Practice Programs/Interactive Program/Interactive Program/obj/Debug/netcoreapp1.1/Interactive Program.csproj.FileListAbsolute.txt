@@ -1,0 +1,9 @@
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\bin\Debug\netcoreapp1.1\Interactive Program.deps.json
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\bin\Debug\netcoreapp1.1\Interactive Program.runtimeconfig.json
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\bin\Debug\netcoreapp1.1\Interactive Program.runtimeconfig.dev.json
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\bin\Debug\netcoreapp1.1\Interactive Program.dll
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\bin\Debug\netcoreapp1.1\Interactive Program.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\obj\Debug\netcoreapp1.1\Interactive Program.AssemblyInfo.cs
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\obj\Debug\netcoreapp1.1\Interactive Program.dll
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\obj\Debug\netcoreapp1.1\Interactive Program.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\Interactive Program\Interactive Program\obj\Debug\netcoreapp1.1\Interactive Program.csprojResolveAssemblyReference.cache

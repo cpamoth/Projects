@@ -1,0 +1,9 @@
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\bin\Debug\WindowsForms1.exe.config
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\bin\Debug\WindowsForms1.exe
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\bin\Debug\WindowsForms1.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\obj\Debug\WindowsForms1.csprojResolveAssemblyReference.cache
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\obj\Debug\WindowsForms1.Properties.Resources.resources
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\obj\Debug\WindowsForms1.csproj.GenerateResource.Cache
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\obj\Debug\WindowsForms1.exe
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\obj\Debug\WindowsForms1.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\WindowsForms1\WindowsForms1\obj\Debug\WindowsForms1.Form1.resources

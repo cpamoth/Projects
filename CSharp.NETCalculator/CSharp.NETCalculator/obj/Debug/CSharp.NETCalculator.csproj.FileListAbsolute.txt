@@ -1,0 +1,9 @@
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\bin\Debug\CSharp.NETCalculator.exe.config
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\bin\Debug\CSharp.NETCalculator.exe
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\bin\Debug\CSharp.NETCalculator.pdb
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\obj\Debug\CSharp.NETCalculator.csprojResolveAssemblyReference.cache
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\obj\Debug\CSharp.NETCalculator.Form1.resources
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\obj\Debug\CSharp.NETCalculator.Properties.Resources.resources
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\obj\Debug\CSharp.NETCalculator.csproj.GenerateResource.Cache
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\obj\Debug\CSharp.NETCalculator.exe
+c:\users\camoth\documents\visual studio 2013\Projects\CSharp.NETCalculator\CSharp.NETCalculator\obj\Debug\CSharp.NETCalculator.pdb

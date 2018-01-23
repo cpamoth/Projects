@@ -1,0 +1,9 @@
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.deps.json
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.runtimeconfig.json
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.runtimeconfig.dev.json
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.dll
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.pdb
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.csprojResolveAssemblyReference.cache
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.AssemblyInfo.cs
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.dll
+C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.pdb

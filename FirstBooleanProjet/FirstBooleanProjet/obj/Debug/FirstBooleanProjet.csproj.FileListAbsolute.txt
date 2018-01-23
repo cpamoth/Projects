@@ -1,0 +1,8 @@
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\bin\Debug\FirstBooleanProjet.exe.config
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\bin\Debug\FirstBooleanProjet.exe
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\bin\Debug\FirstBooleanProjet.pdb
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\obj\Debug\FirstBooleanProjet.Form1.resources
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\obj\Debug\FirstBooleanProjet.Properties.Resources.resources
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\obj\Debug\FirstBooleanProjet.csproj.GenerateResource.Cache
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\obj\Debug\FirstBooleanProjet.exe
+c:\users\camoth\documents\visual studio 2013\Projects\FirstBooleanProjet\FirstBooleanProjet\obj\Debug\FirstBooleanProjet.pdb

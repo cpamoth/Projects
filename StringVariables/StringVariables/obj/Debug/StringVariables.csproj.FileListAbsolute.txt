@@ -1,0 +1,8 @@
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\bin\Debug\StringVariables.exe.config
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\bin\Debug\StringVariables.exe
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\bin\Debug\StringVariables.pdb
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\obj\Debug\StringVariables.Form1.resources
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\obj\Debug\StringVariables.Properties.Resources.resources
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\obj\Debug\StringVariables.csproj.GenerateResource.Cache
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\obj\Debug\StringVariables.exe
+c:\users\camoth\documents\visual studio 2013\Projects\StringVariables\StringVariables\obj\Debug\StringVariables.pdb

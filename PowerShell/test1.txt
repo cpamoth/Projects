@@ -1,0 +1,7 @@
+(Get-ChildItem "C:\GitHub\camoth\Projects\Powershell\test1.txt" -recurse).FullName | 
+Foreach Object {
+	(Get-Content $_ -Raw).
+	Replace('oldtest', 'newtext').
+	Replace('UserName=olduser', 'Username-newuser').
+	Set-Content $_
+}

@@ -1,0 +1,9 @@
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\bin\Debug\StringVariables.exe.config
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\bin\Debug\StringVariables.exe
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\bin\Debug\StringVariables.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\obj\Debug\StringVariables.Form1.resources
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\obj\Debug\StringVariables.Properties.Resources.resources
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\obj\Debug\StringVariables.csproj.GenerateResource.Cache
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\obj\Debug\StringVariables.exe
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\obj\Debug\StringVariables.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\StringVariables\StringVariables\obj\Debug\StringVariables.csprojResolveAssemblyReference.cache
