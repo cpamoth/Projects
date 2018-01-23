@@ -1,0 +1,9 @@
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\bin\Debug\GetNumberFromTextBoxes.exe.config
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\bin\Debug\GetNumberFromTextBoxes.exe
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\bin\Debug\GetNumberFromTextBoxes.pdb
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\obj\Debug\GetNumberFromTextBoxes.csprojResolveAssemblyReference.cache
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\obj\Debug\GetNumberFromTextBoxes.Form1.resources
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\obj\Debug\GetNumberFromTextBoxes.Properties.Resources.resources
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\obj\Debug\GetNumberFromTextBoxes.csproj.GenerateResource.Cache
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\obj\Debug\GetNumberFromTextBoxes.exe
+c:\users\camoth\documents\visual studio 2013\Projects\GetNumberFromTextBoxes\GetNumberFromTextBoxes\obj\Debug\GetNumberFromTextBoxes.pdb

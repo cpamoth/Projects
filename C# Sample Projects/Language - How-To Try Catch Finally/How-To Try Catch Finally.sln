@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "How-To Try Catch Finally", "How-To Try Catch Finally.csproj", "{FF79EC5E-3683-4668-B729-7E75688E218A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{FF79EC5E-3683-4668-B729-7E75688E218A}.Debug.ActiveCfg = Debug|.NET
+		{FF79EC5E-3683-4668-B729-7E75688E218A}.Debug.Build.0 = Debug|.NET
+		{FF79EC5E-3683-4668-B729-7E75688E218A}.Release.ActiveCfg = Release|.NET
+		{FF79EC5E-3683-4668-B729-7E75688E218A}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

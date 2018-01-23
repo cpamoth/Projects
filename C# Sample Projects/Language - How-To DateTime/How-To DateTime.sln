@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "How-To DateTime", "How-To DateTime.csproj", "{C93F19ED-B198-48B4-95B7-9392356712D2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{C93F19ED-B198-48B4-95B7-9392356712D2}.Debug.ActiveCfg = Debug|.NET
+		{C93F19ED-B198-48B4-95B7-9392356712D2}.Debug.Build.0 = Debug|.NET
+		{C93F19ED-B198-48B4-95B7-9392356712D2}.Release.ActiveCfg = Release|.NET
+		{C93F19ED-B198-48B4-95B7-9392356712D2}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

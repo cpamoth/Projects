@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "How-To Arrays", "How-To Arrays.csproj", "{55C87D79-18BB-43B5-A8F1-1AE476184688}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{55C87D79-18BB-43B5-A8F1-1AE476184688}.Debug.ActiveCfg = Debug|.NET
+		{55C87D79-18BB-43B5-A8F1-1AE476184688}.Debug.Build.0 = Debug|.NET
+		{55C87D79-18BB-43B5-A8F1-1AE476184688}.Release.ActiveCfg = Release|.NET
+		{55C87D79-18BB-43B5-A8F1-1AE476184688}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

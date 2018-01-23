@@ -1,0 +1,9 @@
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\bin\Debug\netcoreapp1.1\HelloWorld.deps.json
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\bin\Debug\netcoreapp1.1\HelloWorld.runtimeconfig.json
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\bin\Debug\netcoreapp1.1\HelloWorld.runtimeconfig.dev.json
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\bin\Debug\netcoreapp1.1\HelloWorld.dll
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\bin\Debug\netcoreapp1.1\HelloWorld.pdb
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\obj\Debug\netcoreapp1.1\HelloWorld.csprojResolveAssemblyReference.cache
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\obj\Debug\netcoreapp1.1\HelloWorld.AssemblyInfo.cs
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\obj\Debug\netcoreapp1.1\HelloWorld.dll
+C:\GitHub\camoth\Projects\C# Practice Programs\HelloWorld\HelloWorld\obj\Debug\netcoreapp1.1\HelloWorld.pdb

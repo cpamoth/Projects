@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLDocumentationTool", "XMLDocumentationTool.csproj", "{38CF64C8-B6F3-4B81-803E-C649B1246AE7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{38CF64C8-B6F3-4B81-803E-C649B1246AE7}.Debug.ActiveCfg = Debug|.NET
+		{38CF64C8-B6F3-4B81-803E-C649B1246AE7}.Debug.Build.0 = Debug|.NET
+		{38CF64C8-B6F3-4B81-803E-C649B1246AE7}.Release.ActiveCfg = Release|.NET
+		{38CF64C8-B6F3-4B81-803E-C649B1246AE7}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

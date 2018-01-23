@@ -1,0 +1,6 @@
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\bin\Debug\myApp.exe.config
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\bin\Debug\myApp.exe
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\bin\Debug\myApp.pdb
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\obj\Debug\myApp.exe
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\obj\Debug\myApp.pdb
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\obj\Debug\myApp.csprojResolveAssemblyReference.cache

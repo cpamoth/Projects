@@ -1,0 +1,3 @@
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\obj\Release\myApp.csproj.CoreCompileInputs.cache
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\obj\Release\myApp.exe
+C:\GitHub\camoth\Projects\DotNetCore\myApp\myApp\obj\Release\myApp.pdb

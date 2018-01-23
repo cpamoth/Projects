@@ -1,0 +1,5 @@
+C:\GitHub\camoth\Projects\C# Sample Projects\NET Framework - Work with Console Applications\bin\Debug\How-To Work with the Console Application.exe
+C:\GitHub\camoth\Projects\C# Sample Projects\NET Framework - Work with Console Applications\bin\Debug\How-To Work with the Console Application.pdb
+C:\GitHub\camoth\Projects\C# Sample Projects\NET Framework - Work with Console Applications\obj\Debug\How-To Work with the Console Application.csprojResolveAssemblyReference.cache
+C:\GitHub\camoth\Projects\C# Sample Projects\NET Framework - Work with Console Applications\obj\Debug\How-To Work with the Console Application.exe
+C:\GitHub\camoth\Projects\C# Sample Projects\NET Framework - Work with Console Applications\obj\Debug\How-To Work with the Console Application.pdb

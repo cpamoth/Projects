@@ -1,0 +1,9 @@
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\bin\Debug\First Windows Form Application.exe.config
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\bin\Debug\First Windows Form Application.exe
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\bin\Debug\First Windows Form Application.pdb
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\obj\Debug\First Windows Form Application.csprojResolveAssemblyReference.cache
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\obj\Debug\First_Windows_Form_Application.Form1.resources
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\obj\Debug\First_Windows_Form_Application.Properties.Resources.resources
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\obj\Debug\First Windows Form Application.csproj.GenerateResource.Cache
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\obj\Debug\First Windows Form Application.exe
+c:\users\camoth\documents\visual studio 2013\Projects\First Windows Form Application\First Windows Form Application\obj\Debug\First Windows Form Application.pdb
