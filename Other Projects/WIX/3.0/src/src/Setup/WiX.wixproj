@@ -1,0 +1,43 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{63b65ca2-0cba-4d8d-a7ef-f2235a534e3d}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>WiX3</OutputName>
+    <OutputType>Package</OutputType>
+    <IncludeSearchPaths>..\..\..\inc</IncludeSearchPaths>
+    <Pedantic>True</Pedantic>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DefineConstants>Flavor=debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>Flavor=ship</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ClickThrough.wxs" />
+    <Compile Include="Extensions.wxs" />
+    <Compile Include="Product.wxs" />
+    <Compile Include="SetupExe.wxs" />
+    <Compile Include="Toolset.wxs" />
+    <Compile Include="Votive.wxs" />
+    <Compile Include="VStudio.wxs" />
+  </ItemGroup>
+  <Import Project="..\..\WixBuild.Common.targets" />
+  <PropertyGroup>
+    <Cultures>en-us</Cultures>
+    <DefineConstants>$(DefineConstants);VotiveRoot=$(ROOT)src\Votive;TargetDir=$(OutputPath);DutilTargetDir=$(DUtilTargetPath)</DefineConstants>
+    <IncludeSearchPaths>$(ROOT)inc</IncludeSearchPaths>
+  </PropertyGroup>
+  <ItemGroup>
+    <WixExtension Include="$(OutputPath)WixUIExtension.dll">
+      <Private>False</Private>
+    </WixExtension>
+    <WixExtension Include="$(OutputPath)WixVSExtension.dll">
+      <Private>False</Private>
+    </WixExtension>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+</Project>

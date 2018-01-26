@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{5E127377-6E27-4D8A-B269-7E5E30C8EB11}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Feature Id="MyRootFeature" Title="The root feature of the product" Level="1">
+            <Feature Id="TestFileProductFeature1" Title="Test File Product Feature" Level="1" InstallDefault="followParent" />
+            <Feature Id="TestFileProductFeature2" Title="Test File Product Feature" Level="1" InstallDefault="followParent" />
+        </Feature>
+    </Product>
+</Wix>

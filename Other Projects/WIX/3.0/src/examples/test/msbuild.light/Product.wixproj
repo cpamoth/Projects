@@ -1,0 +1,19 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{C91EAA31-EA37-4db9-899D-FB848CD95B53}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>msbuild.light</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>*Pass via the command line*</WixToolPath>
+    <WixVariables>CommandLineVariable=I set this from the command line</WixVariables>
+    <Cultures>en-us</Cultures>
+    <SuppressIces>ICE32</SuppressIces>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="product.wxs" />
+    <Compile Include="iisExtension.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixToolPath)\Wix.targets" />
+</Project>

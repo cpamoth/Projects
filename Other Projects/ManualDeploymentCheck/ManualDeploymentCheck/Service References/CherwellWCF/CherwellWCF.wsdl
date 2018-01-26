@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CherwellWCF" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CherwellWCF" />
+      <xsd:import schemaLocation="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CherwellWCF.LightObjects" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICherwellWCF_GenerateWeeklyReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerateWeeklyReport" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GenerateWeeklyReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerateWeeklyReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GenerateBuildTeamReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerateBuildTeamReport" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GenerateBuildTeamReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerateBuildTeamReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetChangesByRallyNumber_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChangesByRallyNumber" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetChangesByRallyNumber_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChangesByRallyNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetChangeControl_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChangeControl" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetChangeControl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChangeControlResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_SaveChangeDeployment_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveChangeDeployment" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_SaveChangeDeployment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveChangeDeploymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_UpdateChangeDeployment_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateChangeDeployment" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_UpdateChangeDeployment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateChangeDeploymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_UpdateDeploymentCheck_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateDeploymentCheck" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_UpdateDeploymentCheck_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateDeploymentCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_DeleteDeployment_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDeployment" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_DeleteDeployment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDeploymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetLatestDeployments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLatestDeployments" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetLatestDeployments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLatestDeploymentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeployment_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeployment" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeployment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByChangeControl_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByChangeControl" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByChangeControl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByChangeControlResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByDeployedBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByDeployedBy" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByDeployedBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByDeployedByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByComponent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByComponent" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByComponent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByComponentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByLikeComponent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByLikeComponent" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByLikeComponent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByLikeComponentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByLikeServer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByLikeServer" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByLikeServer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByLikeServerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByRegion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByRegion" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByRegion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByDestPath_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByDestPath" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByDestPath_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByDestPathResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsBySVNPath_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsBySVNPath" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsBySVNPath_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsBySVNPathResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByDate" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeployments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeployments" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeployments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByAll" />
+  </wsdl:message>
+  <wsdl:message name="ICherwellWCF_GetDeploymentsByAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDeploymentsByAllResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICherwellWCF">
+    <wsdl:operation name="GenerateWeeklyReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GenerateWeeklyReport" message="tns:ICherwellWCF_GenerateWeeklyReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GenerateWeeklyReportResponse" message="tns:ICherwellWCF_GenerateWeeklyReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateBuildTeamReport">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GenerateBuildTeamReport" message="tns:ICherwellWCF_GenerateBuildTeamReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GenerateBuildTeamReportResponse" message="tns:ICherwellWCF_GenerateBuildTeamReport_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChangesByRallyNumber">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetChangesByRallyNumber" message="tns:ICherwellWCF_GetChangesByRallyNumber_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetChangesByRallyNumberResponse" message="tns:ICherwellWCF_GetChangesByRallyNumber_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChangeControl">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetChangeControl" message="tns:ICherwellWCF_GetChangeControl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetChangeControlResponse" message="tns:ICherwellWCF_GetChangeControl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveChangeDeployment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/SaveChangeDeployment" message="tns:ICherwellWCF_SaveChangeDeployment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/SaveChangeDeploymentResponse" message="tns:ICherwellWCF_SaveChangeDeployment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChangeDeployment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/UpdateChangeDeployment" message="tns:ICherwellWCF_UpdateChangeDeployment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/UpdateChangeDeploymentResponse" message="tns:ICherwellWCF_UpdateChangeDeployment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDeploymentCheck">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/UpdateDeploymentCheck" message="tns:ICherwellWCF_UpdateDeploymentCheck_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/UpdateDeploymentCheckResponse" message="tns:ICherwellWCF_UpdateDeploymentCheck_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDeployment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/DeleteDeployment" message="tns:ICherwellWCF_DeleteDeployment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/DeleteDeploymentResponse" message="tns:ICherwellWCF_DeleteDeployment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestDeployments">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetLatestDeployments" message="tns:ICherwellWCF_GetLatestDeployments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetLatestDeploymentsResponse" message="tns:ICherwellWCF_GetLatestDeployments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeployment">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeployment" message="tns:ICherwellWCF_GetDeployment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentResponse" message="tns:ICherwellWCF_GetDeployment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByChangeControl">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByChangeControl" message="tns:ICherwellWCF_GetDeploymentsByChangeControl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByChangeControlResponse" message="tns:ICherwellWCF_GetDeploymentsByChangeControl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByDeployedBy">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByDeployedBy" message="tns:ICherwellWCF_GetDeploymentsByDeployedBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByDeployedByResponse" message="tns:ICherwellWCF_GetDeploymentsByDeployedBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByComponent">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByComponent" message="tns:ICherwellWCF_GetDeploymentsByComponent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByComponentResponse" message="tns:ICherwellWCF_GetDeploymentsByComponent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByLikeComponent">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByLikeComponent" message="tns:ICherwellWCF_GetDeploymentsByLikeComponent_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByLikeComponentResponse" message="tns:ICherwellWCF_GetDeploymentsByLikeComponent_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByLikeServer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByLikeServer" message="tns:ICherwellWCF_GetDeploymentsByLikeServer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByLikeServerResponse" message="tns:ICherwellWCF_GetDeploymentsByLikeServer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByRegion">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByRegion" message="tns:ICherwellWCF_GetDeploymentsByRegion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByRegionResponse" message="tns:ICherwellWCF_GetDeploymentsByRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByDestPath">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByDestPath" message="tns:ICherwellWCF_GetDeploymentsByDestPath_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByDestPathResponse" message="tns:ICherwellWCF_GetDeploymentsByDestPath_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsBySVNPath">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsBySVNPath" message="tns:ICherwellWCF_GetDeploymentsBySVNPath_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsBySVNPathResponse" message="tns:ICherwellWCF_GetDeploymentsBySVNPath_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByDate" message="tns:ICherwellWCF_GetDeploymentsByDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByDateResponse" message="tns:ICherwellWCF_GetDeploymentsByDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeployments">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeployments" message="tns:ICherwellWCF_GetDeployments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsResponse" message="tns:ICherwellWCF_GetDeployments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByAll" message="tns:ICherwellWCF_GetDeploymentsByAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICherwellWCF/GetDeploymentsByAllResponse" message="tns:ICherwellWCF_GetDeploymentsByAll_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICherwellWCF" type="tns:ICherwellWCF">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GenerateWeeklyReport">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GenerateWeeklyReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateBuildTeamReport">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GenerateBuildTeamReport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChangesByRallyNumber">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetChangesByRallyNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChangeControl">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetChangeControl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveChangeDeployment">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/SaveChangeDeployment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateChangeDeployment">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/UpdateChangeDeployment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDeploymentCheck">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/UpdateDeploymentCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDeployment">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/DeleteDeployment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestDeployments">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetLatestDeployments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeployment">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeployment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByChangeControl">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByChangeControl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByDeployedBy">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByDeployedBy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByComponent">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByComponent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByLikeComponent">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByLikeComponent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByLikeServer">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByLikeServer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByRegion">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByDestPath">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByDestPath" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsBySVNPath">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsBySVNPath" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByDate">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeployments">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeployments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeploymentsByAll">
+      <soap:operation soapAction="http://tempuri.org/ICherwellWCF/GetDeploymentsByAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CherwellWCF">
+    <wsdl:port name="BasicHttpBinding_ICherwellWCF" binding="tns:BasicHttpBinding_ICherwellWCF">
+      <soap:address location="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

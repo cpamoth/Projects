@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0039-C000-000000000046" Name="TestSqlStringProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0040-C000-000000000046" Description="Test SqlString in a Product" Comments="Test from: wix\examples\test\sqlstring\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Property Id="FIRST" Value="Scott" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestSqlStringProductDirectory" Name="testsql" LongName="Test Sql">
+          <Component Id="TestSqlStringProductComponent1" Guid="10030829-0041-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <SqlDatabase Id="TestDB1" Database="BlankDB" Server="Localhost" CreateOnInstall="yes" DropOnUninstall="yes" ConfirmOverwrite="yes">
+              <SqlFileSpec Id="TestFileSpec" Name="foo" Filename="[DBFILE]" Size="[DBFILESIZE]" MaxSize="[DBFILEMAXSIZE]" GrowthSize="[DBFILEGROWTHSIZE]" />
+              <SqlLogFileSpec Id="TestLogFileSpec" Name="bar" Filename="[LOGFILE]" Size="[LOGFILESIZE]" MaxSize="[LOGFILEMAXSIZE]" GrowthSize="[LOGFILEGROWTHSIZE]" />
+              <SqlString Id="TestString1" SQL="CREATE TABLE TestTable1(name varchar(20), value varchar(20))" ExecuteOnInstall="yes" RollbackOnReinstall="yes" />
+            </SqlDatabase>
+          </Component>
+          <Component Id="TestSqlStringProductComponent2" Guid="20030829-0042-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <SqlString Id="TestString2" SqlDb="TestDB1" SQL="CREATE TABLE TestTable2(name varchar(20), value varchar(20))" ExecuteOnInstall="yes" RollbackOnReinstall="no"  />
+            <SqlString Id="TestString3" SqlDb="TestDB1" SQL="INSERT INTO TestTable2(name, value) Values('[FIRST]', 'Kurtzeborn')" ExecuteOnInstall="yes" />
+          </Component>
+          <Component Id="TestSqlStringProductComponent3" Guid="40030829-0043-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <SqlDatabase Id="TestDB2" Database="BlankDB2" Server="Localhost" CreateOnInstall="yes" DropOnUninstall="no" ConfirmOverwrite="yes" />
+          </Component>
+          <Component Id="TestSqlStringProductComponent4" Guid="10030829-0044-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <SqlDatabase Id="TestDB3" Database="ScottDB" Server="Localhost" CreateOnInstall="yes" DropOnUninstall="yes" ConfirmOverwrite="yes">
+              <SqlString Id="TestString4" SQL="CREATE TABLE TestTable1(name varchar(20), value varchar(20))" ExecuteOnInstall="yes" />
+              <SqlString Id="TestString5" SQL="INSERT INTO TestTable1(name, value) Values('Scott', 'Kurtzeborn')" ExecuteOnInstall="yes" />
+            </SqlDatabase>
+          </Component>
+          <Component Id="TestSqlStringProductComponent5" Guid="20030829-0049-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <SqlString Id="TestString6" SqlDb="TestDB1" SQL="INSERT INTO TestTable2(name, value) Values('[FIRST]', 'Kurtzeborn')" ExecuteOnInstall="yes" />
+          </Component>
+          <Component Id="TestSqlStringProductComponent6" Guid="40030829-0043-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <SqlDatabase Id="TestDB4" Database="BlankDB4" Server="Localhost" CreateOnReinstall="yes" DropOnUninstall="no" ConfirmOverwrite="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestSqlStringProductFeature" Title="Test SQL String Product Feature" Level="1">
+      <ComponentRef Id="TestSqlStringProductComponent1" />
+      <ComponentRef Id="TestSqlStringProductComponent2" />
+      <ComponentRef Id="TestSqlStringProductComponent3" />
+      <ComponentRef Id="TestSqlStringProductComponent4" />
+      <Feature Id="TestSqlStringProductFeatureConditional" Title="Test SQL String Product Contitional Feature" Level="1">
+        <Condition Level="0"><![CDATA[FIRST="Scott"]]></Condition>
+        <ComponentRef Id="TestSqlStringProductComponent5" />
+      </Feature>
+      <ComponentRef Id="TestSqlStringProductComponent5" />
+      <ComponentRef Id="TestSqlStringProductComponent6" />
+    </Feature>
+  </Product>
+</Wix>

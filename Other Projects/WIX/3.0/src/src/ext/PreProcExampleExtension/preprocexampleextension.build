@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="preprocexampleextension" default="preprocexampleextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    preprocexampleextension.build - Builds the preprocexampleextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="preprocexampleextension.wixext.dir.src" value="${dir.src.ext}\preprocexampleextension\wixext" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="preprocexampleextension.build" description="Peforms a full rebuild (clean then build)" depends="preprocexampleextension.clean, preprocexampleextension.inc" />
+
+  <!-- Clean -->
+  <target name="preprocexampleextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.preprocexampleextension}" failonerror="false" if="${directory::exists(dir.build.ext.preprocexampleextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixPreProcExampleExtension.dll" />
+        <include name="WixPreProcExampleExtension.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="preprocexampleextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Compile the extension -->
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixPreProcExampleExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${preprocexampleextension.wixext.dir.src}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="PreProcExtension.cs" />
+        <include name="PreProcExampleExtension.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+    </csc>
+  </target>
+
+</project>

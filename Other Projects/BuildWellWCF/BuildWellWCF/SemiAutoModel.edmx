@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BT_SemiAutoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Builds">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ChangeControl" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="BuildDate" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="BinaryRevision" Type="varchar" MaxLength="50" />
+          <Property Name="BuildLog" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="BuildSources">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildId" Type="int" Nullable="false" />
+          <Property Name="Url" Type="varchar(max)" Nullable="false" />
+          <Property Name="Revision" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RepositoryType" Type="varchar" MaxLength="50" />
+          <Property Name="ReferencedBy" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Deployments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildId" Type="int" Nullable="false" />
+          <Property Name="DeployDate" Type="datetime" Nullable="false" />
+          <Property Name="Server" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ServerComp" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BuildSources_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="BuildSources" Type="Self.BuildSources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuildSources">
+              <PropertyRef Name="BuildId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deployments_Builds">
+          <End Role="Builds" Type="Self.Builds" Multiplicity="1" />
+          <End Role="Deployments" Type="Self.Deployments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deployments">
+              <PropertyRef Name="BuildId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AppendToBuildLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Msg" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="BT_SemiAutoModelStoreContainer">
+          <EntitySet Name="Builds" EntityType="Self.Builds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuildSources" EntityType="Self.BuildSources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deployments" EntityType="Self.Deployments" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BuildSources_Builds" Association="Self.FK_BuildSources_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildSources" EntitySet="BuildSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deployments_Builds" Association="Self.FK_Deployments_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="Deployments" EntitySet="Deployments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BT_SemiAutoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Build">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChangeControl" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BuildDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BinaryRevision" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BuildLog" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BuildSources" Relationship="Self.FK_BuildSources_Builds" FromRole="Builds" ToRole="BuildSources" />
+          <NavigationProperty Name="Deployments" Relationship="Self.FK_Deployments_Builds" FromRole="Builds" ToRole="Deployments" />
+        </EntityType>
+        <EntityType Name="BuildSource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildId" Type="Int32" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Revision" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RepositoryType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReferencedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Build" Relationship="Self.FK_BuildSources_Builds" FromRole="BuildSources" ToRole="Builds" />
+        </EntityType>
+        <EntityType Name="Deployment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildId" Type="Int32" Nullable="false" />
+          <Property Name="DeployDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ServerComp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Build" Relationship="Self.FK_Deployments_Builds" FromRole="Deployments" ToRole="Builds" />
+        </EntityType>
+        <Association Name="FK_BuildSources_Builds">
+          <End Role="Builds" Type="Self.Build" Multiplicity="1" />
+          <End Role="BuildSources" Type="Self.BuildSource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuildSources">
+              <PropertyRef Name="BuildId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Deployments_Builds">
+          <End Role="Builds" Type="Self.Build" Multiplicity="1" />
+          <End Role="Deployments" Type="Self.Deployment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Builds">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deployments">
+              <PropertyRef Name="BuildId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BT_SemiAutoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Builds" EntityType="Self.Build" />
+          <EntitySet Name="BuildSources" EntityType="Self.BuildSource" />
+          <EntitySet Name="Deployments" EntityType="Self.Deployment" />
+          <AssociationSet Name="FK_BuildSources_Builds" Association="Self.FK_BuildSources_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="BuildSources" EntitySet="BuildSources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Deployments_Builds" Association="Self.FK_Deployments_Builds">
+            <End Role="Builds" EntitySet="Builds" />
+            <End Role="Deployments" EntitySet="Deployments" />
+          </AssociationSet>
+          <FunctionImport Name="AppendToBuildLog">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Msg" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BT_SemiAutoModelStoreContainer" CdmEntityContainer="BT_SemiAutoEntities">
+          <EntitySetMapping Name="Builds">
+            <EntityTypeMapping TypeName="BT_SemiAutoModel.Build">
+              <MappingFragment StoreEntitySet="Builds">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ChangeControl" ColumnName="ChangeControl" />
+                <ScalarProperty Name="BuildDate" ColumnName="BuildDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BinaryRevision" ColumnName="BinaryRevision" />
+                <ScalarProperty Name="BuildLog" ColumnName="BuildLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuildSources">
+            <EntityTypeMapping TypeName="BT_SemiAutoModel.BuildSource">
+              <MappingFragment StoreEntitySet="BuildSources">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BuildId" ColumnName="BuildId" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="RepositoryType" ColumnName="RepositoryType" />
+                <ScalarProperty Name="ReferencedBy" ColumnName="ReferencedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deployments">
+            <EntityTypeMapping TypeName="BT_SemiAutoModel.Deployment">
+              <MappingFragment StoreEntitySet="Deployments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BuildId" ColumnName="BuildId" />
+                <ScalarProperty Name="DeployDate" ColumnName="DeployDate" />
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="ServerComp" ColumnName="ServerComp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AppendToBuildLog" FunctionName="BT_SemiAutoModel.Store.AppendToBuildLog" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

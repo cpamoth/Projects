@@ -1,0 +1,15 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{1AE798EE-BC18-481a-AF8E-51B50401D831}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Product</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>*Pass via the command line*</WixToolPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="product.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixToolPath)\Wix.targets" />
+</Project>

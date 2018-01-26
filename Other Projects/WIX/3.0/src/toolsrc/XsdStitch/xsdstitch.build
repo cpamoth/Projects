@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="xsdstitch" default="xsdstitch.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    xsdstitch.build - Builds the XsdStitch project (XsdStitch.exe).
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="xsdstitch.build" description="Peforms a full rebuild (clean then build)" depends="xsdstitch.clean, xsdstitch.inc" />
+
+  <!-- Clean -->
+  <target name="xsdstitch.clean" description="Cleans the build">
+    <delete dir="${dir.build.xsdstitch}" failonerror="false" if="${directory::exists(dir.build.xsdstitch)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="XsdStitch.exe" />
+        <include name="XsdStitch.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="xsdstitch.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <csc
+      target="exe"
+      output="${dir.target.wix}\XsdStitch.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.xsdstitch}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="XsdStitch.cs" />
+      </sources>
+    </csc>
+  </target>
+
+</project>

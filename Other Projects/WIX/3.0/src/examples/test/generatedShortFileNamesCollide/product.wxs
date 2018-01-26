@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{0537953B-5F7C-4C34-AA26-F24139311191}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product0.cab" EmbedCab="yes" />
+        <Media Id="2" Cabinet="product1.cab" EmbedCab="yes" />
+        <Media Id="3" Cabinet="product2.cab" EmbedCab="yes" />
+        <Media Id="4" Cabinet="product3.cab" EmbedCab="yes" />
+        <Media Id="5" Cabinet="product4.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestFileProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestFileProductFile4" Name="file test.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="5" />
+                        <File Id="TestFileProductFile0" Name="file test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" DiskId="1" />
+                        <File Id="TestFileProductFile3" Name="file test.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="4" />
+                        <File Id="TestFileProductFile1" Name="file test.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="2" />
+                        <File Id="TestFileProductFile2" Name="file test.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="3" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

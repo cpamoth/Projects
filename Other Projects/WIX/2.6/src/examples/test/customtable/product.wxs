@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestCustomTableProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test CustomTable in a Product" Comments="Test from: wix\examples\test\customtable\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <CustomTable Id="TestProductCustomTable">
+      <Row>
+        <Data Column="TestProductFirstColumn">pk1</Data>
+        <Data Column="TestProductSecondColumn">1</Data>
+        <Data Column="TestProductThirdColumn">string</Data>
+      </Row>
+      <Row>
+        <Data Column="TestProductFirstColumn">pk2</Data>
+        <Data Column="TestProductSecondColumn">99</Data>
+        <Data Column="TestProductThirdColumn" />
+      </Row>
+    </CustomTable>
+
+    <EnsureTable Id="TestProductCustomTable" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestCustomTableProductDirectory" Name="testassm" LongName="Test CustomTable">
+          <Component Id="TestCustomTableProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestCustomTableProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestCustomTableParentProductFeature" Title="Test CustomTable Parent Product Feature" Level="1">
+      <ComponentRef Id="TestCustomTableProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

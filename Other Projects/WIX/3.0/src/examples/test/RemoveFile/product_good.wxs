@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="00000000-0000-0000-0000-000000000000" Name="RemoveFile" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{73674023-A6DB-4E30-BCE9-18AABD9B6ED6}">
+        <Package Description="RemoveFile" Platforms="Intel" Languages="0" InstallerVersion="200" Compressed="yes" Manufacturer="Microsoft Corporation" Keywords="MergeModule, MSI, Database" Comments="RemoveFile" SummaryCodepage="1252" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="WindowsFolder" Name="WINDOWS">
+                <Directory Id="SystemFolder" Name="SYSTEM32">
+                    <Component Id="blah" Guid="00000000-0000-0000-0000-000000000000" Location="local" KeyPath="yes" Permanent="yes">
+                        <RemoveFile Id="RemoveFile1" ShortName="De?*.lkj" Name="lkjalksjd flkajsd lfkj ???? ****.***********" On="both" />
+                        <RemoveFile Id="RemoveFile2" Name="De?*.lkj" On="install" />
+                        <RemoveFile Id="RemoveFile3" ShortName="De?*.lkj" Name="lkjalksjd flkajsd lfkj ???? ****.***********" On="uninstall" />
+                        <RemoveFile Id="RemoveFile1a" ShortName="De?*.lkj" Name="lkjalksjd flkajsd lfkj ???? ****.***********" On="both" Directory="OtherDir" />
+                        <RemoveFile Id="RemoveFile1b" Name="De?*.lkj" On="both" Property="SomeRandomProperty" />
+                        <RemoveFile Id="RemoveFile4" Name="UpdatedFiles.txt" On="install" />
+                        <RemoveFile Id="RemoveFile5" Name="ei**g*ht*888*.*333*" On="install" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="blahFeature" Level="1">
+            <ComponentRef Id="blah" />
+        </Feature>
+    </Product>
+
+    <Fragment>
+        <DirectoryRef Id="TARGETDIR">
+            <Directory Id="OtherDir" Name="Other" />
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

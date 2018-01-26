@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    Media.wxi - define patch media to support multiple baselines
+-->
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <?ifndef MultiBinary?>
+
+    <Media Id="5000" Cabinet="patch.cab" Source="$(var.MediaSource)">
+        <PatchBaseline Id="rtm"/>
+        <PatchBaseline Id="sp1"/>
+    </Media>
+
+    <?else?>
+
+    <Media Id="5000" Cabinet="rtm.cab" Source="rtm.$(var.MediaSource)">
+        <PatchBaseline Id="rtm"/>
+    </Media>
+    <Media Id="6000" Cabinet="sp1.cab" Source="sp1.$(var.MediaSource)">
+        <PatchBaseline Id="sp1"/>
+    </Media>
+
+    <?endif?>
+</Include>

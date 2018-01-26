@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    The messages for the Windows Installer XML Toolset PowerShell Extension.
+-->
+<Messages Namespace="Microsoft.Tools.WindowsInstallerXml.Extensions" Resources="Data.Messages" xmlns="http://schemas.microsoft.com/genmsgs/2004/07/messages">
+    <Class Name="PSErrors" ContainerName="PSErrorEventArgs" BaseContainerName="WixErrorEventArgs">
+    <Message Id="IllegalSnapInVersion" Number="5300">
+        <Instance>The SnapIn/@Version attribute is missing or invalid for PowerShell snap-in {0}, or the version cannot be determined from the SnapIn/@AssemblyName attribute.
+            <Parameter Type="System.String" Name="snapIn" />
+        </Instance>
+    </Message>
+    <Message Id="NeitherIdSpecified" Number="5301">
+        <Instance>Either the {0}/@FileId attribute must be specified if nested under a SnapIn element, or the {0}/@SnapIn attribute must be specified if nested under under a File element.
+            <Parameter Type="System.String" Name="element" />
+        </Instance>
+    </Message>
+    </Class>
+    <Class Name="PSWarnings" ContainerName="PSWarningEventArgs" BaseContainerName="WixWarningEventArgs">
+    </Class>
+    <Class Name="PSVerboses" ContainerName="PSVerboseEventArgs" BaseContainerName="WixVerboseEventArgs">
+    </Class>
+</Messages>

@@ -1,0 +1,61 @@
+﻿body {
+    background-color:#E6E6E6;
+}
+
+H1{
+    font-size:50px;
+    font-weight:100;
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    /*color:#0052A3;*/
+    color:darkred;
+    margin:auto 25px;
+}
+H3{
+    font-weight:100;
+    font-family:Arial;
+    color:#E6E6E6;
+}
+
+.banner {
+    width:1400px;
+    height:100px;
+    line-height:110px;
+    margin:0 auto;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.headerStrip {
+    clear: both;
+    width:1400px;
+    height:50px;
+    line-height:50px;
+    background-color:#2E2E2E;
+    padding-left:15px;
+    padding-right:15px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    margin:0 auto;
+}
+
+
+.mainDiv {
+    overflow:hidden;
+    width:1350px;
+    line-height:30px;
+    margin:0 auto 15px auto;
+    padding:10px;
+    box-shadow: -5px 5px 50px 0 #828282;
+}
+
+.columnDiv {
+    float:left;
+    width:25%;
+    line-height:30px;
+    margin:10px auto 10px auto;
+    padding:10px;
+}

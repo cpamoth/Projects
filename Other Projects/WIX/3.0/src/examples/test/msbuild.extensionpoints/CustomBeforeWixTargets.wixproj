@@ -1,0 +1,5 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="_GenerateBuildErrorToTestUserTargetsPath">
+  <Target Name="_GenerateBuildErrorToTestUserTargetsPath">
+    <Error Text="The UserTargetsPath '$(UserTargetsPath)' and CustomBeforeWixTargets '$(CustomBeforeWixTargets)' were included successfully" Code="UTP1000" />
+  </Target>
+</Project>

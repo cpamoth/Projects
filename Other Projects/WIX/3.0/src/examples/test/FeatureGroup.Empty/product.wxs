@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="12345678-1234-1234-1234-123456789012" Name="TestFeatureGroupNesting" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{40B738C8-6A13-444E-8371-58DC33940F01}">
+        <Package Description="Tests to verify FeatureGroups below FeatureGroups behave correctly" Comments="Test from: wix\examples\test\componentgroupnest\product.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Feature Id="Feature1" Title="Feature 1" Level="1">
+            <FeatureGroupRef Id="FeatureGroup1" />
+        </Feature>
+    </Product>
+
+    <Fragment Id="Fragment1">
+        <FeatureGroup Id="FeatureGroup1" />
+    </Fragment>
+
+</Wix>

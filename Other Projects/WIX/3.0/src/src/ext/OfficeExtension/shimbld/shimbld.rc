@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------------------------
+// <copyright file="shimbld.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+// 
+// <summary>
+// Executable that updates the string values in the Shim for Office Add-ins resource file.
+// </summary>
+//--------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_LANG_NEUTRAL
+#define VER_ORIGINAL_FILENAME "shimbld.dll"
+#define VER_INTERNAL_NAME "shimbld"
+#define VER_PRODUCT_NAME "Updates ctoashim.dll strings"
+#define VER_FILE_DESCRIPTION "updates ctoashim.dll strings"
+#include "wix.rc"
+
+// Additional resources here

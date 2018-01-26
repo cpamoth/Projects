@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E58DB728-FDF5-4F45-89C6-9318E6A1524B}">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Property Id="SCHEDPLUSCAN32CFGSYSFOLDER" Secure="yes">
+            <DirectorySearch Id="SchedPlusCan0" Path="[WindowsFolder]">
+                <DirectorySearch Id="SchedPlusCan32CFGSysFolder" Path="forms\configs">
+                    <FileSearch Name="can32.cfg" />
+                </DirectorySearch>
+            </DirectorySearch>
+        </Property>
+
+        <Property Id="SCHEDPLUSCANCFGSYSFOLDER" Secure="yes">
+            <DirectorySearchRef Id="SchedPlusCan0" Path="[WindowsFolder]">
+                <DirectorySearch Id="SchedPlusCanCFGSysFolder" Path="forms\configs">
+                    <FileSearch Name="can.cfg" />
+                </DirectorySearch>
+            </DirectorySearchRef>
+        </Property>
+
+        <Property Id="DIRECTORYONLY" Secure="yes">
+            <DirectorySearch Id="WindowsFolder" Path="[WindowsFolder]">
+                <DirectorySearch Id="FormsConfigFolder" Path="forms\configs" />
+            </DirectorySearch>
+        </Property>
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <Component Id="TestAssemblyProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestAssemblyProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <ComponentRef Id="TestAssemblyProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

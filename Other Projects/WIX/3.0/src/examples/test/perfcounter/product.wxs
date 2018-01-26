@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="ecdfeffd-8039-4827-964a-98739a6dd51b" Name="Instrumentation Demo" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="cbe5948e-8790-4398-bb55-37a7779fe454">
+        <Package InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="idsetup.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLLOCATION" Name="Instrumentation Demo">
+
+                    <Component Id="ProductComponent" Guid="ba5b5223-7090-4b4a-a4bc-e5a3dddb3014">
+                        <File Id="InstrumentationDemo.exe" Source="$(env.WIX)\examples\data\" />
+
+                        <util:PerformanceCategory Id="InstrumentationDemo" Help="Instrumentation Demo Counters" DefaultLanguage="english">
+                            <util:PerformanceCounter Name="DemoCounter" Help="Just a simple numerical count." Type="numberOfItems64" />
+                        </util:PerformanceCategory>
+                    </Component>
+
+                    <Component Id="EventComponent" Guid="a6a8d3cb-4371-4e00-9a87-11ceb763b5d9">
+                        <File Id="EventLogMessages.dll" Source="$(env.WIX)\examples\data\" />
+
+                        <util:EventSource Name="InstrumentationDemo" Log="Application"
+                                          EventMessageFile="[#EventLogMessages.dll]" ParameterMessageFile="[#EventLogMessages.dll]"
+                                          CategoryCount="1" CategoryMessageFile="[#EventLogMessages.dll]" />
+                    </Component>
+
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="ProductFeature" Title="Instrumentation Demo" Level="1">
+            <ComponentRef Id="ProductComponent" />
+            <ComponentRef Id="EventComponent" />
+        </Feature>
+    </Product>
+</Wix>

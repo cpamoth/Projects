@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="00000000-0000-0000-0000-000000000000" Name="RemoveFile" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{96B119A4-C738-4985-A717-CCEBB43F6E98}">
+        <Package Description="RemoveFile" Platforms="Intel" Languages="0" InstallerVersion="200" Compressed="yes" Manufacturer="Microsoft Corporation" Keywords="MergeModule, MSI, Database" Comments="RemoveFile" SummaryCodepage="1252" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="blah" Guid="00000000-0000-0000-0000-000000000000">
+                <RemoveRegistryKey Id="RegUser" Root="HKCU" Key="Software\MyKey" Action="removeOnInstall" />
+            </Component>
+        </Directory>
+
+        <Feature Id="blahFeature" Level="1">
+            <ComponentRef Id="blah" />
+        </Feature>
+    </Product>
+
+    <Fragment>
+        <DirectoryRef Id="TARGETDIR">
+            <Directory Id="OtherDir" Name="Other" />
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

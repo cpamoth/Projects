@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestShortcutProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test File in a Product" Comments="Test from: wix\examples\test\class\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestShortcutProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestShortcutProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestShortcutProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt">
+              <AppId Id="000C1109-DEFE-0000-C000-000000000046">
+                <Class Id="61616161-6161-6161-6161-616161616161" Context="LocalServer" Argument="/foo">
+                  <FileTypeMask Offset="0" Mask="FF00F9FF0000FFFF" Value="0900000000001000" />
+                  <FileTypeMask Offset="0" Mask="FF00F9FF0000FFFF" Value="0900000000004000" />
+                  <FileTypeMask Offset="0" Mask="FF00F9FF0000FFFF" Value="0900000000000001" />
+                </Class>
+              </AppId>
+            </File>
+            <AppId Id="000C1109-DEFE-0000-C000-000000000046" Advertise="yes">
+              <Class Id="DEAD6161-6161-BEEF-6161-BEEF61616161" Context="LocalServer   	InprocServer 		InprocServer32" Advertise="yes" />
+            </AppId>
+            <Class Id="DEAD6161-6161-BEEF-6161-BEAD61616161" Context="LocalServer" Advertise="yes" Argument="/foo">
+              <FileTypeMask Offset="0" Mask="FF00F9FF0000FFFF" Value="0900000000004000" />
+              <FileTypeMask Offset="0" Mask="FF00F9FF0000FFFF" Value="0900000000000001" />
+            </Class>
+
+            <Class Id="DEAD6161-6161-BEEF-6161-F00D61616161" Context="LocalServer LocalServer" />
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+    </Directory>
+
+    <Feature Id="TestShortcutProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestShortcutProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

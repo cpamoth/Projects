@@ -1,0 +1,28 @@
+From: vsipinfo@microsoft.com
+Sent: Wednesday, September 19, 2006
+To: Justin Rockwood
+Subject: Visual Studio .NET Package Load Key
+
+Thank you for registering your product for a Package Load Key. 
+Here is the PLK you requested: 
+
+Package/Product Name: Votive
+Version: 3.0
+Package GUID: {E0EE8E7D-F498-459e-9E90-2B3D73124AD5}
+Package Load Key: J8KPQCHMHKP9K8J1ICH1J8RAJDMJMEI1E2KZQ0CDE8D1I8ZCZHJAC3MMRMADRDDZCDAED1EPZCR0KRMQI0J9PHP1MRI8JHZEHKMCZ1C8I8DHPHE3EQIRQTMTK0P1HDI2
+
+To have the package load you'll have to have the following information under this package's registry info: 
+
+NoRemove Packages 
+
+{ 
+	ForceRemove {E0EE8E7D-F498-459e-9E90-2B3D73124AD5} = s 'Votive' 
+	{ 
+	val CompanyName = s 'Microsoft' 
+	val ProductName = s 'Votive' 
+	val ProductVersion = s '3.0' 
+	val MinEdition = s 'standard' 
+	val ID = d '1' 
+	}
+}
+Please note that ID above is set to 1 as an example only.  The PLK needs to be added to the string table in the resources of your main package's DLL.  The ID value of the PLK string in the string table is the value that should be placed in the ID field in the registry.  The PLK string may instead be added to the package's satellite DLL, but using the main package DLL is preferred.

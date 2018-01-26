@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="_GenerateBuildErrorToTestCustomAfterWixTargets">
+  <Target Name="_GenerateBuildErrorToTestCustomAfterWixTargets">
+    <Error
+      Code="UTP1000"
+      Text="CustomAfterWixTargets '$(CustomAfterWixTargets)' was included successfully"
+      Condition=" '$(GenerateCustomAfterWixTargetsError)' == 'true' "/>
+  </Target>
+</Project>

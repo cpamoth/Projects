@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="ext" default="ext.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    ext.build - Builds the extensions.
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Includes
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="difxappextension\difxappextension.build" />
+  <include buildfile="iisextension\iisextension.build" />
+  <include buildfile="preprocexampleextension\preprocexampleextension.build" />
+  <include buildfile="isolatedappextension\isolatedappextension.build" />
+  <include buildfile="netfxextension\netfxextension.build" />
+  <include buildfile="officeextension\officeextension.build" />
+  <include buildfile="sqlextension\sqlextension.build" />
+  <include buildfile="uiextension\uiextension.build" />
+  <include buildfile="psextension\psextension.build" />
+  <include buildfile="utilextension\utilextension.build" />
+  <include buildfile="vsextension\vsextension.build" />
+  <include buildfile="validatorexampleextension\validatorexampleextension.build" />
+
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="ext.build" description="Peforms a full rebuild (clean then build)" depends="ext.clean, ext.inc" />
+  
+  <!-- Clean -->
+  <target name="ext.clean" description="Cleans the build"
+          depends="difxappextension.clean,
+                   iisextension.clean,
+                   preprocexampleextension.clean,
+                   isolatedappextension.clean,
+                   netfxextension.clean,
+                   officeextension.clean,
+                   psextension.clean,
+                   sqlextension.clean,
+                   uiextension.clean,
+                   utilextension.clean,
+                   vsextension.clean,
+                   validatorexampleextension.clean">
+    <delete dir="${dir.build.ext}" failonerror="false" if="${directory::exists(dir.build.ext)}" />
+  </target>
+
+  <!-- Inc -->
+  <target name="ext.inc" description="Performs an incremental build"
+          depends="difxappextension,
+                   isolatedappextension,
+                   netfxextension,
+                   officeextension,
+                   psextension,
+                   iisextension,
+                   preprocexampleextension,
+                   sqlextension,
+                   uiextension,
+                   utilextension,
+                   vsextension,
+                   validatorexampleextension" />
+
+  <target name="difxappextension" depends="difxappextension.inc" />
+  <target name="iisextension" depends="utilextension, iisextension.inc" />
+  <target name="preprocexampleextension" depends="utilextension, preprocexampleextension.inc" />
+  <target name="isolatedappextension" depends="utilextension, isolatedappextension.inc" />
+  <target name="netfxextension" depends="netfxextension.inc" />
+  <target name="officeextension" depends="utilextension, officeextension.inc" />
+  <target name="psextension" depends="psextension.inc" />
+  <target name="sqlextension" depends="sqlextension.inc" />
+  <target name="uiextension" depends="uiextension.inc" />
+  <target name="utilextension" depends="utilextension.inc" />
+  <target name="vsextension" depends="vsextension.inc" />
+  <target name="validatorexampleextension" depends="validatorexampleextension.inc" />
+</project>

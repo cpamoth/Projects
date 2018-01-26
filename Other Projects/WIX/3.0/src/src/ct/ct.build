@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="ct" default="ct.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    ct.build - Builds the ClickThrough project (Setup.exe, SetupBuilder.exe, setupbld.exe, update.exe, ClickThrough.exe, and ClickThrough.msi).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Includes
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="console\console.build" />
+  <include buildfile="ui\ui.build" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="ct.build" description="Peforms a full rebuild (clean then build)" depends="ct.clean, ct.inc" />
+  
+  <!-- Clean -->
+  <target name="ct.clean" description="Cleans the build"
+          depends="ct.console.clean,
+                   ct.ui.clean">
+
+    <delete dir="${dir.build.ct}" failonerror="false" if="${directory::exists(dir.build.ct)}" />
+  </target>
+
+  <!-- Inc -->
+  <target name="ct.inc" description="Performs an incremental build"
+          depends="ct.console, ct.ui" />
+
+  <target name="clickthrough.clean" description="Cleans the build">
+    <delete dir="${dir.build.ct.clickthrough}" failonerror="false" if="${directory::exists(dir.build.ct.clickthrough)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="ClickThrough.exe" />
+        <include name="ClickThrough.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="clickthrough" depends="makeDirs">
+    <nant buildfile="${dir.src.ct}\clickthrough\clickthrough.build" inheritall="true" target="build" failonerror="false"/>
+  </target>
+  <target name="ct.console" depends="ct.console.inc"/>
+  <target name="ct.ui" depends="ct.ui.inc"/>
+
+</project>

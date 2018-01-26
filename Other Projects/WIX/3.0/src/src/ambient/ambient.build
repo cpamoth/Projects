@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="ambient" default="ambient.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    ambient.build - Builds the ambient project (ambient.dll and applib.wixlib).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <include buildfile="appsynup\appsynup.build" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="ambient.build" description="Peforms a full rebuild (clean then build)" depends="ambient.clean, ambient.inc" />
+
+  <!-- Clean -->
+  <target name="ambient.clean" description="Cleans the build" depends="appsynup.clean">
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="ambient.dll" />
+        <include name="ambient.pdb" />
+        <include name="applib.wixlib" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="ambient.inc" description="Performs an incremental build" depends="makeDirs, appsynup.inc, ambient.inc.dll, ambient.inc.wixlib" />
+
+  <!-- ambient.inc.dll -->
+  <target name="ambient.inc.dll" description="Performs an incremental build on ambient.dll" depends="createKeyFile">
+    <csc
+      target="library"
+      output="${dir.target.wix}\ambient.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.ambient}\dll">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="Application.cs" />
+        <include name="FileSystemScraper.cs" />
+        <include name="RegistryScraper.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+    </csc>
+  </target>
+
+  <!-- ambient.wixlib.inc -->
+  <target name="ambient.inc.wixlib" description="Performs an incremental build of applib.wixlib">
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Build the applib.wixlib -->
+    <candle out="${dir.build.ambient}\applib.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+      <sources basedir="${dir.src.ambient}\applib">
+        <include name="applib.wxs" />
+      </sources>
+    </candle>
+    <lit out="${dir.target.wix}\applib.wixlib" exedir="${dir.target.wix}" warningsaserrors="true">
+      <sources basedir="${dir.build.ambient}">
+        <include name="applib.wixobj" />
+      </sources>
+    </lit>
+  </target>
+
+</project>

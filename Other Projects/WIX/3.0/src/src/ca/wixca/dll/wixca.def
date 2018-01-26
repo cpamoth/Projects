@@ -1,0 +1,34 @@
+; wixca.def : declares the module parameters for the wixca.dll
+
+LIBRARY      "wixca"
+
+EXPORTS
+; cacleanup.cpp
+    CommitCAScriptCleanup
+; checkreboot.cpp
+    WixCheckRebootRequired
+; closeapps.cpp
+    WixCloseApplications
+    WixCloseApplicationsDeferred
+; osinfo.cpp
+    WixQueryOsInfo
+    WixQueryOsDirs
+; secureobjects.cpp
+    SchedSecureObjects
+    ExecSecureObjects
+; serviceconfig.cpp
+    SchedServiceConfig
+    ExecServiceConfig
+    RollbackServiceConfig
+; shellexecca.cpp
+    WixShellExec
+; qtexecca.cpp
+    CAQuietExec
+; xmlfile.cpp
+    SchedXmlFile
+    ExecXmlFile
+    ExecXmlFileRollback
+; xmlconfig.cpp
+    SchedXmlConfig
+    ExecXmlConfig
+    ExecXmlConfigRollback

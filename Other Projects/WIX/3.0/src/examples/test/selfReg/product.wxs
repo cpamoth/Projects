@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F400B367-33CF-429E-B571-0FDCF253ABC2}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir" />
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="selfreg.dll" />
+        </Feature>
+    </Product>
+</Wix>

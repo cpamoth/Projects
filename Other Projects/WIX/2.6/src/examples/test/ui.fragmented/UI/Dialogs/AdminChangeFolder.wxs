@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="AdminChangeFolder">
+    <UI>
+      <Dialog Id="AdminChangeFolder" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+        <Control Id="Tail" Type="PathEdit" X="21" Y="207" Width="332" Height="17" Property="TARGETDIR" />
+        <Control Id="OK" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="OK">
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+          <Publish Event="SetTargetPath" Value="TARGETDIR"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="Reset" Value="0"><![CDATA[1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="ComboText" Type="Text" X="21" Y="50" Width="99" Height="14" TabSkip="no" Text="&amp;Look in:" />
+        <Control Id="Combo" Type="DirectoryCombo" X="21" Y="64" Width="277" Height="80" Property="TARGETDIR" Removable="yes" Fixed="yes" Remote="yes" />
+        <Control Id="Up" Type="PushButton" X="310" Y="66" Width="19" Height="19" ToolTip="Up one level" Icon="yes" FixedSize="yes" IconSize="16" Text="NewBinary3">
+          <Publish Event="DirectoryListUp" Value="0"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="NewFolder" Type="PushButton" X="335" Y="66" Width="19" Height="19" ToolTip="Create new folder" Icon="yes" FixedSize="yes" IconSize="16" Text="NewBinary2">
+          <Publish Event="DirectoryListNew" Value="0"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="List" Type="DirectoryList" X="21" Y="90" Width="332" Height="97" Property="TARGETDIR" Sunken="yes" TabSkip="no" />
+        <Control Id="TailText" Type="Text" X="21" Y="193" Width="99" Height="13" TabSkip="no" Text="&amp;Folder name:" />
+        <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+          <Text>Browse to the destination folder.</Text>
+        </Control>
+        <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Transparent="yes">
+          <Text>{&amp;MSSansBold8}Change Current Destination Folder</Text>
+        </Control>
+        <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+        <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

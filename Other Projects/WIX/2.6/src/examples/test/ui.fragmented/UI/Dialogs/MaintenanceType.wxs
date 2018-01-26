@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="MaintenanceType">
+    <UI>
+      <Dialog Id="MaintenanceType" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+        <Control Id="RadioGroup" Type="RadioButtonGroup" X="21" Y="55" Width="316" Height="170" Property="_IsMaintenance">
+          <RadioButtonGroup Property="_IsMaintenance">
+            <RadioButton Value="Reinstall" X="0" Y="15" Width="290" Height="14" Text="{&amp;MSSansBold8}Update [ProductName]" ToolTip="Perform a software update of the latest release." />
+            <RadioButton Value="Remove" X="0" Y="96" Width="290" Height="14" Text="{&amp;MSSansBold8}&amp;Remove [ProductName]" />
+          </RadioButtonGroup>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+          <Publish Event="NewDialog" Value="MaintenanceWelcome"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Next &gt;">
+          <Publish Property="ProgressType0" Value="Repair"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+          <Publish Property="ProgressType0" Value="Modify"><![CDATA[_IsMaintenance = "Change"]]></Publish>
+          <Publish Property="ProgressType1" Value="Modifying"><![CDATA[_IsMaintenance = "Change"]]></Publish>
+          <Publish Property="ProgressType1" Value="Repairing"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+          <Publish Property="ProgressType2" Value="repairs"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+          <Publish Property="ProgressType2" Value="modified"><![CDATA[_IsMaintenance = "Change"]]></Publish>
+          <Publish Property="ProgressType3" Value="modifies"><![CDATA[_IsMaintenance = "Change"]]></Publish>
+          <Publish Property="ProgressType3" Value="repairs"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+          <Publish Event="ReinstallMode" Value="[ReinstallModeText]"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+          <Publish Event="Reinstall" Value="ALL"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+          <Publish Event="NewDialog" Value="ReadyToRemove"><![CDATA[_IsMaintenance = "Remove"]]></Publish>
+          <Publish Event="NewDialog" Value="CustomSetup"><![CDATA[_IsMaintenance = "Change"]]></Publish>
+          <Publish Event="NewDialog" Value="ReadyToInstall"><![CDATA[_IsMaintenance = "Reinstall"]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+          <Text>Perform a software update or remove [ProductName].</Text>
+        </Control>
+        <Control Id="DlgTitle" Type="Text" X="12" Y="7" Width="292" Height="25" Transparent="yes">
+          <Text>{&amp;MSSansBold8}[ProductName] Maintenance Wizard</Text>
+        </Control>
+        <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+        <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+        <Control Id="Ico2" Type="Icon" X="36" Y="90" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="NewBinary7" />
+        <Control Id="Ico3" Type="Icon" X="35" Y="169" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="NewBinary8" />
+        <Control Id="Text2" Type="Text" X="66" Y="89" Width="260" Height="35">
+          <Text>Update your version of [ProductName] to the latest version. Select this option to run an upgrade now.</Text>
+        </Control>
+        <Control Id="Text3" Type="Text" X="67" Y="171" Width="260" Height="35">
+          <Text>Remove [ProductName] from your computer.</Text>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

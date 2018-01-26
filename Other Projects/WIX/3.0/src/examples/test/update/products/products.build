@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Update Example Products" default="build.products" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="..\update.include" unless="${property::exists('update.properties.defined')}" />
+  <include buildfile="..\shared\shared.build" unless="${property::exists('include.shared')}" />
+  <property name="include.products" value="1" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Clean .wixout -->
+  <target name="clean.products" description="Cleans the build">
+    <foreach item="String" in="${update.products}" delim="${update.products.delim}" property="Product">
+
+      <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+        <delete failonerror="false">
+          <fileset>
+            <include name="${dir.build.update}\${Version}\${Product}.wixobj" />
+            <include name="${dir.target.update}\${Version}\${Product}.wixout" />
+          </fileset>
+        </delete>
+      </foreach>
+
+      <foreach item="String" in="${update.versions.baselines}" delim="${update.versions.delim}" property="Version">
+        <delete failonerror="false">
+          <fileset>
+            <include name="${dir.target.update}\${Version}\${Product}.msi" />
+          </fileset>
+        </delete>
+      </foreach>
+
+      <foreach item="String" in="${update.versions.baselines}" delim="${update.versions.delim}" property="BaselineVersion">
+        <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+          <delete failonerror="false">
+            <fileset>
+              <include name="${dir.target.update}\${Version}\${BaselineVersion}\${Product}.wixmst" />
+            </fileset>
+          </delete>
+        </foreach>
+      </foreach>
+    </foreach>
+  </target>
+
+
+  <!-- Build -->
+  <target name="build.products" description="Performs an incremental build" depends="dirs, build.shared">
+    <foreach item="String" in="${update.products}" delim="${update.products.delim}" property="Product">
+
+      <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+        <candle out="${dir.build.update}\${Version}\${Product}.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.src.update.products}\${Product}.wxs" />
+          </sources>
+          <arg value="-dVersion=${Version}" />
+        </candle>
+        <light out="${dir.target.update}\${Version}\${Product}.wixout" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.build.update}\${Version}\${Product}.wixobj" />
+            <include name="${dir.build.update}\${Version}\shared.wixobj" />
+          </sources>
+          <arg value="-xo" />
+          <arg value="-tsa" />
+        </light>
+      </foreach>
+
+      <foreach item="String" in="${update.versions.baselines}" delim="${update.versions.delim}" property="BaselineVersion">
+        <light out="${dir.target.update}\${BaselineVersion}\${Product}.msi" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.target.update}\${BaselineVersion}\${Product}.wixout" />
+          </sources>
+        </light>
+      </foreach>
+
+      <foreach item="String" in="${update.versions.baselines}" delim="${update.versions.delim}" property="BaselineVersion">
+        <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+          <if test="${double::parse(Version)>double::parse(BaselineVersion)}">
+            <torch out="${dir.target.update}\${Version}\${BaselineVersion}\${Product}.wixmst" exedir="${dir.target.wix}" warningsaserrors="true">
+              <sources basedir="${dir.target.update}">
+                <include name="${BaselineVersion}\${Product}.wixout" />
+                <include name="${Version}\${Product}.wixout" />
+              </sources>
+              <arg value="-p" />
+              <arg value="-xi" />
+              <arg value="-xo" />
+            </torch>
+          </if>
+        </foreach>
+      </foreach>
+
+    </foreach>
+  </target>
+
+</project>
+

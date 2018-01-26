@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{39F59119-2FC1-4130-BBB5-02B57B7DA1D3}">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <Merge Id="TestMerge" SourceFile="$(env.wix)\examples\test\merge.0\module.msm" DiskId="1" Language="1033" FileCompression="yes" />
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <MergeRef Id="TestMerge" />
+
+            <Feature Id="SubFeature1" Title="SubFeature1" Level="1">
+                <MergeRef Id="TestMerge" />
+            </Feature>
+
+            <Feature Id="SubFeature2" Title="SubFeature2" Level="1">
+                <MergeRef Id="TestMerge" />
+            </Feature>
+        </Feature>
+
+        <AdvertiseExecuteSequence>
+            <RegisterExtensionInfo Suppress="yes" />
+        </AdvertiseExecuteSequence>
+
+        <InstallExecuteSequence>
+            <ScheduleReboot Suppress="yes" />
+        </InstallExecuteSequence>
+    </Product>
+</Wix>

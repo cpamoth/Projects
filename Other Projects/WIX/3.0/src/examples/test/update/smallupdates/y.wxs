@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Patch 
+        AllowRemoval="yes"
+        Manufacturer="Microsoft" 
+        MoreInfoURL="http://www.microsoft.com/"
+        DisplayName="Y Patch" 
+        Description="Small update patch for WixExampleFileComponent.Y." 
+        Classification="Update"
+        >
+
+        <?define MediaSource="y"?>
+        <?include media.wxi?>
+
+        <PatchFamily Id='y' Version='$(var.Version).0.0' Supersede='yes'>
+            <ComponentRef Id="WixExampleFileComponent.Y"/>
+        </PatchFamily>
+    </Patch>
+</Wix>
+ 

@@ -1,0 +1,8 @@
+<Root>
+	<Child/>
+	<Child/>
+	<Config key="abc"/>
+	<Config key="def"/>
+	<Config key="ghi" value="CN=Users"/>
+	<Config key="jkl"/>
+</Root>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="????????-????-????-????-????????????" Name="TestCustomActionProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Invalid - Test CustomAction in a Product" Comments="Test from: wix\examples\test\CustomAction.Invalid\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Upgrade Id="00110000-6000-11D3-8CFE-0050048383C9" />
+
+    <Property Id="Fail" Value="[$TestCustomActionComponent]" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="TestCustomActionComponent" KeyPath="yes" Guid="" />
+    </Directory>
+
+    <Feature Id="TestCustomActionFeature" Level="1">
+      <ComponentRef Id="TestCustomActionComponent" />
+    </Feature>
+
+    <CustomAction Id="TestCustomAction" Script="vbscript" Return="check">Dim i
+   i = 0
+   i = i + 1
+    </CustomAction>
+
+    <InstallExecuteSequence>
+      <Custom Action="TestCustomAction" After="InstallFiles">[$TestCustomActionComponent]</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>

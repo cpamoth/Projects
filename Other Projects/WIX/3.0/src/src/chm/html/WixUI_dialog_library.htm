@@ -1,0 +1,172 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>WiXUI dialog library guide</title>
+</head>
+<body>
+<h1>Using the WixUI dialog library</h1>
+<p>The WixUI dialog library contains a set of &quot;stock&quot; dialogs providing the 
+familiar wizard-style setup user interface. Several stock dialog sets are 
+supported -- use one <b>UIRef</b> to add a user interface to your setup. 
+WixUI is also customizable, from the bitmaps shown in the UI to adding and 
+removing custom dialogs.</p>
+<h2>Using the stock dialog sets</h2>
+<p>The WixUI stock dialog sets support several common dialog sequences:</p>
+<ul>
+  <li><b>WixUI_Mondo</b> includes the full set of dialogs (hence &quot;Mondo&quot;): 
+  welcome, license agreement, setup type (typical, custom, and complete), 
+  feature customization, directory browse, and disk cost. Maintenance-mode 
+  dialogs are also included. Use WixUI_Mondo when you have some of your 
+  product's features aren't installed by default and there's a meaningful 
+  difference between typical and complete installs.<p><i>Note</i>: WixUI_Mondo 
+  uses
+  <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/msi/setup/setinstalllevel_controlevent.asp">
+  SetInstallLevel</a> control events to set the install level when the user 
+  chooses Typical or Complete. For Typical, the install level is set to 3; for 
+  Complete, 1000. For details about feature levels and install levels, see
+  <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/msi/setup/installlevel.asp">
+  INSTALLLEVEL Property</a>.</p></li>
+  <li><b>WixUI_FeatureTree</b> is a simpler version of WixUI_Mondo that 
+  omits the setup type dialog. Instead, the user goes directly from the license 
+  agreement dialog to the feature customization dialog. WixUI_FeatureTree is 
+  more appropriate than WixUI_Mondo when your product installs all features by 
+  default.</li>
+  <li><b>WixUI_InstallDir</b> doesn't allow the user to choose features but adds 
+	a dialog to let the user choose a directory where the product will be 
+	installed.<p><i>Note</i>: To use WixUI_InstallDir, you must set a property 
+	named WIXUI_INSTALLDIR with a value of the ID of the directory you want the 
+	user to be able to specify the location of. Note that the directory ID must
+	be all uppercase characters, as it must be passed from the UI to the 
+	execute sequence to take effect. For example:</p>
+<blockquote>
+  <pre>&lt;Directory Id=&quot;TARGETDIR&quot; Name=&quot;SourceDir&quot;&gt;
+  &lt;Directory Id=&quot;ProgramFilesFolder&quot; Name=&quot;PFiles&quot;&gt;
+    &lt;Directory Id=&quot;<b>TESTFILEPRODUCTDIR</b>&quot; ShortName=&quot;WIXTEST&quot; Name=&quot;Test File&quot;&gt;
+      ...
+    &lt;/Directory&gt;
+   &lt;/Directory&gt;
+&lt;/Directory&gt;
+...
+&lt;Property Id=&quot;WIXUI_INSTALLDIR&quot; Value=&quot;<b>TESTFILEPRODUCTDIR</b>&quot; /&gt;
+&lt;UIRef Id=&quot;WixUI_InstallDir&quot; /&gt;</pre>
+</blockquote>
+	</li>
+  <li><b>WixUI_Minimal</b> is the most spartan of the WixUI stock dialog 
+	sets. Its sole dialog combines the welcome and license-agreement dialogs 
+  and omits the feature customization dialog. WixUI_Minimal is appropriate 
+  when your product has no optional features.</li>
+  <li><b>WixUI_Advanced</b> provides the option of a one-click install like 
+  WixUI_Minimal but allows directory and feature selection like other sets.
+  <b>Note that WixUI_Advanced is still in active development. When complete, 
+  it will support per-user/per-machine choice and allow for compile-time 
+  selection of custom dialogs.</b></li>
+</ul>
+<h3>How to add a WixUI stock dialog set to a product installer</h3>
+<p>Assuming you have an existing installer that's functional but just lacking a 
+user interface, here are the steps you need to follow to use a WixUI stock 
+dialog set:</p>
+<ol>
+  <li>Add a UIRef element to your installer source code, using an Id 
+  attribute of one of the above dialog sets. For example:
+<pre>&lt;Product ...&gt;
+&lt;UIRef Id=&quot;WixUI_InstallDir&quot; /&gt;
+&lt;/Product&gt;</pre></li>
+  <li value="2">Add the WixUIExtension extension with the appropriate culture switch to your <b>light</b> command line. For example:
+  <pre>light -ext WixUIExtension -cultures:en-us Product.wixobj -out Product.msi</pre>
+  </li>
+</ol>
+<h2>Specifying a license file</h2>
+<p>WixUIExtension.dll includes a default, placeholder license agreement. 
+To specify your product's license, override the default by specifying a WiX variable named 
+WixUILicenseRtf with the value of an RTF file that contains your license text. You can define
+the variable in your WiX authoring:
+
+<pre>&lt;WixVariable Id="WixUILicenseRtf" Value="bobpl.rtf" /&gt;</pre>
+
+or at the <b>light</b> command line:
+
+<pre>light -ext WixUIExtension -cultures:en-us -dWixUILicenseRtf=bobpl.rtf Product.wixobj -out Product.msi</pre>
+
+The file you specify must be in a directory <b>light</b> is looking in for files. 
+Use the <b>-b</b> switch to add directories.
+</p>
+
+<h2>Using translated error and progress text</h2>
+<p>By default, WixUI doesn't include any translated Error or ProgressText 
+elements by default. You can include them by referencing the 
+WixUI_ErrorProgressText UI element:</p>
+<pre>&lt;UIRef Id=&quot;WixUI_Minimal&quot; /&gt;
+&lt;UIRef Id=&quot;WixUI_ErrorProgressText&quot; /&gt;</pre>
+<h2>Replacing the stock bitmaps</h2>
+<p>The WixUI dialog library includes stock bitmaps for the background of the 
+welcome and installation-complete dialogs and the top banner of the other 
+dialogs. You can replace those graphics with your own for product-branding 
+purposes. To replace stock bitmaps, specify WiX variable values with the
+file names of your bitmaps, as when replacing the default license text.</p>
+<table border="1" cellspacing="0" cellpadding="4" id="table1">
+  <tr>
+    <td><b>Variable name</b></td>
+    <td><b>Description</b></td>
+    <td><b>Dimensions</b></td>
+  </tr>
+  <tr>
+    <td>WixUIBannerBmp</td>
+    <td>Top banner</td>
+    <td>493 &times; 58</td>
+  </tr>
+  <tr>
+    <td>WixUIDialogBmp</td>
+    <td>Background bitmap used on welcome and install-complete dialogs</td>
+    <td>493 &times; 312</td>
+  </tr>
+  <tr>
+    <td>WixUIExclamationIco</td>
+    <td>Exclamation icon on the wait-for-costing dialog</td>
+    <td>32 &times; 32</td>
+  </tr>
+  <tr>
+    <td>WixUIInfoIco</td>
+    <td>Information icon on the cancel and error dialogs</td>
+    <td>32 &times; 32</td>
+  </tr>
+  <tr>
+    <td>WixUINewIco</td>
+    <td>Button glyph on directory-browse dialog</td>
+    <td>16 &times; 16</td>
+  </tr>
+  <tr>
+    <td>WixUIUpIco</td>
+    <td>Button glyph on directory-browse dialog</td>
+    <td>16 &times; 16</td>
+  </tr>
+</table>
+<h2>Customizing dialog sets</h2>
+<p>You can customize the stock dialog sets by adding and removing dialogs in the
+wizard sequence. Let's start with some background on how the stock sets are built.
+WixUIExtension includes a library of many WiX fragments containing dialog UIs. 
+Each set is its own fragment that references the dialog fragments and publishes
+control events for them -- mostly the Back and Next buttons. Changing the Back/Next
+sequence requires replacing the stock control events with ones matching the dialogs
+you want to use. For example, the WixUI_InstallDir control events for the first two
+dialogs look like this:</p>
+
+<pre>&lt;Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg"&gt;1&lt;/Publish&gt;
+&lt;Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg"&gt;1&lt;/Publish&gt;
+&lt;Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg"&gt;LicenseAccepted = "1"&lt;/Publish&gt;</pre>
+
+<p>You could insert a dialog between WelcomeDlg and LicenseAgreementDlg by changing 
+the control events for the Back and Next buttons of the dialogs before and after
+the one you want to add. For example:</p>
+
+<pre>&lt;Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="<b>SpecialDlg</b>"&gt;1&lt;/Publish&gt;
+&lt;Publish Dialog="<b>SpecialDlg</b>" Control="Back" Event="NewDialog" Value="WelcomeDlg"&gt;1&lt;/Publish&gt;
+&lt;Publish Dialog="<b>SpecialDlg</b>" Control="Next" Event="NewDialog" Value="LicenseAgreementDlg"&gt;1&lt;/Publish&gt;
+&lt;Publish Dialog="LicenseAgreementDlg" Control="Back" Event="NewDialog" Value="<b>SpecialDlg</b>"&gt;1&lt;/Publish&gt;
+&lt;Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg"&gt;LicenseAccepted = "1"&lt;/Publish&gt;</pre>
+
+<p>You don't need to rebuild WixUIExtension to customize the WixUI dialog sets. 
+Compile your dialog fragment and your custom set fragment with the rest of your
+setup project. Continue using WixUIExtension so your fragments can find the 
+stock dialog fragments.</p>
+</body>
+</html>

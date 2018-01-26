@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="torch" default="torch.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    torch.build - Builds the torch project (torch.exe).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- torch-specific properties -->
+  <property name="torch.file.res.target" value="${dir.build.torch}\torch.res" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="torch.build" description="Peforms a full rebuild (clean then build)" depends="torch.clean, torch.inc" />
+
+  <!-- Clean -->
+  <target name="torch.clean" description="Cleans the build">
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="torch.exe" />
+        <include name="torch.exe.manifest" />
+        <include name="torch.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="torch.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the torch.exe.config -->
+    <copy file="${dir.src.torch}\app.config" tofile="${dir.target.wix}\torch.exe.config" />
+
+    <!-- Compile the torch.rc file -->
+    <rc rcfile="${dir.src.torch}\torch.rc" langid="0" output="${torch.file.res.target}" options="${rc.standardOptions} ${cl.standardIncludes}" />
+
+    <csc
+      target="exe"
+      output="${dir.target.wix}\torch.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.torch}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="torch.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+        <include name="wconsole.dll" />
+      </references>
+      <arg value="-win32res:&quot;${torch.file.res.target}&quot;" />
+    </csc>
+  </target>
+
+</project>

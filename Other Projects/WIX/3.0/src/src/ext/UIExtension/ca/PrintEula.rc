@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------------------------
+// <copyright file="PrintEula.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+// 
+// <summary>
+// PrintEula CA resource file.
+// </summary>
+//--------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_LANG_NEUTRAL
+#define VER_ORIGINAL_FILENAME "printeula.dll"
+#define VER_INTERNAL_NAME "printeula"
+#define VER_PRODUCT_NAME "WiX PrintEula Custom Actions"
+#define VER_FILE_DESCRIPTION "WiX PrintEula Custom Actions"
+#include "wix.rc"
+
+// Additional resources here

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Module Id="TestAssemblyModule" Language="1033" Version="0.0">
+        <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test Assembly in a Module" Comments="Test from: wix\examples\test\assembly\module.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+
+        <Property Id="Foo" SuppressModularization="yes">Value here</Property>
+        <Binary Id="Bar" SourceFile="$(env.WIX)\examples\data\wordmodifiedeula.rtf" />
+        <Binary Id="Baz" SuppressModularization="yes" SourceFile="$(env.WIX)\examples\data\wordmodifiedeula.rtf" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="TestAssemblyModuleDirectory" Name=".">
+                <Component Id="TestAssemblyModuleComponent" Guid="00030829-0000-0000-C000-000000000046">
+                    <File Id="TestAssemblyModuleFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                </Component>
+            </Directory>
+        </Directory>
+    </Module>
+</Wix>

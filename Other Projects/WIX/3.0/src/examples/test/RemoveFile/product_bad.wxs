@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="00000000-0000-0000-0000-000000000000" Name="RemoveFile" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{AF67C244-49FD-482D-BD85-7A618CBA941A}">
+        <Package Description="RemoveFile" Platforms="Intel" Languages="0" InstallerVersion="100" Compressed="yes" Manufacturer="Microsoft Corporation" Keywords="MergeModule, MSI, Database" Comments="RemoveFile" SummaryCodepage="1252" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="WindowsFolder" Name="WINDOWS">
+                <Directory Id="SystemFolder" Name="SYSTEM32">
+                    <Component Id="blah" Guid="00000000-0000-0000-0000-000000000000" Location="local" KeyPath="yes">
+                        <!-- This should fail because both Directory and Property are specified -->
+                        <RemoveFile Id="RemoveFile1" ShortName="De?*.lkj" Name="lkjalksjd flkajsd lfkj ???? ****.***********" On="both" Directory="OtherDir" Property="SomeRandomProperty" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+    </Product>
+
+    <Fragment>
+        <DirectoryRef Id="TARGETDIR">
+            <Directory Id="OtherDir" Name="Other" />
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+    <Product Id='12345678-1234-1234-1234-123456789017' Name='Service config test' Language='1033' Version='1.0' Manufacturer='Microsoft Corporation'>
+
+        <Package Description='Service config test Deployment Package' Comments='Windows Installer package to deploy the MSN Mobile config test system' InstallerVersion='200' Compressed='yes' Keywords='Installer; MSI; Database' />
+
+        <!-- Start of Properties -->
+        <!-- End of Properties -->
+
+        <Media Id='1' Cabinet='configtest.cab' EmbedCab='yes' />
+
+        <Directory Id='TARGETDIR' Name='SourceDir'>
+            <Directory Id='ProgramFilesFolder' Name='PFiles' LongName='Program Files'>
+                <Directory Id='SRCENG' Name='SrcEng' LongName='Source Engine'>
+                    <Component Id='Injector_Component' Guid='625BB342-110A-41f8-A49B-8EE982A11A56' Location='local' DiskId='1'>
+                        <ServiceInstall Id='InjectorServiceInstall' Name='Injector' DisplayName='Test Injector' Type='ownProcess' Start='demand' ErrorControl='normal' Description='blah'>
+                            <ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="reboot" ThirdFailureActionType="runCommand" RestartServiceDelayInSeconds="30" ProgramCommandLine="cmd /c &quot;echo error occurred &gt; c:\error.log&quot;" RebootMessage="Rebooting any second now. Get off!!!" />
+                        </ServiceInstall>
+                            
+                        <ServiceControl Id='InjectorServiceStart' Name='Injector' Start='install' Stop='uninstall' Remove='uninstall' Wait='yes' />
+                        <File Id='Injector.exe' Name='injector.exe' Vital='yes' src='SourceDir\heavyh2o\injector.exe' />
+
+                        <ServiceConfig ServiceName="TlntSvr" FirstFailureActionType="restart" SecondFailureActionType="reboot" ThirdFailureActionType="runCommand" ResetPeriodInDays="1" RestartServiceDelayInSeconds="30" ProgramCommandLine="cmd /c &quot;echo error occurred &gt; c:\error.log&quot;" RebootMessage="Rebooting any second now. Get off!!!" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+        
+        <!-- Start Feature mappings -->
+        <Feature Id='Test_Feature' Title='Test Feature' Description='test' Level='150' AllowAdvertise='no' ConfigurableDirectory='SRCENG' Display='expand'>
+            <ComponentRef Id='Injector_Component' />
+        </Feature>
+        <!-- End Feature mappings -->
+
+        <!-- Start Custom Actions -->
+        <CustomAction Id='SchedServiceConfig' BinaryKey='Binary.WixCa' DllEntry='CaSchedServiceConfig' Execute='immediate' Return='check' />
+        <CustomAction Id='ExecServiceConfig' BinaryKey='Binary.WixCa' DllEntry='CaExecServiceConfig' Execute='deferred' Impersonate='no' Return='check' />
+        <CustomAction Id='ExecServiceConfig.rollback' BinaryKey='Binary.WixCa' DllEntry='CaExecServiceConfig' Execute='rollback' Impersonate='no' Return='ignore' />
+        <!-- End Custom Actions -->
+
+        <UI>
+            <Error Id='1'>Error [1]. </Error>
+            <Error Id='5'>Internal Error [1]. [2]...[3]...[4]...[5]...[6]</Error>
+            <Error Id='8'>Action [Time]: [1]. [2]</Error>
+            <Error Id='14'>Action start [Time]: [1].</Error>
+            <Error Id='2709'><![CDATA[An internal error has occurred. [ERRORSUPPORTTEXT]   [2]   [3]   [4]   [5]   [6]   [7]   [8] ]]></Error>
+            <Error Id='2898'>For [2] textstyle, the system created a '[3]' font, in [4] character set.</Error>
+            <Error Id='5002'>Failed to make Feature '[2]' dependent of Feature '[3]'</Error>
+        </UI>
+
+        <!-- Start InstallExecuteSequence -->
+        <InstallExecuteSequence>
+            <Custom Action='SchedServiceConfig' After="InstallServices" />
+            <Custom Action='ExecServiceConfig.rollback' After="SchedServiceConfig" />
+            <Custom Action='ExecServiceConfig' After="ExecServiceConfig.rollback" />
+        </InstallExecuteSequence>
+        <!-- End InstallExecuteSequence -->
+
+        <!-- Start Binaries -->
+        <Binary Id='Binary.WixCa' src="SourceDir\wix\ca\wixca.dll" />
+        <!-- End Binaries -->
+
+    </Product>
+</Wix>

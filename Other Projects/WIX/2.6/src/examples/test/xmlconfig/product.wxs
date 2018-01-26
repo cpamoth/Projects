@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-1234-4321-C000-900000000046" Name="TestXmlFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test XmlFile in a Product" Comments="Test from: wix\examples\test\xmlfile\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Property Id="NewAttributeValue" Value="hello" />
+    <Property Id="ChildAttributeName" Value="New" />
+    <Property Id="SpecialText" Value="This is some really special text. :)" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestXmlFileProductDirectory" Name="testxml" LongName="Test XmlFile">
+
+          <Component Id="TestXmlFileProductComponent1" Guid="00030829-1234-4321-C000-000000000046" DiskId="1">
+            <File Id="TestXmlFile1" Name="test.xml" Source="$(env.WIX)\examples\data\test.xml" KeyPath="yes" />
+
+            <XmlConfig Id="i" File="[#TestXmlFile1]" ElementPath="/Root" VerifyPath="New" Action="create" Node="document" On="install"><![CDATA[    <New><SubNew/></New>]]></XmlConfig>
+            <XmlConfig Id="x" File="[#TestXmlFile1]" ElementPath="/Root" VerifyPath="New" Action="delete" Node="element" On="uninstall" />
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestXmlFileProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestXmlFileProductComponent1" />
+    </Feature>
+  </Product>
+</Wix>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Module Id="TestAssemblyModule" Language="1033" Version="0.0">
+        <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test Assembly in a Module" Comments="Test from: wix\examples\test\assembly\module.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+
+        <ComponentGroupRef Id="TestAssemblyModuleComponentGroup" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="TestAssemblyModuleDirectory" Name=".">
+                <Component Id="TestAssemblyModuleComponent" Guid="00030829-0000-0000-C000-000000000046">
+                    <File Id="TestAssemblyModuleFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" ReadOnly="yes" />
+                    <RegistryValue Root="HKLM" Key="Software\[foo]" Name="[TARGETDIR]" Value="&quot;[#TestAssemblyModuleFile]&quot;" Type="string" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <PropertyRef Id="foo" />
+
+        <Exclusion ExcludedId="TestAssemblyModule.000C1109_0000_0000_C000_000000000047" ExcludeLanguage="1033" />
+
+        <AdvertiseExecuteSequence>
+            <InstallValidate />
+        </AdvertiseExecuteSequence>
+
+        <InstallExecuteSequence>
+            <ScheduleReboot Sequence="1001">PropertyA = "1" OR PropertyB = "1"</ScheduleReboot>
+        </InstallExecuteSequence>
+
+        <Binary Id="max__length_binary" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Icon Id="max__length_icon.ico" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Property Id="ARPPRODUCTICON" Value="max__length_icon.ico" />
+    </Module>
+
+    <!-- for testing ComponentGroup with Module -->
+    <Fragment>
+        <ComponentGroup Id="TestAssemblyModuleComponentGroup">
+            <ComponentRef Id="OrphanedTestAssemblyModuleComponent" />
+        </ComponentGroup>
+    </Fragment>
+
+    <!-- for testing orphaned components (it shouldn't be orphaned) -->
+    <Fragment>
+        <Property Id="foo" Value="bar" />
+
+        <DirectoryRef Id="TestAssemblyModuleDirectory">
+            <Component Id="OrphanedTestAssemblyModuleComponent" DiskId="1" Guid="">
+                <File Id="OrphanedTestAssemblyModuleFile" Name="assembly2.dll" Assembly=".net" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+</Wix>

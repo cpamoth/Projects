@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="C230B5EE-C68E-41ea-80F7-3F33DE23A8E3" Name="Your Product" Language="1033" Version="0.0.0.0" Manufacturer="Your Company">
+    <Package Id="????????-????-????-????-????????????" Description="Description of your product" Comments="This will appear in the file summary stream." InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="Product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="MyAppDir" LongName="My Application Directory">
+
+          <Component Id="ProductComponent" Guid="BD687C9A-AA48-46a0-8E47-978AEB3044BC">
+            <!-- TODO: Insert your files, registry keys, and other resources here. -->
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="Feature Title" Level="1">
+      <ComponentRef Id="ProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

@@ -1,0 +1,1640 @@
+DerekC: Add support for overridable actions, suppression of individual actions
+        in merge modules, and better action scheduling error reporting.
+
+DerekC: Fix a bug in Common.GetFiles, it throws an uncaught IOException for some
+        file paths.
+
+DerekC: Fix SF1323528: RegistrySearchRef/@Id needs to be required.
+
+DerekC: Remove Microsoft.Cabinet.dll from the wix makefile.
+
+DerekC: Fix SF1305918: Light Crashes when schema extension missing.
+
+DerekC: Fix a regression with scheduling and suppressing actions in the
+        AdvtExecuteSequence.
+
+DerekC: Add support for binary wixlib files.
+
+DerekC: Modularize the Registry Key column.
+
+DerekC: Improve binder file not found error messages.
+
+DerekC: Fix SF958052: Intermediate class: inconsistent data types in Rows (keep
+        strongly-typed data in row data).  Also fix SF1324248:  Candle doesn't
+        require ExeCommand attrib.
+
+DerekC: Fix bugs with the handling of BaseUri values for errors.
+
+DerekC: Check for required/illegal tables for each output type.  This fixes
+        SF1333004: Light failed while building msm, containing another msm and
+        SF1314157: Check for illegal/required tables in linker.
+
+DerekC: Add support for PatchCreation/@Codepage.
+
+DerekC: Deprecate the src attribute.
+
+DerekC: Fix a bug in the DocCompiler that prevented extended elements which were
+        children of an extended element and WiX element from appearing in both
+        places in the documentation.
+
+DerekC: Move the serverca stuff into a wix extension.
+
+DerekC: Fix several regressions related to the EnsureTable functionality.
+
+DerekC: Add a new generate guids (gg) option to tallow.
+
+DerekC: Cleanup several aspects of the sca extension:
+        - start strongly signing it
+        - put sca-specific error messages in a special messages.xml
+        - change the name of the main entry class from ScaCompiler to
+          ScaExtension
+
+DerekC: Add support for multiple error/warning messages while merging modules.
+
+DerekC: Prevent row creation in the compiler if an error previously occurred in
+        order to avoid creating invalid rows (which now throws an exception due
+        to increased row validation).
+
+DerekC: Fix several bugs with script custom actions:
+        SF1340394: Script function not optional for script custom actions
+        SF1344829: Type 53/54 custom actions not supported
+
+DerekC: Require the Feature/@Level attribute to be specified in the compiler to
+        fix SF1342025: The Feature/@Level attribute is not correctly parsed.
+
+DerekC: Move MergeMod functionality into its own namespace and NativeMethods.cs
+        file (and cleanup some of the code).
+
+DerekC: Fix a simple issue with a serverca error message.
+
+JoeA: Add support for CustomActionRef.
+
+DerekC: Allow users to override the default sequencing of sca and wca custom
+        actions.
+
+DerekC: Do not set the msidbFileAttributesPatchAdded attribute for PatchGroup
+        since PatchWiz does this automatically.  This fixes:
+        1346102: PatchGroup adds unexpected attribute
+
+DerekC: Create binary sca.wixlib and wixca.wixlib files.
+
+JRock: Added an "exedir" attribute to the wix NAnt tasks so that we can be
+       explicit on which version of candle.exe, light.exe, and lit.exe we
+       want to use to build.
+
+DerekC: Run WiXCop on all wxs files in the wix project.
+
+BobArnso: Update WixUI to use localization strings  -- you must now link with
+          an appropriate .wxl file (WixUI_en-us.wxl included) -- add a 
+          tutorial on using WixUI and fix SF:1280559.
+
+JRock: The candle NAnt task now handles incremental building correctly by
+       examining multiple wixobj outputs instead of just one.
+
+JRock: Cleaned up the NAnt tasks for building native DLLs and EXEs by
+       moving all of the logic to a central location (global.include)
+       which can then be called from each build file. You can now build
+       a native dll/exe with about 6-10 lines of code now where before
+       it would take about 50 or so. Much cleaner.
+
+RobMen: MSI SDK says ComPlus table has only one primary key, fix WiX tables.xml
+        to agree.
+
+RobMen: Improve ClickThrough setup.exe by adding support for ALLUSERs caching, 
+        chaining of mulitple MSIs, and improved rollback handling.
+
+RobMen: Allow ComponentGroups to be empty for those cases where <?if?>
+        conditionalizes out all Components.
+
+DerekC: Make XsdGen persisting DateTime data in a way that is compatible with
+        the xsd dateTime simpleType.
+
+SBonev: Fix regression where identifiers that are too long cause an error
+        instead of a warning.
+
+DerekC: Refactor the decompiler.
+
+DerekC: Fix some bugs with the decompiler related to handling of temporary files
+        and the MIME table.
+
+JRock: Tweaked some directories in the NAnt build files in preparation for the
+       wix20 move to NAnt.
+
+DerekC: Fix handling of action conditions, the Validation table, and the
+        RegisterTypeLibraries action.
+
+DerekC: Fix incorrect error logic when Media Cabinet is not valid.
+
+RobMen: Clean-up names of all WiX toolset executables.
+        Add .config files for all WiX toolset executables to handle CLR 2.0.
+        Add .manifest files for all WiX toolset executables to handle protected-
+        admin on Windows Vista.
+
+DerekC: Lots of random fixes and improvements for the decompiler.
+
+DerekC: Fix decompilation of the Feature.Display column.
+
+DerekC: Add support for decompiling the SelfReg table.
+
+DerekC: Remove the generic extension message infrastructure.
+
+ScotK: Fixing XmlFile table schema.
+       Fixing XmlFile to support any lenght of ElementPath.
+       Fixing CreateDatabase to actually fail if the user doesn't want to stomp
+       the DB.
+
+RobMen: Add support for MSI 4.0.
+
+DerekC: Re-factor the extension interfaces/architecture in order to allow better
+        sharing of information between the different extensions (table
+        definitions can now be used by the decompiler and compiler extensions),
+        add support for passing context information to compiler extensions
+        while parsing extended elements, and in general just clean things up.
+
+DerekC: Fix decompilation of localizable columns and a regression I recently
+        introduced into wix.xsd because I didn't understand how localizable
+        columns were persisted.
+
+RobMen: Fix lang neutral .rc files to avoid #define collisions with standard
+        Platform SDK headers.
+
+DerekC: Support a shorter syntax for specifying wix extensions on the command
+        line.
+
+SBonev: Make PropertyRef extensible.
+
+DerekC: Update all internal WiX extensions to the latest "standards".
+
+DerekC: Lots of decompiler-related bug fixes:
+        - warn when a table is decompiled as a custom table
+        - Add decompiler support for the SecureObjects, ServiceConfig,
+          ServiceControl, ServiceInstall, and XmlFile tables (and turn on the
+          corresponding decompilation qtests)
+        - Fix a canonicalization bug when extracting embedded cabinet files
+        - Fix a dark and light bug related to showing the path to the temp
+          working directory when binder or decompiler construction doesn't occur
+        - Fix a problem with all extensions whereby each call to get a
+          particular extension-type (like a CompilerExtension) would return a
+          new instance of that extension instead of one
+        - Move the User, UserGroup, and Group table definitions over to the
+          sca extension where they belong (from the WiX core)
+        - Setup the infrastructure for the ScaDecompiler extension
+        - Rename the ScaExt project to ScaExtension to match other extensions
+        - Fix an error message in the compilation of CustomTables
+        - Remove unused code from the compilation of the ServiceInstall element
+        - Fix a bug in the linker related to handing of null values in the
+          CustomTable support
+
+DerekC: Random decompiler and light fixes:
+        - Fix decompilation of sequence tables when there are sequence number
+          collisions
+        - Read the dark option for suppressing relative action sequencing from
+          the "sras" option instead of the "srs" option
+        - Fix a decompilation bug with ensuring empty custom tables
+        - Fix a binder bug with setting different compression levels on multiple
+          cabinet files
+        - Fix a binder bug with honoring the supress assemblies and suppress
+          gathering file hash/version/language/size information options
+        - Simplify the fix for the notidy option in light and dark
+        - Implement decompilation for the ExecuteAction and InstallAdminPackage
+          actions
+        - Make the decompiler switch to absolute sequencing mode when it detects
+          any action that will require absolute sequencing (this ensures that
+          absolutely sequenced actions will always be in the proper locations
+          in the final output).  In real usage, this means that the AppSearch
+          action will often trigger absolute sequencing mode - but its better
+          to be safe then try to minimize authoring
+
+DerekC: Implement decompiler support for patch creation (pcp) files.
+
+DerekC: Embed the serverca binary wixlib file inside its extension (and add the
+        necessary functionality to the WiX toolset to support completely
+        self-contained extensions).
+
+DerekC: Stop nesting the Binary element inside the serverca schema and fix a
+        recent regression with serverca error messages throwing an exception.
+
+DerekC: Add decompiler support for the remaining merge module tables
+        ModuleAdvtUISequence, ModuleConfiguration, ModuleDependency,
+        ModuleIgnoreTable, and ModuleSubstitution.  Add compiler support for the
+        ModuleIgnoreTable table.  Fix a bug in the compiler for parsing of the
+        ModuleDependency table.
+
+DerekC: Add support for hard-coding the Feature.Display column's value.  Don't
+        allow features to be simultaneously nested under a Product element and
+        another element since a feature can only have one parent feature (or
+        none).
+
+RGustin: Add MMC Snap-In registration extension.
+         Move Compiler.GenerateIdentifier to CompilerCore.GenerateIdentifier
+         to make it available to extensions.
+
+RobMen: Allow MsiAssembly table to be suppressed using -sma switch to light.
+
+BobArnso: Add back the ProgressText (ActionText) and Error loc strings;
+          enabled their use by adding UIRef/@Id="WixUI_ErrorProgressText"
+          to your source.
+
+BobArnso: - Use whole sentences for localization, instead of building up 
+            sentences by using properties to specify different verbs and word 
+            forms, as many languages don't easily follow English word order.
+          - Add ActionText/Template loc strings
+
+ScotK: 4 ServerCA related fixes:
+       - Fixing compiler support for rollback actions on SqlScript and
+         SqlStrings.
+       - Cleaning up usage of defines from Server CAs.
+       - Adding support for RollbackOnReinstall support to compiler since CAs
+         already supported it.
+       - BREAKING CHANGE: Changed casing of ExecuteOnReInstall to 
+         ExecuteOnReinstall for SqlScript and SqlString.
+
+DerekC: - Add a Help decompiler extension.
+        - Make HelpCollection/@Id required because the identifier generation
+          logic was incorrect and unnecessary.
+        - Change the help extension xsd file name to help.xsd to match other
+          extensions.
+        - Fix a bug in the XsdGen code for special xml characters in comments.
+        - Add decompiler support for the remaining standard MSI tables.
+        - Fix the help information for dark/light/lit/candle for new short
+          extension syntax.
+        - Lots of other random little fixes.
+
+BobArnso: - Use whole sentences for localization, instead of building up 
+            sentences by using properties to specify different verbs and word 
+            forms, as many languages don't easily follow English word order.
+          - Add ActionText/Template loc strings
+
+BobArnso: Add build requirements to WiX.chm, fixing sfbug:1318424.
+
+RobMen: Allow MIME to not be advertised independent of parent Extension.
+
+BobArnso: - UI fails with 2803 if you click the enabled modify button in
+            maintenance mode
+          - Add ARPNOMODIFY to WixUI_Minimal
+          - Adjust MaintenanceTypeDlg modify text/button based on ARPNOMODIFY
+            setting
+
+ScotK: Cleaning up server custom action memory allocation code and other stuff.
+
+BobArnson: Fix WixTasks build to copy wix.targets to output tree
+
+DerekC: Correctly modularize the RegLocator.Key and RemoveRegistry.Key columns.
+
+DerekC: Cleanup wix.xsd:
+        - Remove minOccurs="1" and maxOccurs="1" (since they are the defaults).
+        - Remove unnecessary mixed="true".
+        - Remove unnecessary sequence from under the Fragment element.
+
+DerekC: Support grabbing binary registry keys in tallow.
+
+SBonev: Modify candle.exe to not compile the input files if -p is specified.
+        This behavior is consisent with the current C/C++ compilers.
+
+DerekC: Fix invalid xml in a patching example inside wix.chm.
+
+DerekC: Remove the entry section id from wixout files since it is not used.
+        This is a breaking change to the wixout file format.
+
+DerekC: Allow DocCompiler to correctly generate documentation for a deprecated
+        element which does not specify a replacement element.
+
+RobMen: Add FeatureGroup and allow deeply nested FeatureGroups and 
+        ComponentGroups.
+
+DerekC: Make the Component/@Guid attribute mandatory.
+
+JohnLs: Fixes for the MSBuild related WixTasks.dll and wix.targets.
+
+SBonev: Modify the PreprocessorExtension to work with an XmlDocument instead of
+        text.
+
+DerekC: Deprecate the FragmentRef element and support UIRef under UI.
+
+SBonev: Move CompilerCore.GetSourceLineNumbers to Preprocessor and make it
+        static. Logically, this is a better place for it because the ln
+        processing instructions are generated by the preprocessor.
+        This also allows consumers other than compiler extensions, for example
+        preprocessor extensions, to determine the source information for a
+        given XmlNode.
+
+EdYoung: Change the compiler so that if a user specifies a multistring registry
+         key, they actually get one, even if they only provide one or zero
+         values to put in the value.
+
+BobArnso: Added instructions in "Building WiX" .CHM topic on modifying 
+          NAnt.exe.config to support .NET Framework 2.0.
+
+DerekC: Fix 2 bugs with registry identifier generation:
+        1. Registry keys may unintentionally collide if they share similar key
+           and name values.  For example a registry entry with a key ending with
+           "EndOfKey" and name "Name" may collide with another entry with a key
+           ending with "End" and name "OfKeyName".  The problem is that the
+           hashing algorithm does not insert a separator between the parts of
+           the registry entry before hashing them.
+        2. Registry keys generated by COM registration will not appropriately
+           collide with entries authored via Registry elements (if they should
+           collide because they have identical component, root, key, and name
+           values which differ only by case of the key or name).  Before hashing
+           the parts of the registry entry for Registry elements, the key and
+           name parts were lowercased to ensure proper canonicalization.
+           Unfortunately, the code for the COM elements like Class and ProgId
+           did not canonicalize properly, so the identifier for two registry
+           entries that are essentially identical may not collide (and thus
+           provide the user with early feedback that an authoring error has
+           occurred).
+
+RobMen: SFBUG:1352643 - correctly close handles in QtExecCA
+
+DerekC: Fix a decompiler bug with the ControlEvent table not sorting its rows
+        properly.
+
+DerekC: Cleanup the preprocessor extension and remove foreach support.
+
+DerekC: Fix exceptions that can be thrown when setting invalid RGB values or
+        creating a Bitmap control without a Text column.
+
+RobMen: SFBUG:1375690 - add -sacl switch to light.exe/Binder
+        SFBUG:1395438 - update documentation for extra attributes on CLSID.
+        SFBUG:1380411 - allow tabs in IniFile/@Value
+        SFBUG:1370181 - remove incorrect quotes from COM Server executable path
+        SFBUG:1366518 - don't crash when Control/@Id missing
+        SFBUG:1353964 - allow RegistrySearch to be localized like Registry 
+        SFBUG:1352533 - correctly modularize MoveFile/DestFolder column
+
+BobArnso: Added zip.build to create distribution Zip files.
+
+RobMen: Update build to handle public/private key signing correctly.
+
+RobMen: SFBUG:1423648 - Create reference from WebDirProperties/@AnonymousUser
+
+DerekC: Fix a bug with duplicate section symbols (like two fragment with the
+        same Id).
+
+DerekC: SFBUG:1427916 - Fix poor RemoveFile error message.
+
+DerekC: Two decompiler bugs:
+        1. Properly handle special sequence actions.
+        2. Handle registry value of "[~]".
+
+BobArnso: - Add WixUI_InstallDir dialog set
+            (welcome > install dir > progress > finish)
+          - Move dialog UI sequences out of WixUI_Common and into the dialogs
+            themselves so custom sets can replace everything
+          - Build a single wixui.wixlib instead of several separate .wixlibs
+            (breaking change -- projects must now reference a particular
+            WixUI set name)
+          - Fix sfbug:1425869 (Controls extend beyond boundaries)
+
+DerekC: Require the RemoveFile/@Name attribute since RemoveFolder should cover
+        the same functionality.
+
+BobArnso: To reduce localization effort, refactor common text (e.g., "Next" 
+          and "Cancel") to use global loc strings rather than dialog-specific 
+          loc strings.
+
+JRock: Cleaning up the RegisterVotive.bat file so that it doesn't need
+       grep or sed.
+
+JRock: - Cleanup paths in the Votive project files.
+       - Detect missing candle.exe and light.exe files in the build and give
+         a more meaningful error.
+
+DerekC: Treat warnings as errors for all builds using wix tools.
+        Also fix warnings related to recent changes.
+
+DerekC: Add support for auto-generated short file names in Shortcut elements.
+
+BobArnso: Add snskip target to wix.build to skip strong-name verification for
+          just-built WiX binaries
+
+AaronSte: Create an exampleuuid type for use by Component GUID and UpgradeCode 
+          in wix.xsd
+
+AaronSte: Fix other instances of sfbug:1425869 (Controls extend beyond 
+          boundaries)
+
+RobMen: SFBUG:1429463 - allow empty strings in loc files
+
+RobMen: SFBUG:1432746 - loc path should be quoted in NAnt LightTask
+
+AaronSte: Updated wix.xsd to name GUID types consistently and disallow blank
+          GUIDs for UpgradeCode
+
+DerekC: Random bug fixes:
+        - Support binary columns in custom tables.
+        - Support decompiling msi files with no _Validation table.
+        - Properly decompile summary information values that have not been set.
+        - Support nullable binary columns in the binder.
+
+DerekC: Fix SF1266391: spaces in preprocessor define statements may be lost
+
+RobMen: SFBUG:1427907  - Merge/@Language can be localized.
+        SFBUG:1420851  - Merge Modules can have Error tables (with a warning).
+        Correctly Modularize ActionText.Template and Error.Template
+
+RobMen: SFBUG:1366769 - require RemoveExistingProducts to be scheduled with
+        Upgrade table.
+
+RobMen: SFBUG:1274075 - specify calling convention in public WiX headers
+
+BobArnso: - Fix faulty detection of VSIP and Extras SDKs
+          - Update Votive installer to latest layout
+
+BobArnso: Add dutil.{h lib} and wcautil.{h lib} to binaries .zip
+
+BobArnso: Change Light to fail if loc strings are used without a -loc switch
+          being specified
+
+BobArnso: Change zipping target to create a distribution tree
+
+BobArnso: Disallow CustomAction/@Win64 when used with a non-script CA
+
+DerekC: Empty tables in a wixout are currently not allowed according to the
+        schema, but they should work for cases like the usage of EnsureTable.
+
+DerekC: Update non-building examples to be optimal for short name generation.
+
+DerekC: Implement support for wix variables and deprecate the $(loc.variable)
+        format for localization variables in favor of !(loc.variable).
+
+DerekC: Fix SF1445272: File attributes not propagated from merge modules
+
+DerekC: Add the ability to retrieve Vista-only culture information on .net 2.0.
+
+JNanneng: Properly modularize IIsAppPool.User_.
+
+DerekC: Fix a bug with modularization of conditions in which there is an empty
+        string literal ("").  Also make the decompiler round-trip the DrLocator
+        Depth column more accurately in the case of a depth of 0.
+
+BobArnso: Add an explicit check for prerequisites like .NET 1.1 SDK.
+
+DerekC: Complete support for short file name generation by implementing support
+        for IniFile, IniFileSearch, RemoveFile, and FileSearch.
+
+BobArnso: Make the WiX binaries a visible feature in Votive setup.
+
+DerekC: Fix a break related to recent localization changes which prevent
+        unreal rows (not tables from being dropped in output).
+        This issue only affects users of the wixout format.
+
+DerekC: Add support for fragmenting dark output via the brand new WiX Mutator.
+
+DerekC: Actually add support for fragmenting dark output.
+
+RobMen: Fix regression where Registry elements were no longer being picked as
+        potential KeyPaths.
+
+SBonev: Enable compiler extensions to nest under other compiler extensions.
+
+DerekC: Reorganize IIS functionality into WixIIsExtension.
+
+BobArnso: Update WixUI:
+          - Add MsiRMFilesInUse dialog for Restart Manager support on Windows 
+            Vista (verified with build 5342)
+          - Corrected size of bitmaps to avoid resize distortion
+          - Conditionalized VerifyReadyDlg controls to match ProgressDlg and 
+            removed VerifyRemoveDlg and VerifyRepairDlg
+          - Fix sfbug/1456883,1456876,1456874 by rearranging controls
+
+BobArnso: Add WixIIsExtension.dll to binaries .zip
+
+DerekC: Fix a bug in serverca which causes installation to overwrite websites
+        already installed on a machine prior to setup.
+
+BobArnso: - Add history.txt to root of release folder
+          - Pick up new extensions and remove old SCA files
+
+SteveWo: Fix a bug when an empty <Upgrade></Upgrade> node would still generate
+         a reference to InstallExecuteSequence/RemoveExistingProducts
+
+SteveWo: Add -indent:<n> option to WiXCop to override default indentation
+         multiple of 2
+
+JRock: Massive Votive rework and bug fixing. This brings Votive to the most
+       stable release to date. Extensive testing was done on both Visual
+       Studio 2003 and 2005. Also, some new features were added.
+       - SFBUG:1457689 - Project does not build in VS 2005
+       - SFBUG:1418194 - Unable to build UI installers with votive
+       - SFBUG:1407291 - Errors when delete file from a WiX project
+       - SFBUG:1402552 - space in RelativeOutputDirectory produces error
+       - SFBUG:1374561 - Problems creating WiX Project in VS 2005
+       - SFBUG:1357724 - votive preprocessor should replace "." in project names
+       - SFBUG:1277228 - Rename causes assertion failure
+       - SFBUG:1245805 - Error: Invalid pointer
+       - SFBUG:1244159 - Rename files in Votive causes incorrect UI
+       - SFBUG:1240565 - Adding a new file to Votive in VS 2005 Beta 2 fails
+       - SFBUG:1237410 - Another project is already building. Please cancel that
+                         build
+       - SFBUG:1234899 - Error dialog displayed when selecting a file
+       - SFBUG:1232582 - Directory support in votive projects
+       - SFBUG:1212472 - Incremental building
+       - SFBUG:1183029 - Project Build/Rebuild not implemented
+       - SFBUG:1176499 - double clicking on the file gives error
+       - SFBUG:1124165 - "The parameter is incorrect"
+       - Feature       - Added an optional RelativeIntermediateDirectory
+                         attribute to the <Configuration> section of the wixproj
+                         file. This allows for a directory to put the .wixobj
+                         files so they aren't in the same directory as the
+                         project output. Existing .wixproj files are still valid
+                         without this attribute.
+       - Feature       - Added support for the -loc flag for light.exe. All of
+                         the .wxl files in the project will be used in the link
+                         phase.
+       - Feature       - Incremental build now works!! Also, the Clean, Build,
+                         and Rebuild menu items work for WiX projects in both
+                         VS 2003 and VS 2005. Interesting note, VS 2005 changed
+                         the way it builds projects by adding support for
+                         querying for project up-to-date status. In my
+                         implementation of the interface, I was returning S_OK,
+                         which indicates that the project is up-to-date and
+                         doesn't need to be rebuilt. Consequently, VS never
+                         called into me to build. It turns out that I have to
+                         actually return E_FAIL to indicate that the project is
+                         out of date. How in the heck am I supposed to know
+                         that!! It's not documented anywhere. I only found out
+                         by looking at the CPP hierarchy project that ships with
+                         the SDK. Go figure.
+
+DerekC: Use the proper file names for *.exe.config files in Votive setup.
+
+BobArnso: Add -NXCOMPAT, -SafeSEH, and -hotpatch switches for all C++ projects
+
+DerekC: Support the Control/@Sorted attribute in the decompiler.
+
+JRock: - SFBUG:1350404 - Deleting Wix Reference deletes the underlining Wixlib
+         file
+       - SFBUG:1237769 - References in votive
+
+DerekC: Update the Votive templates to be simplier and to use more noticable
+        placeholder text.
+
+DerekC: Heat.exe - setup made easier.
+
+JRock: - SFBUG:1244659 - Assertion Failed: The collection is read-only
+       - SFBUG:1221801 - If project does not load, context menu is wrong.
+
+DerekC: Add preliminary support for harvesting websites.
+
+DerekC: Add a warning for when a source file is being compiled with placeholder
+        values.  This supports recent Votive and Heat work.
+
+Chilbert: Fix a bug where formatted registry keys caused a failure in the
+          SecureObject custom action.  Couldn't set permissions on the
+          registry key.  Just needed to format the data that is pulled from
+          the Registry table.  Also fixed aclutil.cpp so that CREATOR OWNER
+          common sid actually sets up the appropriate ACL
+
+DerekC: Rename extension classes from *CompilerExtension to *Compiler.  Also,
+        rename the VS projects for the extensions so that they will all be
+        grouped at the bottom of the WiX solution (this also makes their name
+        consistent with the name of the assembly they create).
+
+DerekC: SFBUG:1432723 - RemoveFile wildcards not accepted
+
+BobArnso: Deliver PDB and source .zips as well as binaries
+
+DerekC: - Move remaining sca extension functionality into the sql and utility
+          extensions.
+        - Move XmlFile, ServiceConfig, and Permission (SecureObjects-support)
+          from the core code into the utility extension.
+        - Fix a bug that occurs when an xmlns attribute appears on a Permission
+          element.
+
+DerekC: - Complete unique identifier generation support for the WixIIsExtension
+          using a new IdentifierGenerator class for Mutators.
+        - Parse the Module/@Id attribute as an identifier.
+        - Fix a recently introduced bug with using the WebDirProperties element
+          as a direct child of the WebDir element.
+        - Simplify output for single file harvesting with -sfrag on.
+        - Implement proper error support for harvesting a non-existant web site.
+        - SFBUG:1459930 - Previous error breaks TabSkip support
+
+BobArnso: Fix ICE validation in Votive.msi and WixUI qtests
+
+DerekC: - SFBUG:1467438 - Warn when no UpgradeCode is present
+
+RobMen: Fix PatchSequence/@Supersede to match MSI SDK
+
+DerekC: SFBUG:1343841 - Illegal use of namespaces, results to name conflict
+
+DerekC: - SFBUG:1215907 - Add support for MSI validation to light
+        - Create a new tool called smoke.exe which can run MSI validation
+          directly on any msi/msm files.
+
+DerekC: Remove some unused code in the ParseCopyFileElement method and fix an
+        uncaught exception that may occur if CompilerCore.AddValidReference is
+        called with an empty string symbol.
+
+DerekC: Move DIFxApp functionality into the WixDifxAppExtension.
+
+JRock: Added property page support for WiX projects! Only one page is
+       implemented right now. More to come. It only works in VS 2005,
+       however. This is probably the start of a VS 2003/2005 separation. I've
+       been running into too many little discrepancies that is really draining
+       my time and it's getting too cumbersome to support two different versions
+       of Visual Studio simultaneously since testing has to be done twice. The
+       code base between the two versions is still identical, however, and will
+       probably continue to be so as long as its feasible.
+
+SteveWo: SFBUG:1470445 - Warning for formatted value in Property.Value
+
+DerekC: - SFBUG:1328846 - heat should replace local file paths with file tokens
+        - Complete implementation for harvesting a simple web site and verify
+          that it passes validation and installs.
+
+SteveWo: Update tools to use 4 space indentation and fix some wix sources that
+         haven't been run through wixcop yet.
+
+SteveWo: Convert all WiX 3.0 files to 4-space indentation.
+
+SteveWo: Convert all WiX xml files to 4-space indentation.
+
+RobMen: Fix race condition when multiple processes build cabinets at the same
+        time.
+
+DerekC: Convert all WiX C++ files to 4-space indentation.
+
+BobArnso: Change zipping to zip explicit file extensions rather than whole
+          trees. That lets us build WiX using WiX.sln (which puts the binaries
+          relative to the source) without cluttering up the sources .zip file.
+
+DerekC: - SFBUG:1467423 - Deprecate the Property element under an Upgrade
+          element
+        - Display an error for an Upgrade/@Property value which is not uppercase
+          (required for specifying a public property).
+        - Display an error if neither Upgrade/@Minimum nor Upgrade/@Maximum has
+          been specified; at least one is always required.
+        - Parse the Upgrade/@Property attribute as an identifier.
+        - Stop generating a property for Upgrade entries (since it doesn't work
+          for more than one) and instead require a property to be specified for
+          each Upgrade element.
+
+DerekC: - Display an error for feature names which are longer than 38 characters
+          in length (this is apparently a limitation in Windows Installer).
+        - Display an error for binary custom columns which do not specify the
+          binary category for their validation information.
+        - Display an error for root feature which have the follow parent
+          attribute set.
+        - Update some of the WiX unit tests to pass MSI validation.
+
+DerekC: - Enforce the ICE81 rule of only allowing external cabinets to be signed
+        - Only allow a DigitalSignature element below a Media element for a
+          cabinet (versus some external files).
+        - Create empty cabinets (previously they did not get created), but warn
+          the user that the cabinet is empty.
+        - Fix a possible namespace collision issue between cabinets with the
+          same embedded and external file names (for example product.cab for an
+          external cabinet and #product.cab for an embedded cabinet).
+
+DerekC: - Create a reference for the RadioButtonGroup/@Property attribute.
+        - Create a reference to the Binary table for Icon controls.
+        - SFBUG:1474948 - References should have source line information
+        - Properly modularize the Control.Text column for Bitmap and Icon
+          controls.
+
+DerekC: - Always use full paths in the harvesters.  This fixes a bug with
+          harvesting a single file from a relatively specified path and then
+          resolving paths to that file in harvested registry values.
+DerekC: - SFBUG:1474943 - Modularize before working with files and streams -
+          this change basically fixes a bug with no source line information for
+          validation errors/warnings in merge modules.
+
+DerekC: Fix validation errors in the WiX unit tests.
+
+DerekC: Change WixQTest to always run MSI validation on single tests (but not in
+        batch mode because it takes too long).
+
+DerekC: Implement support in Dark for several previously unsupported Control
+        element attributes.
+
+RobMen: Support ignoring failures from packages during chaining.
+
+BobArnso: Don't include .cub files in the sources .zip file
+
+DerekC: Various FxCop fixes.
+
+DerekC: Fix portability issues reported by FxCop.
+
+BobArnso: Fix WixUI loc bugs by resizing various text fields: 
+          SFBUG:1469187, SFBUG:1469191, SFBUG:1469194
+
+BobArnso: Skip strong-name-verification-skipping if the pubic-key token is
+          already listed (so once it's listed, the build runs as a normal,
+          limited user rather than requiring admin rights).
+
+DerekC: Refactor the functionality in the Common class into more appropriate
+        locations.
+
+DerekC: Create the WiX Visual Studio extension.
+
+DerekC: Properly handle decompilation of null ControlEvent.Ordering values.
+
+RobMen: First draft of support for CloseApplication element to detect 
+        running applications and have them shutdown or require a reboot.
+
+DerekC: Deprecate the Registry element in favor of more strongly-typed
+        alternatives.
+
+DerekC: SFBUG:1468990 - Bad linker error when linnking with extension's wixlib
+
+DerekC: Merging fixes:
+        - SFBUG:1446323 - Conflict using MSMs and Suppress Sequence Tables
+        - SFBUG:1467421 - Merge errors should be ignored for the _Validation
+          table
+        - Suppression of an individual action from an already suppressed table
+          results in an uncaught exception.
+
+BobArnso: Updated WiX.chm with recent WixUI changes
+
+BobArnso: Simplified binaries.zip layout to flatten the ca and ui trees
+
+DerekC: Embed binaries in wixui.wixlib and make the necessary changes to the
+        core tools to support this.
+
+DerekC: Properly set the embedded resources in the Visual Studio projects for
+        the extensions (so that they are debuggable).
+
+MikeHo: Add Version number via -v switch to DocCompiler.
+
+DerekC: Allow the Publish element under the UI element for defining the flow of
+        modal dialogs more easily.
+
+DerekC: Remove Tallow from 3.0 (it still exists in WiX 2.0).  Heat should now be
+        used instead for 3.0.
+
+DerekC: - Move WiX UI into a new extension called WixUIExtension.
+        - Fix bugs in the linker and decompiler for extensions with an embedded
+          library but no table definitions.
+
+DerekC: Fix a bug with validation of short file names which prevents being able
+        to author a filename that is less than 8 characters long with a 4
+        character extension (like "tst.test").  Also catch illegal long file
+        names which do not contain any non-period characters (like ".....").
+
+DerekC: SFBUG:1485236 - Heat throws "System.Exception" if file ids go beyond 999
+        - fix a few more FxCop warnings.
+
+DerekC: Restrict the legal range of values for iis:CertificateRef/@Permissions
+        to a ushort to prevent idt importation errors (because the column is
+        only 2 bytes wide).
+
+DerekC: Refactor the schema for patch sequencing to make it more strongly-typed.
+
+DerekC: More FxCop fixes.
+
+ScotK: SFBUG:1408130  Fix XmlFile crashes and add better error messages.
+
+JRock: SFBUG:1476609 - Votive Can't Find Candle
+
+RobMen: SFBUG:1448867 - update documentation to help explain a few more 
+        SqlScript/SqlString options
+
+ScotK: SFBUG:1473983 Fix WebCAs to not have hard coded buffer size for web sites
+
+DerekC: Create the WiX unbinder.
+
+DerekC: SFBUG:1491964 - LaunchConditions is not added to the InstallUISequence
+
+RobMen: Add RegSearch for IIS version
+
+DerekC: Display an error for missing WixLocalization/@Culture attribute when
+        schema validation is suppressed.
+
+DerekC: SFBUG:1490343 - Problem with MSM's and Light 3.0
+        SFBUG:1487663 - Missing MergeRef causes ApplicationException
+
+DerekC: - Prevent the WixUIExtension decompiler from removing rows from its
+          library except in cases in which the database was explicitly built
+          with the extension.
+        - Use app.config for all configuration files so that they will work from
+          within the Visual Studio project.
+        - Create a standard interface for reading extension information from the
+          configuration file.  This will be used by dark, heat, and smoke.
+        - Make the WixVSExtension actually work by including the AssemblyInfo.cs
+          file.
+        - Stop passing extensions to dark since it now loads all the extensions
+          by default.  This is done to ensure that dark will create the optimal
+          output which takes into account all the available WiX extensions.
+          Otherwise, authors would end up with a lot of custom tables and
+          unnecessary registry keys (once we support more extensions which
+          represent registry values in strongly-typed WiX extension elements).
+
+DerekC: SFBUG:1490084 - WixUI should use standalone Publish elements
+
+DerekC: SFBUG:1475370 - Tallow does not generate valid CodeBase registry entry
+
+DerekC: The ListView.Value and ListView.Text columns should be formatted.
+
+DerekC: SFBUG:1122555 - Support localization of control sizes and positions
+
+DerekC: Properly handle read-only database files in smoke/Validator.
+
+ScotK,AviPi: Use short paths for PerfMon to avoid localization issues with long
+             paths.
+
+DerekC: Fix a regression with the fix for read-only files in the validator.  Now
+        the files are always marked writable instead of just flipping the read
+        only bit (which turns out to be a bad thing to do most of the time).
+
+a-TsunH: Add a print button to the EULA dialogs in WixUI.
+
+jbae: - Move FileCopyHandler and FileMoveHandler out of the Binder and into
+        BinderExtension so that extensions can implement their own copy and move
+        operations.
+      - Name changes for virtual methods in BinderExtension to follow the
+        naming conventions of other extensions:
+          FileResolutionHandler -> ResolveFile
+          CabinetResolutionHandler -> ResolveCabinet
+
+PMarcu: - Allowing extensions to define child elements of Binary elements.
+
+PMarcu: - Making Installer Class public to expose the 2 public methods
+
+DerekC: Remove the warning and verbose levels, explicitly assign error numbers.
+
+PMarcu: - Temporarily treat feature names greater than 38 characters long as
+          warnings instead of errors.
+
+PMarcu: - Fix to allow Preprocessor object to be called multiple times
+          while having the same variables defined. Before the fix it throws
+          an exception.
+
+DerekC: Fix a regression which prevented directory source names of "." from
+        working.
+
+DerekC: Make binder variable handling for streams actually work (again).  This
+        should fix problems people have had with the WixUIExtension asking for
+        files from hard-coded paths.
+
+a-TsunH: Updated ProgressDlg.wxs to display title and text in minor upgrade.
+
+SBonev: Fix to persist the "localizable" ColumnDefinition attribute properly.
+
+DerekC: Stop using artificial localizednumber column.
+
+DerekC: Create a PreprocessorCore for sharing information between the
+        preprocessor and its extensions.
+
+DerekC: Display proper error for missing ServiceControl/@Id and @Name.
+
+DerekC: Add support for help functionality to the Visual Studio extension.
+
+DerekC: Persist complex reference data as unreal tables.
+
+DerekC: - SFBUG:1508611 - Unhandled Exception if directory to harvest does not
+          exist
+        - SFBUG:1493753 - Column Element : Category attribute incomplete
+        - Remove the light -i option (it appears to be a bad idea) and create
+          a callback for the binder extension to have more involvement in
+          determining the layout paths for media entries.
+        - Change TypeLib to default to non-advertised.
+
+jbae: Add support for multi-threaded cabinet creation.
+
+SBonev: Update cabinet dependency checking logic to use last write time instead
+        of creation time.
+
+DerekC: Re-factor cabinet creation logic.
+
+DerekC: Better binder handling for files which cannot be found.
+
+DerekC: SFBUG:1511706 - ODBCDriver fails in merge modules
+
+BobArnso: Add SDK subdirectory to binaries .zip to include MsgGen and
+          DocCompiler so you can build extensions without sources.
+          Headers and libraries live there too.
+
+RobMen: File/@DiskId now optional (defaults to 1)
+
+SBonev: Add missing initalization of PreprocessorExtension.Core.
+
+DerekC: - Support binary wixout files (for compatibility with 3.0 extensions).
+        - Better error handling for cabbing and stream importing.
+        - Fix bug when using WiX extensions from paths with spaces.
+
+CuWaters: Updated Wix.chm Getting Started/First wxs File section to newest
+          Wix schema
+
+JohnLS: Fixed dependency bug in WixTasks. Added support for add single
+        warning suppression in light task.  Improved error message when using 
+        extensions using WixTasks.
+
+DerekC: Support grabbing registry keys from .ocx files.
+
+JohnLS: Fixed bug in NativeImage custom action when there are no GAC'd 
+        assemblies.
+
+DerekC: - Parse Property/@Id as an identifier
+        - Handle inability to open a database in the decompiler (dark)
+        - Decompile ControlEvent arguments correctly
+
+DerekC: SFBUG:1519658 - MsiDriverPackages validation data is wrong
+
+JRock: Moving WixTasks over to MSBuild in preparation for the big kahuna
+       move of votive v3 over to MSBuild. Also changed the WixTasks so that
+       the Lib task is part of the Compile.DerekC: More strictly parse some Shortcut attribute values.
+
+BobArnso: Added extension .XSDs to binaries .zip
+
+JRock: Fixed a couple of issues with the public builds related to the
+       MSBuild stuff and WixTasks. Also fixed a couple of issues on the
+       public build when trying to build from a path that has spaces in it.
+
+DerekC: Change the xml namespace URI for WiX 3.0 since the xml schema is now
+        different from the xml schema for WiX 2.0.
+
+ScotK: Fixing crash in ConfigureIIs when it runs into a malformed WebSite in 
+       the metabase.
+
+DerekC: - SFBUG:1445483 - No support for Long Filenames in COM Registry entries
+        - Fix several issues related to COM registration elements
+        - Properly parse more identifier attribute values
+        - Move the creation of simple references closer to the places in the
+          compiler code where the attribute's value is parsed
+        - Change the PerfCounter element to use the formatted string for long
+          file names to reflect the fact that the short file name format of
+          [!FileId] actually resolves to long file names outside of the Registry
+          table
+
+DerekC: Create new WixUnit testing tool (remove WixQTest).
+        Also fixes SFBUG:1524184 - Null reference exception when using allow
+        identical feature
+
+DerekC: SFBUG:1501945 - Turn warning for illegally long feature names into an
+        error
+
+BobArnso: Move from properties to specify the wizard sequencing to using WiX
+          v3's support for floating Publish elements. Each dialog set now
+          publishes just the control events it needs to bridge the dialogs
+          together.
+
+DerekC: Warn users of the dangers of directly authoring the ProductID property.
+
+DerekC: Expose strings in extensions to localization.
+
+DerekC: SFBUG:1115450 - Support harvesting of type libraries
+
+DerekC: SFBUG:1508965 - No ShortName for RemoveFile entry
+
+DerekC: SFBUG:1505307 - Unhandled exception if file cannot be accessed
+
+DerekC: Make some public methods internal-only.
+
+DerekC: Allow SqlString to support arbitrarily long SQL queries.
+
+DerekC: Parse more attributes as identifiers where appropriate.
+
+DerekC: Lockdown wix.dll interfaces that were unintentionally made public.
+
+DerekC: - Improve the error message for action collisions during merging.
+        - Fix a bug with the outputs.xsd not having the proper declarations for
+          the action xml.
+
+DerekC: Add support for detecting the .NET Framework 3.0.
+
+DerekC: Fix bugs found by running xsd fuzzing tools on candle.
+
+DerekC: - Fix a bug with source information persisted in the intermediate files
+          using the paths specified on the command line instead of full paths.
+        - Fix handling of source paths in error and warning messages for the
+          validator.
+        - Fix bugs with validating multiple databases in a row using smoke.
+        - Make light consistently use full path names.
+
+DerekC: - Correct several incorrect forms of the null guid which may break merge
+          modules from properly resolving feature links when merged.
+        - Eliminate the need for feature backlinks.
+
+DerekC: - Use an unreal table to persist simple references instead of xml.
+        - Correctly parse several extension attributes as identifier values.
+
+DerekC: - Stop creating symbols for tables which are never referenced.
+        - Change symbol-generation tagging into a per-table option instead of a
+          per-column option and always use a table's primary keys as its symbol
+          columns.
+
+DerekC: Created XsdStitch - a tool for combining extension schemas and a main
+        schema so that Visual Studio IntelliSense works properly.
+
+DerekC: - Replace custom xml for ignore modularization with entries in the new
+          WixSuppressModularization table.
+        - Change all xml schema namespaces to the new WiX 3.0 "2006" format.
+        - Properly namespace all WiX-specific table names with the "Wix" prefix.
+        - Break backwards-compatiblity with WiX 2.0 library files.
+
+DerekC: Remove all unreal columns and simplify the wixout xml.
+
+DerekC: Add support for later MSI 4.0 features.
+
+DerekC: - Convert harvested COM registry keys into WiX COM elements.
+        - Fix a bug with substituting directory paths into registry values
+          during mutation where a parent directory of the correct directory may
+          be substituted.  The fix is to look for longer directory path matches
+          before shorter ones.
+        - Add unit testing for Heat (to ensure we don't break it).
+        - Capture the parent directory for an individual file harvest to ensure
+          that directory paths are correctly substituted in harvested registry
+          values.
+        - Add back the RemoveReg unit test (I'm not sure why it was commented
+          out in the first place).
+
+DerekC: Fix a bug during that may corrupt the database being validated.
+
+DerekC: Simplify the WiX schema a bit:
+        - Deprecate Module/@Guid in favor of Package/@Id.
+        - Deprecate Package/@Compressed under a Module element.
+        - Deprecate Package/@Id for autogenerating package guids.
+        - Deprecate IgnoreModularization in favor of
+          Property/@SuppressModularization and
+          CustomAction/@SuppressModularization.
+        - Add support for strongly typed InprocHandler registry keys.
+
+DerekC: Truncate generated identifiers to 69 characters to prevent compiler
+        warnings.
+
+DerekC: Fix a bug with using PropertyRef on a Property that just contains search
+        elements that was recently introduced.  Also make Votive build dependent
+        upon WixTasks since it now appears to include it.
+
+DerekC: Cleanup parsing of guids in the compiler.
+
+DerekC: SFBUG:1537004 - light.exe requires NUMBER_OF_PROCESSORS to be set
+
+DerekC: SFBUG:1536981 - Light.exe crashes when using -loc for a patch
+DerekC: Fix a regression when specifying file source paths via their Component's
+        parent Directory elements.
+
+a-TsunH: Fix incorrectly generated SFN display name in Shortcut table.
+
+DerekC: Do not allow illegal characters in generated short file name extensions.
+
+DerekC: - SFBUG:1539986 - Merge module row generation bug
+        - Enforce ModuleSignature.ModuleID as an identifier value
+        - throw WixExceptions for unhandled error messages
+        - Normalize instances of "FoundError" to "EncounteredError"
+        - properly unbind datetime summary information values
+        - allow the unbinder to suppress demodularization to allow for a more
+          literal output (which is useful for unit testing)
+        - only unbind summary information values which exist
+
+DerekC: Add a warning for hard-coded package codes.
+
+BobArnso: Add an optional checkbox to ExitDialog to support typical 
+          end-of-setup custom actions like opening a readme
+
+BobArnso: Allow FindRelatedProducts to be sequenced relative to other actions
+
+JRock: Adding the new command line preferences for candle, light, and lit
+       to the MSBuild WixTasks project.
+
+BobArnso: - Remove per-File Source attributes in favor of 
+            Directory[Ref]/@FileSource
+          - Install MSBuild files to the MSBuild extensions tree
+          - Re-sequence FindRelatedProducts so LaunchCondition works correctly
+
+DerekC: Properly decompile msidbLocatorType64bit.
+
+DerekC: Use a better coding style to read bit flags.
+
+DerekC: Don't modularize the NetFxExecuteNativeImageCommit custom action.
+
+DerekC: Don't allow invalid Shortcut rows to be authored.
+
+DerekC: Fix handling of localization variables in file name attributes.
+
+DerekC: SFBUG:1544057 - Patchgroup attribute causes installation to fail
+
+BobArnso: Add EventSource strongly-typed authoring to WixUtilExtension
+
+RobMen: Brand new ClickThrough architecture based on Fabricators
+        IsolatedAppExtension fabricator
+        OfficeExtension fabricator for Office Add-ins
+        Update all tools to new Application Syndication spec
+
+BobArnso: Fix bug in WixUI_InstallDir so that SetTargetPath is called,
+          updating child directories of WIXUI_INSTALLDIR. (Without it,
+          only the one directory is updated; children retain the original
+          structure as defined by the Directory table.)
+
+DerekC: SFBUG:1548526 - Column/@Category="Template" changes to "Formatted"
+
+DerekC: SFBUG:1548075 - Light crashes when not using cab's
+
+DerekC: Capture self-reg info from .ax files.
+
+LeeTh: Fixed bug in SchedServiceConfig where we were writing rollback CA data
+       into the CA data buffer, causing the first service instaled to be 
+       misconfigured and any subsequent services to cause an install failure.
+
+RobMen: break out user interface elements into wui.dll and wconsole.dll
+
+PMarcu: Adding support for extension attributes to DocCompiler
+
+DerekC: Capture type library info from .tlb files.
+
+DerekC: Re-factor the binder to make it possible to just generate a database.
+
+JRock: Enabled loading extension assemblies from an absolute or relative path.
+
+DerekC: Add support for creating and "decompiling" transform (.mst) files.
+
+JRock: Brand new Votive v3!! There are lots of new features and lots of bug fixes.
+       For a summary of the major changes, see my blog entry at
+       http://blogs.msdn.com/jrock/archive/2006/07/18/670149.aspx.
+
+DerekC: Fix handling of read-only files when unit testing transforms.
+
+JRock: Fixed localization file (.wxl) handling in Votive so that files get
+       added as an Embedded Resource instead of Content. Also, fixed the
+       project template loading by changing ToolPath to WixToolPath, which
+       is how it is referred to in the wix.targets MSBuild file.
+
+JRock: Added special handling for PUT-MODULE-NAME-HERE in the Module
+       element and PUT-APPLICATION-DIRECTORY-HERE in the Directory
+       element. This is useful for Votive so that we have templates
+       with placeholders. Eventually we need to come up with a generic way
+       to tag attributes with a THIS-IS-NOT-VALID-BUT-EXPLAINS-WHAT-TO-DO
+       type value.JRock: Integrated the Visual Studio SDK August 2006 CTP into Votive.
+
+JRock: Removed support for SuppressAllWarnings in the Candle, Light, and
+       Lit MSBuild tasks as well as from the Votive property pages.
+
+JRock: Added support for making the property grid items non-bold in Votive.
+
+JRock: When .wxi files that are part of the .wixproj are changed, incremental builds
+       will not get triggered (MSBuild thinks the project is still up to date). This
+       fixes the build so that when a .wxi file is changed (or any other <Content>
+       file in the project), the project will build incrementally.
+
+DerekC: Add a new tool called Torch for transform creation.
+
+DerekC: Add a new tool called Pyro for patch creation.
+
+DerekC: Add automatic component guid generation for single-file components.
+
+DerekC: So Long, and Thanks for All the Fish!
+
+BobArnso: - Fix zip.build to include PNGs in sources.zip
+          - Prevent ProjectAggregator2 launch condition from throwing on uninstall
+          - Deliver ProjectAggregator2.msi too (until we get the chainer going)
+
+RobMen: SFBUG:1559339 - add missing wconsole and wui
+
+JRock: SFBug:1559513 - Votive 3.0.2114.0 does not load in VS2005
+       Added the new PLK (package load key) so that Votive will load.
+
+RobMen: Move ClickThrough common controls in wui.dll
+        Build CLR 2.0 projects using MSBuild
+        Minor FxCop fixes
+
+JRock: SFBug:1529711 - no incremental builds using wix.targets
+       Tweaked the wix.targets file to only include the wix.targets file itself
+       as part of an incremental build.
+
+BobArnso: WixUI_Advanced
+          - Draft of a two-click installer that also supports per-user/per-machine 
+            choice and feature selection
+          - This set is still in active development.
+          - Future releases are likely to be incompatible.
+          - Future releases are likely to be much easier to use.
+          - Use at your own risk.
+
+          WiX Setup - Provide a single .msi for all of the WiX toolset
+
+JRock: Added a MsgGen and XsdGen task to our Wix.Common.targets file that supports
+       incremental rebuilding and also better Visual Studio integration.
+
+RobMen: Include ClickThrough in WiX3.msi
+
+ScotK: Refactor the way XmlFile works.
+
+ScotK: Goodbye and good luck Derek!
+
+BobArnso: Add shortcut to WiX.chm
+
+BobArnso: Fix sfbug:1570461 and sfbug:1565536 -- add more error checking to the
+          compiler for invalid custom action attribute combinations.
+
+JRock: Added the new September 2006 Visual Studio SDK to Votive, which now supports
+       drag and drop of files in the Solution Explorer.
+
+JRock: SFBug: 1565256 - Folder icons in solution explorer wrong
+       SFFeatureRequest:1565307 - Solution Explorer: Folder Node Icons
+
+BobArnso: Add WixShellExec custom action to launch targets via ShellExecute
+
+ScotK: SFBug:1572279 Don't used fixed size array for xml values in XmlFile and 
+       XmlConfig.
+
+BobArnso: This is really more of a feature request, but it has buggy 
+          tendencies. Now disable the Repair and Remove buttons when 
+          ARPNOREPAIR and ARPNOREMOVE are set.
+          ****Note: This change has loc impact – new strings are required 
+          to describe why the buttons are disabled.
+
+AaronSte: Add a bunch of Visual Studio detection properties and custom actions
+          to VSExtension.
+
+MikeHo: Add console output to setupbld.exe
+
+JKuhne: Fix sfbug:1563651 and sfreq:1574887 -- Seperated out netfx NativeImage
+        install & uninstall. Uninstall ignores failures. Made order of 
+        NativeImage CAs sequential. Fixed trasposed flag (NoDependencies and 
+        Profile).
+
+RobMen: Initialize FileRow.assemblyType to NotAnAssembly (instead of 
+        DotNetAssembly by default).
+
+a-joem: Persist the WixMedia table so the Binder has valid Layout paths.
+
+BobArnso: Add SuppressModularization attribute to Binary element
+
+BobArnso: 
+  - Fix sfbug:1586940 - Clarify ProgId/@Icon value when advertised -v- not
+  - Fix sfbug:1560158 - Add Permission as legal child of RegistryKey
+  - Fix sfbug:1587714 - Add util.xsd to doc directory
+  - Re-fix sfbug:1570461; TS-aware CAs must be deferred
+  - Fix sfbug:1312988 - Added support for @action attribute in msiref element
+
+RobMen: SFBUG:1544874 - fix ConfigureIIS to correctly handle when there are
+                        multiple websites installed on the machine.
+
+BobArnso: Fix sffeature:1566806 and sffeature:1557370 - Install schema files
+          for VSExpress SKUs; add feature and dialog to describe when Votive
+          can't be installed (lack of Standard Edition++ or 
+          ProjectAggregator2.msi).
+
+CuWaters: Added an error message that is thrown when an include file 
+          references an extension namespace that is not provided in the 
+          parent wix file.
+
+RobMen: SFBUG:1608439 - fix "off by 2" memory corruption when using SQL
+        Scripts.
+
+PMarcu: SFBUG:1427460 - SqlScript without SqlDb should generate compiler error
+         parent wix file.
+
+PMarcu: Adding Functional Preprocessing to the Preprocessor. There are not any
+        built in functions but the support is there.
+        Syntax like: "$(fun.FunctionName(arg1,arg2,arg3))
+
+PMarcu: Undo reordering of MergeMod/NativeMethods.cs so that the interop 
+        vtable order matches IDL vtable order.
+
+BobArnso: - Fix sfbug:1603006 - Add missing extensions to zip.build
+          - Fix sfbug:1608479 - Clean up v3 download details
+          - Update WixUI doc for v3 changes
+
+BobArnso: Fix attribute handling in SQL extension
+
+PMarcu: Fix sfbug:1584797 Adding better error message for unexpected merge
+        failures to point to the merge log.
+
+BobArnso: Fix sfbug:1558416 - Manifests without assembly/assemblyIdentity 
+          elements would hang the binder.
+
+PMarcu: Adding Torch.exe to the release zips and to the wix setup.
+
+Robmen: SFBUG:1622346 - correctly modularize IIsWebLog.Format column.
+
+JKuhne: SFBUG:1637234 - allow localization variables in Upgrade/Language column.
+
+Bertaygu: Fix sfbug:1632621 with proper conditions.
+
+PMarcu: Allowing Extension elements on the Patch element.
+
+CuWaters: Fix sfbug:1637802; add support to MSBuild task for 
+          semi-colon-delimited <SuppressIce> list of ICEs to suppress.
+
+AaronSte: Updating devenv.exe /setup custom actions to contain Impersonate="no"
+          so they will run correctly on Windows Vista.
+
+JRock: Created a new managed FlattenXml project to replace the flattenxml.vbs
+       VB script file. This is in preparation for moving some of the .NET 2.0
+       projects to use the new FlattenXml.exe.
+
+JRock: * Converting WixUnit to a .NET 2.0 project. In doing so, I added a new
+       FlattenResources target which will automatically call FlattenXml on
+       all project items marked with the EmbeddedFlattenedResource before
+       embedding them in the assembly.
+       
+       * Added SD SCC support to the WixBuild project to get Visual Studio
+       integration with SourceDepot.
+       
+       * Added the ability to test out the MSBuild wix.targets (.wixproj) files
+       in test.bat. This will help keep regressions down with the MSBuild/Votive
+       functionality.
+
+MikeHo: Add support for UI transforms to the chainer
+
+PMarcu: * Removing _Validation table from patches
+
+        * Assigning the wixout that is passed to the binder to binder extensions.
+        This wixout may be used by binder extensions to read in custom data
+        provided in authoring to make decisions for any of the various binder
+        extension points.
+
+FreGro: Compiler switches modified to decrease output binary size for native modules.
+
+AaronSte: Adding detection for .NET Framework 1.1 SP1, 2.0 SP1, Visual Studio
+          2005 SP1 and Visual Studio 2005 Web Application Projects
+
+FGrohn: No longer linking to BufferOverflowU.lib in order to comply with security guidlines.
+
+JRock: * Added a bunch of extensibility points in wix.targets so that users
+         can hook into different events during the build and perform custom
+         actions. Here's the list of targets you can define in your .wixproj
+         file to hook into the flow of events (in the order in which the
+         events will happen):
+         1  BeforeRebuild
+         2  BeforeClean
+         3  AfterClean
+         4  BeforeBuild
+         5  PreBuildEvent (this isn't a target, but rather a property that
+            contains a command line to run)
+         6  BeforeResolveReferences
+         7  AfterResolveReferences
+         8  BeforeCompileAndLink
+         9  AfterCompileAndLink
+         10 PostBuildEvent (like PreBuildEvent)
+         11 AfterBuild
+         12 AfterRebuild
+       
+       * Added a $(RunPostBuildEvent) property, which can have 4 values:
+         - OnBuildSuccess: In this case, every step of the build must succeed
+           for the post-build step to run.
+         - <Blank>: This is the same as OnBuildSuccess.
+         - OnOutputUpdated: In this case, the post-build step will run only
+           if the main output was actually updated.
+         - Always: The post-build step is always run
+       * Added the ability to load custom .targets files before and after the
+         wix.targets file has been processed. Simply define
+         $(CustomBeforeWixTargets) and $(CustomAfterWixTargets) to point to
+         your custom MSBuild files.
+       * Added the ability to load a .targets file called
+         $(MSBuildProjectFullPath).user. This is to match C#/VB project systems
+         and I think it's because in some instances Visual Studio will create
+         a .user file. I'm not sure when, but I added this for safe measure.
+       * Added the standard IDE property macros, such as OutDir, ProjectName,
+         ProjectPath, ProjectFileName, etc. These are useful when writing
+         PreBuildEvent and PostBuildEvent command lines. It also sets the
+         stage for the work to finish up project references in Votive (i.e.
+         $(var.ReferencedProject.ProjectName)).
+       * Added unit tests to tests.xml for all of the extensibility points.
+       * Added a clean cache file, which keeps track of previous build outputs.
+         This is so that the following scenario works: I build my .wixproj to
+         create product.msi, change the name of my OutputName property to
+         NewProduct and build again. The old product.msi will be deleted since
+         I now detect that it is an "orphaned file."
+       * Added a commented out section in the Votive project templates to
+         bring attention to the BeforeBuild and AfterBuild extensibility
+         points. This is similar to what the C# project templates do.
+       * SFBUG:1644833 - change wix.targets to reference wixtasks.dll in local folder
+         I added a property called $(WixTasksPath) that you can define to point
+         to the path where the WixTasks.dll lives. Similarly I also defined
+         $(WixTargetsPath) to point to where wix.targets lives.
+       * SFBUG:1487283 - Light task fails when OutputFile not specified
+       * SFFEATURE:1565305 - Pre- and Post-build events
+
+PMarcu: Adding better argument handling and checking to torch. Also fixed various
+        spots in the toolset that were crashing when using torch transforms to create
+        mst's and msp's.
+
+MikeHo: Add Setup.Exe, SetupBuilder.Exe, SetupBuilder.dll to wix3-binaries.zip
+
+PMarcu: Adding method to make it easier to deal with references under patchfamily.
+        Removing FragmentRef from under PatchFamily.
+
+PMarcu: Adding PatchFamilyRef to the schema and compiler and cleaned up some of the
+        simple reference element logic.
+
+JKuhne: SFBUG:1637592 Remove prepending of period on NoOpen attribute for ProgId.
+
+PMarcu: SFBUG:1604230 Fixing Ngen Customactions to not fail setup on error and 
+        only schedule ngen for assemblies if the framework for that architecture is 
+        installed. 
+
+PMarcu: Adding a check to assure product versions are valid
+        Making it so Patch output types can support unreal tables and extensibility
+
+BobArnso: Undo unmasking of in-script bit for TS-aware CAs (ICE68)
+
+Benxing: Number of patch related bug fix
+         *Update FeatureComponent table when ComponentRef in the selected PatchFamily
+         *File Sequence problem
+
+PMarcu: Allowing extension attributes on DirectoryRef and PropertyRef
+        Adding extension attributes to the VSExtension Refs
+
+PMarcu: Adding UIRef and DirectoryRef to possible PatchFamily Children
+        Allowing extension attributes on CustomAction elements.
+
+JRock: Added support for setting pre- and post-build event command lines via a
+       property page in Votive. This gets me one step closer to restoring the
+       inter-project variables that we had in V2 but had to pull in V3 to get
+       it out the door (e.g. $(var.MyProject.TargetPath)).
+
+JRock: Added support for SolutionX variables in the wix.targets file. So, you
+       can now use $(var.SolutionDir) in your .wxs files and have the variables
+       automatically added to the preprocessor definitions when building with
+       wix.targets and MSBuild.
+
+Benxing: Regardless of differences in the MST, we will compare underlying files before
+         copying data into the patch. Extensions can override CompareFiles to provide
+         custom file diffing behavior.
+
+AaronSte: Updating Heat to use HKCU instead of HKLM when harvesting registry 
+          information on Windows Vista to avoid UAC issues
+
+PMarcu: Making XsdStitch only output a single prefix for each extension namespace.
+
+Benxing: Fixing null reference exception in the binder when the file table is empty.
+
+RobMen: Default File/@Name to File/@Id.
+
+MikeHo: Fix bug with Setup.exe when trying to install and TEMP and AppData 
+        folders are not on same drive, setup fails
+
+MikeHo: Add fallback to Caching the MSI.
+
+RobMen: SFBUG:1680666  - Correctly modularize RemoveIniFile.DirProperites.
+
+PMarcu: Removing FragmentRef's
+
+AaronSte: SFBUG:1675664 - Marking ComboBox value attribute as localizable.
+
+PMarcu: Adding BinaryRef as a child of PatchFamily.
+
+Benxing: Give warning when removing component from feature during the patch build.
+
+PMarcu: Changing namespace keys in the VSExtension help tables to not be modularized.
+
+PMarcu: Adding some targeted checks to patch transforms to catch possible error
+        conditions as early as possible.
+
+AaronSte: Adding Visual Studio Codename Orcas detection properties.
+
+AaronSte: SFBUG:1687207 - Update Heat so DllRegisterServer captures will work
+          on Windows Vista from an elevated cmd prompt.
+
+PMarcu: Fix for DocCompiler to handle ref attributes in attribute definitions under
+        elements.
+
+BobArnso: Resize and combine some controls to better fit localized strings
+          (affects all UI sets, dialogs UserExit, OutOfRbDiskDlg, OutOfDiskDlg)
+
+Benxing:  Skipping unreal tables when binding transforms to improve patch build 
+          perfomance.
+          Adding active substorage into binder extension to give the ability to 
+          access corresponding transform information.  
+
+JRock: SFBUG:1673425 - Cannot access the VS menu using the alt key
+       SFBUG:1576283 - Unable to enter 'c' or 'm' in proj properties screen fields 
+       SFBUG:1570392 - Project Designer - Index was outside the bounds of the array
+       SFBUG:1566296 - Setting 'Cultures' field in project properties has no effect
+       SFBUG:1576287 - Modifying project properties does not force rebuild
+
+Benxing: Ignore rows without section id in ReduceTransform.
+
+MikeHo: Allow for multiple files to be extracted from chainer.
+
+AaronSte: Adding Visual Studio Team Test project system detection properties.
+
+HeathS: Added extension support to the Validator.
+        Exposed extension support for the Validator through light.exe.
+        Exposed extension support for the Validator through smoke.exe.
+        Exposed multiple .cub file support through smoke.exe.
+
+HeathS: Exposed multiple .cub file support through light.exe.
+        Added a test for the Validator and multiple .cub support in light.exe.
+
+MikeHo: Add error messages for Windows Installer service can't start or Install 
+        blocked by system policy
+
+BobArnso: Add WixQueryOsInfo CA to detect system suite info and "special 
+          folders" as properties over and above the MSI set
+
+BobArnso: Default to removing library rows from decompiled output in 
+          WixUtilExtension
+
+PMarcu: Refactoring patch buld system to use Pyro instead of Light for filtering
+        and binding. Other target patch specific bug fixes are in the mix as well.
+
+PMarcu: Adding more command line options to Pyro, specifically the ones that
+        provide settings for the binder.
+
+PMarcu: Adding error and warning preprocessor instructions.
+
+PMarcu: Fixing an exception thrown when Dark is run and no extensions are defined
+        in the config file or the config file is absent.
+        Also, bug where Customtable columns that are not foreign keys have the
+        keytable attribute defined on the column as keytable="". This results in
+        an invalid table reference to "".
+
+PMarcu: Switching order on Pyro commandline.
+
+Jordanf: Adding support to WixUnit for Pyro. Fixing the qtest patch.minorupgrade
+         to use Pyro.
+
+BrianRe: Added code to detect a namespace prefix that is already in use and if
+         so it will append it with its' position within the "duplicates" for
+         that specific prefix; eg. sql, sql2, sql3, and so on.
+
+RobMen: Add support for PerformanceCounters (including managed code).
+
+FGrohn: Move to Windows Vista SDK.
+
+JRock: SFBUG:1566807 - Display full version in about dialog.
+       SFBUG:1697089 - MSBuild WiX taskscannot resolve WiX tool paths automatically
+       SFBUG:1689830 - Error when using Wix3 when not installed on C drive
+
+Benxing: Handle Sequence tables when building the patch.
+         Don't allow empty patch. 
+
+HeathS: Added an extension for installing PowerShell snap-ins.
+
+PMarcu: Adding Melt as a tool to decompile MSM's to ComponentGroups.
+
+PMarcu: Adding warning for when a non keypath file is updated and the keypath file
+        of that component is not.
+
+Benxing: Adding information into _SummaryInformation table for patch build.
+
+PMarcu: Adding a check to assure no duplicate fragment Id's exist.
+
+JKuhne: Fixing a GC issue with the Validator.  (Locals are rooted until last reference, not
+        end of scope.)
+
+BobArnso: Add DiskId attribute to Directory and DirectoryRef to provide default 
+          DiskId for contained components and files.
+
+MikeHo: Fix language matching in Setup.exe
+
+PMarcu: Making sdut and tsa defaults when passing xo to light.exe
+
+AaronSte: Adding more CSIDL values to WixQueryOsDirs custom action
+
+RobMen: Reverse integrate WiX v2 CustomAction fixes.
+
+BobArnso: Add element-extensibility points to Directory and DirectoryRef.
+
+Jordanf: Add a new test for preprocessor <?warning?> and <?error?>.
+
+Mikeho: Add NewFolder UIText element.
+
+AaronSte: Adding custom actions to run devenv.exe /InstallVSTemplates to the
+          WixVSExtension
+
+BobArnso: Pass directory ID to Directory and DirectoryRef extension elements.
+
+RobMen: Introducing smart-cabbing.
+
+RobMen: SFBUG:1707259 - fix nasty memory violation
+HeathS: Added patch-specific property to identify client patches and
+        if they can be removed.
+
+Mikeho: Fix manifests for setupbld.exe/setup.exe
+
+JordanF: Add the -update option to automatically update a test. Make MSI/MSI
+         validation explicit in the tests.
+
+JRock: Adding back project references to Votive V3! Actually, I'm adding them
+       to the wix.targets MSBuild file to be exact. Votive uses it, but you get
+       the goodness without using Votive also. Basically, this is the feature
+       where if you reference other projects in your Visual Studio solution,
+       you can reference the output of those projects from within your wixproj
+       project. For example, $(var.MyCSharpApp.TargetPath). This will work for
+       any managed project in Visual Studio (at least it does for VC#, VB, and
+       VC++ managed). You have to build from within Visual Studio or from the
+       command line. If you build just the .wixproj, then you won't get the
+       project variables defined.
+       
+       SFBUG:1585281 - Add solution and project variables back to Votive v3
+
+MikeHo: Fix support for more than 10 MSIs/MSTs
+
+JRock: SFBUG:1588291 - Support response files for MSBuild candle/light/lit
+       tasks
+
+BobArnso: Have heat generate a default ComponentGroup when harvesting 
+          directories in a fragment.
+
+JRock: SFBUG:1717966 - Solution Build Issues (build 2911)
+         When a wixproj is the only thing in the solution, the SolutionX
+         variables aren't defined when building within Visual Studio. This
+         is because normally C#/VB define these variables for us. The fix
+         is to define them ourself.
+
+HeathS: SFBUG:1716160 - ICE03 string overflow error, xmlFile
+
+RobMen: SFBUG:1716160 - fix string overflow error for XmlConfig
+
+BrianRe: Fixing wix.xsd to use W3C recognized regular expressions.
+
+PMarcu: Defaulting Media\@Source to a form of the patchId if not specified
+        when Media is a child of a patch.
+
+RobMen: SFBUG:1724535 - correctly integrate a few more fixes from WiX v2 to
+        WiX v3.

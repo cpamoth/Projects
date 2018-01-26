@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2003/11/localization">
+    <String Id="myProp">Localized value of myProp.</String>
+    <String Id="MyTextControlHeight">10</String>
+    <String Id="MyTextControlWidth">10</String>
+    <String Id="MyTextControlX">0</String>
+    <String Id="MyTextControlY">10</String>
+</WixLocalization>

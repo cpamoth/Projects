@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="0D9AA80B-4C6B-473e-A96E-A03935323F27" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{AED6929E-90F8-49e2-A34C-3A25EB75AE16}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\preprocessor.warninganderror\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <?ifndef var0?>
+        <?warning Preprocessor Warning?>
+        <?endif ?>
+
+        <?define var0 = "false" ?>
+
+        <?if $(var.var0) = false ?>
+        <?error Preprocessor Error?>
+        <?endif ?>
+
+    </Product>
+</Wix>

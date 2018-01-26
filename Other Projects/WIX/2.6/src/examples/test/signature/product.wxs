@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestDigitalSigProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test Digital Signature in a Product" Comments="Test from: wix\examples\test\signature\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes"><DigitalCertificate Id="cert" SourceFile="$(env.WIX)\examples\data\test.txt" /></Media>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestDigitalSigProductDirectory" Name="testassm" LongName="Test Binary">
+          <Component Id="TestDigitalSigProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+            <File Id="TestDigitalSigProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestDigitalSigProductFeature" Title="Test Digital Signature Product Feature" Level="1">
+      <ComponentRef Id="TestDigitalSigProductComponent" />
+    </Feature>
+
+  </Product>
+</Wix>

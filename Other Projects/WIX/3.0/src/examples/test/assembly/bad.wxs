@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="15272C15-FE2B-43C8-B008-69D290A8C9E0">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <Component Id="TestAssemblyProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestAssemblyProductFile" Name="assembly.dll" Assembly="win32" AssemblyManifest="TestAssemblyManifest" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                        <File Id="TestAssemblyManifest" Name="assembly.dll.manifest" Source="$(env.WIX)\examples\data\assembly.bad.dll.manifest" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <ComponentRef Id="TestAssemblyProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

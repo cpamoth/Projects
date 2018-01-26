@@ -1,0 +1,38 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>ShellExecute CustomAction</title>
+</head>
+<body>
+<h1>ShellExecute CustomAction</h1>
+
+<p>
+The WixShellExec custom action in wixca (part of WixUtilExtension) lets you open document or URL targets via the Windows shell.
+A common use is to launch readme files or URLs using their registered default applications based on their extension.
+Note that WixShellExecute can only be used as an immediate custom action as it launches an application without waiting for it to close.
+WixShellExec reads its target from the WixShellExecTarget property, formats it, and then calls ShellExecute with the formatted value.
+It uses the default verb, which is usually "open." For more information, see <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/reference/functions/shellexecute.asp">ShellExecute Function</a>.
+</p>
+
+<p>
+Here's how you could use WixShellExecute to launch a readme file based on its File/@Id attribute value using WixUI's support for adding a checkbox to the final dialog:
+</p>
+
+<pre>
+&lt;CustomAction Id="LaunchReadme" BinaryKey="WixCA" DllEntry="WixShellExec" Execute="immediate" Return="check" Impersonate="yes" /&gt;
+&lt;Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Open readme" /&gt;
+&lt;Property Id="WixShellExecTarget" Value="[#readme]" /&gt;
+&lt;UI&gt;
+    &lt;UIRef Id="WixUI_Minimal" /&gt;
+    &lt;Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchReadme" Order="1"&gt;NOT Installed&lt;/Publish&gt;
+&lt;/UI&gt;
+</pre>
+
+<p>
+If you want to run more than one command line in the immediate sequence then you need to schedule WixShellExecute 
+multiple times and set the WixShellExecuteTarget property (using a type 51 custom action) right before you want 
+each of them executed.
+</p>
+
+</body>
+</html>

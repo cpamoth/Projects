@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0021-C000-000000000046" Name="Test Compressed" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{20623708-8876-4B8E-8179-7DF9FEB75018}">
+        <Package Description="Test compressed" Comments="Test multiple media" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="test.cab" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Component Id="TestComponent" Guid="">
+                    <File Id="File1" Name="File1.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" KeyPath="yes" Compressed="no" />
+                    <File Id="File2" Name="File2.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestComponent" />
+        </Feature>
+    </Product>
+</Wix>

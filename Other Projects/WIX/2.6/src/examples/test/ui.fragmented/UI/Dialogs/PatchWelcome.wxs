@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="PatchWelcome">
+    <UI>
+      <Dialog Id="PatchWelcome" Width="374" Height="266" Title="[ProductName] Update Wizard" NoMinimize="yes">
+        <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Update &gt;">
+          <Publish Event="Reinstall" Value="ALL"><![CDATA[PATCH And REINSTALL=""]]></Publish>
+          <Publish Event="ReinstallMode" Value="omus"><![CDATA[PATCH And REINSTALLMODE=""]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Disabled="yes" Text="&lt; &amp;Back">
+          <Publish Event="NewDialog" Value="SplashBitmap"><![CDATA[Display_IsBitmapDlg]]></Publish>
+        </Control>
+        <Control Id="TextLine2" Type="Text" X="135" Y="54" Width="228" Height="82" Transparent="yes">
+          <Text>[ProductName] Update Wizard is about to update your current version of [ProductName] to the latest version. This update process should only take a few moments to complete. During this process the Update Wizard will close all of the active[ProductName] programs then update your version. After the update is complete the Update Wizard will restart [ProductName] and continue protecting your computer. </Text>
+        </Control>
+        <Control Id="DlgLine" Type="Line" X="0" Y="234" Width="374" Height="0" />
+        <Control Id="Image" Type="Bitmap" X="0" Y="0" Width="374" Height="234" Text="NewBinary5" />
+        <Control Id="TextLine1" Type="Text" X="134" Y="9" Width="225" Height="45" Transparent="yes">
+          <Text>{&amp;TahomaBold10}[ProductName] Update Wizard</Text>
+        </Control>
+        <Control Id="Text1" Type="Text" X="135" Y="143" Width="228" Height="20" Property="NewProperty2" Transparent="yes">
+          <Text>To continue, click Update.</Text>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

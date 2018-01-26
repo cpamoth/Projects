@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="product.fragment">
+
+        <DirectoryRef Id="TestFeatureRefProductDirectory">
+            <Component Id="TestFeatureRefProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+                <File Id="TestFeatureRefProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+
+        <Feature Id="TestFeatureRefProductFeature" Title="Test FeatureRef Product Feature" Level="1">
+            <ComponentRef Id="TestFeatureRefProductComponent" />
+        </Feature>
+    </Fragment>
+</Wix>

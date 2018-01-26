@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="product.fragment">
+        <CustomTable Id="TestProductCustomTable">
+            <Column Id="TestProductFirstColumn" Type="string" Width="72" PrimaryKey="yes" />
+            <Column Id="TestProductSecondColumn" Type="int" Width="2" />
+            <Column Id="TestProductThirdColumn" Type="string" Width="255" Nullable="yes" />
+            <Column Id="TestBinaryColumn" Type="binary" Width="0" Nullable="yes" Category="Binary" />
+        </CustomTable>
+    </Fragment>
+</Wix>

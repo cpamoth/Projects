@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="utilextension" default="utilextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    utilextension.build - Builds the utilextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="utilextension.wixext.dir.src" value="${dir.src.ext}\utilextension\wixext" readonly="true" />
+  <property name="utilextension.wixlib.dir.src" value="${dir.src.ext}\utilextension\wixlib" readonly="true" />
+
+  <!-- extension files -->
+  <property name="utilextension.file.util.xsd" value="${utilextension.wixext.dir.src}\Xsd\util.xsd" readonly="true" />
+  <property name="utilextension.file.messages.xml" value="${utilextension.wixext.dir.src}\Data\messages.xml" readonly="true" />
+  <property name="utilextension.file.messages.cs" value="${dir.build.ext.utilextension}\messages.cs" readonly="true" />
+  <property name="utilextension.file.messages.resources" value="${dir.build.ext.utilextension}\messages.resources" readonly="true" />
+  <property name="utilextension.file.util.cs" value="${dir.build.ext.utilextension}\util.cs" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="utilextension.build" description="Peforms a full rebuild (clean then build)" depends="utilextension.clean, utilextension.inc" />
+
+  <!-- Clean -->
+  <target name="utilextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.utilextension}" failonerror="false" if="${directory::exists(dir.build.ext.utilextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixUtilExtension.dll" />
+        <include name="WixUtilExtension.pdb" />
+        <include name="util.wixlib" />
+        <include name="util.xsd" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="utilextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the xsd file to the target directory -->
+    <copy file="${utilextension.wixext.dir.src}\Xsd\util.xsd" todir="${dir.target.wix}" />
+
+    <!-- Flatten all of the xml/xsd files -->
+    <foreach item="File" property="flattenxml.source">
+      <in>
+        <items>
+          <include name="${utilextension.wixext.dir.src}\Data\tables.xml" />
+          <include name="${utilextension.file.util.xsd}" />
+        </items>
+      </in>
+      <do>
+        <property name="flattenxml.target" value="${dir.build.ext.utilextension}\${path::get-file-name(flattenxml.source)}" />
+        <call target="flattenXml" />
+      </do>
+    </foreach>
+
+    <!-- Compile the messages.xml into the Message.cs class -->
+    <exec program="${tool.msggen}" unless="${file::up-to-date(utilextension.file.messages.xml,utilextension.file.messages.cs)}">
+      <arg value="-nologo" />
+      <arg value="${utilextension.wixext.dir.src}\Data\messages.xml" />
+      <arg value="${utilextension.file.messages.cs}" />
+      <arg value="${utilextension.file.messages.resources}" />
+    </exec>
+
+    <!-- Compile the xsd file into the cs file -->
+    <exec program="${tool.xsdgen}" unless="${file::up-to-date(utilextension.file.util.xsd,utilextension.file.util.cs)}">
+      <arg value="${utilextension.wixext.dir.src}\Xsd\util.xsd" />
+      <arg value="${utilextension.file.util.cs}" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.Util" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Serialize" />
+    </exec>
+
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Build the wixlib -->
+    <candle out="${dir.build.ext.utilextension}\util.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+      <defines>
+        <define name="caerrwxi" value="${file.target.caerr.wxi}" />
+        <define name="scaschedDll" value="${file.target.scasched}" />
+        <define name="scaexecDll" value="${file.target.scaexec}" />
+        <define name="wixcadll" value="${file.target.wixca}" />
+      </defines>
+      <sources basedir="${utilextension.wixlib.dir.src}">
+        <include name="UtilExtension.wxs" />
+      </sources>
+    </candle>
+    <lit out="${dir.target.wix}\util.wixlib" exedir="${dir.target.wix}" bindfiles="true" warningsaserrors="true">
+      <localizations failonempty="true" basedir="${utilextension.wixlib.dir.src}">
+        <include name="en-us.wxl" />
+      </localizations>
+      <sources basedir="${dir.build.ext.utilextension}">
+        <include name="util.wixobj" />
+      </sources>
+    </lit>
+
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixUtilExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${utilextension.wixext.dir.src}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyHarvester.cs" />
+        <include name="AssemblyInfo.cs" />
+        <include name="DirectoryHarvester.cs" />
+        <include name="DllHarvester.cs" />
+        <include name="FeedBuilder.cs" />
+        <include name="FileHarvester.cs" />
+        <include name="NativeMethods.cs" />
+        <include name="RegistryHarvester.cs" />
+        <include name="SetupExeBuilder.cs" />
+        <include name="TypeLibraryHarvester.cs" />
+        <include name="UtilCompiler.cs" />
+        <include name="UtilDecompiler.cs" />
+        <include name="UtilExtension.cs" />
+        <include name="UtilFinalizeHarvesterMutator.cs" />
+        <include name="UtilHarvesterMutator.cs" />
+        <include name="UtilHeatExtension.cs" />
+        <include name="UtilMutator.cs" />
+        <include name="${utilextension.file.messages.cs}" />
+        <include name="${utilextension.file.util.cs}" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="heat.exe" />
+        <include name="wix.dll" />
+      </references>
+      <!-- Embed the xml/xsd files into the assembly -->
+      <resources failonempty="true" basedir="${dir.build.ext.utilextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Xsd">
+        <include name="util.xsd" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.build.ext.utilextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="Messages.resources" />
+        <include name="tables.xml" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.target.wix}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="util.wixlib" />
+      </resources>
+    </csc>
+  </target>
+
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix RequiredVersion="2.0.0000.0" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="000C1109-0000-0021-C000-000000000046" Name="TestMSBuildProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E062397D-DC16-4205-8783-6F8C8AD64909}">
+    <Package Description="Test MSBuild Product" Comments="Test from: wix\examples\test\msbuild.light\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Binary Id="cert" SourceFile="$(env.WIX)\examples\data\msftroot.cer" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <!-- test the ability to specify a variable solely from the commandline -->
+    <Property Id="CommandLineProperty" Value="!(wix.CommandLineVariable)" />
+
+    <FeatureRef Id="TestWebSiteProductFeature" />
+  </Product>
+</Wix>

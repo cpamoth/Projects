@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<!--
+This is a qtest for if logic.
+Specifically, this excercises:
+	scoping
+	short-circuiting
+	nesting
+
+If one of the wrong branches is taken then compilation should fail due to the invalid component id's.
+-->
+
+<?define variable=1?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <Product Id="F73522A2-EBF6-436F-8C89-178902306EE7" Name="Server Test" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{75EEE662-07EB-4EE1-9F3C-66167D8261ED}">
+        <Package Description="Server Test" Comments="Server Test" InstallerVersion="200" Compressed="yes" />
+
+        <Feature Id="fake" Level="1">
+            <ComponentRef Id="a0" />
+            <ComponentRef Id="a1" />
+            <ComponentRef Id="a2" />
+            <ComponentRef Id="a3" />
+            <ComponentRef Id="a4" />
+        </Feature>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="a0" KeyPath="yes" Guid="" />
+            <?ifdef variable?>
+            <Component Id="a1" KeyPath="yes" Guid="" />
+            <?ifndef variable?>
+            <Component Id="Error: variable is undefined!" Guid="" />
+            <?elseif 1=1?>
+            <?if 5=5?>
+            <Component Id="a2" KeyPath="yes" Guid="" />
+            <?else ?>
+            <Component Id="Error: Triple-nested problem!!" Guid="" />
+            <?endif ?>
+            <?elseif 4=1?>
+            <Component Id="4 does not equal 1!" Guid="" />
+            <?elseif 1=1?>
+            <Component Id="Error: Short-circuiting is broken in elseif!" Guid="" />
+            <?else ?>
+            <Component Id="Error: Short-circuiting is broken in else!" Guid="" />
+            <?endif ?>
+            <Component Id="a3" KeyPath="yes" Guid="" />
+            <?else ?>
+            <Component Id="Error: variable is undefined!" Guid="" />
+            <?if 2=2?>
+            <Component Id="Error: This is not supposed to be active1!" Guid="" />
+            <?elseif 1=1?>
+            <Component Id="Error: This is not supposed to be active2!" Guid="" />
+            <?else ?>
+            <Component Id="Error: This is not supposed to be active3!" Guid="" />
+            <?endif ?>
+            <?endif ?>
+            <Component Id="a4" KeyPath="yes" Guid="" />
+        </Directory>
+    </Product>
+
+</Wix>
+

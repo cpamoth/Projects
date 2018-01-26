@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="OutOfSpace">
+        <UI>
+            <Dialog Id="OutOfSpace" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+                <Control Id="Resume" Type="PushButton" X="301" Y="243" Width="66" Height="17" Default="yes" Cancel="yes" Text="OK">
+                    <Publish Event="NewDialog" Value="CustomSetup"><![CDATA[ACTION <> "ADMIN"]]></Publish>
+                    <Publish Event="NewDialog" Value="AdminNetworkLocation"><![CDATA[ACTION = "ADMIN"]]></Publish>
+                </Control>
+                <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+                    <Text>Disk space required for the installation exceeds available disk space.</Text>
+                </Control>
+                <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Out of Disk Space</Text>
+                </Control>
+                <Control Id="DlgText" Type="Text" X="21" Y="51" Width="326" Height="43">
+                    <Text>The highlighted volumes do not have enough disk space available for the currently selected features. You can remove files from the highlighted volumes, choose to install less features onto local drives, or select different destination drives.</Text>
+                </Control>
+                <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+                <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+                <Control Id="List" Type="VolumeCostList" X="21" Y="95" Width="332" Height="120" Sunken="yes" Fixed="yes" Remote="yes">
+                    <Text>{120}{70}{70}{70}{70}</Text>
+                </Control>
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

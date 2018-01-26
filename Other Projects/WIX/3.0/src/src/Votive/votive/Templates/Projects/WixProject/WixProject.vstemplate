@@ -1,0 +1,18 @@
+<VSTemplate Version="2.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>WiX Project</Name>
+    <Description>A project for creating a WiX-based Windows Installer MSI file</Description>
+    <Icon>WixProject.ico</Icon>
+    <ProjectType>WiX</ProjectType>
+    <SortOrder>20</SortOrder>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>WixProject</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="WixProject.wixproj" TargetFileName="$safeprojectname$.wixproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="$safeprojectname$.wxs">Product.wxs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

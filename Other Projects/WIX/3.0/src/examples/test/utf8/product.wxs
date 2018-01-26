@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestStreamsProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" Codepage="65001" UpgradeCode="{032D4CC2-5F6B-4D36-9EC6-988CC13FC8B4}">
+        <Package Description="Test Streams in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="testComponent" Guid="000C1109-0000-0000-C000-000000000046" DiskId="1">
+                <File Id="testFile" KeyPath="yes" Name="testFile.txt" Source="$(env.WIX)\examples\data\test.txt" />
+            </Component>
+        </Directory>
+
+        <Feature Id="testFeature" Level="1">
+            <ComponentRef Id="testComponent" />
+        </Feature>
+
+        <Media Id="1" Cabinet="test.cab" EmbedCab="yes" />
+
+        <Binary Id="test_stream" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+    </Product>
+</Wix>

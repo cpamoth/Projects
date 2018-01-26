@@ -1,0 +1,49 @@
+<project name="Update Example properties" default="makedirs" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    wix.include - Contains properties for the NAnt builds.
+    2006.11.22 jjames Created
+  </description>
+
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <property name="dir.src.update" value="${dir.wixroot}\examples\test\update" readonly="true" />
+  <property name="dir.build.update" value="${dir.build.wix}\update" readonly="true" />
+  <property name="dir.target.update" value="${dir.target.wix}\update" readonly="true" />
+
+  <property name="dir.src.update.shared" value="${dir.src.update}\shared" readonly="true" />
+  <property name="dir.src.update.bin" value="${dir.src.update}\bin" readonly="true" />
+  <property name="dir.src.update.products" value="${dir.src.update}\products" readonly="true" />
+  <property name="dir.src.update.smallupdates" value="${dir.src.update}\smallupdates" readonly="true" />
+  <property name="dir.src.update.minorupgrades" value="${dir.src.update}\minorupgrades" readonly="true" />
+
+  <property name="update.products" value="a b c" readonly="true" />
+  <property name="update.products.delim" value=" " readonly="true" />
+
+  <property name="update.patches.smallupdate" value="z y x" readonly="true" />
+  <property name="update.patches.delim" value=" " readonly="true" />
+
+  <property name="update.versions.delim" value=" " readonly="true" />
+  <property name="update.versions.smallupdate.1.0" value="1.1 1.2" readonly="true" />
+  <property name="update.versions.smallupdate.2.0" value="2.1 2.2" readonly="true" />
+  <property name="update.versions.multi" value="1 2" readonly="true" />
+  <property name="update.versions.smallupdate" value="${update.versions.smallupdate.1.0} ${update.versions.smallupdate.2.0}" readonly="true" />
+  <property name="update.versions.minorupgrade" value="2.0 3.0" readonly="true" />
+  <property name="update.versions.patches" value="${update.versions.smallupdate} ${update.versions.minorupgrade}" readonly="true" />
+  <property name="update.versions.baselines" value="1.0 ${update.versions.minorupgrade}" readonly="true" />
+  <property name="update.versions" value="1.0 ${update.versions.patches}" readonly="true" />
+
+  <target name="dirs" description="make directories">
+    <foreach item="String" in="${update.versions}" delim=" " property="Version">
+      <mkdir dir="${dir.build.update}\${Version}" />
+      <mkdir dir="${dir.target.update}\${Version}" />
+      <foreach item="String" in="${update.versions.baselines}" delim=" " property="BaselineVersion">
+        <mkdir dir="${dir.build.update}\${Version}\${BaselineVersion}" />
+        <mkdir dir="${dir.target.update}\${Version}\${BaselineVersion}" />
+      </foreach>
+    </foreach>
+  </target>
+
+  <loadtasks assembly="${file.nanttasks}" />
+  <property name="update.properties.defined" value="1" readonly="true" />
+</project>
+

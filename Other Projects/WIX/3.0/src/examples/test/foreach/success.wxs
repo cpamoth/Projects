@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This is a qtest for foreach.  It just makes sure its working.
+-->
+<?define LcidList=1033;1041;1055?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="F73522A2-EBF6-436F-8C89-178902306EE7" Name="ForEach Test" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="5266F501-EAEC-4775-A9D8-2DD76A23AF36">
+        <Package Description="ForEach Test" Comments="Server Test" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Feature Id="TheFeature" Level="1">
+            <ComponentRef Id="MyComponent_1033" />
+            <ComponentRef Id="MyComponent_1041" />
+            <ComponentRef Id="MyComponent_1055" />
+        </Feature>
+    </Product>
+
+    <Fragment Id="Hold directory">
+        <Directory Id="TARGETDIR" Name="SourceDir" />
+    </Fragment>
+
+    <?foreach LCID in $(abc.LcidList)?>
+    <Fragment Id="Fragment.$(var.LCID)">
+        <DirectoryRef Id="TARGETDIR" >
+            <Directory Id="LangDir_$(var.LCID)" Name="$(var.LCID)" FileSource="$(env.WIX)\examples\data">
+                <Component Id="MyComponent_$(var.LCID)" Guid="">
+                    <File Id="TestFileProductFile_$(var.LCID)" Name="test.txt" KeyPath="yes" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <?endforeach ?>
+</Wix>
+

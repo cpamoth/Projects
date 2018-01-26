@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestStandardSpecialProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestStandardSpecialProductDirectory" Name="testassm" LongName="Test Assembly">
+          <Component Id="TestStandardSpecialProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+            <File Id="TestStandardSpecialProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestStandardSpecialProductFeature" Title="Test Standard Special Action Product Feature" Level="1">
+      <ComponentRef Id="TestStandardSpecialProductComponent" />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <CCPSearch />
+    </InstallExecuteSequence>
+  </Product>
+</Wix>

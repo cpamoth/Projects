@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="CustomerInformation">
+        <UI>
+            <Dialog Id="CustomerInformation" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+                <Control Id="NameEdit" Type="Edit" X="21" Y="63" Width="237" Height="17" Property="USERNAME" Text="{\Tahoma8}{50}" />
+                <Control Id="CompanyLabel" Type="Text" X="21" Y="89" Width="75" Height="10" TabSkip="no" Text="&amp;Organization:" />
+                <Control Id="CompanyEdit" Type="Edit" X="21" Y="100" Width="237" Height="17" Property="COMPANYNAME" Text="{\Tahoma8}{80}" />
+                <Control Id="SerialLabel" Type="Text" X="21" Y="127" Width="109" Height="10" Hidden="yes" TabSkip="no" Text="&amp;Serial Number:">
+                    <Condition Action="show"><![CDATA[SERIALNUMSHOW]]></Condition>
+                </Control>
+                <Control Id="SerialNumber" Type="MaskedEdit" X="21" Y="138" Width="237" Height="17" Property="ISX_SERIALNUM" Hidden="yes">
+                    <Condition Action="show"><![CDATA[SERIALNUMSHOW]]></Condition>
+                </Control>
+                <Control Id="RadioGroup" Type="RadioButtonGroup" X="63" Y="170" Width="300" Height="50" Property="ApplicationUsers">
+                    <RadioButtonGroup Property="ApplicationUsers">
+                        <RadioButton Value="AllUsers" X="1" Y="7" Width="290" Height="14" Text="&amp;Anyone who uses this computer (all users)" />
+                        <RadioButton Value="OnlyCurrentUser" X="1" Y="23" Width="290" Height="14" Text="Only for &amp;me ([USERNAME])" />
+                    </RadioButtonGroup>
+                    <Condition Action="hide"><![CDATA[NOT Privileged]]></Condition>
+                    <Condition Action="hide"><![CDATA[ProductState > 0]]></Condition>
+                    <Condition Action="hide"><![CDATA[Version9X]]></Condition>
+                </Control>
+                <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+                    <Publish Event="NewDialog" Value="LicenseAgreement"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Next &gt;">
+                    <Publish Property="ALLUSERS" Value="1"><![CDATA[ApplicationUsers = "AllUsers" And Privileged]]></Publish>
+                    <Publish Property="ALLUSERS" Value="{}"><![CDATA[ApplicationUsers = "OnlyCurrentUser" And Privileged]]></Publish>
+                    <Publish Event="EndDialog" Value="Exit"><![CDATA[(SERIALNUMVALRETRYLIMIT) And (SERIALNUMVALRETRYLIMIT<0) And (SERIALNUMVALRETURN<>SERIALNUMVALSUCCESSRETVAL)]]></Publish>
+                    <Publish Event="NewDialog" Value="SetupType"><![CDATA[(Not SERIALNUMVALRETURN) OR (SERIALNUMVALRETURN=SERIALNUMVALSUCCESSRETVAL)]]></Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="NameLabel" Type="Text" X="21" Y="52" Width="75" Height="10" TabSkip="no" Text="&amp;User Name:" />
+                <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+                    <Text>Please enter your information.</Text>
+                </Control>
+                <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Customer Information</Text>
+                </Control>
+                <Control Id="DlgRadioGroupText" Type="Text" X="21" Y="161" Width="300" Height="14">
+                    <Text>Install this application for:</Text>
+                    <Condition Action="hide"><![CDATA[NOT Privileged]]></Condition>
+                    <Condition Action="hide"><![CDATA[ProductState > 0]]></Condition>
+                    <Condition Action="hide"><![CDATA[Version9X]]></Condition>
+                </Control>
+                <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+                <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

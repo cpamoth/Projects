@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="2EF02D13-E778-40AE-B032-7CF57A0E3A66" Name="TestCertProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestSslWebSiteProductDirectory" Name="testassm" LongName="Test Assembly">
+          <Component Id="TestCertProductComponent" Guid="EDE40F4A-2360-4D5E-9D26-7ED058763454">
+            <File Id="TestHtmlPage" Name="default.htm" KeyPath="yes" DiskId="1" Source="$(env.WIX20)\examples\data\default.htm" />
+            <Certificate Id="TestCertificate" Name="Meschine Head" StoreLocation="localMachine" StoreName="my" BinaryKey="MyCertificate" PFXPassword="pass@word1" />
+
+            <WebSite Id="Test" Description="Test web server" Directory="TestSslWebSiteProductDirectory" AutoStart="yes" DirProperties="ReadOnly" ConfigureIfExists="yes">
+              <WebAddress Id="TestAddress" Port="80" Secure="no" />
+              <WebAddress Id="TestAddressSecure" Port="443" Secure="yes" />
+
+              <CertificateRef Id="TestCertificate" />
+            </WebSite>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestCertProductFeature" Title="Test Certificate Product Feature" Level="1">
+      <ComponentRef Id="TestCertProductComponent" />
+    </Feature>
+
+    <WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" AccessSSL="yes" />
+
+    <!-- note this Certificate does not actually work as an SSL Cert so the installed web site will not work -->
+    <Binary Id="MyCertificate" SourceFile="$(env.WIX20)\examples\data\example.cer"/>
+  </Product>
+</Wix>

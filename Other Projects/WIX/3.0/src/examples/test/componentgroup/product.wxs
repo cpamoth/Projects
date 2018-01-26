@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="12345678-1234-1234-1234-123456789012" Name="TestComponentGroup" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{4075334D-F46F-41B9-AE51-56B5B5252DCD}">
+        <Package Description="My first Windows Installer package" Comments="Test from: wix\examples\test\componentgroup\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="MyDir" ShortName="TestProg" Name="Test Program">
+                    <Directory Id="Component1Directory" Name=".">
+                        <Component Id="Component1" Guid="12345678-1234-1234-1234-123456789001">
+                            <File Id="Test_txt2" Name="test2.txt" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\test.txt" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="Component2Directory" Name="MyDir2" />
+                    <Directory Id="Component3Directory" Name="MyDir3" />
+                    <Directory Id="Component4Directory" Name="MyDir4" />
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="Feature1" Title="Feature 1" Level="1">
+            <ComponentRef Id="Component1" />
+            <ComponentGroupRef Id="ComponentGroup1" Primary="yes" />
+        </Feature>
+        <Feature Id="Feature2" Title="Feature 2" Level="1">
+            <ComponentRef Id="Component2" />
+            <ComponentGroupRef Id="ComponentGroup1" Primary="no" />
+        </Feature>
+    </Product>
+
+    <Fragment>
+        <ComponentGroup Id="ComponentGroup1">
+            <ComponentRef Id="Component3" />
+            <ComponentRef Id="Component4" />
+        </ComponentGroup>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="Component2Directory">
+            <Component Id="Component2" Guid="12345678-1234-1234-1234-123456789002">
+                <File Id="Test_TXT" Name="test.txt" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\test.txt" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="Component3Directory">
+            <Component Id="Component3" Guid="12345678-1234-1234-1234-123456789003">
+                <File Id="ReadMe" Name="readme.txt" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\readme.txt">
+                    <Shortcut Id="TestShortcutComponentGroupNesting" Directory="Component3Directory" ShortName="testcut" Name="Test Shortcut" Description="Shortcut to readme.txt" Advertise="yes" />
+                </File>
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="Component4Directory">
+            <Component Id="Component4" Guid="12345678-1234-1234-1234-123456789004">
+                <File Id="MultiLine" Name="multiln.txt" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\multiline.txt" />
+                <Category Id="939FBC74-6CDA-45DA-8D00-BCBD24B22087" Qualifier="1041" AppData="AppData1041" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+</Wix>

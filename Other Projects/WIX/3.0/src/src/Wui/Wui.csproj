@@ -1,0 +1,101 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{43175B3B-5440-4556-8BAD-2C322153D96F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml</RootNamespace>
+    <AssemblyName>wui</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="AssemblyDefaultClickThroughUIAttribute.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="BrowsePathStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BrowsePathStep.Designer.cs">
+      <DependentUpon>BrowsePathStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuildStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BuildStep.Designer.cs">
+      <DependentUpon>BuildStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClickThroughUIExtension.cs" />
+    <Compile Include="FeedStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FeedStep.Designer.cs">
+      <DependentUpon>FeedStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="PackageInfoStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PackageInfoStep.Designer.cs">
+      <DependentUpon>PackageInfoStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PickEntryStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PickEntryStep.Designer.cs">
+      <DependentUpon>PickEntryStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateInfoStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UpdateInfoStep.Designer.cs">
+      <DependentUpon>UpdateInfoStep.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="BrowsePathStep.resx">
+      <DependentUpon>BrowsePathStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BuildStep.resx">
+      <DependentUpon>BuildStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStep.resx">
+      <DependentUpon>FeedStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PackageInfoStep.resx">
+      <DependentUpon>PackageInfoStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PickEntryStep.resx">
+      <DependentUpon>PickEntryStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateInfoStep.resx">
+      <DependentUpon>UpdateInfoStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Import Project="..\..\WixBuild.Common.targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+
+    <Reference Include="$(OutputPath)heat.exe" />
+    <Reference Include="$(OutputPath)wix.dll" />
+  </ItemGroup>
+</Project>

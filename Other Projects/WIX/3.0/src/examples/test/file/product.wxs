@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F400B367-33CF-429E-B571-0FDCF253ABC2}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        <Media Id="2" Cabinet="product2.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="FontsFolder" Name="Fonts" FileSource="$(env.WIX)\examples\data" DiskId="1">
+                <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046" DisableRegistryReflection="yes">
+                    <File Id="TestFileProductFile" Name="test.txt" KeyPath="yes" />
+                    <File Id="TestFileProductFile1" Name="tst.txt1" Source="$(env.WIX)\examples\data\test.txt" SelfRegCost="0" />
+                    <File Id="TestFileProductFile2" Name=".t" Source="$(env.WIX)\examples\data\test.txt" SelfRegCost="1234" DiskId="2" />
+                    <File Id="TestFileProductFile3" ShortName="!(loc.shortFile)" Name="!(loc.file)" Source="$(env.WIX)\examples\data\test.txt" FontTitle="MyFontTitle" />
+                    <File Id="TestFileProductFile4" Name="!(loc.FILE)" Source="$(env.WIX)\examples\data\test.txt" TrueType="yes" />
+                    <File Id="TestFileProductFile5" Name="test4.s p a c e s" Source="$(env.WIX)\examples\data\test.txt" />
+                </Component>
+                <Component Id="Test2" Guid="{8A9186C4-C91C-4aa4-A96A-EBF14D61CE82}">
+                    <CreateFolder />
+                    <Shortcut Id="TestShortcut" Name="The shortcut name" Directory="TestFolder" />
+                </Component>
+            </Directory>
+            <Directory Id="TestFolder" Name="foo" DiskId="2">
+                <Directory Id="TestSubFolder" Name="bar" FileSource="$(env.WIX)\examples\data">
+                    <Component Id="Test3" Guid="{9B5249ED-6B25-47E8-95AF-5553EE95FAB2}">
+                        <File Id="TestFileProductFile6" Name="test.txt" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+            <ComponentRef Id="Test2" />
+            <ComponentRef Id="Test3" />
+        </Feature>
+    </Product>
+</Wix>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="wixca" default="wixca.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    wixca.build - Builds the WiX custom actions dll (wixca.dll).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- wixca-specific properties -->
+  <property name="wixca.file.target" value="${dir.target.wix}\wixca.dll" readonly="true" />
+  <property name="wixca.file.targetpdb" value="${dir.target.wix}\wixca.pdb" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="wixca.build" description="Peforms a full rebuild (clean then build)" depends="wixca.clean, wixca.inc" />
+  
+  <!-- Clean -->
+  <target name="wixca.clean" description="Cleans the build">
+    <delete dir="${dir.build.wixca}" failonerror="false" if="${directory::exists(dir.build.wixca)}" />
+    <delete file="${wixca.file.target}" failonerror="false" if="${file::exists(wixca.file.target)}" />
+    <delete file="${wixca.file.targetpdb}" failonerror="false" if="${file::exists(wixca.file.targetpdb)}" />
+  </target>
+
+  <!-- Inc -->
+  <target name="wixca.inc" description="Performs an incremental build" depends="makeDirs">
+    <fileset id="compileCpp.fileset.sources" basedir="${dir.src.ca.wixca.dll}">
+      <include name="cacleanup.cpp" />
+      <include name="CheckReboot.cpp" />
+      <include name="CloseApps.cpp" />
+      <include name="osinfo.cpp" />
+      <include name="qtexecca.cpp" />
+      <include name="secureobj.cpp" />
+      <include name="serviceconfig.cpp" />
+      <include name="shellexecca.cpp" />
+      <include name="wixca.cpp" />
+      <include name="XmlFile.cpp" />
+      <include name="XmlConfig.cpp" />
+    </fileset>
+    <property name="compileCpp.dir.build" value="${dir.build.wixca}" />
+    <property name="compileCpp.file.precomp.h" value="${dir.src.ca.wixca.dll}\precomp.h" />
+    <property name="compileCpp.file.rc" value="${dir.src.ca.wixca.dll}\wixca.rc" />
+    <property name="compileCpp.additionalOptions" value="/I &quot;${dir.src.wcautil}&quot;"/>
+    <property name="makeNativeDll.file.target" value="${wixca.file.target}" />
+    <property name="makeNativeDll.file.def" value="${dir.src.ca.wixca.dll}\wixca.def" />
+    <property name="makeNativeDll.additionalLibs" value="&quot;${file.target.wcautil}&quot; &quot;${file.target.dutil}&quot; &quot;${dir.platformsdk.lib}\msi.lib&quot; &quot;${dir.platformsdk.lib}\comdlg32.lib&quot; &quot;${dir.platformsdk.lib}\gdi32.lib&quot; &quot;${dir.platformsdk.lib}\psapi.lib&quot; &quot;${dir.platformsdk.lib}\shell32.lib&quot;" />
+
+    <!-- Make SetupBuilder.dll -->
+    <call target="makeNativeDll" />
+  </target>
+
+</project>

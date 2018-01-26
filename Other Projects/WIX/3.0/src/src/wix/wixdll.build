@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="wixdll" default="wixdll.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    wixdll.build - Builds the Wix project (wix.dll).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- Wix directories -->
+  <property name="wixdll.dir.cab" value="${dir.src.wixdll}\Cab" readonly="true" />
+  <property name="wixdll.dir.cabInterop" value="${wixdll.dir.cab}\Interop" readonly="true" />
+  <property name="wixdll.dir.clrInterop" value="${dir.src.wixdll}\CLR\Interop" readonly="true" />
+  <property name="wixdll.dir.data" value="${dir.src.wixdll}\Data" readonly="true" />
+  <property name="wixdll.dir.exceptions" value="${dir.src.wixdll}\Exceptions" readonly="true" />
+  <property name="wixdll.dir.fileSystem" value="${dir.src.wixdll}\FileSystem" readonly="true" />
+  <property name="wixdll.dir.fileSystemInterop" value="${wixdll.dir.fileSystem}\Interop" readonly="true" />
+  <property name="wixdll.dir.msi" value="${dir.src.wixdll}\Msi" readonly="true" />
+  <property name="wixdll.dir.msiInterop" value="${wixdll.dir.msi}\Interop" readonly="true" />
+  <property name="wixdll.dir.serialize" value="${dir.src.wixdll}\Serialize" readonly="true" />
+  <property name="wixdll.dir.xsd" value="${dir.src.wixdll}\Xsd" readonly="true" />
+
+  <!-- Wix files -->
+  <property name="wixdll.file.messagesCs" value="${dir.build.wixdll}\Messages.cs" readonly="true" />
+  <property name="wixdll.file.messagesResources" value="${dir.build.wixdll}\messages.resources" readonly="true" />
+  <property name="wixdll.file.wixCs" value="${dir.build.wixdll}\wix.cs" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="wixdll.build" description="Peforms a full rebuild (clean then build)" depends="wixdll.clean, wixdll.inc" />
+
+  <!-- Clean -->
+  <target name="wixdll.clean" description="Cleans the build">
+    <delete dir="${dir.build.wixdll}" failonerror="false" if="${directory::exists(dir.build.wixdll)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+        <include name="wix.pdb" />
+        <include name="wix.xml" />
+        <include name="wix.xsd" />
+        <include name="wixloc.xsd" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="wixdll.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the xsd files to the target directory -->
+    <copy todir="${dir.target.wix}">
+      <fileset basedir="${wixdll.dir.xsd}">
+        <include name="wix.xsd" />
+        <include name="wixloc.xsd" />
+      </fileset>
+    </copy>
+
+    <!-- Flatten all of the xml/xsd files -->
+    <foreach item="File" property="flattenxml.source">
+      <in>
+        <items>
+          <include name="${wixdll.dir.data}\actions.xml" />
+          <include name="${wixdll.dir.xsd}\actions.xsd" />
+          <include name="${wixdll.dir.xsd}\libraries.xsd" />
+          <include name="${wixdll.dir.data}\tables.xml" />
+          <include name="${wixdll.dir.xsd}\tables.xsd" />
+          <include name="${wixdll.dir.xsd}\objects.xsd" />
+          <include name="${wixdll.dir.xsd}\outputs.xsd" />
+          <include name="${wixdll.dir.xsd}\wix.xsd" />
+          <include name="${wixdll.dir.xsd}\wixloc.xsd" />
+        </items>
+      </in>
+      <do>
+        <property name="flattenxml.target" value="${dir.build.wixdll}\${path::get-file-name(flattenxml.source)}" />
+        <call target="flattenXml" />
+      </do>
+    </foreach>
+
+    <!-- Compile the messages.xml into the Message.cs class -->
+    <if test="${not file::up-to-date(path::combine(wixdll.dir.data, 'messages.xml'), wixdll.file.messagesCs)}">
+      <exec program="${tool.msggen}">
+        <arg value="-nologo" />
+        <arg value="${wixdll.dir.data}\messages.xml" />
+        <arg value="${wixdll.file.messagesCs}" />
+        <arg value="${wixdll.file.messagesResources}" />
+      </exec>
+    </if>
+
+    <!-- Compile the wix.xsd file into the wix.cs class -->
+    <if test="${not file::up-to-date(path::combine(wixdll.dir.xsd, 'wix.xsd'), wixdll.file.wixCs)}">
+      <exec program="${tool.xsdgen}">
+        <arg value="${wixdll.dir.xsd}\wix.xsd" />
+        <arg value="${wixdll.file.wixCs}" />
+        <arg value="Microsoft.Tools.WindowsInstallerXml.Serialize" />
+      </exec>
+    </if>
+
+    <!-- Build the wix.dll -->
+    <csc
+      target="library"
+      output="${dir.target.wix}\wix.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      doc="${dir.target.wix}\wix.xml"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <nowarn>
+        <!-- Missing XML comment for publicly visible type or member 'x' -->
+        <warning number="1591" />
+      </nowarn>
+      <sources basedir="${dir.src.wixdll}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="${wixdll.file.messagesCs}" />
+        <include name="${wixdll.file.wixCs}" />
+        <include name="AppCommon.cs" />
+        <include name="AssemblyDefaultWixExtensionAttribute.cs" />
+        <include name="AssemblyDefaultFabricatorExtensionAttribute.cs" />
+        <include name="AssemblyInfo.cs" />
+        <include name="BBControlRow.cs" />
+        <include name="Binder.cs" />
+        <include name="BinderExtension.cs" />
+        <include name="CabinetBuilder.cs" />
+        <include name="CabinetWorkItem.cs" />
+        <include name="ColumnDefinition.cs" />
+        <include name="ColumnDefinitionCollection.cs" />
+        <include name="Common.cs" />
+        <include name="Compiler.cs" />
+        <include name="CompilerCore.cs" />
+        <include name="CompilerExtension.cs" />
+        <include name="ConnectToFeature.cs" />
+        <include name="ConnectToFeatureCollection.cs" />
+        <include name="ConnectToModule.cs" />
+        <include name="ConnectToModuleCollection.cs" />
+        <include name="ControlRow.cs" />
+        <include name="Decompiler.cs" />
+        <include name="DecompilerCore.cs" />
+        <include name="DecompilerExtension.cs" />
+        <include name="Differ.cs" />
+        <include name="ExtensionMessages.cs" />
+        <include name="Fabricator.cs" />
+        <include name="FabricatorCore.cs" />
+        <include name="Field.cs" />
+        <include name="FileRow.cs" />
+        <include name="FileRowCollection.cs" />
+        <include name="Harvester.cs" />
+        <include name="HarvesterCore.cs" />
+        <include name="HarvesterExtension.cs" />
+        <include name="IExtensionMessageHandler.cs" />
+        <include name="IfContext.cs" />
+        <include name="IMessageHandler.cs" />
+        <include name="Intermediate.cs" />
+        <include name="Librarian.cs" />
+        <include name="Library.cs" />
+        <include name="Linker.cs" />
+        <include name="Localization.cs" />
+        <include name="Localizer.cs" />
+        <include name="MediaRow.cs" />
+        <include name="MediaRowCollection.cs" />
+        <include name="Melter.cs" />
+        <include name="MelterCore.cs" />
+        <include name="MessageEventArgs.cs" />
+        <include name="MessageHandler.cs" />
+        <include name="Mutator.cs" />
+        <include name="MutatorCore.cs" />
+        <include name="MutatorExtension.cs" />
+        <include name="ObjectField.cs" />
+        <include name="Output.cs" />
+        <include name="Patch.cs" />
+        <include name="PatchTransform.cs" />
+        <include name="Preprocessor.cs" />
+        <include name="PreprocessorCore.cs" />
+        <include name="PreprocessorExtension.cs" />
+        <include name="Row.cs" />
+        <include name="RowCollection.cs" />
+        <include name="Section.cs" />
+        <include name="SectionCollection.cs" />
+        <include name="SourceLineNumber.cs" />
+        <include name="SourceLineNumberCollection.cs" />
+        <include name="SubStorage.cs" />
+        <include name="Symbol.cs" />
+        <include name="SymbolCollection.cs" />
+        <include name="Table.cs" />
+        <include name="TableCollection.cs" />
+        <include name="TableDefinition.cs" />
+        <include name="TableDefinitionCollection.cs" />
+        <include name="Unbinder.cs" />
+        <include name="UpgradeRow.cs" />
+        <include name="Uuid.cs" />
+        <include name="Validator.cs" />
+        <include name="ValidatorExtension.cs" />
+        <include name="VerboseEventArgs.cs" />
+        <include name="WarningEventArgs.cs" />
+        <include name="WixActionRow.cs" />
+        <include name="WixActionRowCollection.cs" />
+        <include name="WixComplexReferenceRow.cs" />
+        <include name="WixExtension.cs" />
+        <include name="WixFileRow.cs" />
+        <include name="WixMediaRow.cs" />
+        <include name="WixMergeRow.cs" />
+        <include name="WixPropertyRow.cs" />
+        <include name="WixSimpleReferenceRow.cs" />
+        <include name="WixVariableResolver.cs" />
+        <include name="WixVariableRow.cs" />
+
+        <include name="Cab\CabinetFileInfo.cs" />
+        <include name="Cab\WixCreateCab.cs" />
+        <include name="Cab\WixEnumerateCab.cs" />
+        <include name="Cab\WixExtractCab.cs" />
+        <include name="Cab\Interop\CabInterop.cs" />
+
+        <include name="CLR\Interop\CLRInterop.cs" />
+
+        <include name="Exceptions\DuplicateSymbolsException.cs" />
+        <include name="Exceptions\WixException.cs" />
+        <include name="Exceptions\WixFileNotFoundException.cs" />
+        <include name="Exceptions\WixInvalidIdtException.cs" />
+        <include name="Exceptions\WixMissingTableDefinitionException.cs" />
+        <include name="Exceptions\WixNotIntermediateException.cs" />
+        <include name="Exceptions\WixNotLibraryException.cs" />
+        <include name="Exceptions\WixNotOutputException.cs" />
+
+        <include name="FileSystem\FileSystemBase.cs" />
+        <include name="FileSystem\Interop\FileSystemInterop.cs" />
+
+        <include name="MergeMod\NativeMethods.cs" />
+
+        <include name="Msi\Database.cs" />
+        <include name="Msi\Installer.cs" />
+        <include name="Msi\MsiBase.cs" />
+        <include name="Msi\MsiHandle.cs" />
+        <include name="Msi\Record.cs" />
+        <include name="Msi\Session.cs" />
+        <include name="Msi\SummaryInformation.cs" />
+        <include name="Msi\View.cs" />
+        <include name="Msi\Interop\MsiInterop.cs" />
+
+        <include name="Ole32\Storage.cs" />
+
+        <include name="Serialize\CodeDomInterfaces.cs" />
+        <include name="Serialize\CodeDomReader.cs" />
+        <include name="Serialize\ElementCollection.cs" />
+      </sources>
+      <resources failonempty="true" basedir="${dir.build.wixdll}" prefix="Microsoft.Tools.WindowsInstallerXml.Data">
+        <include name="actions.xml" />
+        <include name="messages.resources" />
+        <include name="tables.xml" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.build.wixdll}" prefix="Microsoft.Tools.WindowsInstallerXml.Xsd">
+        <include name="actions.xsd" />
+        <include name="libraries.xsd" />
+        <include name="objects.xsd" />
+        <include name="outputs.xsd" />
+        <include name="tables.xsd" />
+        <include name="wix.xsd" />
+        <include name="wixloc.xsd" />
+      </resources>
+    </csc>
+  </target>
+
+</project>

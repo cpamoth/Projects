@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    Module.MSM - example source code for Merge Module from "Getting Started" in help
+-->
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <RegistryValue Id="TestRegProductKeyB" Root="HKLM" Key="Test" Action="write" Value="#1" Type="string" />
+</Include>

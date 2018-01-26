@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="DestinationFolder">
+        <UI>
+            <Dialog Id="DestinationFolder" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+                <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Next &gt;">
+                    <Publish Event="NewDialog" Value="ReadyToInstall"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="ChangeFolder" Type="PushButton" X="290" Y="169" Width="66" Height="17" Text="&amp;Change...">
+                    <Publish Event="SpawnDialog" Value="InstallChangeFolder"><![CDATA[1]]></Publish>
+                    <Publish Property="_BrowseProperty" Value="INSTALLDIR"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+                    <Publish Event="NewDialog" Value="LicenseAgreement"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="DestFolder" Type="Icon" X="21" Y="157" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="NewBinary19" />
+                <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+                    <Text>Click Next to install to this folder, or click Change to install to a different folder.</Text>
+                </Control>
+                <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Installation Folder</Text>
+                </Control>
+                <Control Id="Location" Type="Text" X="54" Y="171" Width="224" Height="38" Property="_BrowseProperty" Text="[INSTALLDIR]" />
+                <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+                <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+                <Control Id="LocLabel" Type="Text" X="53" Y="157" Width="286" Height="10">
+                    <Text>Install [ProductName] to:</Text>
+                </Control>
+                <Control Id="Text1" Type="Text" X="21" Y="51" Width="339" Height="25" Property="NewProperty1" Transparent="yes">
+                    <Text>If you would like to change the default installation folder, use the section below to do so.</Text>
+                </Control>
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestODBCProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test ODBC in a Product" Comments="Test from: wix\examples\test\ODBC\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestODBCProductDirectory" Name="testODBC" LongName="Test File">
+          <Component Id="TestODBCProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestODBCProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes">
+              <ODBCDriver Id="SQLServer" Name="SQL Server">
+                <Property Id="APILevel" Value="2" />
+                <Property Id="ConnectFunctions" Value="YYY" />
+                <Property Id="DriverODBCVer" Value="02.50" />
+                <Property Id="FileUsage" Value="0" />
+                <Property Id="SQLLevel" Value="1" />
+                <Property Id="CPTimeout" Value="60" />
+              </ODBCDriver>
+            </File>
+            <File Id="TestODBCProductFile2" Name="test2.txt" Source="$(env.WIX)\examples\data\test.txt">
+              <ODBCTranslator Id="MSCPXL32" Name="MS Code Page Translator" />
+            </File>
+          </Component>
+
+          <Component Id="TestODBCProductComponent2" Guid="00030829-0000-0000-C000-000000000047" DiskId="1">
+            <ODBCDataSource Id="AccessDSN" Name="MS Access Database" DriverName="Microsoft Access Driver (*.mdb)" Registration="user" KeyPath="yes">
+              <Property Id="APILevel" Value="2" />
+              <Property Id="ConnectFunctions" Value="YYY" />
+              <Property Id="DriverODBCVer" Value="02.50" />
+              <Property Id="FileUsage" Value="0" />
+              <Property Id="SQLLevel" Value="1" />
+              <Property Id="CPTimeout" Value="60" />
+            </ODBCDataSource>
+
+            <ODBCDataSource Id="dBaseDSN" Name="dBASE Files" DriverName="Microsoft dBase Driver (*.dbf)" Registration="user" />
+            <ODBCDataSource Id="ExcelDSN" Name="Excel Files" DriverName="Microsoft Excel Driver (*.xls)" Registration="user" />
+            <ODBCDataSource Id="VFPDatabaseDSN" Name="Visual FoxPro Database" DriverName="Microsoft Visual FoxPro Driver" Registration="user" />
+            <ODBCDataSource Id="VFPTablesDSN" Name="Visual FoxPro Tables" DriverName="Microsoft Visual FoxPro Driver" Registration="user" />
+            <ODBCDataSource Id="WORD_DbaseDSN" Name="dBase Files - Word" DriverName="Microsoft dBase VFP Driver (*.dbf)" Registration="user" />
+            <ODBCDataSource Id="WORD_Foxpro" Name="FoxPro Files - Word" DriverName="Microsoft FoxPro VFP Driver (*.dbf)" Registration="user" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestODBCProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestODBCProductComponent" />
+      <ComponentRef Id="TestODBCProductComponent2" />
+    </Feature>
+  </Product>
+</Wix>

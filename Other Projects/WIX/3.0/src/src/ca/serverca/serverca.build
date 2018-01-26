@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="serverca" default="serverca.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    serverca.build - Builds the WiX server custom actions.
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- serverca build files -->
+  <include buildfile="${dir.src.ca.serverca}\scaexec\scaexec.build" />
+  <include buildfile="${dir.src.ca.serverca}\scasched\scasched.build" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="serverca.build" description="Peforms a full rebuild (clean then build)" depends="scaexec.build, scasched.build" />
+
+  <!-- Clean -->
+  <target name="serverca.clean" description="Cleans the build" depends="scaexec.clean, scasched.clean" />
+
+  <!-- Inc -->
+  <target name="serverca.inc" description="Performs an incremental build" depends="scaexec, scasched" />
+
+  <target name="scaexec" depends="scaexec.inc" />
+  <target name="scasched" depends="scasched.inc" />
+
+</project>

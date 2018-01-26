@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="0ED93B5B-8C18-4335-BDD4-91C81CBC76C8" Name="PublishComp" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corp." UpgradeCode="04118BDC-2726-48E8-BECE-90A36D224A01">
+
+        <Package Description="PackageDescription" Platforms="Intel" Languages="1033" InstallerVersion="200" Manufacturer="User" Keywords="MSI database" Comments="PackageComments" SummaryCodepage="1252" ShortNames="yes" Compressed="yes" AdminImage="no" />
+
+        <Media Id="1" Cabinet="PubComp.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="Component1041" Guid="EF263876-1041-4317-A42C-16F9CC18C276" DiskId="1">
+                <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                <Category Id="939FBC74-6CDA-45DA-8D00-BCBD24B22087" Qualifier="1041" AppData="AppData1041" />
+            </Component>
+        </Directory>
+
+        <Feature Id="Feature1" Title="Title1" Level="1">
+            <ComponentRef Id="Component1041" />
+        </Feature>
+    </Product>
+</Wix>

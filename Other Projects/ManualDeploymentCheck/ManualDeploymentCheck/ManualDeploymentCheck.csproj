@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{366A2587-026E-4FF3-AF95-FDB16EBAA022}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ManualDeploymentCheck</RootNamespace>
+    <AssemblyName>ManualDeploymentCheck</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BTHash">
+      <HintPath>..\..\..\..\..\GitHub\BA\StaticLib\Hashing\BTHash.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\BuildAtlasWCF\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CherwellWCF\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Service References\BuildAtlasWCF\BuildAtlasWCF.wsdl" />
+    <None Include="Service References\BuildAtlasWCF\BuildAtlasWCF.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\BuildAtlasWCF1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\BuildAtlasWCF2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\BuildAtlasWCF3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightArchitecture.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBrand.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBrandConfiguration.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBrandConfigurationHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBuild.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBuildHash.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBuildLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightBuildTask.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightCodeMove.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightCodeMoveHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightCompDefinition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightCompositeBuildInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightConfigTemplate.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightConfiguration.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightDeleteDir.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightDeployHash.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightDeployment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightDeploymentLogEntry.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightEmail.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightEnvironment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightFramework.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightGroupPrincipal.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightHelpDeskTicket.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightHelpDeskTicketHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightHelpDeskTicketMsg.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightHelpDeskTicketStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightLayer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightLayerAssociation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightOrganization.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightOrganizationConfiguration.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightOrganizationConfigurationHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightProject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightPrometheusServer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightRenameDir.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightServer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightServerComp.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightServerConfiguration.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightSite.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightSiteComponent.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightSiteConfiguration.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightSiteConfigurationHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightSSHCommand.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightTestResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightTool.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\BuildAtlasWCF\ManualDeploymentCheck.BuildAtlasWCF.LightVersion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CherwellWCF\CherwellWCF.wsdl" />
+    <None Include="Service References\CherwellWCF\CherwellWCF.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CherwellWCF\CherwellWCF1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CherwellWCF\CherwellWCF2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CherwellWCF\CherwellWCF3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CherwellWCF\ManualDeploymentCheck.CherwellWCF.Change.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CherwellWCF\ManualDeploymentCheck.CherwellWCF.LightChange.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CherwellWCF\ManualDeploymentCheck.CherwellWCF.LightChangeDeployment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\BuildAtlasWCF\" />
+    <WCFMetadataStorage Include="Service References\CherwellWCF\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CherwellWCF\CherwellWCF.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CherwellWCF\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CherwellWCF\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CherwellWCF\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BuildAtlasWCF\BuildAtlasWCF.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BuildAtlasWCF\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BuildAtlasWCF\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\BuildAtlasWCF\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

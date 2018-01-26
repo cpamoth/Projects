@@ -1,0 +1,14 @@
+<VSTemplate Version="2.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>WiX Product File</Name>
+    <Description>A WiX template to produce an MSI (.wxs)</Description>
+    <Icon>ProductFile.ico</Icon>
+    <ProjectType>WiX</ProjectType>
+    <SortOrder>50</SortOrder>
+    <DefaultName>WixFile</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem SubType="Code" ReplaceParameters="true" TargetFileName="$fileinputname$.wxs">ProductFile.wxs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

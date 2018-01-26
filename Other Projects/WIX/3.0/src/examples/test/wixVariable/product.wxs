@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix RequiredVersion="2.0.0000.0" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0021-C000-000000000046" Name="TestAppPoolProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{A3D77365-D302-4D16-9B06-33A67D8D2049}">
+        <Package Description="Test App Pool" Comments="Test from: wix\examples\test\apppool\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <!-- test the ability to author a variable directly -->
+        <Property Id="Property1" Value="!(wix.VariableNameHere)" />
+        <WixVariable Id="VariableNameHere" Value="an authored value" />
+
+        <!-- test replacement of a non-variable expression (it should be "!(wix.notAVariable)") -->
+        <!-- this also tests that the decompiler properly escapes things that look like wix variables -->
+        <Property Id="Property2" Value="!!(wix.notAVariable)" />
+
+        <!-- test for overmatch of a variable expression -->
+        <Property Id="Property3" Value="( !(wix.CheckOvermatching) )" />
+        <WixVariable Id="CheckOvermatching" Value="this value should be surrounded by spaces and parenthesis" />
+
+        <!-- test the ability to specify a variable solely from the commandline -->
+        <Property Id="CommandLineProperty" Value="!(wix.CommandLineVariable)" />
+
+        <!-- test the ability to override a variable from the commandline -->
+        <Property Id="overridableProperty" Value="!(wix.OverridableVariable)" />
+        <WixVariable Id="OverridableVariable" Value="the overridable value" Overridable="yes" />
+
+        <!-- test the ability to override a variable from the commandline -->
+        <Property Id="overridableProperty2" Value="!(wix.OverridableVariable)" />
+        <WixVariable Id="OverridableVariable2" Value="the original overridable value" Overridable="yes" />
+        <WixVariable Id="OverridableVariable2" Value="the final value" />
+
+        <!-- test the ability to late-bind a different EULA file - this doesn't fully test the scenario with binary wixlib files -->
+        <Binary Id="ThisCouldBeAEULA" SourceFile="!(wix.BinaryVariable)" />
+        <WixVariable Id="BinaryVariable" Value="$(env.WIX)\examples\data\404.htm" Overridable="yes" />
+
+        <!-- test the ability to use inline variables -->
+        <Property Id="InlineVariable" Value="!(wix.inline=some value)" />
+
+        <!-- test the ability to override an inline variable -->
+        <Property Id="OverriddenInline" Value="!(wix.overriddenInline=another value)" />
+        <WixVariable Id="overriddenInline" Value="The overriden value" />
+
+    </Product>
+</Wix>

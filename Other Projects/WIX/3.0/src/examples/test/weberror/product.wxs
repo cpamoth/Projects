@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+    <Product Id="000C1109-0061-0031-C000-610000000046" Name="TestWebErrorProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{5266F501-EAEC-4775-A9D8-2DD76A23AF36}">
+        <Package Description="Test Web Error" Comments="Test from: wix\examples\test\weberror\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Property Id="PORT" Value="8061" />
+        <Property Id="WebSiteName" Value="Test web server" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestWebErrorProductDirectory" ShortName="testmm" Name="Test Web Error">
+                    <Component Id="TestWebErrorProductComponent" Guid="10030829-0061-6100-C000-000000000046" DiskId="1">
+                        <CreateFolder Directory="TestWebErrorProductDirectory" />
+                        <iis:WebSite Id="Test" Description="[WebSiteName]" Directory="TestWebErrorProductDirectory" AutoStart="yes" DirProperties="ReadAndExecute" ConfigureIfExists="yes">
+                            <iis:WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+                            <iis:WebError ErrorCode="400" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="1" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="2" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="3" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="4" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="5" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="7" File="[#Error404]" />
+                            <iis:WebError ErrorCode="401" SubCode="61" File="[#Error404]" />
+                            <!-- should be skipped (and noted in verbose logs) -->
+                            <iis:WebError ErrorCode="403" SubCode="1" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="2" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="3" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="4" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="5" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="6" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="7" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="8" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="9" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="10" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="11" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="12" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="13" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="14" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="15" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="16" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="17" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="18" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="19" File="[#Error404]" />
+                            <iis:WebError ErrorCode="403" SubCode="20" />
+                            <!-- results in the default string being sent for 403,20 instead of something custom -->
+                            <iis:WebError ErrorCode="404" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="404" SubCode="2" File="[#Error404]" />
+                            <iis:WebError ErrorCode="404" SubCode="3" File="[#Error404]" />
+                            <iis:WebError ErrorCode="405" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="406" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="407" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="412" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="414" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="415" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="12" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="13" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="15" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="16" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="17" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="18" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="19" File="[#Error404]" />
+                            <iis:WebError ErrorCode="500" SubCode="100" File="[#Error404]" />
+                            <iis:WebError ErrorCode="501" SubCode="0" File="[#Error404]" />
+                            <iis:WebError ErrorCode="502" SubCode="0" File="[#Error404]" />
+                            <iis:WebVirtualDir Id="vdir1" Alias="test1" Directory="TestWebErrorProductDirectory" DirProperties="ReadAndExecute">
+                                <iis:WebApplication Id="VDirTestApp1" Name="Virtual Directory Test ASP Application" Isolation="high" />
+                                <iis:WebError ErrorCode="404" SubCode="0" URL="http://www.google.com" />
+                            </iis:WebVirtualDir>
+                        </iis:WebSite>
+                        <File Id="Error404" Source="$(env.WIX)\examples\data\404.htm" Name="404.htm" DiskId="1" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestWebErrorProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestWebErrorProductComponent" />
+        </Feature>
+
+        <iis:WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+    </Product>
+</Wix>

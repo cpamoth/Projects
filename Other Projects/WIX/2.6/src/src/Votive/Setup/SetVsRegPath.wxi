@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    SetVsRegPath.wxi - Time-saver for defining VSRegPath based on Flavor.
+-->
+
+<Include>
+  <?ifdef VsRegPath?>
+  <?undef VsRegPath?>
+  <?endif ?>
+  <?if $(var.Flavor) = "debug" ?>
+  <?define VsRegPath = "SOFTWARE\Microsoft\VisualStudio\$(var.VsVersion)exp" ?>
+  <?else ?>
+  <?define VsRegPath = "SOFTWARE\Microsoft\VisualStudio\$(var.VsVersion)" ?>
+  <?endif ?>
+</Include>

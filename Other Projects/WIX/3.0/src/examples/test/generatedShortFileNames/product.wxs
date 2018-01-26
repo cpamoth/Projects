@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E87F4E5E-03C3-4133-B1A8-5FF949FA7EF8}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product0.cab" EmbedCab="yes" />
+        <Media Id="5" Cabinet="product4.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+
+            <!-- this tests generated short directory name functionality -->
+            <Directory Id="ProgramMenuFolder" Name="Programs Menu" ShortSourceName="shortsrc" />
+
+            <!-- this tests generated short directory name functionality -->
+            <Directory Id="ProgramFilesFolder" Name="Program Files" SourceName="Source Program Files">
+                <Directory Id="TestFileProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+
+                        <!-- this tests generated short file name functionality -->
+                        <File Id="TestFileProductFile" Name="file test.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="5" KeyPath="yes" />
+
+                        <!-- this tests old file name functionality until this syntax is deprecated -->
+                        <File Id="OldFileNames" Name="short.cpj" LongName="long file name.csproj" Source="$(env.WIX)\examples\data\test.txt" DiskId="1">
+                            <Shortcut Id="TestShortcut" Directory="ProgramMenuFolder" Name="long shortcut name.csproj" Advertise="yes" />
+                        </File>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

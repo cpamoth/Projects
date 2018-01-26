@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="SetupProgress">
+    <UI>
+      <Dialog Id="SetupProgress" Width="374" Height="266" Title="[ProductName]" Modeless="yes">
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Default="yes" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Disabled="yes" Text="&lt; &amp;Back" />
+        <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Disabled="yes" Text="&amp;Next &gt;" />
+        <Control Id="ActionText" Type="Text" X="59" Y="100" Width="275" Height="12">
+          <Subscribe Event="ActionText" Attribute="Text" />
+        </Control>
+        <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Hidden="yes" Transparent="yes">
+          <Text>The program features you selected are being installed.</Text>
+          <Condition Action="show"><![CDATA[ProgressType2="installed"]]></Condition>
+        </Control>
+        <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Hidden="yes" Transparent="yes">
+          <Text>{&amp;MSSansBold8}Installing [ProductName]</Text>
+          <Condition Action="show"><![CDATA[ProgressType1="Installing"]]></Condition>
+        </Control>
+        <Control Id="DlgText" Type="Text" X="59" Y="51" Width="275" Height="30" Hidden="yes" Transparent="yes">
+          <Text>Please wait while the installation wizard installs [ProductName]. This may take several minutes.</Text>
+          <Condition Action="show"><![CDATA[ProgressType3="installs"]]></Condition>
+        </Control>
+        <Control Id="DlgTitle2" Type="Text" X="13" Y="6" Width="292" Height="25" Hidden="yes" Transparent="yes">
+          <Text>{&amp;MSSansBold8}Uninstalling [ProductName]</Text>
+          <Condition Action="show"><![CDATA[ProgressType1="Uninstalling"]]></Condition>
+        </Control>
+        <Control Id="DlgText2" Type="Text" X="59" Y="52" Width="275" Height="29" Hidden="yes" Transparent="yes">
+          <Text>Please wait while the installation wizard uninstalls [ProductName]. This may take several minutes.</Text>
+          <Condition Action="show"><![CDATA[ProgressType3="uninstalls"]]></Condition>
+        </Control>
+        <Control Id="DlgDesc2" Type="Text" X="21" Y="23" Width="292" Height="25" Hidden="yes" Transparent="yes">
+          <Text>The program features you selected are being uninstalled.</Text>
+          <Condition Action="show"><![CDATA[ProgressType2="uninstalled"]]></Condition>
+        </Control>
+        <Control Id="ActionProgress95" Type="ProgressBar" X="59" Y="113" Width="275" Height="12" ProgressBlocks="yes" Text="Progress done">
+          <Subscribe Event="InstallFiles" Attribute="Progress" />
+          <Subscribe Event="MoveFiles" Attribute="Progress" />
+          <Subscribe Event="RemoveFiles" Attribute="Progress" />
+          <Subscribe Event="RemoveRegistryValues" Attribute="Progress" />
+          <Subscribe Event="WriteIniValues" Attribute="Progress" />
+          <Subscribe Event="WriteRegistryValues" Attribute="Progress" />
+          <Subscribe Event="UnmoveFiles" Attribute="Progress" />
+          <Subscribe Event="AdminInstallFinalize" Attribute="Progress" />
+          <Subscribe Event="SetProgress" Attribute="Progress" />
+        </Control>
+        <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+        <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+        <Control Id="LbSec" Type="Text" X="172" Y="139" Width="32" Height="12" Hidden="yes" Text="(Hidden for now)Sec." />
+        <Control Id="LbStatus" Type="Text" X="59" Y="85" Width="70" Height="12" Text="Status:" />
+        <Control Id="SetupIcon" Type="Icon" X="21" Y="51" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="NewBinary9" />
+        <Control Id="ShowTime" Type="Text" X="155" Y="139" Width="17" Height="12" Hidden="yes" Text="(Hidden for now)" />
+        <Control Id="TextTime" Type="Text" X="59" Y="139" Width="96" Height="12" Hidden="yes">
+          <Text>)Hidden for now)Estimated time remaining:</Text>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

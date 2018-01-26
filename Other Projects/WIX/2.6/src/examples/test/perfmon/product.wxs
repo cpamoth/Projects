@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-CDEF-000000000046" Name="TestPerfmonProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-CDEF-000000000046" Description="Test Perfmon in a Product" Comments="Test from: wix\examples\test\perfmon\product.wxs" InstallerVersion="200" Compressed="yes" />
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestPerfmonProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestPerfmonProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <Registry Id="reg1" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\MyApplication\Performance" Name="Open" Type="string" Value="PrfData_Open" KeyPath="yes" />
+            <Registry Id="reg2" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\MyApplication\Performance" Name="Close" Type="string" Value="PrfData_Close" />
+            <Registry Id="reg3" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\MyApplication\Performance" Name="Collect" Type="string" Value="PrfData_Collect" />
+            <File Id="TestPerfmonProductFile" Name="ReadMe.txt" Source="$(env.WIX)\examples\test\perfmon\ReadMe.txt" />
+            <File Id="SymFile.h" Name="SymFile.h" Source="$(env.WIX)\examples\test\perfmon\SymFile.h" />
+            <File Id="SymFile.ini" Name="SymFile.ini" Source="$(env.WIX)\examples\test\perfmon\SymFile.ini">
+              <PerfCounter Name="MyApplication" />
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+    </Directory>
+    <Feature Id="TestPerfmonProductFeature" Title="Test Perfmon Product Feature" Level="1">
+      <ComponentRef Id="TestPerfmonProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

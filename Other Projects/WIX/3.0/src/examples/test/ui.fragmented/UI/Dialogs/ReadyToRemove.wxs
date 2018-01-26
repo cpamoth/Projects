@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="ReadyToRemove">
+        <UI>
+            <Dialog Id="ReadyToRemove" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+                <Control Id="RemoveNow" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Remove">
+                    <Publish Property="ProgressType1" Value="Uninstalling"><![CDATA[1]]></Publish>
+                    <Publish Property="ProgressType2" Value="uninstalled"><![CDATA[1]]></Publish>
+                    <Publish Property="ProgressType3" Value="uninstalls"><![CDATA[1]]></Publish>
+                    <Publish Event="Remove" Value="ALL"><![CDATA[1]]></Publish>
+                    <Publish Event="NewDialog" Value="OutOfSpace"><![CDATA[OutOfNoRbDiskSpace = 1]]></Publish>
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfNoRbDiskSpace <> 1]]></Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+                    <Publish Event="NewDialog" Value="MaintenanceType"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+                    <Text>You have chosen to remove [ProductName] from your system.</Text>
+                </Control>
+                <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Remove [ProductName]</Text>
+                </Control>
+                <Control Id="DlgText" Type="Text" X="21" Y="51" Width="326" Height="24">
+                    <Text>Click Remove to remove [ProductName] from your computer. After removal, this program will no longer be available for use.</Text>
+                </Control>
+                <Control Id="DlgText2" Type="Text" X="21" Y="102" Width="330" Height="24" />
+                <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+                <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+                <Control Id="DlgText1" Type="Text" X="21" Y="79" Width="330" Height="23">
+                    <Text>If you want to review or change any settings, click Back.</Text>
+                </Control>
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

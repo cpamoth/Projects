@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="qtest" default="qtest.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    qtest.build - Builds the WixQTest project (WixQTest.exe).
+    2005.09.25 johnls Created
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <!-- Wix directories -->
+  <property name="qtest.dir.xsd" value="${path::combine(dir.src.qtest, 'Xsd')}" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="qtest.build" description="Peforms a full rebuild (clean then build)" depends="qtest.clean, qtest.inc" />
+
+  <!-- Clean -->
+  <target name="qtest.clean" description="Cleans the build">
+    <delete dir="${dir.build.qtest}" failonerror="false" if="${directory::exists(dir.build.qtest)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixQTest.exe" />
+        <include name="WixQTest.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="qtest.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Flatten the xsd file -->
+    <property name="flattenxml.source" value="${qtest.dir.xsd}\tests.xsd" />
+    <property name="flattenxml.target" value="${dir.build.qtest}\tests.xsd" />
+    <call target="flattenXml" />
+
+    <!-- Build the WixQTest.exe -->
+    <csc
+      target="exe"
+      output="${dir.target.wix}\WixQTest.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.qtest}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="WixQTest.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+      <!-- Embed the XSD into the assembly -->
+      <resources failonempty="true" basedir="${dir.build.qtest}" prefix="Microsoft.Tools.WixQTest.Xsd">
+        <include name="tests.xsd" />
+      </resources>
+    </csc>
+  </target>
+
+</project>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="ReadyToInstall">
+        <UI>
+            <Dialog Id="ReadyToInstall" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes" TrackDiskSpace="yes">
+                <Control Id="InstallNow" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Install" ElevationShield="yes">
+                    <Publish Event="EndDialog" Value="Return"><![CDATA[OutOfNoRbDiskSpace <> 1]]></Publish>
+                    <Publish Event="NewDialog" Value="OutOfSpace"><![CDATA[OutOfNoRbDiskSpace = 1]]></Publish>
+                    <Publish Property="ProgressType1" Value="Installing"><![CDATA[1]]></Publish>
+                    <Publish Property="ProgressType2" Value="installed"><![CDATA[1]]></Publish>
+                    <Publish Property="ProgressType3" Value="installs"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+                </Control>
+                <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+                    <Publish Event="NewDialog" Value="DestinationFolder"><![CDATA[NOT Installed AND _IsSetupTypeMin <> "Custom"]]></Publish>
+                    <Publish Event="NewDialog" Value="CustomSetup"><![CDATA[Installed OR _IsSetupTypeMin = "Custom"]]></Publish>
+                    <Publish Event="NewDialog" Value="MaintenanceType"><![CDATA[Installed AND _IsMaintenance = "Reinstall"]]></Publish>
+                </Control>
+                <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+                    <Text>The wizard is ready to begin installation.</Text>
+                </Control>
+                <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Hidden="yes" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Ready to Modify the Program</Text>
+                    <Condition Action="show"><![CDATA[ProgressType0="Modify"]]></Condition>
+                </Control>
+                <Control Id="DlgText" Type="Text" X="21" Y="51" Width="326" Height="20">
+                    <Text>Click Install to begin the installation.</Text>
+                </Control>
+                <Control Id="DlgTitle2" Type="Text" X="13" Y="6" Width="292" Height="25" Hidden="yes" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Ready to Repair the Program</Text>
+                    <Condition Action="show"><![CDATA[ProgressType0="Repair"]]></Condition>
+                </Control>
+                <Control Id="DlgTitle3" Type="Text" X="13" Y="6" Width="292" Height="25" Hidden="yes" Transparent="yes">
+                    <Text>{&amp;MSSansBold8}Ready to Install [ProductName]</Text>
+                    <Condition Action="show"><![CDATA[ProgressType0="install"]]></Condition>
+                </Control>
+                <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+                <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="374" Height="0" />
+                <Control Id="DlgText1" Type="Text" X="21" Y="70" Width="330" Height="24">
+                    <Text>If you want to review or change any of your installation settings, click Back. Click Cancel to exit the wizard.</Text>
+                </Control>
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

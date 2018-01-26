@@ -1,0 +1,19 @@
+//-------------------------------------------------------------------------------------------------
+// <copyright file="update.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+//
+// <summary>
+// ClickThrough update.exe resource file.
+// </summary>
+//-------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_ORIGINAL_FILENAME "update.exe"
+#define VER_INTERNAL_NAME "update"
+#define VER_PRODUCT_NAME "ClickThrough Updater"
+#define VER_FILE_DESCRIPTION "ClickThrough Updater"
+#include "wix.rc"
+
+#define MANIFEST_RESOURCE_ID 1
+MANIFEST_RESOURCE_ID RT_MANIFEST "update.exe.manifest"

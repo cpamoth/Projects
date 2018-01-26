@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi" RequiredVersion="2.0.0000.0">
+  <Product Id="000C1109-0000-0021-C000-000000000046" Name="TestAppPoolProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0022-C000-000000000046" Description="Test App Pool" Comments="Test from: wix\examples\test\apppool\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Property Id="PORT" Value="80" />
+    <Property Id="AppPool1Name" Value="App Pool 1" />
+    <Property Id="WebSiteName" Value="Test web server" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        
+        <!-- The below AppPool 'locator' could be referenced by any WebApp that is listed later in this file
+			or in any fragments. It is in this example for demonstration (which is why nothing else references it.-->
+    <WebAppPool Id="AppPoolLocator" Name="DefaultAppPool" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestWebSiteProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestWebSiteProductComponent" Guid="10030829-0000-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <WebSite Id="Test" Description="[WebSiteName]" Directory="TestWebSiteProductDirectory" AutoStart="yes" DirProperties="ReadAndExecute" ConfigureIfExists="no">
+              <WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+              <WebVirtualDir Id="vdir1" Alias="test1" Directory="TestWebSiteProductDirectory" DirProperties="ReadOnly">
+                <WebApplication Id="VDirTestApp1" Name="Virtual Directory Test ASP Application" Isolation="high" WebAppPool="AppPool1" />
+              </WebVirtualDir>
+            </WebSite>
+          </Component>
+          <Component Id="AppPool1Component" Guid="5A3AD6AA-B17E-4C73-9F29-47D94677715E" Location="local" DiskId="1" KeyPath="yes">
+            <WebAppPool Id="AppPool1" Name="[AppPool1Name]" Identity="networkService" RecycleMinutes="61" RecycleRequests="61" MaxCpuUsage="61" QueueLimit="4444" MaxWorkerProcesses="5">
+              <RecycleTime Value="1:45" />
+              <RecycleTime Value="13:30" />
+              <RecycleTime Value="22:00" />
+            </WebAppPool>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestWebSiteProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestWebSiteProductComponent" />
+      <ComponentRef Id="AppPool1Component" />
+    </Feature>
+
+    <WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" />
+    <WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+  </Product>
+</Wix>

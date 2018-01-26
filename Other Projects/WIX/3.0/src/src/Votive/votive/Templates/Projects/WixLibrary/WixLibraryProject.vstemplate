@@ -1,0 +1,18 @@
+<VSTemplate Version="2.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Wix Library Project</Name>
+    <Description>A project for creating a wixlib library</Description>
+    <Icon>WixLibraryProject.ico</Icon>
+    <ProjectType>WiX</ProjectType>
+    <SortOrder>40</SortOrder>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>WixLibraryProject</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="WixLibraryProject.wixproj" TargetFileName="$safeprojectname$.wixproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true" TargetFileName="$safeprojectname$.wxs">WixLibrary.wxs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

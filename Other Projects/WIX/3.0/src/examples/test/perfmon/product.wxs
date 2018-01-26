@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="000C1109-0000-0000-CDEF-000000000046" Name="TestPerfmonProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F169EB8D-5240-4077-AB39-39F75325F2CF}">
+        <Package Description="Test Perfmon in a Product" Comments="Test from: wix\examples\test\perfmon\product.wxs" InstallerVersion="200" Compressed="yes" />
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestPerfmonProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestPerfmonProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+                        <RegistryValue Id="reg1" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\MyApplication\Performance" Name="Open" Type="string" Value="PrfData_Open" KeyPath="yes" />
+                        <RegistryValue Id="reg2" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\MyApplication\Performance" Name="Close" Type="string" Value="PrfData_Close" />
+                        <RegistryValue Id="reg3" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\MyApplication\Performance" Name="Collect" Type="string" Value="PrfData_Collect" />
+                        <File Id="TestPerfmonProductFile" Name="ReadMe.txt" Source="$(env.WIX)\examples\test\perfmon\ReadMe.txt" />
+                        <File Id="SymFile.h" Name="SymFile.h" Source="$(env.WIX)\examples\test\perfmon\SymFile.h" />
+                        <File Id="SymFile.ini" Name="SymFile.ini" Source="$(env.WIX)\examples\test\perfmon\SymFile.ini">
+                            <util:PerfCounter Name="MyApplication" />
+                        </File>
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+        </Directory>
+        <Feature Id="TestPerfmonProductFeature" Title="Test Perfmon Product Feature" Level="1">
+            <ComponentRef Id="TestPerfmonProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

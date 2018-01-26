@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{DBF45B1A-3DB6-4B0B-AA88-9ADCCD1F7BE2}">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <?define variable=3?>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <?if 1=$(var.variable)?>
+                    <Component Id="0" Guid="" />
+                    <?elseif 2=$(var.variable)?>
+                    <?if 1=1?>
+                    <Component Id="1a" Guid="" />
+                    <?else ?>
+                    <Component Id="2a" Guid="" />
+                    <?endif ?>
+                    <Component Id="3a" Guid="" />
+                    <?else ?>
+                    <Component Id="4a" Guid="" />
+                    <?endif ?>
+
+                    <Component Id="TestAssemblyProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+<!--
+<?if $(var.FAIL)=3 ?>
+                  <File Id='TestAssemblyProductFile' Name='assembly.dll' Assembly='.net' KeyPath='yes' DiskId='1' src='$(env.WIX)\examples\data\assembly.dll'/>
+	<?if $(var.FAIL)=3 ?>
+                  <File Id='TestAssembly2ProductFile' Name='assem2.dll' Assembly='.net' KeyPath='yes' DiskId='1' src='$(env.WIX)\examples\data\assembly.dll'/>
+	<?else?>
+                  <File Id='TestAssembly2ProductFile' Name='assem2.dll' Assembly='.net' KeyPath='yes' DiskId='1' src='$(env.WIX)\examples\data\assembly.dll'/>
+	<?endif?>
+<?endif?>
+-->
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <ComponentRef Id="TestAssemblyProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

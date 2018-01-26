@@ -1,0 +1,19 @@
+//-------------------------------------------------------------------------------------------------
+// <copyright file="dark.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+//
+// <summary>
+// dark.exe resource file.
+// </summary>
+//-------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_ORIGINAL_FILENAME "dark.exe"
+#define VER_INTERNAL_NAME "dark"
+#define VER_PRODUCT_NAME "Windows Installer XML Toolset"
+#define VER_FILE_DESCRIPTION "WiX Toolset Decompiler"
+#include "wix.rc"
+
+#define MANIFEST_RESOURCE_ID 1
+MANIFEST_RESOURCE_ID RT_MANIFEST "dark.exe.manifest"

@@ -1,0 +1,1 @@
+This is simple.msi's text file.

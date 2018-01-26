@@ -1,0 +1,54 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EAFD5281-D9AE-4680-AEB5-90AAAF4DBD9D}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml.Unit</RootNamespace>
+    <AssemblyName>WixUnit</AssemblyName>
+    <NoWarn>618</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <RunCodeAnalysis Condition=" '$(BuildingInsideVisualStudio)' == 'true' ">true</RunCodeAnalysis>
+    <CodeAnalysisRules Condition=" '$(BuildingInsideVisualStudio)' == 'true' ">-Microsoft.Design#CA2210;-Microsoft.Design#CA1031;-Microsoft.Design#CA1016;-Microsoft.Design#CA1001;-Microsoft.Globalization#CA1303;-Microsoft.Maintainability#CA1502;-Microsoft.Reliability#CA2000;-Microsoft.Security#CA2122</CodeAnalysisRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="$(OutputPath)wconsole.dll" />
+    <Reference Include="$(OutputPath)wix.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CandleUnit.cs" />
+    <Compile Include="CompareUnit.cs" />
+    <Compile Include="DarkUnit.cs" />
+    <Compile Include="HeatUnit.cs" />
+    <Compile Include="LightUnit.cs" />
+    <Compile Include="LitUnit.cs" />
+    <Compile Include="ProcessUnit.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PyroUnit.cs" />
+    <Compile Include="ToolUtility.cs" />
+    <Compile Include="TorchUnit.cs" />
+    <Compile Include="UnitResults.cs" />
+    <Compile Include="WixProjUnit.cs" />
+    <Compile Include="WixUnit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedFlattenedResource Include="unitTests.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedFlattenedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedNativeResource Include="wixunit.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="..\..\WixBuild.Common.targets" />
+</Project>

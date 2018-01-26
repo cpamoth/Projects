@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" UpgradeCode="AD5FAC1F-5907-4A21-ACAC-7F2F56009562" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestFileProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestFileProductComponent" />
+    </Feature>
+
+    <UIRef Id="WixUI_Minimal" />
+
+  </Product>
+</Wix>

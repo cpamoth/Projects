@@ -1,0 +1,51 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{355d9f73-aaa7-4eab-ae5e-fbdf769aaea1}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>WixSetup</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>$(TARGETROOT)\wix\x86\debug\lang-neutral\</WixToolPath>
+    <WixTasksPath>$(TARGETROOT)\wix\x86\debug\lang-neutral\WixTasks.dll</WixTasksPath>
+    <WixTargetsPath>$(TARGETROOT)\wix\x86\debug\lang-neutral\wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <IntermediateOutputPath>obj\Release\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="WixSetup.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpWindowsApp\CSharpWindowsApp.csproj">
+      <Name>CSharpWindowsApp</Name>
+      <Project>{c0d614ac-530d-45c5-8fe3-a6fa2c75d48c}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\VBClassLibrary\VBClassLibrary.vbproj">
+      <Name>VBClassLibrary</Name>
+      <Project>{b09a4f73-fa37-40d0-95f4-7cf0baa8dc15}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\VCConsoleApp\VCConsoleApp.vcproj">
+      <Name>VCConsoleApp</Name>
+      <Project>{9842c5b2-be39-4afb-8f4e-4acf6bfdd5aa}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

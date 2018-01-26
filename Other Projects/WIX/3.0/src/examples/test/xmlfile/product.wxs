@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="000C1109-1234-4321-C000-000000000046" Name="TestXmlFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{B78F1FB6-0630-4AB0-BE06-2F686D1D177E}">
+        <Package Description="Test XmlFile in a Product" Comments="Test from: wix\examples\test\xmlfile\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Property Id="NewAttributeValue" Value="hello" />
+        <Property Id="ChildAttributeName" Value="New" />
+        <Property Id="SpecialText" Value="This is some really special text. :)" />
+        <Property Id="LongValue" Value="This is a long value that should be much longer than the hard coded 255 character buffer used to be.  This will cause StringCchCopy to return ERROR_INSUFFICIENT_BUFFER and cause the CA to fail.  What we should be doing is allocating a sufficiently large buffer as we read the value in.  If this install succeeds then we will know that I have made the fix to not use a static buffer and instead am allocating memory as needed.  This string is 462 characters long."/>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestXmlFileProductDirectory" ShortName="testxml" Name="Test XmlFile">
+                    <Component Id="TestXmlFileProductComponent1" Guid="00030829-1234-4321-C000-000000000046" DiskId="1">
+                        <File Id="TestXmlFile1" Name="test.xml" Source="$(env.WIX)\examples\data\test.xml" KeyPath="yes" />
+                        <util:XmlFile Id="NewAttribute1" File="[#TestXmlFile1]" ElementPath="/Root" Name="New" Value="[NewAttributeValue]" Action="setValue" Permanent="yes" />
+                        <util:XmlFile Id="Text1" File="[#TestXmlFile1]" ElementPath="/Root" Value="this is text" Action="setValue" />
+                        <util:XmlFile Id="ChildAttribute1" File="[#TestXmlFile1]" ElementPath="/Root/Child" Name="[ChildAttributeName]" Value="again" Action="setValue" />
+                        <util:XmlFile Id="ChildSecondAttribute1" File="[#TestXmlFile1]" ElementPath="/Root/Child[\[]1[\]]" Name="foo" Value="bar" Action="setValue" />
+                        <util:XmlFile Id="SpecificAdd" File="[#TestXmlFile1]" ElementPath="/Root/Config[\[]@key='ghi'[\]]" Name="value" Value="CN=Something Else" Action="setValue" />
+                        <util:XmlFile Id="Delete" File="[#TestXmlFile1]" ElementPath="/Root/Config[\[]@key='abc'[\]]" Name="key" Value="CN=Something Else" Action="deleteValue" />
+                    </Component>
+                    <Directory Id="TextXmlFileProductSubDirectory" ShortName="subdir" Name="Sub Directory">
+                        <Component Id="TestXmlFileProductComponent2" Guid="00030829-1234-4321-C000-123400000046" DiskId="1">
+                            <File Id="TestXmlFile2" Name="test.xml" Source="$(env.WIX)\examples\data\test.xml" KeyPath="yes" />
+                            <util:XmlFile Id="NewAttribute2" File="[#TestXmlFile2]" ElementPath="/Root" Name="New" Value="boo" Action="setValue" />
+                            <util:XmlFile Id="Text2" File="[#TestXmlFile2]" ElementPath="/Root/Child" Value="[SpecialText]" Action="setValue" />
+                            <util:XmlFile Id="ChildAttribute2" File="[#TestXmlFile2]" ElementPath="/Root/Child" Name="Nuevo" Value="again" Action="setValue" />
+                            <util:XmlFile Id="ChildAttribute3" File="[#TestXmlFile2]" ElementPath="/Root/Child" Name="Long" Value="[LongValue]" Action="setValue" />
+                            <util:XmlFile Id="NewElement" File="[#TestXmlFile2]" ElementPath="/Root/Child" Name="NewElement" Value="new element text" Action="createElement" Sequence="1" />
+                            <util:XmlFile Id="NewElementChild" File="[#TestXmlFile2]" ElementPath="/Root/Child/NewElement" Name="NewElementChild" Action="createElement" Sequence="2" />
+                            <util:XmlFile Id="NewElementAttrib" File="[#TestXmlFile2]" ElementPath="/Root/Child/NewElement" Name="EmptyAttr" Action="setValue" Sequence="3" />
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestXmlFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestXmlFileProductComponent1" />
+            <ComponentRef Id="TestXmlFileProductComponent2" />
+        </Feature>
+    </Product>
+</Wix>

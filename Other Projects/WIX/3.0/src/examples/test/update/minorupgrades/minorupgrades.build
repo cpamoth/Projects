@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Update Example SP Patches" default="build.minorupgrades" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    CustomDialogSet.build - Builds the custom dialog set .wixlib
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="..\update.include" unless="${property::exists('update.properties.defined')}" />
+  <include buildfile="..\products\products.build" unless="${property::exists('include.products')}" />
+  <property name="include.minorupgrades" value="1" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Clean -->
+  <target name="clean.minorupgrades" description="Cleans the build" >
+    <foreach item="String" in="${update.versions.minorupgrade}" delim="${update.versions.delim}" property="Version">
+      <delete failonerror="false">
+        <fileset>
+          <include name="${dir.build.update}\${Version}\m.wixobj" />
+          <include name="${dir.target.update}\${Version}\m.wixmsp" />
+          <include name="${dir.target.update}\${Version}\m.msp" />
+        </fileset>
+      </delete>
+    </foreach>
+  </target>
+
+  <!-- Build -->
+  <target name="build.minorupgrades" description="Performs an incremental build" depends="build.products">
+    <foreach item="String" in="${update.versions.minorupgrade}" delim="${update.versions.delim}" property="Version">
+      <candle out="${dir.build.update}\${Version}\m.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+        <sources>
+          <include name="${dir.src.update.minorupgrades}\m.wxs" />
+        </sources>
+        <arg value="-dVersion=${Version}" />
+        <arg value="-dRTM" />
+      </candle>
+
+      <light out="${dir.build.update}\${Version}\m.wixmsp" exedir="${dir.target.wix}" warningsaserrors="true">
+        <sources>
+          <include name="${dir.build.update}\${Version}\m.wixobj" />
+        </sources>
+        <arg value="-xo" />
+      </light>
+    </foreach>
+
+    <pyro out="${dir.target.update}\2.0\m.msp" exedir="${dir.target.wix}" warningsaserrors="true">
+      <sources>
+        <include name="${dir.build.update}\2.0\m.wixmsp" />
+      </sources>
+      <transforms>
+        <transform filepath="${dir.target.update}\2.0\1.0\a.wixmst" baseline="rtm" />
+        <transform filepath="${dir.target.update}\2.0\1.0\b.wixmst" baseline="rtm" />
+        <transform filepath="${dir.target.update}\2.0\1.0\c.wixmst" baseline="rtm" />
+      </transforms>
+    </pyro>
+
+    <pyro out="${dir.target.update}\3.0\m.msp" exedir="${dir.target.wix}" warningsaserrors="true">
+      <sources>
+        <include name="${dir.build.update}\3.0\m.wixmsp" />
+      </sources>
+      <transforms>
+        <transform filepath="${dir.target.update}\3.0\1.0\a.wixmst" baseline="rtm" />
+        <transform filepath="${dir.target.update}\3.0\1.0\b.wixmst" baseline="rtm" />
+        <transform filepath="${dir.target.update}\3.0\1.0\c.wixmst" baseline="rtm" />
+        <!-- 2.0 baselines are only necessary if 2.0 MSI is distributed, for 1.0 MSI this supersedes 2.0 patch  -->
+        <transform filepath="${dir.target.update}\3.0\2.0\a.wixmst" baseline="sp1" />
+        <transform filepath="${dir.target.update}\3.0\2.0\b.wixmst" baseline="sp1" />
+        <transform filepath="${dir.target.update}\3.0\2.0\c.wixmst" baseline="sp1" />
+      </transforms>
+    </pyro>
+  </target>
+
+</project>

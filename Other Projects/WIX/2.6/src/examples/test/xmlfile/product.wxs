@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-1234-4321-C000-000000000046" Name="TestXmlFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test XmlFile in a Product" Comments="Test from: wix\examples\test\xmlfile\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Property Id="NewAttributeValue" Value="hello" />
+    <Property Id="ChildAttributeName" Value="New" />
+    <Property Id="SpecialText" Value="This is some really special text. :)" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestXmlFileProductDirectory" Name="testxml" LongName="Test XmlFile">
+          <Component Id="TestXmlFileProductComponent1" Guid="00030829-1234-4321-C000-000000000046" DiskId="1">
+            <File Id="TestXmlFile1" Name="test.xml" Source="$(env.WIX)\examples\data\test.xml" KeyPath="yes" />
+            <XmlFile Id="NewAttribute1" File="[#TestXmlFile1]" ElementPath="/Root" Name="New" Value="[NewAttributeValue]" Action="setValue" />
+            <XmlFile Id="Text1" File="[#TestXmlFile1]" ElementPath="/Root" Value="this is text" Action="setValue" />
+            <XmlFile Id="ChildAttribute1" File="[#TestXmlFile1]" ElementPath="/Root/Child" Name="[ChildAttributeName]" Value="again" Action="setValue" />
+            <XmlFile Id="ChildSecondAttribute1" File="[#TestXmlFile1]" ElementPath="/Root/Child[\[]1[\]]" Name="foo" Value="bar" Action="setValue" />
+            <XmlFile Id="SpecificAdd" File="[#TestXmlFile1]" ElementPath="/Root/Config[\[]@key='ghi'[\]]" Name="value" Value="CN=Something Else" Action="setValue" />
+            <XmlFile Id="Delete" File="[#TestXmlFile1]" ElementPath="/Root/Config[\[]@key='abc'[\]]" Name="key" Value="CN=Something Else" Action="deleteValue" />
+          </Component>
+          <Directory Id="TextXmlFileProductSubDirectory" Name="subdir" LongName="Sub Directory">
+            <Component Id="TestXmlFileProductComponent2" Guid="00030829-1234-4321-C000-123400000046" DiskId="1">
+              <File Id="TestXmlFile2" Name="test.xml" Source="$(env.WIX)\examples\data\test.xml" KeyPath="yes" />
+              <XmlFile Id="NewAttribute2" File="[#TestXmlFile2]" ElementPath="/Root" Name="New" Value="boo" Action="setValue" />
+              <XmlFile Id="Text2" File="[#TestXmlFile2]" ElementPath="/Root/Child" Value="[SpecialText]" Action="setValue" />
+              <XmlFile Id="ChildAttribute2" File="[#TestXmlFile2]" ElementPath="/Root/Child" Name="Nuevo" Value="again" Action="setValue" />
+              <XmlFile Id="NewElement" File="[#TestXmlFile2]" ElementPath="/Root/Child" Name="NewElement" Value="new element text" Action="createElement" Sequence="1" />
+              <XmlFile Id="NewElementChild" File="[#TestXmlFile2]" ElementPath="/Root/Child/NewElement" Name="NewElementChild" Action="createElement" Sequence="2" />
+              <XmlFile Id="NewElementAttrib" File="[#TestXmlFile2]" ElementPath="/Root/Child/NewElement" Name="EmptyAttr" Action="setValue" Sequence="3" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestXmlFileProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestXmlFileProductComponent1" />
+      <ComponentRef Id="TestXmlFileProductComponent2" />
+    </Feature>
+  </Product>
+</Wix>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Patch 
+        AllowRemoval="yes"
+        Manufacturer="Microsoft" 
+        MoreInfoURL="http://www.microsoft.com/"
+        DisplayName="M Patch - service pack" 
+        Description="Minor upgrade patch for all components." 
+        Classification="Update"
+        >
+
+        <Media Id="5000" Cabinet="patch.cab" Source="m">
+            <PatchBaseline Id="rtm"/>
+            <PatchBaseline Id="sp1"/>
+        </Media>
+
+        <PatchFamily Id='z' Version='$(var.Version).0.0' Supersede='yes'/>
+        <PatchFamily Id='y' Version='$(var.Version).0.0' Supersede='yes'/>
+        <PatchFamily Id='x' Version='$(var.Version).0.0' Supersede='yes'/>
+    </Patch>
+</Wix>
+ 

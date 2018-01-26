@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{68C80B45-D74B-4ED7-AF53-4ADC97AE1743}">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" ReadOnly="yes" />
+
+        <Property Id="ASECUREPROPERTY" Value="bar" Secure="yes">
+            <RegistrySearch Id="RegTest" Root="HKLM" Key="foo" Type="file" />
+            <FileSearch Id="Test" LongName="somelongfoo.dll" MinDate="2004-03-04T00:00:00" MaxDate="2004-03-04T23:59:59" />
+        </Property>
+
+        <Property Id="HXDS20_FOUND.3643236F_FC70_11D3_A536_0090278A1BB8">
+            <ComponentSearch Id="SearchForHxdsDll_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" Guid="0C4A54FF-5A73-11D3-A520-00A0C9231BA1" Type="file">
+                <FileSearch Id="SearchForHxdsDll_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" LongName="hxdsandsomeotherstuff.dll" MinVersion="2.0.1.0" />
+            </ComponentSearch>
+            <ComponentSearch Id="SearchForHxdsDll_ENU_X86.3643236F_FC70_11D3_A536_0090278A1BB8" Guid="0C4A54FF-5A73-11D3-A520-00A0C9231BA1" Type="file">
+                <FileSearch Id="SearchForHxdsDll_ENU_X86.3643236F_FC70_11D3_A536_0090278A1BB8" Name="hxds.dll" MinVersion="2.0.1.0" />
+            </ComponentSearch>
+            <RegistrySearch Id="SearchForHxdsDll_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" Root="HKLM" Key="CLSID\{31411198-a502-11d2-bbca-00c04f8ec294}\InprocServer32" Type="file">
+                <FileSearchRef Id="SearchForHxdsDll_____X86.3643236F_FC70_11D3_A536_0090278A1BB8" />
+            </RegistrySearch>
+            <RegistrySearch Id="SearchForHxdsDll_ENU_X86.3643236F_FC70_11D3_A536_0090278A1BB8" Root="HKLM" Key="CLSID\{31411198-a502-11d2-bbca-00c04f8ec294}\InprocServer32" Type="file">
+                <FileSearchRef Id="SearchForHxdsDll_ENU_X86.3643236F_FC70_11D3_A536_0090278A1BB8" />
+            </RegistrySearch>
+        </Property>
+
+        <Property Id="IISROOTDIR">
+            <RegistrySearch Id="IISRootDirInRegistry" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp" Name="PathWWWRoot" Type="directory" />
+        </Property>
+        <Property Id="FOUNDIIS">
+            <RegistrySearchRef Id="IISRootDirInRegistry" />
+        </Property>
+
+        <Property Id="INIVERSION0">
+            <IniFileSearch Id="INIread0" Name="WinCEP" Section="public\common\oak\files\sysroots.p7b" Key="DT" Field="1" Type="raw" />
+        </Property>
+
+        <Property Id="RAWREG">
+            <RegistrySearch Id="RawRegistry" Root="HKLM" Key="SOFTWARE\Microsoft\SomeApp" Name="SomeName" Type="raw" />
+        </Property>
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <Component Id="TestAssemblyProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestAssemblyProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <ComponentRef Id="TestAssemblyProductComponent" />
+        </Feature>
+
+        <InstallExecuteSequence>
+            <AppSearch After="LaunchConditions" />
+        </InstallExecuteSequence>
+
+    </Product>
+</Wix>

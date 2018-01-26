@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestMultiRegProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test MultiReg in a Product" InstallerVersion="200" Compressed="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestMultiRegProductDirectory" Name="testassm" LongName="Test MultiReg">
+          <Component Id="TestMultiRegProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+            <Registry Id="TestMultiRegProductKey1" Root="HKLM" Key="Test" Name="Foo" Type="multiString" Action="write" KeyPath="yes">
+              <RegistryValue>foo</RegistryValue>
+              <RegistryValue>bar</RegistryValue>
+              <RegistryValue>another</RegistryValue>
+            </Registry>
+            <Registry Id="TestMultiRegProductKey2" Root="HKLM" Key="Test" Name="Bar" Type="string" Action="write">
+              <RegistryValue>1</RegistryValue>
+            </Registry>
+            <Registry Id="TestMultiRegProductKey3" Root="HKLM" Key="Test" Name="Baz" Type="string" Value="19" Action="write" />
+            <Registry Id="TestMultiRegProductKey4" Root="HKLM" Key="Test" Name="Widget" Type="multiString" Action="append">
+              <RegistryValue>bar</RegistryValue>
+              <RegistryValue>another</RegistryValue>
+            </Registry>
+            <Registry Id="TestMultiRegProductKey5" Root="HKLM" Key="Test" Name="Thing" Type="multiString" Action="prepend">
+              <RegistryValue>bar</RegistryValue>
+              <RegistryValue>another</RegistryValue>
+            </Registry>
+            <Registry Root="HKCU" Key="Test" Name="another" Type="multiString" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestMultiRegProductFeature" Title="Test MultiReg Product Feature" Level="1">
+      <ComponentRef Id="TestMultiRegProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

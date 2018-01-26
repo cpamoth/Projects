@@ -1,0 +1,24 @@
+
+MSI Deployment tool.
+
+This will install the specified msi on the server with the config file that matches the *environment.
+
+*The environment is programmatically determined by the server name, or may be manually overridden.
+
+Valid Arguments:
+
+	msi				-	msi file you want to install
+
+	*environment	-	(*Optional) DEV, QA, MODEL, or PROD.  This will
+						override the otherwise programmatically determined
+						environment.
+
+	Examples: 
+	
+		something.msi (this will install the something.msi using the config file for the programmatically determined environment.)
+
+		something.msi QA (this will install the something.msi using the  QA config file.)
+
+Version Info:
+
+	Last Updated - 12\10\2012

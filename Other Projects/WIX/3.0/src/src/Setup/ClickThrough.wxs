@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+
+        <!-- Directories -->
+        <DirectoryRef Id="BinDir" FileSource="$(var.TargetDir)">
+            <Component Id="ClickThroughBinaries" Guid="4CC16CF5-837F-44E5-9579-0B9CF03E40D0">
+                <File Id="ct.exe" Name="ct.exe" KeyPath="yes" Vital="yes" />
+                <File Id="ct.exe.config" Name="ct.exe.config" Vital="yes" />
+            </Component>
+
+            <Component Id="ClickThroughUIBinaries" Guid="6B670C84-8E5E-4763-B5A8-BC46A3F8CF43">
+                <File Id="ctui.exe" Name="ctui.exe" KeyPath="yes" Vital="yes" />
+                <File Id="ctui.exe.config" Name="ctui.exe.config" Vital="yes" />
+
+                <Shortcut Id="ClickThroughShortcut" Directory="WixShortcutFolder" Name="WiX Toolset's ClickThrough" Advertise="yes"/>
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="WixShortcutFolder">
+            <Component Id="ClickThroughShortcutComponent" Guid="15C5BC7B-A578-4FB3-842F-A0E14D44DEE2">
+                <RemoveFolder Id="CleanupShortcutFolder" On="uninstall" />
+
+                <RegistryKey Root="HKCU" Key="Software\Windows Installer XML 3\ClickThrough" Action="createAndRemoveOnUninstall">
+                    <RegistryValue Name="Installed" Value="[BinDir]" Type="string" KeyPath="yes"/>
+                </RegistryKey>
+            </Component>
+        </DirectoryRef>
+
+        <!-- Features -->
+        <ComponentGroup Id="ClickThroughComponents" >
+            <ComponentRef Id="ClickThroughBinaries" />
+            <ComponentRef Id="ClickThroughUIBinaries" />
+            <ComponentRef Id="ClickThroughShortcutComponent" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

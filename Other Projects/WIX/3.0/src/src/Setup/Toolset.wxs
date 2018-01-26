@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) Microsoft Corporation.  All rights reserved.
+
+  Toolset.wxs - WiX source for the WiX toolset binaries.
+-->
+
+<?include WixVer.wxi ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <!-- Directories -->
+        <DirectoryRef Id="APPLICATIONFOLDER">
+            <Directory Id="BinDir" Name="bin" />
+            <Directory Id="DocDir" Name="doc" />
+            <Directory Id="SdkDir" Name="SDK">
+                <Directory Id="SdkIncDir" Name="inc" />
+                <Directory Id="SdkLibDir" Name="lib" />
+            </Directory>
+        </DirectoryRef>
+
+        <!-- Components -->
+        <DirectoryRef Id="APPLICATIONFOLDER" FileSource=".">
+            <Component Id="Licensing" Guid="A96136F8-E684-4281-A127-3417FBA25A67">
+                <File Id="CPL.TXT" Name="CPL.TXT" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="BinDir" FileSource="$(var.TargetDir)">
+            <Component Id="CandleBinaries" Guid="FBD4BCFB-F1B7-4B6D-B07C-E999A24521CF">
+                <File Id="candle.exe" Name="candle.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="CandleConfig" Guid="2DE5487F-CB2B-4F26-AF95-ACDEC2D024E1">
+                <File Id="candle.exe.config" Name="candle.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="DarIceCube" Guid="98D9CF0F-31BA-4790-BAF8-CABC2AD17E81">
+                <File Id="darice.cub" Name="darice.cub" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="DarkBinaries" Guid="810E1FAD-A3C0-45B7-84D1-736118406F20">
+                <File Id="dark.exe" Name="dark.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="DarkConfig" Guid="F55931CA-AF4B-4B70-A130-A884EAAA903A">
+                <File Id="dark.exe.config" Name="dark.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="HeatBinaries" Guid="3AF1FDDC-E697-45D0-812D-8BBDA56BEBE8">
+                <File Id="heat.exe" Name="heat.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="HeatConfig" Guid="4C60E3B5-C41C-4A4A-929D-70315AC6DD03">
+                <File Id="heat.exe.config" Name="heat.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="LightBinaries" Guid="953F7B4C-36C7-4BDD-8EA6-048630F779FB">
+                <File Id="light.exe" Name="light.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="LightConfig" Guid="7B76E85A-D3B6-4258-AE23-EAACABAA3947">
+                <File Id="light.exe.config" Name="light.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="LitBinaries" Guid="D33FFA86-8C03-43A0-AED4-000D33ADD6AA">
+                <File Id="lit.exe" Name="lit.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="LitConfig" Guid="8B849034-B724-4656-ADF5-97DC794901B4">
+                <File Id="lit.exe.config" Name="lit.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="MeltBinaries" Guid="221E008E-FFC6-407C-A0CE-1A29C79F2F9D">
+                <File Id="melt.exe" Name="melt.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="MeltConfig" Guid="A95A7D06-18EF-49A3-B453-E86B97C81F41">
+                <File Id="melt.exe.config" Name="melt.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="MergeModCube" Guid="56BBF52F-048F-43A4-932D-0773A31CA9C1">
+                <File Id="mergemod.cub" Name="mergemod.cub" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="MergeModBinaries" Guid="AAF02F71-9684-4F4F-8EEA-FC99A61EAA9A">
+                <File Id="mergemod.dll" Name="mergemod.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="NAntTasks" Guid="D12399DB-3FAB-4A46-96CE-454B5F3BCB75">
+                <File Id="NAntTasks.dll" Name="Microsoft.Tools.WindowsInstallerXml.NAntTasks.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="PyroBinaries" Guid="A33CCD8E-A85A-4149-BBB4-11F4C43B9205">
+                <File Id="pyro.exe" Name="pyro.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="PyroConfig" Guid="AE90E5F8-B7B0-4964-9C7A-3730DD0251FE">
+                <File Id="pyro.exe.config" Name="pyro.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="SmokeBinaries" Guid="48A05B14-C22E-454B-92B7-97200629BCEC">
+                <File Id="smoke.exe" Name="smoke.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="SmokeConfig" Guid="24F0A281-B01F-4CD1-960B-7DE7EFA07470">
+                <File Id="smoke.exe.config" Name="smoke.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="TorchBinaries" Guid="D9496C8B-825A-4464-92C7-8B8E258CA364">
+                <File Id="torch.exe" Name="torch.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="TorchConfig" Guid="0650236E-8279-4234-83AD-A33C17131741">
+                <File Id="torch.exe.config" Name="torch.exe.config" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="WConsoleBinaries" Guid="E687C3DB-8819-4849-A165-81DED7120A41">
+              <File Id="wconsole.dll" Name="wconsole.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="WixBinaries" Guid="2179AE82-9B26-4102-9F3B-255EE7DB8BDF">
+                <File Id="wix.dll" Name="wix.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="WixInteropBinaries" Guid="E0574698-5BFD-4C85-BA0B-EB36B833E6CE">
+                <File Id="winterop.dll" Name="winterop.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="WixCopBinaries" Guid="E98CA3C7-2016-4FD9-827B-87A2EE6353C3">
+                <File Id="WixCop.exe" Name="WixCop.exe" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="WuiBinaries" Guid="C66AE68D-427C-4515-A1EA-70295930275F">
+              <File Id="wui.dll" Name="wui.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="DocDir" FileSource="$(var.TargetDir)">
+            <Component Id="ChmDocumentation" Guid="6AA2591A-B5F8-44D9-91F4-3D7CD95635E0">
+                <File Id="WiX.chm" Name="WiX.chm" KeyPath="yes" />
+                <Shortcut Id="WixChmShortcut" Directory="WixShortcutFolder" Name="WiX $(var.WixVersion) Documentation" Advertise="yes" />
+            </Component>
+            <Component Id="WixSchemas" Guid="F41EA941-DCCC-4638-BB7E-A722EF7F2F5D">
+                <File Id="wix.xsd" Name="wix.xsd" KeyPath="yes" />
+                <File Id="wixloc.xsd" Name="wixloc.xsd" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="ProgramFilesFolder">
+            <Directory Id="Dir_MSBuild" Name="MSBuild">
+                <Directory Id="Dir_MSBuildMS" Name="Microsoft">
+                    <Directory Id="Dir_MSBuildMSWix" Name="WiX">
+                        <Directory Id="Dir_MSBuildMSWix30" Name="v3.0" FileSource="$(var.TargetDir)">
+                            <Component Id="WixMSBuildBinaries" Guid="855AFA48-D08E-4D77-9809-38C149EA3F2E">
+                                <File Id="WixTasks.dll" Name="WixTasks.dll" Checksum="yes" KeyPath="yes" Vital="yes" />
+                                <File Id="wix.targets" Name="wix.targets" Vital="yes" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+
+        <DirectoryRef Id="SdkDir" FileSource="$(var.TargetDir)">
+            <Component Id="DocCompiler" Guid="47168F22-10AC-4D4B-867E-A27BF93BECC7">
+                <File Id="DocCompiler.exe" Name="DocCompiler.exe" Checksum="yes" KeyPath="yes" />
+            </Component>
+            <Component Id="MsgGen" Guid="5A7280EB-ED53-40B7-906B-010272E49CA3">
+                <File Id="MsgGen.exe" Name="MsgGen.exe" Checksum="yes" KeyPath="yes" />
+            </Component>
+            <Component Id="XsdStitch" Guid="8C205460-3ADF-4F6A-8913-A0F900CB66A8">
+                <File Id="XsdStitch.exe" Name="XsdStitch.exe" Checksum="yes" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="SdkIncDir" FileSource="$(var.DutilTargetDir)">
+            <Component Id="SdkHeaders" Guid="332DBDA4-0459-40B3-A1C0-24163C04B3B6">
+                <File Id="aclutil.h" Name="aclutil.h" />
+                <File Id="cabcutil.h" Name="cabcutil.h" />
+                <File Id="cabutil.h" Name="cabutil.h" />
+                <File Id="dirutil.h" Name="dirutil.h" />
+                <File Id="dutil.h" Name="dutil.h" KeyPath="yes" />
+                <File Id="fileutil.h" Name="fileutil.h" />
+                <File Id="inetutil.h" Name="inetutil.h" />
+                <File Id="memutil.h" Name="memutil.h" />
+                <File Id="metautil.h" Name="metautil.h" />
+                <File Id="pathutil.h" Name="pathutil.h" />
+                <File Id="perfutil.h" Name="perfutil.h" />
+                <File Id="resrutil.h" Name="resrutil.h" />
+                <File Id="reswutil.h" Name="reswutil.h" />
+                <File Id="rssutil.h" Name="rssutil.h" />
+                <File Id="sqlutil.h" Name="sqlutil.h" />
+                <File Id="strutil.h" Name="strutil.h" />
+                <File Id="timeutil.h" Name="timeutil.h" />
+                <File Id="xmlutil.h" Name="xmlutil.h" />
+                <File Id="wcautil.h" Name="wcautil.h" Source="$(var.TargetDir)\wcautil.h" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="SdkLibDir">
+            <Component Id="SdkLibs" Guid="086102E7-C6C5-46E7-B3A0-043FE3A2AEBC">
+                <File Id="dutil.lib" Name="dutil.lib" Source="$(var.DutilTargetDir)\dutil.lib" KeyPath="yes" />
+                <File Id="wcautil.lib" Name="wcautil.lib" Source="$(var.TargetDir)\wcautil.lib" />
+            </Component>
+        </DirectoryRef>
+
+        <ComponentGroup Id="Toolset">
+            <ComponentRef Id="CandleBinaries" />
+            <ComponentRef Id="CandleConfig" />
+            <ComponentRef Id="DarIceCube" />
+            <ComponentRef Id="DarkBinaries" />
+            <ComponentRef Id="DarkConfig" />
+            <ComponentRef Id="HeatBinaries" />
+            <ComponentRef Id="HeatConfig" />
+            <ComponentRef Id="Licensing" />
+            <ComponentRef Id="LightBinaries" />
+            <ComponentRef Id="LightConfig" />
+            <ComponentRef Id="LitBinaries" />
+            <ComponentRef Id="LitConfig" />
+            <ComponentRef Id="MeltBinaries" />
+            <ComponentRef Id="MeltConfig" />
+            <ComponentRef Id="MergeModBinaries" />
+            <ComponentRef Id="MergeModCube" />
+            <ComponentRef Id="PyroBinaries" />
+            <ComponentRef Id="PyroConfig" />
+            <ComponentRef Id="SmokeBinaries" />
+            <ComponentRef Id="SmokeConfig" />
+            <ComponentRef Id="TorchBinaries" />
+            <ComponentRef Id="TorchConfig" />
+            <ComponentRef Id="WConsoleBinaries" />
+            <ComponentRef Id="WixBinaries" />
+            <ComponentRef Id="WixCopBinaries" />
+            <ComponentRef Id="WixInteropBinaries" />
+            <ComponentRef Id="WuiBinaries" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

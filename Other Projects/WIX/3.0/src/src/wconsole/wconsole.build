@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="wconsole" default="wconsole.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    wconsole.build - Builds the wconsole project (wconsole.dll).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- wconsole directories -->
+  <property name="dir.build.wconsole" value="${dir.build.wix}\wconsole" readonly="true" />
+  <property name="dir.src.wconsole" value="${dir.wixroot.src}\wconsole" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="wconsole.build" description="Peforms a full rebuild (clean then build)" depends="wconsole.clean, wconsole.inc" />
+
+  <!-- Clean -->
+  <target name="wconsole.clean" description="Cleans the build">
+    <delete dir="${dir.build.wconsole}" failonerror="false" if="${directory::exists(dir.build.wconsole)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="wconsole.dll" />
+        <include name="wconsole.pdb" />
+        <include name="wconsole.xml" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="wconsole.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <mkdir dir="${dir.build.wconsole}" />
+
+    <!-- Build the wconsole.dll -->
+    <csc
+      target="library"
+      output="${dir.target.wix}\wconsole.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      doc="${dir.target.wix}\wconsole.xml"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <nowarn>
+        <!-- Missing XML comment for publicly visible type or member 'x' -->
+        <warning number="1591" />
+      </nowarn>
+      <sources basedir="${dir.src.wconsole}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyDefaultClickThroughConsoleAttribute.cs" />
+        <include name="AssemblyInfo.cs" />
+        <include name="ClickThroughConsoleExtension.cs" />
+        <include name="CommandLineOption.cs" />
+        <include name="ConsoleMessageHandler.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+    </csc>
+  </target>
+
+</project>

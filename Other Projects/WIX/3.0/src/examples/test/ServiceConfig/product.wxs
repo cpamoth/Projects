@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="CBB654E4-088D-4628-A4B1-9FED96271EB1" Name="TestServiceConfig" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{D582946A-6C98-457A-9F2F-0EF22064F0A3}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\ServiceConfig\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestServiceConfigDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestServiceConfigComponent" Guid="9E70C11E-A313-448F-96A1-2A284F5D3DDC" DiskId="1">
+                        <File Id="TestService.exe" Name="TestService.exe" Source="$(env.WIX)\examples\data\bike.exe" KeyPath="yes" />
+                        <ServiceInstall Id="TestService.exe" Name="TestService" DisplayName="Sample service" Type="ownProcess" Interactive="no" Start="auto" Vital="yes" ErrorControl="normal">
+                            <util:ServiceConfig FirstFailureActionType="restart" SecondFailureActionType="restart" ThirdFailureActionType="none" ResetPeriodInDays="7" RestartServiceDelayInSeconds="60" />
+                        </ServiceInstall>
+                        <ServiceControl Id="TestService.exe" Name="TestService.exe" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+        </Directory>
+
+        <Feature Id="TestServiceConfigFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestServiceConfigComponent" />
+        </Feature>
+    </Product>
+</Wix>

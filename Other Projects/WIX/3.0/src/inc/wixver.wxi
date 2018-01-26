@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?ifdef WixVersion?>
+    <?undef WixVersion?>
+  <?endif?>
+  <?define WixVersion = "3.0.2925.0" ?>
+  <?ifdef WixBuildNum?>
+    <?undef WixBuildNum?>
+  <?endif?>
+  <?define WixBuildNum = "2925" ?>
+</Include>

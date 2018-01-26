@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestRegProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{69E423CA-9B67-4FED-9684-591BC4597778}">
+        <Package Description="Test Reg in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestRegProductDirectory" ShortName="testassm" Name="Test Reg">
+                    <Component Id="TestRegProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <RegistryValue Id="TestRegProductKey0" Root="HKLM" Key="Test" Type="string" Value="" />
+                        <RegistryValue Id="TestRegProductKey1" Root="HKLM" Key="Test" KeyPath="yes" Type="string" Value="" />
+                        <RegistryKey Id="TestRegProductKey1a" Root="HKU" Key="Test" Action="create" />
+                        <RegistryKey Root="HKLM" Key="Test" Action="createAndRemoveOnUninstall" />
+                        <RegistryValue Id="TestRegProductKey2" Root="HKCR" Key="Test" Action="write" Type="string" Value="" />
+                        <RemoveRegistryValue Id="TestRegProductKey3" Root="HKMU" Key="Test" />
+                        <RemoveRegistryValue Id="TestRegProductKey3a" Root="HKMU" Key="Test" Name="aname" />
+                        <RemoveRegistryKey Id="TestRegProductKey4" Root="HKCU" Key="Test" Action="removeOnInstall" />
+                        <RemoveRegistryKey Id="TestRegProductKey5" Root="HKU" Key="Test" Action="removeOnUninstall" />
+                        <RegistryValue Id="TestRegProductKey6" Root="HKLM" Key="Test" Name="1" Value="1" Type="binary" />
+                        <RegistryValue Id="TestRegProductKey7" Root="HKLM" Key="Test" Name="2" Action="write" Value="1" Type="expandable" />
+                        <RegistryValue Id="TestRegProductKey8" Root="HKLM" Key="Test" Name="3" Action="write" Value="1" Type="multiString" />
+                        <RegistryValue Id="TestRegProductKey9" Root="HKLM" Key="Test" Name="4" Action="write" Value="-1" Type="integer" />
+                        <RegistryValue Root="HKLM" Key="Test" Action="write" Type="string" Value="foo" />
+                        <?include increg.wxi ?>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestRegProductFeature" Title="Test Reg Product Feature" Level="1">
+            <ComponentRef Id="TestRegProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

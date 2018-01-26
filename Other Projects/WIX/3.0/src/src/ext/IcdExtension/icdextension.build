@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="icdextension" default="icdextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    icdextension.build - Builds the icdextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="dir.build.ext.icdextension" value="${dir.build.ext}\icdextension" readonly="true" />
+  <property name="dir.src.icdextension.wixext" value="${dir.src.ext}\IcdExtension\wixext" readonly="true" />
+  <property name="dir.src.icdextension.wixlib" value="${dir.src.ext}\IcdExtension\wixlib" readonly="true" />
+
+  <!-- extension files -->
+  <property name="icdextension.file.icd.xsd" value="${dir.src.icdextension.wixext}\Xsd\icd.xsd" readonly="true" />
+  <property name="icdextension.file.messages.xml" value="${dir.src.icdextension.wixext}\Data\messages.xml" readonly="true" />
+  <property name="icdextension.file.messages.cs" value="${dir.build.ext.icdextension}\Messages.cs" readonly="true" />
+  <property name="icdextension.file.messages.resources" value="${dir.build.ext.icdextension}\Messages.resources" readonly="true" />
+  <property name="icdextension.file.icd.cs" value="${dir.build.ext.icdextension}\icd.cs" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="icdextension.build" description="Peforms a full rebuild (clean then build)" depends="icdextension.clean, icdextension.inc" />
+
+  <!-- Clean -->
+  <target name="icdextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.icdextension}" failonerror="false" if="${directory::exists(dir.build.ext.icdextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixIcdExtension.dll" />
+        <include name="WixIcdExtension.pdb" />
+        <include name="icd.wixlib" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="icdextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <mkdir dir="${dir.build.ext.icdextension}" />
+
+    <!-- Compile the messages.xml into the Message.cs class -->
+    <!-- exec program="${tool.msggen}" unless="${file::up-to-date(icdextension.file.messages.xml,icdextension.file.messages.cs)}">
+      <arg value="-nologo" />
+      <arg value="${icdextension.file.messages.xml}" />
+      <arg value="${icdextension.file.messages.cs}" />
+      <arg value="${icdextension.file.messages.resources}" />
+    </exec -->
+
+    <!-- Compile the xsd file into the cs file -->
+    <!-- exec program="${tool.xsdgen}" unless="${file::up-to-date(icdextension.file.icd.xsd,icdextension.file.icd.cs)}">
+      <arg value="${icdextension.file.icd.xsd}" />
+      <arg value="${icdextension.file.icd.cs}" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.icd" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Serialize" />
+    </exec -->
+
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixIcdExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.icdextension.wixext}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="InternetComponentDownloadHarvester.cs" />
+        <include name="InternetComponentDownloadHeatExtension.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="heat.exe" />
+        <include name="wix.dll" />
+        <include name="WixUtilExtension.dll" />
+      </references>
+      <!-- Embed the xml/xsd files into the assembly -->
+      <!-- resources failonempty="true" basedir="${dir.build.ext.icdextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Xsd">
+        <include name="icd.xsd" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.build.ext.icdextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="Messages.resources" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.target.wix}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="icd.wixlib" />
+      </resources -->
+    </csc>
+  </target>
+
+</project>

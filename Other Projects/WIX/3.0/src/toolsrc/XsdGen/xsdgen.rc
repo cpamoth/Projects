@@ -1,0 +1,19 @@
+//-------------------------------------------------------------------------------------------------
+// <copyright file="xsdgen.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+//
+// <summary>
+// xsdgen.exe resource file.
+// </summary>
+//-------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_ORIGINAL_FILENAME "xsdgen.exe"
+#define VER_INTERNAL_NAME "xsdgen"
+#define VER_PRODUCT_NAME "Windows Installer XML"
+#define VER_FILE_DESCRIPTION "WiX Toolset XsdGen"
+#include "wix.rc"
+
+#define MANIFEST_RESOURCE_ID 1
+MANIFEST_RESOURCE_ID RT_MANIFEST "xsdgen.exe.manifest"

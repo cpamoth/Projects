@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:ps="http://schemas.microsoft.com/wix/PSExtension">
+    <Product Id="79FB610B-FFC1-423F-8965-3B9270F26CD2" Name="TestPSSnapInProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="6F19BDC6-621A-4E12-91C6-46A38EFAF79D">
+        <Package Description="Test PS SnapIn in a Product" Comments="Test from: wix\examples\test\powershell.1\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestPSSnapInProductDirectory" ShortName="pssnapin" Name="Test PS SnapIn">
+                    <Component Id="TestPSSnapInProductComponent" Guid="16E57633-A090-4BB3-863C-95A8D824D4EC" DiskId="1">
+                        <File Id="WixTasks" Name="WixTasks.dll" Source="$(env.WIX)\examples\data\WixTasks.dll" KeyPath="yes">
+                            <ps:SnapIn Id="wixtasks" AssemblyName="WixTasks, Version=3.0.1605.0, Culture=neutral, PublicKeyToken=9f4be179981a58d1" Description="WiX Tasks" Vendor="Windows Installer XML">
+                                <ps:FormatsFile FileId="WixTasks.formats" />
+                                <ps:TypesFile FileId="WixTasks.types" />
+                            </ps:SnapIn>
+                        </File>
+                        <File Id="WixTasks.formats" Name="WixTasks.formats.ps1xml" Source="$(env.WIX)\examples\data\WixTasks.formats.ps1xml" />
+                        <File Id="WixTasks.types" Name="WixTasks.types.ps1xml" Source="$(env.WIX)\examples\data\WixTasks.types.ps1xml" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestPSSnapInProductFeature" Title="Test SnapIn Product Feature" Level="1">
+            <ComponentRef Id="TestPSSnapInProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

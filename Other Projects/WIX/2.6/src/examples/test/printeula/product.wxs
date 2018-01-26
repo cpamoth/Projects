@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestPrintEulaProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test PrintEula" Comments="Test from: wix\examples\test\printeula\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestPrintEulaProductDirectory" Name="PrintEul" LongName="Print Eula">
+          <Component Id="TestPrintEulaProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestPrintEulaProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes">
+              <Shortcut Id="TestPrintEulaProductShortcut" Directory="ProgramMenuFolder" Name="testcut" LongName="Test Shortcut" Description="Shortcut to test.txt" Advertise="yes" />
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+    </Directory>
+
+    <Feature Id="TestPrintEulaProductFeature" Title="Test PrintEula Product Feature" Level="1">
+      <ComponentRef Id="TestPrintEulaProductComponent" />
+    </Feature>
+
+    <InstallUISequence>
+      <Show Dialog="FatalError" OnExit="error" />
+      <Show Dialog="UserExit" OnExit="cancel" />
+      <Show Dialog="ExitDialog" OnExit="success" />
+      <Show Dialog="PrepareDlg" After="LaunchConditions" />
+      <Show Dialog="WelcomeDlg" After="MigrateFeatureStates">NOT Installed</Show>
+      <Show Dialog="ResumeDlg" After="WelcomeDlg">Installed AND (RESUME OR Preselected)</Show>
+      <Show Dialog="MaintenanceWelcomeDlg" After="ResumeDlg">Installed AND NOT RESUME AND NOT Preselected</Show>
+      <Show Dialog="ProgressDlg" After="MaintenanceWelcomeDlg" />
+    </InstallUISequence>
+  </Product>
+</Wix>

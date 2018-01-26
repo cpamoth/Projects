@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <!-- PowerShell v1.0 -->
+    <Fragment>
+        <Property Id="POWERSHELL1.0" Secure="yes">
+            <RegistrySearch Id="POWERSHELL1.0Search" Root="HKLM" Key="SOFTWARE\Microsoft\PowerShell\1" Name="Install" Type="raw" />
+        </Property>
+    </Fragment>
+
+</Wix>

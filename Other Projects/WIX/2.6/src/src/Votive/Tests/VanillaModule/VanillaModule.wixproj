@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VisualStudioProject>
+    <WindowsInstallerXML
+        ProductVersion="2.1.608.0"
+        ProjectGuid="{07755C4A-D624-4B21-A79C-36D2B9E6B548}"
+        SchemaVersion="1.0"
+    >
+        <BuildSettings
+            OutputName="Project"
+            OutputType="MSM"
+        />
+        <Configurations>
+            <Configuration
+                Name="Debug"
+                RelativeOutputDirectory="bin\Debug"
+            />
+            <Configuration
+                Name="Release"
+                RelativeOutputDirectory="bin\Release"
+            />
+        </Configurations>
+        <WixlibReferences />
+        <Files>
+            <File
+                RelativePath="MergeModule.wxs"
+            />
+        </Files>
+    </WindowsInstallerXML>
+</VisualStudioProject>

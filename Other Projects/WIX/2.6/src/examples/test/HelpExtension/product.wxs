@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi" xmlns:vs="http://schemas.microsoft.com/wix/VSExtension">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestCompilerHelpExtensionSupportProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test Compiler Help Extension Support in a Product" Comments="Test from: wix\examples\test\HelpExtension\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestCompilerHelpExtensionProductDirectory" Name="testhex" LongName="Test HelpExtension">
+          <Component Id="TestCompilerHelpExtensionProductComponent" Guid="00030829-0000-0001-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionIndex" Name="testhex.hxi" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent2" Guid="00030829-0000-0002-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionContent" Name="testhex.hxc" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll">
+              <vs:HelpCollection Id="CompilerHelpExtensionChild" Name="Compiler Help Extension Child" Description="Testing the WiX Compiler Help Extension (first)">
+                <vs:HelpFileRef Id="FirstTestHelpFile" />
+                <vs:HelpFilterRef Id="FirstTestHelpFilter" />
+                <vs:PlugCollectionInto TargetCollection="CompilerHelpExtensionParent" TableOfContents="TestCompilerHelpExtensionTitle" Attributes="TestCompilerHelpExtensionAttribute" TargetTableOfContents="TestCompilerHelpExtensionTitle2" />
+              </vs:HelpCollection>
+            </File>
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent3" Guid="00030829-0000-0003-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionAttribute" Name="testhex.hxa" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent4" Guid="00030829-0000-0004-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionQuery" Name="testhex.hxq" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent5" Guid="00030829-0000-0005-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionSample" Name="testhex.hxs" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll">
+              <vs:HelpFile Id="FirstTestHelpFile" Name="FirstTestHelpFile" Language="1033" Index="TestCompilerHelpExtensionIndex" Search="TestCompilerHelpExtensionQuery" AttributeIndex="TestCompilerHelpExtensionR" />
+            </File>
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent6" Guid="00030829-0000-0006-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionTitle" Name="testhex.hxt" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent7" Guid="00030829-0000-0007-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionR" Name="testhex.hxr" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent8" Guid="00030829-0000-0008-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionIndex2" Name="hextest.hxi" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent9" Guid="00030829-0000-0009-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionContent2" Name="hextest.hxc" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll">
+              <vs:HelpCollection Id="CompilerHelpExtensionParent" Name="Compiler Help Extension Parent" Description="Testing the WiX Compiler Help Extension (second)">
+                <vs:HelpFileRef Id="SecondTestHelpFile" />
+                <vs:HelpFilterRef Id="FirstTestHelpFilter" />
+              </vs:HelpCollection>
+            </File>
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent10" Guid="00030829-0000-0010-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionAttribute2" Name="hextest.hxa" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent11" Guid="00030829-0000-0011-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionQuery2" Name="hextest.hxq" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent12" Guid="00030829-0000-0012-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionSample2" Name="hextest.hxs" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll">
+              <vs:HelpFile Id="SecondTestHelpFile" Name="SecondTestHelpFile" Language="1033" Index="TestCompilerHelpExtensionIndex2" Search="TestCompilerHelpExtensionQuery2" AttributeIndex="TestCompilerHelpExtensionR2" />
+            </File>
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent13" Guid="00030829-0000-0013-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionTitle2" Name="hextest.hxt" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+          <Component Id="TestCompilerHelpExtensionProductComponent14" Guid="00030829-0000-0014-C000-000000000046">
+            <File Id="TestCompilerHelpExtensionR2" Name="testhex.hxr" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestCompilerHelpExtensionProductFeature" Title="Test Compiler Help Extension Product Feature" Level="1">
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent2" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent3" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent4" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent5" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent6" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent7" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent8" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent9" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent10" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent11" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent12" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent13" />
+      <ComponentRef Id="TestCompilerHelpExtensionProductComponent14" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <vs:HelpFilter Id="FirstTestHelpFilter" Name="Test compiler help extensions help filter element" FilterDefinition="&quot;DocSet&quot; = &quot;PSDK&quot; OR &quot;DocSet&quot; = &quot;DExploreHelp&quot;" />
+  </Fragment>
+</Wix>

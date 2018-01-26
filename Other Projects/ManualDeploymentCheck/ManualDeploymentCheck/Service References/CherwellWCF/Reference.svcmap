@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7ca58761-69c6-4ad2-9858-ce002fec74dd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CherwellWCF.disco" MetadataType="Disco" ID="8ca18c5a-6f9d-4d4d-a5d8-2e3cf8d498b9" SourceId="1" SourceUrl="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?disco" />
+    <MetadataFile FileName="CherwellWCF.wsdl" MetadataType="Wsdl" ID="800794a4-4786-40b7-b676-fb472b61cfbf" SourceId="1" SourceUrl="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?wsdl" />
+    <MetadataFile FileName="CherwellWCF.xsd" MetadataType="Schema" ID="bd5688a3-5d2f-4433-93d6-78caed87d262" SourceId="1" SourceUrl="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd3" />
+    <MetadataFile FileName="CherwellWCF1.xsd" MetadataType="Schema" ID="ecbf4d30-e8dc-46d1-86ce-046174617bde" SourceId="1" SourceUrl="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd1" />
+    <MetadataFile FileName="CherwellWCF2.xsd" MetadataType="Schema" ID="f60c4d42-822b-4dfa-a819-15a8472125ff" SourceId="1" SourceUrl="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd2" />
+    <MetadataFile FileName="CherwellWCF3.xsd" MetadataType="Schema" ID="6e9d4a85-0851-49be-b911-ae8b21c4d793" SourceId="1" SourceUrl="http://hcsbuildsrv2/CherwellWCF/CherwellWCF.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

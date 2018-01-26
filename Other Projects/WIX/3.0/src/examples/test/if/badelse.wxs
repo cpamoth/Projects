@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<!--
+This is a qtest for if logic.
+Specifically, this excercises:
+	Too many else's in a chain
+-->
+
+<?define variable=1?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <Product Id="F73522A2-EBF6-436F-8C89-178902306EE7" Name="Server Test" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{6226F311-6786-4C35-B88B-D8823BA3AC60}">
+        <Package Description="Server Test" Comments="Server Test" InstallerVersion="200" Compressed="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="0" Guid="" />
+            <?ifdef variable?>
+            <?else ?>
+            <?else ?>
+            <?endif ?>
+            <Component Id="4" Guid="" />
+        </Directory>
+    </Product>
+
+</Wix>
+

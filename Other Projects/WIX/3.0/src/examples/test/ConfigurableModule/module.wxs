@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Module Id="TestAssemblyModule" Language="1033" Version="0.0">
+        <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test" Comments="Test" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+
+        <Configuration Name="MyNameOfConfigurableItem1" Format="Text" Type="MyType" ContextData="MyContextData" DefaultValue="MyDefaultValue" KeyNoOrphan="yes" NonNullable="yes" DisplayName="MyDisplayName" Description="MyDescription" HelpLocation="MyHelpLocation" HelpKeyword="MyHelpKeyword" />
+        <Configuration Name="MyNameOfConfigurableItem2" Format="Integer" />
+
+        <Dependency RequiredId="OtherModuleId" RequiredLanguage="1234" RequiredVersion="1.2.3.45678" />
+        <Dependency RequiredId="OtherModuleId" RequiredLanguage="6789" />
+
+        <IgnoreTable Id="foo" />
+
+        <Substitution Table="MyTable" Row="MyRow1" Column="MyColumn" Value="MyValue" />
+        <Substitution Table="MyTable" Row="MyRow2" Column="MyColumn" />
+
+    </Module>
+</Wix>

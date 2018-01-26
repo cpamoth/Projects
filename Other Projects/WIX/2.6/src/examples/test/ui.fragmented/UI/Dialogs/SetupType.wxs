@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="SetupType">
+    <UI>
+      <Dialog Id="SetupType" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+        <Control Id="RadioGroup" Type="RadioButtonGroup" X="21" Y="79" Width="264" Height="120" Property="_IsSetupTypeMin">
+          <RadioButtonGroup Property="_IsSetupTypeMin">
+            <RadioButton Value="Typical" X="0" Y="0" Width="264" Height="14" Text="{&amp;MSSansBold8}&amp;Complete" />
+            <RadioButton Value="Custom" X="0" Y="60" Width="264" Height="14" Text="{&amp;MSSansBold8}Cu&amp;stom" />
+          </RadioButtonGroup>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+          <Publish Event="NewDialog" Value="DestinationFolder"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Next &gt;">
+          <Publish Event="NewDialog" Value="CustomSetup"><![CDATA[_IsSetupTypeMin = "Custom"]]></Publish>
+          <Publish Event="NewDialog" Value="ReadyToInstall"><![CDATA[_IsSetupTypeMin <> "Custom"]]></Publish>
+          <Publish Event="AddLocal" Value="ALL"><![CDATA[_IsSetupTypeMin = "Typical"]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="DlgDesc" Type="Text" X="21" Y="23" Width="292" Height="25" Transparent="yes">
+          <Text>Choose the setup type that best suits your needs.</Text>
+        </Control>
+        <Control Id="DlgTitle" Type="Text" X="13" Y="6" Width="292" Height="25" Transparent="yes">
+          <Text>{&amp;MSSansBold8}Setup Type</Text>
+        </Control>
+        <Control Id="DlgText" Type="Text" X="21" Y="51" Width="326" Height="10">
+          <Text>Please select a setup type.</Text>
+        </Control>
+        <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+        <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+        <Control Id="CompText" Type="Text" X="80" Y="94" Width="246" Height="35">
+          <Text>All program features will be installed. (Requires the most disk space.)</Text>
+        </Control>
+        <Control Id="CompleteIco" Type="Icon" X="34" Y="94" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="NewBinary10" />
+        <Control Id="CustText" Type="Text" X="80" Y="154" Width="246" Height="35">
+          <Text>Choose which program features you want installed and where they will be installed. Recommended for advanced users.</Text>
+        </Control>
+        <Control Id="CustomIco" Type="Icon" X="34" Y="154" Width="24" Height="24" FixedSize="yes" IconSize="32" Text="NewBinary6" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

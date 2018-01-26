@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{A49CE20D-CE64-4A08-9F24-92A6443D6699}") = "VanillaProduct", "VanillaProduct.wixproj", "{B2C94346-4FF9-4815-9CFF-260132B4D586}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Debug.ActiveCfg = Debug
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Debug.Build.0 = Debug
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Release.ActiveCfg = Release
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Release.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

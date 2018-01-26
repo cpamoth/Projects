@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="xsdgen" default="xsdgen.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    xsdgen.build - Builds the xsdgen project (XsdGen.exe).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- xsdgen-specific properties -->
+  <property name="xsdgen.file.res.target" value="${dir.build.xsdgen}\xsdgen.res" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="xsdgen.build" description="Peforms a full rebuild (clean then build)" depends="xsdgen.clean, xsdgen.inc" />
+
+  <!-- Clean -->
+  <target name="xsdgen.clean" description="Cleans the build">
+    <delete dir="${dir.build.xsdgen}" failonerror="false" if="${directory::exists(dir.build.xsdgen)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="XsdGen.exe" />
+        <include name="XsdGen.exe.manifest" />
+        <include name="XsdGen.pdb" />
+        <include name="XsdGen.res" />
+        <include name="XsdGen.xml" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="xsdgen.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Compile the xsdgen.rc file -->
+    <rc rcfile="${dir.src.xsdgen}\xsdgen.rc" langid="0" output="${xsdgen.file.res.target}" options="${rc.standardOptions} ${cl.standardIncludes}" />
+
+    <!-- Build the xsdgen.exe -->
+    <csc
+      target="exe"
+      output="${dir.target.wix}\XsdGen.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      doc="${dir.target.wix}\XsdGen.xml"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.xsdgen}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="CodeDomInterfaces.cs" />
+        <include name="CodeDomReader.cs" />
+        <include name="ElementCollection.cs" />
+        <include name="StronglyTypedClasses.cs" />
+        <include name="XsdGen.cs" />
+      </sources>
+      <arg value="-win32res:&quot;${xsdgen.file.res.target}&quot;" />
+    </csc>
+  </target>
+
+</project>

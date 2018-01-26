@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="wixbuild" default="wixbuild.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    wixbuild.build - Builds the WixBuild project (WixBuild.dll).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="wixbuild.build" description="Peforms a full rebuild (clean then build)">
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="true">
+      <arg value="/property:Configuration=Debug" if="${debug}" />
+      <arg value="/property:Configuration=Release" if="${ship}" />
+      <arg value="/target:Rebuild" />
+      <arg file="${dir.src.wixbuild}\WixBuild.csproj" />
+    </exec>
+  </target>
+
+  <!-- Clean -->
+  <target name="wixbuild.clean" description="Cleans the build">
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="true">
+      <arg value="/property:Configuration=Debug" if="${debug}" />
+      <arg value="/property:Configuration=Release" if="${ship}" />
+      <arg value="/target:Clean" />
+      <arg file="${dir.src.wixbuild}\WixBuild.csproj" />
+    </exec>
+  </target>
+
+  <!-- Inc -->
+  <target name="wixbuild.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="true">
+      <arg value="/property:Configuration=Debug" if="${debug}" />
+      <arg value="/property:Configuration=Release" if="${ship}" />
+      <arg value="/target:Build" />
+      <arg file="${dir.src.wixbuild}\WixBuild.csproj" />
+    </exec>
+  </target>
+
+</project>

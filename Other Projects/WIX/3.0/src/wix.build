@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="WiX Toolset" default="inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    wix.build - Builds the entire Windows Installer XML toolset.
+  </description>
+
+  <!--
+  To add a new projects you must do at least the following:
+  
+  1. Create a ${dir.src.project} property in wix.include
+  2. Create the project .build file
+  3. Add an <include/> for the .build file below.
+  4. Add the project as a dependency of the 'clean' target.
+  5. Add the project as a dependency of the 'inc' target.
+  6. Add a <target> with the correct dependencies on other projects.
+  -->
+
+  <!-- Use .NET 1.1 for our framework.  -->
+  <property name="nant.settings.currentframework" value="net-1.1" />
+
+  <!-- Include the global build properties -->
+  <include buildfile="wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Includes
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Toolsrc build files -->
+  <include buildfile="${dir.src.toolsrc}\toolsrc.build" />
+
+  <!-- Wix toolset build files -->
+  <include buildfile="${dir.src.ambient}\ambient.build" />
+  <include buildfile="${dir.src.candle}\candle.build" />
+  <include buildfile="${dir.src.chm}\chm.build" />
+  <include buildfile="${dir.src.ct}\ct.build" />
+  <include buildfile="${dir.src.dark}\dark.build" />
+  <include buildfile="${dir.src.ext}\ext.build" />
+  <include buildfile="${dir.src.heat}\heat.build" />
+  <include buildfile="${dir.src.light}\light.build" />
+  <include buildfile="${dir.src.lit}\lit.build" />
+  <include buildfile="${dir.src.melt}\melt.build" />
+  <include buildfile="${dir.src.nanttasks}\nanttasks.build" />
+  <include buildfile="${dir.src.ca.serverca}\serverca.build" />
+  <include buildfile="${dir.wixroot.src}\setup\setup.build" />
+  <include buildfile="${dir.wixroot.src}\setupbld\setupbld.build" />
+  <include buildfile="${dir.wixroot.src}\setupexe\setupexe.build" />
+  <include buildfile="${dir.src.pyro}\pyro.build" />
+  <include buildfile="${dir.src.smoke}\smoke.build" />
+  <include buildfile="${dir.src.torch}\torch.build" />
+  <include buildfile="${dir.src.votive}\votive.build" />
+  <include buildfile="${dir.src.wcautil}\wcautil.build" />
+  <include buildfile="${dir.wixroot.src}\wconsole\wconsole.build" />
+  <include buildfile="${dir.src.winterop}\winterop.build" />
+  <include buildfile="${dir.src.wixbuild}\wixbuild.build" />
+  <include buildfile="${dir.src.wixca}\wixca.build" />
+  <include buildfile="${dir.src.wixdll}\wixdll.build" />
+  <include buildfile="${dir.src.wixtasks}\wixtasks.build" />
+  <include buildfile="${dir.src.wixunit}\wixunit.build" />
+  <include buildfile="${dir.wixroot.src}\wui\wui.build" />
+  <include buildfile="${dir.wixroot}\bin\zip.build" />
+  
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="build" description="Builds the entire WiX toolset" depends="clean, inc" />
+
+  <!-- Clean: Make sure wixbuild.clean is last since it contains MSBuild tasks for the other projects -->
+  <target name="clean" description="Cleans the entire WiX toolset" 
+          depends="initbuildenv,
+                   ambient.clean,
+                   candle.clean,
+                   chm.clean,
+                   ct.clean,
+                   dark.clean,
+                   ext.clean,
+                   light.clean,
+                   lit.clean,
+                   melt.clean,
+                   nanttasks.clean,
+                   pyro.clean,
+                   setup.clean,
+                   setupbld.clean,
+                   setupexe.clean,
+                   serverca.clean,
+                   smoke.clean,
+                   toolsrc.clean,
+                   torch.clean,
+                   votive.clean,
+                   wcautil.clean,
+                   wconsole.clean,
+                   winterop.clean,
+                   wixca.clean,
+                   wixdll.clean,
+                   wixtasks.clean,
+                   wixunit.clean,
+                   wui.clean,
+                   zip.clean,
+                   wixbuild.clean">
+
+    <delete dir="${dir.build.wix}" failonerror="false" if="${directory::exists(dir.build.wix)}" />
+    <delete dir="${dir.log.wix}" failonerror="false" if="${directory::exists(dir.log.wix)}" />
+    <delete dir="${dir.target.wix}" failonerror="false" if="${directory::exists(dir.target.wix)}" />
+  </target>
+
+  <!-- Inc -->
+  <target name="inc" description="Incrementally builds the entire WiX toolset" 
+          depends="initbuildenv,
+                   ambient,
+                   candle,
+                   ct,
+                   chm,
+                   dark,
+                   ext,
+                   light,
+                   lit,
+                   melt,
+                   nanttasks,
+                   pyro,
+                   serverca,
+                   setup,
+                   smoke,
+                   toolsrc,
+                   torch,
+                   votive,
+                   wcautil,
+                   wconsole,
+                   winterop,
+                   wixbuild, 
+                   wixca,
+                   wixdll,
+                   wixtasks,
+                   wixunit,
+                   wui,
+                   zip" />
+
+  <!-- Pre-req checking and build environment setup -->
+  <target name="prereqcheck">
+    <fail message="Building WiX requires .NET Framework 1.1" unless="${framework::exists('net-1.1')}" />
+    <fail message="Building WiX requires .NET Framework 1.1 SDK" unless="${framework::sdk-exists('net-1.1')}" />
+    <fail message="Building WiX requires .NET Framework 2.0" unless="${framework::exists('net-2.0') or environment::variable-exists('COMPLUSBUILD')}" />
+  </target>
+
+  <target name="snskip" depends="prereqcheck">
+    <property name="wix.snskip.tempname" value="${path::get-temp-file-name()}" />
+    <exec program="${framework::get-sdk-directory('net-1.1')}\sn.exe" commandline="-Vl" output="${wix.snskip.tempname}" />
+    <loadfile file="${wix.snskip.tempname}" property="wix.snkip.output" />
+    <delete file="${wix.snskip.tempname}" failonerror="false" />
+    <exec program="${framework::get-sdk-directory('net-1.1')}\sn.exe" commandline="-Vr *,9f4be179981a58d1" unless="${string::contains(wix.snkip.output, '*,9f4be179981a58d1')}" />
+  </target>
+
+  <target name="trustmsbuildfiles">
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="false">
+      <arg value="/target:TrustMSBuildTargetsFiles" />
+      <arg file="${dir.wixroot}\WixBuild.Common.targets" />
+    </exec>
+  </target>
+
+  <target name="initbuildenv" depends="snskip, trustmsbuildfiles" />
+
+  <target name="ambient" depends="nanttasks, wixdll, ambient.inc" />
+  <target name="candle" depends="wconsole, candle.inc" />
+  <target name="chm" depends="toolsrc, chm.inc" />
+  <target name="ct" depends="ambient, setupbld.inc, setupexe.inc, ext, nanttasks, winterop, wixbuild, wconsole, wui, ct.inc" />
+  <target name="dark" depends="wconsole, dark.inc" />
+  <target name="ext" depends="ambient, serverca, toolsrc, wixbuild, wixdll, heat, wconsole, wui, ext.inc" />
+  <target name="heat" depends="wconsole, heat.inc" />
+  <target name="light" depends="wconsole, light.inc" />
+  <target name="lit" depends="wconsole, lit.inc" />
+  <target name="melt" depends="wconsole, melt.inc" />
+  <target name="nanttasks" depends="candle, dark, light, lit, pyro, winterop, nanttasks.inc" />
+  <target name="pyro" depends="wconsole, pyro.inc" />
+  <target name="serverca" depends="nanttasks, wcautil, wixca, serverca.inc" />
+  <target name="setup" depends="ambient, candle, chm, ct, dark, ext, light, lit, melt, nanttasks, pyro, serverca, smoke, toolsrc, torch, votive, wcautil, winterop, wixbuild, wixca, wixdll, wixtasks, wixunit, setup.inc" />
+  <target name="smoke" depends="wconsole, smoke.inc" />
+  <target name="toolsrc" depends="initbuildenv, wixbuild, toolsrc.inc" />
+  <target name="torch" depends="wixdll, torch.inc" />
+  <target name="votive" depends="candle, chm, dark, ext, light, lit, melt, nanttasks, pyro, serverca, toolsrc, torch, wcautil, winterop, wixbuild, wixca, wixdll, wixtasks, votive.inc" />
+  <target name="wcautil" depends="wcautil.inc" />
+  <target name="wconsole" depends="wixdll, wconsole.inc" />
+  <target name="winterop" depends="winterop.inc" />
+  <target name="wixbuild" depends="snskip, wixbuild.inc" />
+  <target name="wixca" depends="nanttasks, wcautil, wixca.inc" />
+  <target name="wixdll" depends="toolsrc, wixdll.inc" />
+  <target name="wixtasks" depends="snskip, wixbuild, wixtasks.inc"/>
+  <target name="wixunit" depends="wixdll, wixunit.inc" />
+  <target name="wui" depends="wixdll, wui.inc" />
+  <target name="zip" depends="setup, zip.inc" />
+
+</project>

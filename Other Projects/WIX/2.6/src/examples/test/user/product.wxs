@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1121-0000-0000-C000-000000000046" Name="TestUserProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1121-0000-0000-C000-000000000046" Description="Test File in a Product" Comments="Test from: wix\examples\test\user\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Group Id="ADMIN" Name="Administrators" />
+    <Group Id="IIS" Name="IIS_WPG" />
+    <Group Id="POWER_USER" Name="Power Users" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="TestUserProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+        <User Id="TEST_USER1" Name="testName1" Password="test123!@#" PasswordExpired="yes">
+          <GroupRef Id="IIS" />
+          <GroupRef Id="ADMIN" />
+          <GroupRef Id="POWER_USER" />
+        </User>
+        <User Id="TEST_USER2" Name="testName2" Password="test123!@#" Disabled="yes" RemoveOnUninstall="no" PasswordNeverExpires="yes">
+          <GroupRef Id="POWER_USER" />
+        </User>
+        <User Id="TEST_USER3" Name="scotk" Domain="redmond" CreateUser="no">
+          <GroupRef Id="POWER_USER" />
+        </User>
+      </Component>
+    </Directory>
+
+    <Feature Id="TestUserProductFeature" Title="Test User Product Feature" Level="1">
+      <ComponentRef Id="TestUserProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

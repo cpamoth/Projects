@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E6B5FD81-01FA-4F7F-902E-9B93D7DAC0B4}">
+        <Package Description="Test Assembly in a Module" Comments="Test from: wix\examples\test\assembly\module.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" Compressed="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="TestAssemblyModuleDirectory" Name=".">
+                <Component Id="TestAssemblyProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                    <File Id="TestCompainionFileModuleFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    <File Id="TestFileProductFile" Name="test.txt" Compressed="yes" DiskId="1" Source="$(env.WIX)\examples\data\test.txt" />
+                </Component>
+                <Component Id="TestAssemblyProductComponent2" Guid="00030829-0000-0000-C000-000000000047">
+                    <File Id="TestCompainionFileModuleCompanionFile2" Name="test2.txt" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\test.txt" />
+                    <File Id="TestCompainionFileModuleCompanionFile" Name="test1.txt" CompanionFile="TestFileProductFile" DiskId="1" Source="$(env.WIX)\examples\data\test.txt" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <ComponentRef Id="TestAssemblyProductComponent" />
+            <ComponentRef Id="TestAssemblyProductComponent2" />
+        </Feature>
+    </Product>
+</Wix>

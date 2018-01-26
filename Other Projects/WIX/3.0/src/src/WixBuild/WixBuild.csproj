@@ -1,0 +1,63 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB323B05-8822-4645-A0E6-ACF401ED92F7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml.WixBuild</RootNamespace>
+    <AssemblyName>WixBuild</AssemblyName>
+    <UseDocumentationFile>true</UseDocumentationFile>
+    <SccProjectName>//depot/dev/wix/src/WixBuild</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>MSSCCI:Source Depot</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DeleteRegistry.cs" />
+    <Compile Include="FlattenXml.cs" />
+    <Compile Include="MsgGen.cs" />
+    <Compile Include="Rc.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ReadRegistry.cs" />
+    <Compile Include="RegistryBase.cs" />
+    <Compile Include="WriteRegistry.cs" />
+    <Compile Include="XsdGen.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\WixBuild.Common.targets">
+      <Link>WixBuild.Common.targets</Link>
+    </None>
+    <None Include="C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\Microsoft.Common.targets">
+      <Link>Microsoft.Common.targets</Link>
+    </None>
+    <None Include="C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\Microsoft.CSharp.targets">
+      <Link>Microsoft.CSharp.targets</Link>
+    </None>
+  </ItemGroup>
+  <!-- Include this before the CSharp targets file -->
+  <Import Project="..\..\WixBuild.Common.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

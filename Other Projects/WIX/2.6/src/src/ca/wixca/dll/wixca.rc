@@ -1,0 +1,19 @@
+//--------------------------------------------------------------------------------------------------
+// <copyright file="wixca.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+// 
+// <summary>
+// WiX shim to native code resource file.
+// </summary>
+//--------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_LANG_NEUTRAL
+#define VER_ORIGINAL_FILENAME "wixca.dll"
+#define VER_INTERNAL_NAME "wixca"
+#define VER_PRODUCT_NAME "WiX Custom Actions"
+#define VER_FILE_DESCRIPTION "WiX Custom Actions"
+#include "wix.rc"
+
+// Additional resources here

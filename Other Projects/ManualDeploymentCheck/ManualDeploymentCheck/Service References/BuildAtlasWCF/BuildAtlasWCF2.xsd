@@ -1,0 +1,1045 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BuildAtlas.LightObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BuildAtlas.LightObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="LightCodeMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BrandId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BrandName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodeMove" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FinishTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RolledBack" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ScheduledBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ScheduledStart" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SiteId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SiteName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="VerifiedBy" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightCodeMove" nillable="true" type="tns:LightCodeMove" />
+  <xs:complexType name="ArrayOfLightSite">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightSite" nillable="true" type="tns:LightSite" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightSite" nillable="true" type="tns:ArrayOfLightSite" />
+  <xs:complexType name="LightSite">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BrandName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Deploy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EnvId" type="xs:int" />
+      <xs:element minOccurs="0" name="EnvName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightSite" nillable="true" type="tns:LightSite" />
+  <xs:complexType name="ArrayOfLightLayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightLayer" nillable="true" type="tns:LightLayer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightLayer" nillable="true" type="tns:ArrayOfLightLayer" />
+  <xs:complexType name="LightLayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Deploy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DeployForCI" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DeployForQA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DeployOrder" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="VersionId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightLayer" nillable="true" type="tns:LightLayer" />
+  <xs:complexType name="LightDeployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodeMove" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodeMoveId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FinishTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HudsonBuildNumber" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RolledBack" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ScheduledBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ScheduledStart" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ServerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ServerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SiteId" type="xs:int" />
+      <xs:element minOccurs="0" name="SiteName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="VerifiedBy" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightDeployment" nillable="true" type="tns:LightDeployment" />
+  <xs:complexType name="LightSSHCommand">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cmd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Output" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RequestedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerId" type="xs:int" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightSSHCommand" nillable="true" type="tns:LightSSHCommand" />
+  <xs:complexType name="LightServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BackupDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildEnvDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildsDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CanConnect" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ConnectionError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConnectionTestException" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConnectionTested" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DefaultRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LoadBalancerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Location" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrometheusId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ToolsDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightServer" nillable="true" type="tns:LightServer" />
+  <xs:complexType name="ArrayOfLightServerConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightServerConfiguration" nillable="true" type="tns:LightServerConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightServerConfiguration" nillable="true" type="tns:ArrayOfLightServerConfiguration" />
+  <xs:complexType name="LightServerConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightServerConfiguration" nillable="true" type="tns:LightServerConfiguration" />
+  <xs:complexType name="ArrayOfLightServerComp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightServerComp" nillable="true" type="tns:LightServerComp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightServerComp" nillable="true" type="tns:ArrayOfLightServerComp" />
+  <xs:complexType name="LightServerComp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="A" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="B" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BB" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="C" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodeOnServer" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CompDefId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CompDefType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CurrentDeployment" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="D" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeploymentMatch" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DeploymentVerified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="E" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="F" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="G" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="H" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HH" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="I" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="II" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="J" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JJ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="K" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="L" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="M" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="N" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="O" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="P" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Parasites" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Q" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QQ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="S" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SiteId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="T" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="U" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UU" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="V" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="W" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="X" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="XX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Y" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Z" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZZ" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightServerComp" nillable="true" type="tns:LightServerComp" />
+  <xs:complexType name="ArrayOfLightTool">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightTool" nillable="true" type="tns:LightTool" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightTool" nillable="true" type="tns:ArrayOfLightTool" />
+  <xs:complexType name="LightTool">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Path" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightTool" nillable="true" type="tns:LightTool" />
+  <xs:complexType name="LightVersion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BrandId" type="xs:int" />
+      <xs:element minOccurs="0" name="BrandName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildsUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Major" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Minor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TagsUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionString" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightVersion" nillable="true" type="tns:LightVersion" />
+  <xs:complexType name="LightBuildTask">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildOrder" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CIEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectId" type="xs:int" />
+      <xs:element minOccurs="0" name="QAEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TaskArgs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TaskType" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBuildTask" nillable="true" type="tns:LightBuildTask" />
+  <xs:complexType name="LightProject">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Architecture" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArchitectureId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildOrder" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CI" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CompileForCI" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CompileForQA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ConfigTemplatePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Configuration" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigurationId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Framework" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FrameworkId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LayerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OutputLayer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Path" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RawOutputDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightProject" nillable="true" type="tns:LightProject" />
+  <xs:complexType name="LightDeleteDir">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Directory" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightDeleteDir" nillable="true" type="tns:LightDeleteDir" />
+  <xs:complexType name="LightRenameDir">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OriginalName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectId" type="xs:int" />
+      <xs:element minOccurs="0" name="RenameTo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightRenameDir" nillable="true" type="tns:LightRenameDir" />
+  <xs:complexType name="LightSiteConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SiteId" type="xs:int" />
+      <xs:element minOccurs="0" name="SiteName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightSiteConfiguration" nillable="true" type="tns:LightSiteConfiguration" />
+  <xs:complexType name="ArrayOfLightDeployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightDeployment" nillable="true" type="tns:LightDeployment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightDeployment" nillable="true" type="tns:ArrayOfLightDeployment" />
+  <xs:complexType name="ArrayOfLightDeploymentLogEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightDeploymentLogEntry" nillable="true" type="tns:LightDeploymentLogEntry" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightDeploymentLogEntry" nillable="true" type="tns:ArrayOfLightDeploymentLogEntry" />
+  <xs:complexType name="LightDeploymentLogEntry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DeploymentId" type="xs:int" />
+      <xs:element minOccurs="0" name="DestinationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FinishTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LogMsg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ServerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightDeploymentLogEntry" nillable="true" type="tns:LightDeploymentLogEntry" />
+  <xs:complexType name="ArrayOfLightLayerAssociation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightLayerAssociation" nillable="true" type="tns:LightLayerAssociation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightLayerAssociation" nillable="true" type="tns:ArrayOfLightLayerAssociation" />
+  <xs:complexType name="LightLayerAssociation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Associated" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EntityId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EntityName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerId" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerComp" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerCompId" type="xs:int" />
+      <xs:element minOccurs="0" name="ServerId" type="xs:int" />
+      <xs:element minOccurs="0" name="ServerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightLayerAssociation" nillable="true" type="tns:LightLayerAssociation" />
+  <xs:complexType name="ArrayOfLightTestResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightTestResult" nillable="true" type="tns:LightTestResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightTestResult" nillable="true" type="tns:ArrayOfLightTestResult" />
+  <xs:complexType name="LightTestResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildId" type="xs:int" />
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Fail" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Ignored" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Inconclusive" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Pass" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Ran" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Test" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Total" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightTestResult" nillable="true" type="tns:LightTestResult" />
+  <xs:complexType name="ArrayOfLightHelpDeskTicketStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightHelpDeskTicketStatus" nillable="true" type="tns:LightHelpDeskTicketStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightHelpDeskTicketStatus" nillable="true" type="tns:ArrayOfLightHelpDeskTicketStatus" />
+  <xs:complexType name="LightHelpDeskTicketStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmailMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="InQueue" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IsCloseStatus" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightHelpDeskTicketStatus" nillable="true" type="tns:LightHelpDeskTicketStatus" />
+  <xs:complexType name="ArrayOfLightHelpDeskTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightHelpDeskTicket" nillable="true" type="tns:LightHelpDeskTicket" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightHelpDeskTicket" nillable="true" type="tns:ArrayOfLightHelpDeskTicket" />
+  <xs:complexType name="LightHelpDeskTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClosedOn" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EmailList" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Priority" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Rating" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Request" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubmittedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubmittedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalMinutes" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightHelpDeskTicket" nillable="true" type="tns:LightHelpDeskTicket" />
+  <xs:complexType name="ArrayOfLightHelpDeskTicketHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightHelpDeskTicketHistory" nillable="true" type="tns:LightHelpDeskTicketHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightHelpDeskTicketHistory" nillable="true" type="tns:ArrayOfLightHelpDeskTicketHistory" />
+  <xs:complexType name="LightHelpDeskTicketHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClosedOn" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EmailList" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Modified" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Priority" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Rating" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Request" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StatusName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubmittedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubmittedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TicketId" type="xs:int" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalMinutes" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightHelpDeskTicketHistory" nillable="true" type="tns:LightHelpDeskTicketHistory" />
+  <xs:complexType name="ArrayOfLightHelpDeskTicketMsg">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightHelpDeskTicketMsg" nillable="true" type="tns:LightHelpDeskTicketMsg" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightHelpDeskTicketMsg" nillable="true" type="tns:ArrayOfLightHelpDeskTicketMsg" />
+  <xs:complexType name="LightHelpDeskTicketMsg">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Msg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MsgDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TicketId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightHelpDeskTicketMsg" nillable="true" type="tns:LightHelpDeskTicketMsg" />
+  <xs:complexType name="ArrayOfLightSSHCommand">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightSSHCommand" nillable="true" type="tns:LightSSHCommand" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightSSHCommand" nillable="true" type="tns:ArrayOfLightSSHCommand" />
+  <xs:complexType name="ArrayOfLightCompDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightCompDefinition" nillable="true" type="tns:LightCompDefinition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightCompDefinition" nillable="true" type="tns:ArrayOfLightCompDefinition" />
+  <xs:complexType name="LightCompDefinition">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="A" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="B" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BB" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="C" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="D" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="E" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="F" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="G" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="H" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HH" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="I" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="II" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="J" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JJ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="K" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="KK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="L" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="M" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="N" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="O" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="P" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Q" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="QQ" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="S" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="T" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="U" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UU" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="V" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="W" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="X" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="XX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Y" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="YY" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Z" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZZ" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightCompDefinition" nillable="true" type="tns:LightCompDefinition" />
+  <xs:complexType name="LightEmail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BrandId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CI" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="POSignOff" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="QA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="QASignOff" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SiteId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+      <xs:element minOccurs="0" name="VersionId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightEmail" nillable="true" type="tns:LightEmail" />
+  <xs:complexType name="ArrayOfLightEmail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightEmail" nillable="true" type="tns:LightEmail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightEmail" nillable="true" type="tns:ArrayOfLightEmail" />
+  <xs:complexType name="ArrayOfLightUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightUser" nillable="true" type="tns:LightUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightUser" nillable="true" type="tns:ArrayOfLightUser" />
+  <xs:complexType name="LightUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Admin" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildMaster" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ConfigManager" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastAccess" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProjectManager" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="QA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ReleaseEngineer" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightUser" nillable="true" type="tns:LightUser" />
+  <xs:complexType name="LightOrganization">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightOrganization" nillable="true" type="tns:LightOrganization" />
+  <xs:complexType name="ArrayOfLightBrand">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightBrand" nillable="true" type="tns:LightBrand" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightBrand" nillable="true" type="tns:ArrayOfLightBrand" />
+  <xs:complexType name="LightBrand">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildServerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildServerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DefaultDBServerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DefaultDBServerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrganizationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrgnizationId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RepoType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TrunkUrl" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBrand" nillable="true" type="tns:LightBrand" />
+  <xs:complexType name="LightEnvironment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BrandId" type="xs:int" />
+      <xs:element minOccurs="0" name="DisplayName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailList" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightEnvironment" nillable="true" type="tns:LightEnvironment" />
+  <xs:complexType name="LightBuild">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BinaryVersion" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BrandName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildNumber" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FinishTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FullBuildNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SourceCodeVersion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="VersionId" type="xs:int" />
+      <xs:element minOccurs="0" name="VersionString" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBuild" nillable="true" type="tns:LightBuild" />
+  <xs:complexType name="LightBuildLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildId" type="xs:int" />
+      <xs:element minOccurs="0" name="FinishTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Target" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBuildLog" nillable="true" type="tns:LightBuildLog" />
+  <xs:complexType name="LightBuildHash">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Hash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBuildHash" nillable="true" type="tns:LightBuildHash" />
+  <xs:complexType name="ArrayOfLightDeployHash">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightDeployHash" nillable="true" type="tns:LightDeployHash" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightDeployHash" nillable="true" type="tns:ArrayOfLightDeployHash" />
+  <xs:complexType name="LightDeployHash">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DeploymentId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="FilePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Hash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LayerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Missing" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Modified" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ServerCompId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightDeployHash" nillable="true" type="tns:LightDeployHash" />
+  <xs:complexType name="LightFramework">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightFramework" nillable="true" type="tns:LightFramework" />
+  <xs:complexType name="LightArchitecture">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightArchitecture" nillable="true" type="tns:LightArchitecture" />
+  <xs:complexType name="LightConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightConfiguration" nillable="true" type="tns:LightConfiguration" />
+  <xs:complexType name="ArrayOfLightBrandConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightBrandConfiguration" nillable="true" type="tns:LightBrandConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightBrandConfiguration" nillable="true" type="tns:ArrayOfLightBrandConfiguration" />
+  <xs:complexType name="LightBrandConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BrandId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BrandName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBrandConfiguration" nillable="true" type="tns:LightBrandConfiguration" />
+  <xs:complexType name="ArrayOfLightOrganizationConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightOrganizationConfiguration" nillable="true" type="tns:LightOrganizationConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightOrganizationConfiguration" nillable="true" type="tns:ArrayOfLightOrganizationConfiguration" />
+  <xs:complexType name="LightOrganizationConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrganizationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrgnizationId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RegionName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightOrganizationConfiguration" nillable="true" type="tns:LightOrganizationConfiguration" />
+  <xs:complexType name="ArrayOfLightSiteConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightSiteConfiguration" nillable="true" type="tns:LightSiteConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightSiteConfiguration" nillable="true" type="tns:ArrayOfLightSiteConfiguration" />
+  <xs:complexType name="ArrayOfLightBuildLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightBuildLog" nillable="true" type="tns:LightBuildLog" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightBuildLog" nillable="true" type="tns:ArrayOfLightBuildLog" />
+  <xs:complexType name="ArrayOfLightEnvironment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightEnvironment" nillable="true" type="tns:LightEnvironment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightEnvironment" nillable="true" type="tns:ArrayOfLightEnvironment" />
+  <xs:complexType name="ArrayOfLightSiteComponent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightSiteComponent" nillable="true" type="tns:LightSiteComponent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightSiteComponent" nillable="true" type="tns:ArrayOfLightSiteComponent" />
+  <xs:complexType name="LightSiteComponent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompServer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReportedBuild" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReportedBuildId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightSiteComponent" nillable="true" type="tns:LightSiteComponent" />
+  <xs:complexType name="ArrayOfLightServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightServer" nillable="true" type="tns:LightServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightServer" nillable="true" type="tns:ArrayOfLightServer" />
+  <xs:complexType name="ArrayOfLightPrometheusServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightPrometheusServer" nillable="true" type="tns:LightPrometheusServer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightPrometheusServer" nillable="true" type="tns:ArrayOfLightPrometheusServer" />
+  <xs:complexType name="LightPrometheusServer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BackupDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildEnvDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildsDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastCheckedIn" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LoadBalancerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Location" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ServerId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ToolsDir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightPrometheusServer" nillable="true" type="tns:LightPrometheusServer" />
+  <xs:complexType name="ArrayOfLightRenameDir">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightRenameDir" nillable="true" type="tns:LightRenameDir" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightRenameDir" nillable="true" type="tns:ArrayOfLightRenameDir" />
+  <xs:complexType name="ArrayOfLightDeleteDir">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightDeleteDir" nillable="true" type="tns:LightDeleteDir" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightDeleteDir" nillable="true" type="tns:ArrayOfLightDeleteDir" />
+  <xs:complexType name="ArrayOfLightFramework">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightFramework" nillable="true" type="tns:LightFramework" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightFramework" nillable="true" type="tns:ArrayOfLightFramework" />
+  <xs:complexType name="ArrayOfLightArchitecture">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightArchitecture" nillable="true" type="tns:LightArchitecture" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightArchitecture" nillable="true" type="tns:ArrayOfLightArchitecture" />
+  <xs:complexType name="ArrayOfLightConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightConfiguration" nillable="true" type="tns:LightConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightConfiguration" nillable="true" type="tns:ArrayOfLightConfiguration" />
+  <xs:complexType name="ArrayOfLightBrandConfigurationHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightBrandConfigurationHistory" nillable="true" type="tns:LightBrandConfigurationHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightBrandConfigurationHistory" nillable="true" type="tns:ArrayOfLightBrandConfigurationHistory" />
+  <xs:complexType name="LightBrandConfigurationHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Modified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifiedBy" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightBrandConfigurationHistory" nillable="true" type="tns:LightBrandConfigurationHistory" />
+  <xs:complexType name="ArrayOfLightOrganizationConfigurationHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightOrganizationConfigurationHistory" nillable="true" type="tns:LightOrganizationConfigurationHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightOrganizationConfigurationHistory" nillable="true" type="tns:ArrayOfLightOrganizationConfigurationHistory" />
+  <xs:complexType name="LightOrganizationConfigurationHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Modified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifiedBy" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightOrganizationConfigurationHistory" nillable="true" type="tns:LightOrganizationConfigurationHistory" />
+  <xs:complexType name="ArrayOfLightSiteConfigurationHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightSiteConfigurationHistory" nillable="true" type="tns:LightSiteConfigurationHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightSiteConfigurationHistory" nillable="true" type="tns:ArrayOfLightSiteConfigurationHistory" />
+  <xs:complexType name="LightSiteConfigurationHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConfigValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfigVariable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FeatureEnabled" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Modified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifiedBy" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightSiteConfigurationHistory" nillable="true" type="tns:LightSiteConfigurationHistory" />
+  <xs:complexType name="ArrayOfLightConfigTemplate">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightConfigTemplate" nillable="true" type="tns:LightConfigTemplate" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightConfigTemplate" nillable="true" type="tns:ArrayOfLightConfigTemplate" />
+  <xs:complexType name="LightConfigTemplate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildId" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildNumber" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildVersion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Template" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TemplatePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VersionId" type="xs:int" />
+      <xs:element minOccurs="0" name="VersionString" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightConfigTemplate" nillable="true" type="tns:LightConfigTemplate" />
+  <xs:complexType name="ArrayOfLightCodeMoveHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightCodeMoveHistory" nillable="true" type="tns:LightCodeMoveHistory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightCodeMoveHistory" nillable="true" type="tns:ArrayOfLightCodeMoveHistory" />
+  <xs:complexType name="LightCodeMoveHistory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodeMove" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodeMoveId" type="xs:int" />
+      <xs:element minOccurs="0" name="EntityName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FinishTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Modified" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ModifiedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Reason" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RolledBack" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ScheduledBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ScheduledStart" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SiteName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="VerifiedBy" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightCodeMoveHistory" nillable="true" type="tns:LightCodeMoveHistory" />
+  <xs:complexType name="LightCompositeBuildInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildRevision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildVersion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompiledOn" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DeploymentScheduledOn" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightCompositeBuildInfo" nillable="true" type="tns:LightCompositeBuildInfo" />
+  <xs:complexType name="ArrayOfLightCodeMove">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightCodeMove" nillable="true" type="tns:LightCodeMove" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightCodeMove" nillable="true" type="tns:ArrayOfLightCodeMove" />
+  <xs:complexType name="ArrayOfLightGroupPrincipal">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightGroupPrincipal" nillable="true" type="tns:LightGroupPrincipal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightGroupPrincipal" nillable="true" type="tns:ArrayOfLightGroupPrincipal" />
+  <xs:complexType name="LightGroupPrincipal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DisplayName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightGroupPrincipal" nillable="true" type="tns:LightGroupPrincipal" />
+  <xs:complexType name="ArrayOfLightOrganization">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightOrganization" nillable="true" type="tns:LightOrganization" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightOrganization" nillable="true" type="tns:ArrayOfLightOrganization" />
+  <xs:complexType name="ArrayOfLightVersion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightVersion" nillable="true" type="tns:LightVersion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightVersion" nillable="true" type="tns:ArrayOfLightVersion" />
+  <xs:complexType name="ArrayOfLightProject">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightProject" nillable="true" type="tns:LightProject" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightProject" nillable="true" type="tns:ArrayOfLightProject" />
+  <xs:complexType name="ArrayOfLightBuildTask">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightBuildTask" nillable="true" type="tns:LightBuildTask" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightBuildTask" nillable="true" type="tns:ArrayOfLightBuildTask" />
+  <xs:complexType name="ArrayOfLightBuild">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightBuild" nillable="true" type="tns:LightBuild" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightBuild" nillable="true" type="tns:ArrayOfLightBuild" />
+</xs:schema>

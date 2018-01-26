@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    file.wxs - small example that installs a single file.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="WixExampleProductFolder">
+            <!-- unmanaged -->
+            <Component Id="WixExampleFileComponent.Z" Guid="{CDF62D0B-29B6-42a6-9F6A-B7A7FC1CDC88}" DiskId="1">
+                <File Id="WixExampleFile.Z" Name="z.exe" Source="$(var.BinDir)\z.exe" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="WixExampleProductFolder">
+            <!-- managed GAC -->
+            <Component Id="WixExampleFileComponent.Y" Guid="{1F2506CE-AD09-44e6-9283-967BEAA32807}" DiskId="1">
+                <File Id="WixExampleFile.Y" Name="y.dll" Source="$(var.BinDir)\y.dll" KeyPath="yes" Assembly=".net" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="WixExampleProductFolder">
+            <!-- unversioned -->
+            <Component Id="WixExampleFileComponent.X" Guid="{C28843DA-EF08-41CC-BA75-D2B99D8A1983}" DiskId="1">
+                <File Id="WixExampleFile.X" Name="x.txt" Source="$(var.BinDir)\x.txt" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="WixExampleProductFolder">
+            <Component Id="WixExampleRegistryComponent.W" Guid="{C7C0A505-010A-446e-867D-54915DFD4D34}">
+                <RegistryValue Id="WixExampleRegistryKey.W" Root="HKLM" Key="SOFTWARE\WixExample.W" Name="ExampleKey" Type="string" Value="$(var.Version)" Action="write" />
+                <?if $(var.Version)="1.0"?>
+                <RegistryValue Id="WixExampleRemovedRegistryKey.W" Root="HKLM" Key="SOFTWARE\WixExample.W" Name="ExampleRemovedKey" Type="string" Value="$(var.Version)" Action="write" />
+                <?else?>
+                <RemoveRegistryValue Id="WixExampleRemovedRegistryKey.W" Root="HKLM" Key="SOFTWARE\WixExample.W" Name="ExampleRemovedKey" />
+                <RegistryValue Id="WixExampleAddedRegistryKey.W" Root="HKLM" Key="SOFTWARE\WixExample.W" Name="ExampleAddedKey" Type="string" Value="$(var.Version)" Action="write" />
+                <?endif?>
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <DirectoryRef Id="WixExampleProductFolder">
+            <Component Id="WixExampleRegistryComponent.V" Guid="{9A54AFA6-FF18-4CAD-A5C8-2A39125DC58B}">
+                <RegistryValue Id="WixExampleRegistryKey.V" Root="HKLM" Key="SOFTWARE\WixExample.V" Name="ExampleKey" Type="string" Value="$(var.Version)" Action="write" />
+                <?if $(var.Version)="1.0"?>
+                <RegistryValue Id="WixExampleRemovedRegistryKey.V" Root="HKLM" Key="SOFTWARE\WixExample.V" Name="ExampleRemovedKey" Type="string" Value="$(var.Version)" Action="write" />
+                <?else?>
+                <RemoveRegistryValue Id="WixExampleRemovedRegistryKey.V" Root="HKLM" Key="SOFTWARE\WixExample.V" Name="ExampleRemovedKey" />
+                <RegistryValue Id="WixExampleAddedRegistryKey.V" Root="HKLM" Key="SOFTWARE\WixExample.V" Name="ExampleAddedKey" Type="string" Value="$(var.Version)" Action="write" />
+                <?endif?>
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="WixExampleProductFolder" Name="Test Directory">
+                </Directory>
+            </Directory>
+        </Directory>
+    </Fragment>
+</Wix>
+

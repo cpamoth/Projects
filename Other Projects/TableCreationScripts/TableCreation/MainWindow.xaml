@@ -1,0 +1,74 @@
+﻿<Window x:Class="TableCreation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create Table Scripts" Height="350" Width="525" Icon="/TableCreation;component/TableBuilder.ico">
+    <Grid Background="{x:Static SystemColors.ControlBrush}">
+        <Label HorizontalAlignment="Left" VerticalAlignment="top" Margin="5,5,0,0">Database</Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="top" Margin="5,25,0,0">Table Name</Label>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,5,0,0" Width="200" Name="dbName"></TextBox>       
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,25,0,0" Width="200" Name="tbName"></TextBox>
+
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="350,5,0,0" Height="21" Click="GetBase">Load Base Table</Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="350,25,0,0" Height="21" Click="Clear">Clear</Button>
+        <CheckBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,30,0,0" Content="Use Directories" Name="UseDirectories"></CheckBox>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,50,0,0">Column Name</Label>
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,50,0,0">Data Type</Label>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,75,0,0" Width="140" Name="cName"></TextBox>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,75,0,0" Width="140" Height="24" Name="dType" IsEditable="True">
+            <ComboBoxItem>bigint</ComboBoxItem>
+            <ComboBoxItem>binary</ComboBoxItem>
+            <ComboBoxItem>bit</ComboBoxItem>
+            <ComboBoxItem>char(8)</ComboBoxItem>
+            <ComboBoxItem>date</ComboBoxItem>
+            <ComboBoxItem>datetime</ComboBoxItem>
+            <ComboBoxItem>datetime2(6)</ComboBoxItem>
+            <ComboBoxItem>datetimeoffset</ComboBoxItem>
+            <ComboBoxItem>decimal(18,6)</ComboBoxItem>
+            <ComboBoxItem>float</ComboBoxItem>
+            <ComboBoxItem>geography</ComboBoxItem>
+            <ComboBoxItem>geometry</ComboBoxItem>
+            <ComboBoxItem>hierarchyid</ComboBoxItem>
+            <ComboBoxItem>image</ComboBoxItem>
+            <ComboBoxItem>int</ComboBoxItem>
+            <ComboBoxItem>money</ComboBoxItem>
+            <ComboBoxItem>nchar(8)</ComboBoxItem>
+            <ComboBoxItem>ntext</ComboBoxItem>
+            <ComboBoxItem>numeric</ComboBoxItem>
+            <ComboBoxItem>nvarchar(50)</ComboBoxItem>
+            <ComboBoxItem>real</ComboBoxItem>
+            <ComboBoxItem>smalldatetime</ComboBoxItem>
+            <ComboBoxItem>smallint</ComboBoxItem>
+            <ComboBoxItem>smallmoney</ComboBoxItem>
+            <ComboBoxItem>sql_variant</ComboBoxItem>
+            <ComboBoxItem>sysname</ComboBoxItem>
+            <ComboBoxItem>text</ComboBoxItem>
+            <ComboBoxItem>time</ComboBoxItem>
+            <ComboBoxItem>timestamp</ComboBoxItem>
+            <ComboBoxItem>tinyint</ComboBoxItem>
+            <ComboBoxItem>uniqueidentifier</ComboBoxItem>
+            <ComboBoxItem>varbinary</ComboBoxItem>
+            <ComboBoxItem>varchar(50)</ComboBoxItem>
+            <ComboBoxItem>xml</ComboBoxItem>
+        </ComboBox>
+        <CheckBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,75,0,0" Width="148" Name="canbenull">NULL</CheckBox>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="360,72,0,0" Click="AddColumn"> Add </Button>
+        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,100,5,92" Name="columnList" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"></TextBox>
+        <!-- ************************************************************************************************************** -->
+        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,60">Primary Keys</Label>
+        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="100,0,203,60" Name="pk"></TextBox>
+        <CheckBox HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="310,0,100,65" Name="CreateArchive" IsChecked="True">Create Archive</CheckBox>
+        <!-- ************************************************************************************************************** -->
+        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,33">Server</Label>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="100,0,0,33" Width="215" Name="DbServer">
+            <ComboBoxItem>db3-dbcluster2</ComboBoxItem>
+            <ComboBoxItem>db3sup</ComboBoxItem>
+        </ComboBox>
+
+        <!-- ************************************************************************************************************** -->
+        <Label HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,11" Foreground="Blue" Cursor="Hand" MouseUp="SelectFolder" MouseEnter="StopBorder" MouseLeave="StartBorder" BorderBrush="#FF0A0000">Save Location</Label>
+        <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Margin="100,0,203,10" Name="saveLocation"></TextBox>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,90,10" Click="SaveFiles">Save Table Scripts</Button>
+        <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,10" Name="button1" Click="CreateMasterClick">Create Master</Button>
+        <Border BorderBrush="#CD0000FF" BorderThickness="1" Height="1" HorizontalAlignment="Left" Margin="7,0,0,15" Name="border1" VerticalAlignment="Bottom" Width="80" />
+    </Grid>
+</Window>

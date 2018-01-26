@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <!-- Copy the schema files into the VS2005 schemas directory -->
+        <DirectoryRef Id="TARGETDIR">
+            <Component Id="VSSchema" Guid="7150C0A6-5626-48B6-AA4C-671754E22706" KeyPath="yes">
+                <CopyFile Id="CopyWixSchema2005" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="wix.xsd" />
+                <CopyFile Id="CopyWixLocSchema2005" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="wixloc.xsd" />
+                <CopyFile Id="CopyExtensionXsdDifxApp" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="difxapp.xsd" />
+                <CopyFile Id="CopyExtensionXsdIis" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="iis.xsd" />
+                <CopyFile Id="CopyExtensionXsdNetFx" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="netfx.xsd" />
+                <CopyFile Id="CopyExtensionXsdSql" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="sql.xsd" />
+                <CopyFile Id="CopyExtensionXsdUtil" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="util.xsd" />
+                <CopyFile Id="CopyExtensionXsdVS" DestinationProperty="VS2005_SCHEMAS_DIR" FileId="vs.xsd" />
+            </Component>
+        </DirectoryRef>
+
+        <PropertyRef Id="VS2005_ROOT_FOLDER" />
+        <PropertyRef Id="VS2005_SCHEMAS_DIR" />
+        <PropertyRef Id="VS2005PROJECTAGGREGATOR2" />
+
+        <UI>
+            <Dialog Id="PrerequisitesDlg" Width="320" Height="120" Title="[ProductName] Prerequisites">
+                <Control Id="OK" Type="PushButton" X="186" Y="93" Width="56" Height="17" Default="yes" Text="!(loc.WixUIOK)">
+                    <Publish Event="EndDialog" Value="Return">1</Publish>
+                </Control>
+                <Control Id="Cancel" Type="PushButton" X="254" Y="93" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="NoVSPackages" Type="Text" X="10" Y="10" Width="300" Height="60" Transparent="yes" NoPrefix="yes" Hidden="yes">
+                    <Text>Votive, the WiX project and editor package for Visual Studio, cannot be installed because Visual Studio Standard Edition or higher is not installed.</Text>
+                    <Condition Action="show">
+                        NOT VS2005DEVENV
+                    </Condition>
+                </Control>
+                <Control Id="YesExpress" Type="Text" X="10" Y="10" Width="300" Height="60" Transparent="yes" NoPrefix="yes" Hidden="yes">
+                    <Text>Votive, the WiX project and editor package for Visual Studio, cannot be installed because Visual Studio Standard Edition or higher is not installed. However, the WiX schema files can be integrated into Visual Studio Express Edition to enhanced editing without project support.</Text>
+                    <Condition Action="show">
+                        NOT VS2005DEVENV AND VS2005_SCHEMAS_DIR AND VS2005_ROOT_FOLDER
+                    </Condition>
+                </Control>
+                <Control Id="MissingAggregator" Type="Text" X="10" Y="10" Width="300" Height="60" Transparent="yes" NoPrefix="yes" Hidden="yes">
+                    <Text>Votive, the WiX project and editor package for Visual Studio, cannot be installed because the required project aggregator is not installed. To install Votive, download ProjectAggregator2.msi from http://wix.sourceforge.net, install it, and start the WiX installer again.</Text>
+                    <Condition Action="show">
+                        VS2005DEVENV AND NOT VS2005PROJECTAGGREGATOR2
+                    </Condition>
+                </Control>
+            </Dialog>
+
+            <InstallUISequence>
+                <Show Dialog="PrerequisitesDlg" Before="AdvancedWelcomeEulaDlg">NOT Installed AND NOT VS2005DEVENV OR (VS2005DEVENV AND NOT VS2005PROJECTAGGREGATOR2)</Show>
+            </InstallUISequence>
+        </UI>
+    </Fragment>
+</Wix>

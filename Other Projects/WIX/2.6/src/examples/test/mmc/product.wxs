@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi" xmlns:mmc="http://schemas.microsoft.com/wix/MmcExtension">
+  <Product Id="000C1109-0000-0021-C000-000000000046" Name="Test" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{FB9741A8-2115-41A1-95EB-2ED3B25BF5E6}">
+    <Package Id="000C1109-0000-0022-C000-000000000046" Description="Test" Comments="Test" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestComponent" Guid="10030829-0000-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+            <File Id="test.txt" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt">
+              <mmc:SnapIn Id="{F2399C48-E242-46F6-AADD-73434D26CA5B}" AssemblyName="foo" ClassType="fully qualified name" Name="Snap-in name">
+                <mmc:Resources DllName="test.txt" DisplayNameId="100" DescriptionId="110" VendorId="120" VersionId="130" IconId="140" LargeFolderBitmapId="150" SmallFolderBitmapId="160" SmallFolderSelectedBitmapId="170" FolderBitmapsColorMask="65280" />
+              </mmc:SnapIn>
+              <mmc:SnapIn Id="{6258F455-CA98-4219-9FC7-4F138276F9A5}" AssemblyName="foo" ClassType="fully qualified name" Name="Snap-in name" About="{99EC24D1-2C63-4541-9B88-2ABF2A0AF204}" DefaultCulture="culture" DefaultPublicKeyToken="public key token" DefaultVersion="1.0.0.0" Description="#My snap in" ExtensionType="PropertySheet" MmcVersion="3.0.0.1" RuntimeVersion="v2.1.50727" Provider="Microsoft Corporation">
+                <mmc:ExtendedNodeType Id="{11795E79-4B0B-4311-BBBD-156636851A80}" />
+                <mmc:ExtendedNodeType Id="{A9244713-F39F-4E35-A88C-A3666D92E9E3}" Description="Extension description." />
+                <mmc:PublishedNodeType Id="{CF0E1D4A-B568-4E34-8070-81E8BE5E639B}" />
+                <mmc:PublishedNodeType Id="{881D9420-FB3B-4F53-9C5A-6C7235B32D6F}" Description="Extensible node description." />
+              </mmc:SnapIn>
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestFeature" Title="Test Product Feature" Level="1">
+      <ComponentRef Id="TestComponent" />
+    </Feature>
+
+  </Product>
+</Wix>

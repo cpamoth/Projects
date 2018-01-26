@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:vs="http://schemas.microsoft.com/wix/VSExtension">
+    <Module Id="ModuleId" Language="1033" Version="0.0">
+        <Package Id="000C1109-0000-0000-C000-000000000046" Description="HelpCompiler data in a Module" Comments="Test from: wix\examples\test\helpextension\module.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="ProductDirectory" Name="Test HelpExtension">
+                    <Component Id="ProductComponent" Guid="00030829-0000-0001-C000-000000000046">
+                        <File Id="Index" Name="testhex.hxi" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent2" Guid="00030829-0000-0002-C000-000000000046">
+                        <File Id="Content" Name="testhex.hxc" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll">
+                            <vs:HelpCollection Id="Child" Name="Compiler Help Extension Child" Description="Testing the WiX Compiler Help Extension (first)">
+                                <vs:PlugCollectionInto TargetCollection="Parent" TableOfContents="Title" Attributes="Attribute" TargetTableOfContents="Title2" />
+                            </vs:HelpCollection>
+                        </File>
+                    </Component>
+                    <Component Id="ProductComponent3" Guid="00030829-0000-0003-C000-000000000046">
+                        <File Id="Attribute" Name="testhex.hxa" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent4" Guid="00030829-0000-0004-C000-000000000046">
+                        <File Id="Query" Name="testhex.hxq" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent5" Guid="00030829-0000-0005-C000-000000000046">
+                        <File Id="Sample" Name="testhex.hxs" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll">
+                            <vs:HelpFile Id="FirstTestHelpFile" Name="FirstTestHelpFile" Language="1033" Index="Index" Search="Query" AttributeIndex="R" />
+                        </File>
+                    </Component>
+                    <Component Id="ProductComponent6" Guid="00030829-0000-0006-C000-000000000046">
+                        <File Id="Title" Name="testhex.hxt" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent7" Guid="00030829-0000-0007-C000-000000000046">
+                        <File Id="R" Name="testhex7.hxr" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent8" Guid="00030829-0000-0008-C000-000000000046">
+                        <File Id="Index2" Name="hextest.hxi" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent9" Guid="00030829-0000-0009-C000-000000000046">
+                        <File Id="Content2" Name="hextest.hxc" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll">
+                            <vs:HelpCollection Id="Parent" Name="Compiler Help Extension Parent" Description="Testing the WiX Compiler Help Extension (second)">
+                                <vs:HelpFileRef Id="SecondTestHelpFile" />
+                            </vs:HelpCollection>
+                        </File>
+                    </Component>
+                    <Component Id="ProductComponent10" Guid="00030829-0000-0010-C000-000000000046">
+                        <File Id="Attribute2" Name="hextest.hxa" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent11" Guid="00030829-0000-0011-C000-000000000046">
+                        <File Id="Query2" Name="hextest.hxq" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent12" Guid="00030829-0000-0012-C000-000000000046">
+                        <File Id="Sample2" Name="hextest.hxs" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll">
+                            <vs:HelpFile Id="SecondTestHelpFile" Name="SecondTestHelpFile" Language="1033" Index="Index2" Search="Query2" AttributeIndex="R2" />
+                        </File>
+                    </Component>
+                    <Component Id="ProductComponent13" Guid="00030829-0000-0013-C000-000000000046">
+                        <File Id="Title2" Name="hextest.hxt" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                    <Component Id="ProductComponent14" Guid="00030829-0000-0014-C000-000000000046">
+                        <File Id="R2" Name="testhex14.hxr" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+    </Module>
+</Wix>

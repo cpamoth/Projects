@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="uiextension" default="uiextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    uiextension.build - Builds the uiextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="uiextension.ca.dir.src" value="${dir.src.ext}\uiextension\ca" readonly="true" />
+  <property name="uiextension.wixext.dir.src" value="${dir.src.ext}\uiextension\wixext" readonly="true" />
+  <property name="uiextension.wixlib.dir.src" value="${dir.src.ext}\uiextension\wixlib" readonly="true" />
+
+  <!-- target -->
+  <property name="file.target.printeuladll" value="${dir.target.wix}\PrintEula.dll" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="uiextension.build" description="Peforms a full rebuild (clean then build)" depends="uiextension.clean, uiextension.inc" />
+
+  <!-- Clean -->
+  <target name="uiextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.uiextension}" failonerror="false" if="${directory::exists(dir.build.ext.uiextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixUIExtension.dll" />
+        <include name="WixUIExtension.pdb" />
+        <include name="ui.wixlib" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="uiextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <fileset id="compileCpp.fileset.sources" basedir="${uiextension.ca.dir.src}">
+      <include name="printeula.cpp" />
+      <include name="dllmain.cpp" />
+    </fileset>
+    <property name="compileCpp.dir.build" value="${dir.build.ext.uiextension}" />
+    <property name="compileCpp.file.precomp.h" value="${uiextension.ca.dir.src}\precomp.h" />
+    <property name="compileCpp.additionalOptions" value="-I&quot;${dir.src.ca.wcautil}&quot;" />
+    <property name="compileCpp.file.rc" value="${uiextension.ca.dir.src}\printeula.rc" />
+    <property name="makeNativeDll.file.target" value="${file.target.printeuladll}" />
+    <property name="makeNativeDll.file.def" value="${uiextension.ca.dir.src}\printeula.def" />
+    <property name="makeNativeDll.additionalLibs" value="&quot;${file.target.wcautil}&quot; &quot;${file.target.dutil}&quot; &quot;${dir.platformsdk.lib}\msi.lib&quot; &quot;${dir.platformsdk.lib}\comdlg32.lib&quot; &quot;${dir.platformsdk.lib}\gdi32.lib&quot;" />
+
+    <!-- Make scaexec.dll -->
+    <call target="makeNativeDll" />
+
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Build the wixlib -->
+    <candle out="${dir.build.ext.uiextension}\" exedir="${dir.target.wix}">
+      <defines>
+        <define name="bannerBmp" value="${uiextension.wixlib.dir.src}\Bitmaps\bannrbmp.bmp" />
+        <define name="dialogBmp" value="${uiextension.wixlib.dir.src}\Bitmaps\dlgbmp.bmp" />
+        <define name="exclamationIco" value="${uiextension.wixlib.dir.src}\Bitmaps\exclamic.ico" />
+        <define name="infoIco" value="${uiextension.wixlib.dir.src}\Bitmaps\info.ico" />
+        <define name="licenseRtf" value="${uiextension.wixlib.dir.src}\license.rtf" />
+        <define name="newIco" value="${uiextension.wixlib.dir.src}\Bitmaps\new.ico" />
+        <define name="upIco" value="${uiextension.wixlib.dir.src}\Bitmaps\up.ico" />
+        <define name="printeulaDll" value="${file.target.printeuladll}" />
+      </defines>
+      <sources basedir="${uiextension.wixlib.dir.src}">
+        <include name="BrowseDlg.wxs" />
+        <include name="CancelDlg.wxs" />
+        <include name="Common.wxs" />
+        <include name="CustomizeDlg.wxs" />
+        <include name="DiskCostDlg.wxs" />
+        <include name="ErrorDlg.wxs" />
+        <include name="ErrorProgressText.wxs" />
+        <include name="ExitDialog.wxs" />
+        <include name="FatalError.wxs" />
+        <include name="FilesInUse.wxs" />
+        <include name="LicenseAgreementDlg.wxs" />
+        <include name="MaintenanceTypeDlg.wxs" />
+        <include name="MaintenanceWelcomeDlg.wxs" />
+        <include name="MsiRMFilesInUse.wxs" />
+        <include name="OutOfDiskDlg.wxs" />
+        <include name="OutOfRbDiskDlg.wxs" />
+        <include name="PrepareDlg.wxs" />
+        <include name="ProgressDlg.wxs" />
+        <include name="ResumeDlg.wxs" />
+        <include name="SetupTypeDlg.wxs" />
+        <include name="UserExit.wxs" />
+        <include name="VerifyReadyDlg.wxs" />
+        <include name="WaitForCostingDlg.wxs" />
+        <include name="WelcomeDlg.wxs" />
+
+        <include name="WixUI_FeatureTree.wxs" />
+
+        <include name="InstallDirDlg.wxs" />
+        <include name="WixUI_InstallDir.wxs" />
+
+        <include name="WelcomeEulaDlg.wxs" />
+        <include name="WixUI_Minimal.wxs" />
+
+        <include name="WixUI_Mondo.wxs" />
+
+        <include name="AdvancedWelcomeEulaDlg.wxs" />
+        <include name="FeaturesDlg.wxs" />
+        <include name="InstallScopeDlg.wxs" />
+        <include name="WixUI_Advanced.wxs" />
+
+      </sources>
+    </candle>
+    
+    <lit out="${dir.target.wix}\ui.wixlib" exedir="${dir.target.wix}" bindfiles="true" warningsaserrors="true">
+      <localizations failonempty="true" basedir="${uiextension.wixlib.dir.src}">
+        <include name="WixUI_en-us.wxl" />
+      </localizations>
+      <sources basedir="${dir.build.ext.uiextension}">
+        <include name="BrowseDlg.wixobj" />
+        <include name="CancelDlg.wixobj" />
+        <include name="Common.wixobj" />
+        <include name="CustomizeDlg.wixobj" />
+        <include name="DiskCostDlg.wixobj" />
+        <include name="ErrorDlg.wixobj" />
+        <include name="ErrorProgressText.wixobj" />
+        <include name="ExitDialog.wixobj" />
+        <include name="FatalError.wixobj" />
+        <include name="FilesInUse.wixobj" />
+        <include name="LicenseAgreementDlg.wixobj" />
+        <include name="MaintenanceTypeDlg.wixobj" />
+        <include name="MaintenanceWelcomeDlg.wixobj" />
+        <include name="MsiRMFilesInUse.wixobj" />
+        <include name="OutOfDiskDlg.wixobj" />
+        <include name="OutOfRbDiskDlg.wixobj" />
+        <include name="PrepareDlg.wixobj" />
+        <include name="ProgressDlg.wixobj" />
+        <include name="ResumeDlg.wixobj" />
+        <include name="SetupTypeDlg.wixobj" />
+        <include name="UserExit.wixobj" />
+        <include name="VerifyReadyDlg.wixobj" />
+        <include name="WaitForCostingDlg.wixobj" />
+        <include name="WelcomeDlg.wixobj" />
+        
+        <include name="WixUI_FeatureTree.wixobj" />
+
+        <include name="InstallDirDlg.wixobj" />
+        <include name="WixUI_InstallDir.wixobj" />
+
+        <include name="WelcomeEulaDlg.wixobj" />
+        <include name="WixUI_Minimal.wixobj" />
+
+        <include name="WixUI_Mondo.wixobj" />
+        
+        <include name="AdvancedWelcomeEulaDlg.wixobj" />
+        <include name="FeaturesDlg.wixobj" />
+        <include name="InstallScopeDlg.wixobj" />
+        <include name="WixUI_Advanced.wixobj" />
+      </sources>
+    </lit>
+
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixUIExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${uiextension.wixext.dir.src}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="Properties\AssemblyInfo.cs" />
+        <include name="UIDecompiler.cs" />
+        <include name="UIExtension.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+      <resources failonempty="true" basedir="${dir.target.wix}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="ui.wixlib" />
+      </resources>
+    </csc>
+  </target>
+
+</project>

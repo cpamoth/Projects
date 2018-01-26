@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestTextSrcProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E02B272C-D66A-45B2-B338-F9BFB6949566}">
+        <Package Description="Test Text src in a Product" Comments="Test from: wix\examples\test\textsrc\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <Component Id="TestTextSrcProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestTextSrcProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestTextSrcProductFeature" Title="Test Text src Product Feature" Level="1">
+            <ComponentRef Id="TestTextSrcProductComponent" />
+        </Feature>
+
+        <Property Id="ErrorDialog" Value="TestDialog" />
+    </Product>
+</Wix>

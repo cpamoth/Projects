@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="SetupCompleteSuccess">
+    <UI>
+      <Dialog Id="SetupCompleteSuccess" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+        <Control Id="OK" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Cancel="yes" Text="&amp;Finish">
+          <!--<Publish Event="DoAction" Value="IS_LAUNCH_MY_PROGRAM_PLEASE"><![CDATA[LAUNCHPROGRAM]]></Publish>-->
+          <Publish Event="EndDialog" Value="Exit"><![CDATA[1]]></Publish>
+          <!--<Publish Event="DoAction" Value="CheckForProductUpdates"><![CDATA[ISCHECKFORPRODUCTUPDATES="1" And ISENABLEDWUSFINISHDIALOG And NOT ISREBOOTREQUIRED And NOT Installed And ACTION="INSTALL"]]></Publish>-->
+          <!--<Publish Event="DoAction" Value="CheckForProductUpdatesOnReboot"><![CDATA[ISCHECKFORPRODUCTUPDATES="1" And ISENABLEDWUSFINISHDIALOG And ISREBOOTREQUIRED And NOT Installed And ACTION="INSTALL"]]></Publish>-->
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Disabled="yes" Text="Cancel" />
+        <Control Id="Image" Type="Bitmap" X="0" Y="0" Width="374" Height="234" TabSkip="no" Text="NewBinary5" />
+        <Control Id="CheckBoxUpdates" Type="CheckBox" X="135" Y="164" Width="10" Height="9" Property="ISCHECKFORPRODUCTUPDATES" Hidden="yes" Text="CheckBox1">
+          <Condition Action="show"><![CDATA[ISENABLEDWUSFINISHDIALOG And NOT Installed And ACTION="INSTALL"]]></Condition>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Disabled="yes" Text="&lt; &amp;Back" />
+        <Control Id="TextLine2" Type="Text" X="135" Y="55" Width="228" Height="45" Hidden="yes" Transparent="yes">
+          <Text>The installation wizard has successfully installed [ProductName]. Click Finish to exit the wizard.</Text>
+          <Condition Action="show"><![CDATA[ProgressType2="installed" And ((ACTION<>"INSTALL") OR (NOT ISENABLEDWUSFINISHDIALOG) OR (ISENABLEDWUSFINISHDIALOG And Installed))]]></Condition>
+        </Control>
+        <Control Id="CheckForUpdatesText" Type="Text" X="152" Y="162" Width="190" Height="30" Hidden="yes" Transparent="yes">
+          <Text>&amp;Yes, check for program updates (Recommended) after the setup completes.</Text>
+          <Condition Action="show"><![CDATA[ISENABLEDWUSFINISHDIALOG And NOT Installed And ACTION="INSTALL"]]></Condition>
+        </Control>
+        <Control Id="CheckLaunchProgram" Type="CheckBox" X="151" Y="114" Width="10" Height="10" Property="LAUNCHPROGRAM" ToolTip="Check this box to launch GIANT AntiSpyware now." Hidden="yes" TabSkip="yes">
+          <Condition Action="show"><![CDATA[SHOWLAUNCHPROGRAM="-1" And PROGRAMFILETOLAUNCHATEND <> "" And NOT Installed And NOT ISENABLEDWUSFINISHDIALOG]]></Condition>
+        </Control>
+        <Control Id="CheckLaunchReadme" Type="CheckBox" X="151" Y="148" Width="10" Height="9" Property="LAUNCHREADME" Hidden="yes" TabSkip="yes">
+          <Condition Action="show"><![CDATA[SHOWLAUNCHREADME="-1"  And READMEFILETOLAUNCHATEND <> "" And NOT Installed And NOT ISENABLEDWUSFINISHDIALOG]]></Condition>
+        </Control>
+        <Control Id="LaunchProgramText" Type="Text" X="164" Y="112" Width="198" Height="15" Hidden="yes" Transparent="yes" Text="Launch [ProductName]">
+          <Condition Action="show"><![CDATA[SHOWLAUNCHPROGRAM="-1" And PROGRAMFILETOLAUNCHATEND <> "" And NOT Installed And NOT ISENABLEDWUSFINISHDIALOG]]></Condition>
+        </Control>
+        <Control Id="LaunchReadmeText" Type="Text" X="164" Y="148" Width="198" Height="13" Hidden="yes" Transparent="yes" Text="Show the readme file">
+          <Condition Action="show"><![CDATA[SHOWLAUNCHREADME="-1"  And READMEFILETOLAUNCHATEND <> "" And NOT Installed And NOT ISENABLEDWUSFINISHDIALOG]]></Condition>
+        </Control>
+        <Control Id="TextLine3" Type="Text" X="135" Y="82" Width="228" Height="17" Hidden="yes" Transparent="yes">
+          <Text>The installation wizard has successfully uninstalled [ProductName]. Click Finish to exit the wizard.</Text>
+          <Condition Action="show"><![CDATA[ProgressType2="uninstalled" And ((ACTION<>"INSTALL") OR (NOT ISENABLEDWUSFINISHDIALOG) OR (ISENABLEDWUSFINISHDIALOG And Installed))]]></Condition>
+        </Control>
+        <Control Id="UpdateTextLine1" Type="Text" X="135" Y="35" Width="228" Height="45" Hidden="yes" Transparent="yes">
+          <Text>Setup has finished installing [ProductName].</Text>
+          <Condition Action="show"><![CDATA[ISENABLEDWUSFINISHDIALOG And NOT Installed And ACTION="INSTALL"]]></Condition>
+        </Control>
+        <Control Id="UpdateTextLine2" Type="Text" X="135" Y="55" Width="228" Height="70" Hidden="yes" Transparent="yes">
+          <Text>Some program files might have been updated since you purchased your copy of [ProductName].</Text>
+          <Condition Action="show"><![CDATA[ISENABLEDWUSFINISHDIALOG And NOT Installed And ACTION="INSTALL"]]></Condition>
+        </Control>
+        <Control Id="UpdateTextLine3" Type="Text" X="135" Y="120" Width="228" Height="45" Hidden="yes" Transparent="yes">
+          <Text>Your Internet connection can be used to make sure that you have the latest updates.</Text>
+          <Condition Action="show"><![CDATA[ISENABLEDWUSFINISHDIALOG And NOT Installed And ACTION="INSTALL"]]></Condition>
+        </Control>
+        <Control Id="DlgLine" Type="Line" X="0" Y="234" Width="374" Height="0" />
+        <Control Id="TextLine1" Type="Text" X="135" Y="8" Width="225" Height="45" Transparent="yes">
+          <Text>{&amp;TahomaBold10}[ProductName] Installation Complete</Text>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

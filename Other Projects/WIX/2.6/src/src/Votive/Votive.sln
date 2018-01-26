@@ -1,0 +1,38 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Votive", "Core\Votive.csproj", "{17ADF054-A7C7-42BA-AFEA-C61F1432C260}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VotiveUI_1033", "Satellite\1033\VotiveUI_1033.vcproj", "{50AFB92D-878F-4FF2-8D3D-1150356A197E}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sconce", "..\sconce\Sconce.csproj", "{A0A82600-B8B1-4E6C-8B8C-248587175210}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E} = {50AFB92D-878F-4FF2-8D3D-1150356A197E}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug.ActiveCfg = Debug|.NET
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug.Build.0 = Debug|.NET
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release.ActiveCfg = Release|.NET
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release.Build.0 = Release|.NET
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug.ActiveCfg = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug.Build.0 = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release.ActiveCfg = Release|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release.Build.0 = Release|Win32
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug.ActiveCfg = Debug|.NET
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug.Build.0 = Debug|.NET
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release.ActiveCfg = Release|.NET
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

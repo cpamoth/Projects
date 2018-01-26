@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment Id="ServerCustomActions">
+        <CustomAction Id="ConfigureIIs" BinaryKey="ScaSchedule" DllEntry="ConfigureIIs" Execute="immediate" Return="check" />
+        <CustomAction Id="ConfigureSql" BinaryKey="ScaSchedule" DllEntry="ConfigureSql" Execute="immediate" Return="check" />
+        <CustomAction Id="ConfigureUsers" BinaryKey="ScaSchedule" DllEntry="ConfigureUsers" Execute="immediate" Return="check" />
+
+        <CustomAction Id="ErrorOut" BinaryKey="ScaExecute" DllEntry="ErrorOut" Execute="deferred" Return="check" />
+
+        <CustomAction Id="StartMetabaseTransaction" BinaryKey="ScaExecute" DllEntry="StartMetabaseTransaction" Execute="deferred" Return="check" />
+        <CustomAction Id="RollbackMetabaseTransaction" BinaryKey="ScaExecute" DllEntry="RollbackMetabaseTransaction" Execute="rollback" Return="check" />
+        <CustomAction Id="CommitMetabaseTransaction" BinaryKey="ScaExecute" DllEntry="CommitMetabaseTransaction" Execute="commit" Return="check" />
+
+        <CustomAction Id="CreateMetabaseKey" BinaryKey="ScaExecute" DllEntry="CreateMetabaseKey" Execute="deferred" Return="check" />
+        <CustomAction Id="DeleteMetabaseKey" BinaryKey="ScaExecute" DllEntry="DeleteMetabaseKey" Execute="deferred" Return="check" />
+        <CustomAction Id="CreateAspApp" BinaryKey="ScaExecute" DllEntry="CreateAspApp" Execute="deferred" Return="check" />
+        <CustomAction Id="WriteMetabaseValue" BinaryKey="ScaExecute" DllEntry="WriteMetabaseValue" Execute="deferred" Return="check" />
+        <CustomAction Id="WriteMetabaseMultiString" BinaryKey="ScaExecute" DllEntry="WriteMetabaseMultiString" Execute="deferred" Return="check" />
+        <CustomAction Id="DeleteMetabaseMultiString" BinaryKey="ScaExecute" DllEntry="DeleteMetabaseMultiString" Execute="deferred" Return="check" />
+
+        <CustomAction Id="CreateDatabase" BinaryKey="ScaExecute" DllEntry="CreateDatabase" Execute="deferred" Return="check" />
+        <CustomAction Id="DropDatabase" BinaryKey="ScaExecute" DllEntry="DropDatabase" Execute="deferred" Return="check" />
+        <CustomAction Id="ExecuteSqlStrings" BinaryKey="ScaExecute" DllEntry="ExecuteSqlStrings" Execute="deferred" Return="check" />
+        <CustomAction Id="RollbackExecuteSqlStrings" BinaryKey="ScaExecute" DllEntry="ExecuteSqlStrings" Execute="rollback" Return="check" />
+
+        <CustomAction Id="CreateUser" BinaryKey="ScaExecute" DllEntry="CreateUser" Execute="deferred" Return="check" Impersonate="yes" />
+        <CustomAction Id="CreateUserRollback" BinaryKey="ScaExecute" DllEntry="RemoveUser" Execute="rollback" Return="check" Impersonate="yes" />
+        <CustomAction Id="RemoveUser" BinaryKey="ScaExecute" DllEntry="RemoveUser" Execute="deferred" Return="ignore" Impersonate="yes" />
+
+        <Binary Id="ScaSchedule" SourceFile="$(env.Setup)\x86\debug\wix\ca\scasched.dll" />
+        <Binary Id="ScaExecute" SourceFile="$(env.Setup)\x86\debug\wix\ca\scaexec.dll" />
+    </Fragment>
+</Wix>

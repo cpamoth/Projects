@@ -1,0 +1,1524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<UnitTests Extensions="WixDifxAppExtension;WixIIsExtension;WixNetFxExtension;WixPreProcExampleExtension;WixPSExtension;WixSqlExtension;WixUIExtension;WixUtilExtension;WixVSExtension" ToolsDirectory="%TARGETROOT%\wix\x86\%FLAVOR%\lang-neutral" xmlns="http://schemas.microsoft.com/wix/2006/WixUnit">
+  <UnitTest Name="ActionScheduling">
+    <Candle>
+      <SourceFile>actionScheduling\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE27 -sice:ICE39 -sice:ICE71 -sice:ICE82" ExpectedWarnings="1050;1051" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE27 -sice:ICE39 -sice:ICE71 -sice:ICE82" ExpectedWarnings="1050;1051" ExpectedResult="actionScheduling\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ActionText">
+    <Candle>
+      <SourceFile>actiontext\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="actiontext\module.msm" />
+  </UnitTest>
+  <UnitTest Name="AppPool">
+    <Candle>
+      <SourceFile>apppool\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="apppool\product.msi" />
+  </UnitTest>
+  <UnitTest Name="AppPool.Wixout">
+    <Candle>
+      <SourceFile>apppool\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us -xo" ExpectedResult="apppool\product.wixout" />
+  </UnitTest>
+  <UnitTest Name="AppPool.Wixout.Complete">
+    <Candle>
+      <SourceFile>apppool\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-bf -cultures:en-us -xo" ExpectedResult="apppool\product.complete.wixout" />
+  </UnitTest>
+  <UnitTest Name="AppSearch">
+    <Candle>
+      <SourceFile>appsearch\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE80" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE80" ExpectedResult="appsearch\product.msi" />
+  </UnitTest>
+  <UnitTest Name="AppSearch.Invert">
+    <Candle ExpectedWarnings="1069" SuppressWixCop="true">
+      <SourceFile>appsearch\product_invert.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="appsearch\product_invert.msi" />
+  </UnitTest>
+  <UnitTest Name="Assembly_Bad">
+    <Candle>
+      <SourceFile>assembly\bad.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="238" />
+  </UnitTest>
+  <UnitTest Name="Assembly_Module">
+    <Candle>
+      <SourceFile>assembly\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="assembly\module.msm" />
+  </UnitTest>
+  <UnitTest Name="Assembly_Module_Vista_Culture">
+    <Candle>
+      <SourceFile>assemblyVista\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="assemblyVista\module.msm" />
+  </UnitTest>
+  <UnitTest Name="Assembly_Product">
+    <Candle>
+      <SourceFile>assembly\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="assembly\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Bad_Else">
+    <Candle ExpectedErrors="146">
+      <SourceFile>if\badelse.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="Bad_Elseif">
+    <Candle ExpectedErrors="103">
+      <SourceFile>if\badeleseif.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="BadRegistry">
+    <Candle ExpectedErrors="34">
+      <SourceFile>reg\badreg.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="BadRegistry2">
+    <Candle ExpectedErrors="21">
+      <SourceFile>reg\badreg2.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="Billboard">
+    <Candle>
+      <SourceFile>ui\billboard.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE20 -sice:ICE31 -sice:ICE95" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE20 -sice:ICE31 -sice:ICE95" ExpectedResult="ui\billboard.msi" />
+  </UnitTest>
+  <UnitTest Name="BinaryTooLong">
+    <Candle ExpectedErrors="13">
+      <SourceFile>binary\product.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="Case_Sensitive_If">
+    <Candle>
+      <SourceFile>if.1\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedWarnings="1079" ExpectedResult="if.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Category">
+    <Candle>
+      <SourceFile>category\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="category\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CcpDrive">
+    <Candle>
+      <SourceFile>ccpdrive\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="ccpdrive\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CcpSearch">
+    <Candle>
+      <SourceFile>ccpsearch\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="ccpsearch\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Class">
+    <Candle>
+      <SourceFile>class\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="class\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Class.2">
+    <Candle>
+      <SourceFile>class.2\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="class.2\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Class.3">
+    <Candle ExpectedErrors="10;60">
+      <SourceFile>class.3\product.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="Class.AppId">
+    <Candle>
+      <SourceFile>Class.1\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="class.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CloseApps">
+    <Candle>
+      <SourceFile>CloseApps\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="closeapps\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CloseApps.1">
+    <Candle>
+      <SourceFile>CloseApps.1\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="closeapps.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CompanionFile">
+    <Candle>
+      <SourceFile>companionfile\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE39" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE39" ExpectedResult="companionfile\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ComponentGroup">
+    <Candle>
+      <SourceFile>componentGroup\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="componentGroup\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ComponentGroupNesting">
+    <Candle>
+      <SourceFile>componentgroupnesting\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="componentgroupnesting\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Compression.Compressed">
+    <Candle>
+      <SourceFile>compression\compressed.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="compression\compressed.msi" />
+  </UnitTest>
+  <UnitTest Name="Compression.Uncompressed">
+    <Candle>
+      <SourceFile>compression\uncompressed.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="compression\uncompressed.msi" />
+  </UnitTest>
+  <UnitTest Name="Condition">
+    <Candle>
+      <SourceFile>condition\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="condition\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ConfigurableModule">
+    <Candle>
+      <SourceFile>configurableModule\module.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedWarnings="1079" ExpectedResult="configurableModule\module.msm" />
+  </UnitTest>
+  <UnitTest Name="CopyFile">
+    <Candle>
+      <SourceFile>copyfile\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="copyfile\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CustomAction">
+    <Candle>
+      <SourceFile>customaction\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="customaction\product.msi" />
+  </UnitTest>
+  <UnitTest Name="CustomAction.BadWin64">
+    <Candle ExpectedErrors="37">
+      <SourceFile>customaction\bad_win64.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="CustomAction.Bad">
+    <Candle ExpectedErrors="38;232">
+      <SourceFile>customaction\bad.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="CustomTable">
+    <Candle>
+      <SourceFile>customtable\product.fragment.wxs</SourceFile>
+      <SourceFile>customtable\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark ExpectedWarnings="1060" />
+    <Candle />
+    <Light ExpectedResult="customtable\product.msi" />
+  </UnitTest>
+  <UnitTest Name="DirectorySearch">
+    <Candle>
+      <SourceFile>directorysearch\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="directorysearch\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Driver">
+    <Candle>
+      <SourceFile>driver\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="94" />
+    <!-- this test should succeed when we have the DIFxApp.wixlib -->
+  </UnitTest>
+  <UnitTest Name="DuplicateFiles">
+    <Candle>
+      <SourceFile>duplicatefiles\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="duplicatefiles\product.msi" />
+  </UnitTest>
+  <UnitTest Name="EventLog.EventSource">
+    <Candle>
+      <SourceFile>eventlog\EventSource.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="eventlog\EventSource.msi" />
+  </UnitTest>
+  <UnitTest Name="Extension">
+    <Candle>
+      <SourceFile>extension\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="extension\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ExtraICE.0">
+    <Candle>
+      <SourceFile>extraice.0\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cub %WIX%\examples\data\test.cub" ExpectedWarnings="1076" IntermediateOutputType="msi" ForceValidation="true" />
+  </UnitTest>
+  <UnitTest Name="FeatureGroup.0">
+    <Candle>
+      <SourceFile>FeatureGroup.0\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedWarnings="1079" ExpectedResult="FeatureGroup.0\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FeatureGroup.1">
+    <Candle>
+      <SourceFile>FeatureGroup.1\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedWarnings="1079" ExpectedResult="FeatureGroup.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FeatureGroup.BadDuplicate">
+    <Candle>
+      <SourceFile>FeatureGroup.BadDuplicate\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="95" />
+  </UnitTest>
+  <UnitTest Name="FeatureGroup.Empty">
+    <Candle>
+      <SourceFile>FeatureGroup.Empty\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedWarnings="1079" ExpectedResult="FeatureGroup.Empty\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FeatureGroupRef">
+    <Candle>
+      <SourceFile>featuregroupref\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="featuregroupref\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FeatureGroup.BadLoop">
+    <Candle>
+      <SourceFile>FeatureGroup.BadLoop\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="86" />
+  </UnitTest>
+  <UnitTest Name="FeatureRef_0">
+    <Candle>
+      <SourceFile>featureref.0\product.fragment.wxs</SourceFile>
+      <SourceFile>featureref.0\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="featureref.0\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FeatureRef_1">
+    <Candle>
+      <SourceFile>featureref.1\product.fragment.wxs</SourceFile>
+      <SourceFile>featureref.1\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="featureref.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="File_Module">
+    <Candle>
+      <SourceFile>file\module.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE39" IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE39" ExpectedResult="file\module.msm" />
+  </UnitTest>
+  <UnitTest Name="File_Product">
+    <Candle>
+      <SourceFile>file\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi">
+      <LocalizationFile>file\en-us.wxl</LocalizationFile>
+    </Light>
+    <Dark Arguments="-frag" />
+    <Candle />
+    <Light ExpectedResult="file\product.msi">
+      <LocalizationFile>file\en-us.wxl</LocalizationFile>
+    </Light>
+  </UnitTest>
+  <UnitTest Name="FileDefaultValues">
+    <Candle>
+      <SourceFile>fileDefaultValues\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="fileDefaultValues\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FileDuplicate">
+    <Candle>
+      <SourceFile>fileDuplicate\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="fileDuplicate\product.msi" />
+    <!-- cannot be decompiled because it contains file identifiers that differ only by case
+        <Dark />
+-->
+  </UnitTest>
+  <UnitTest Name="FileNoDiskId">
+    <Candle>
+      <SourceFile>fileNoDiskId\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="fileNoDiskId\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FileShare">
+    <Candle>
+      <SourceFile>fileshare\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="fileShare\product.msi" />
+  </UnitTest>
+  <UnitTest Name="FileShare_Invalid">
+    <Candle ExpectedErrors="67">
+      <SourceFile>fileshare.Invalid\product.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="FollowParent">
+    <Candle>
+      <SourceFile>followParent\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="followParent\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Foreach">
+    <Candle>
+      <SourceFile>foreach\success.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="foreach\success.msi" />
+  </UnitTest>
+  <UnitTest Name="Fragment">
+    <Candle>
+      <SourceFile>fragment\product.wxs</SourceFile>
+      <SourceFile>fragment\fragment.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="fragment\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Fragment.0">
+    <Candle>
+      <SourceFile>fragment.0\product.wxs</SourceFile>
+      <SourceFile>fragment.0\fragment.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="fragment.0\product.msi" />
+  </UnitTest>
+  <UnitTest Name="GeneratedShortFileNames">
+    <Candle ExpectedWarnings="1069" SuppressWixCop="true">
+      <SourceFile>generatedShortFileNames\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="generatedShortFileNames\product.msi" />
+  </UnitTest>
+  <UnitTest Name="GeneratedShortFileNamesCollide">
+    <Candle>
+      <SourceFile>generatedShortFileNamesCollide\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE30" ExpectedWarnings="1070;1071" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE30" ExpectedResult="generatedShortFileNamesCollide\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Icon">
+    <Candle>
+      <SourceFile>icon\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="icon\module.msm" />
+  </UnitTest>
+  <UnitTest Name="If">
+    <Candle>
+      <SourceFile>if\if.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="if\product.msi" />
+  </UnitTest>
+  <UnitTest Name="IgnoreModularization">
+    <Candle ExpectedWarnings="1086">
+      <SourceFile>ignore\module.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="ignore\module.msm" />
+    <!-- decompiler currently doesn't recognize rows without modularization - its not clear that it should -->
+  </UnitTest>
+  <UnitTest Name="IniFile">
+    <Candle>
+      <SourceFile>IniFile\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="iniFile\product.msi" />
+  </UnitTest>
+  <UnitTest Name="LaunchConditions">
+    <Candle>
+      <SourceFile>launchconditions\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="launchconditions\product.msi" />
+  </UnitTest>
+  <UnitTest Name="LaunchConditions.Invert">
+    <Candle>
+      <SourceFile>launchconditions\product_invert.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="launchconditions\product_invert.msi" />
+  </UnitTest>
+  <UnitTest Name="Library">
+    <Candle>
+      <SourceFile>Library\product.wxs</SourceFile>
+      <SourceFile>Library\fragment.wxs</SourceFile>
+    </Candle>
+    <Lit />
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="library\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Library.DuplicateSymbol">
+    <Candle>
+      <SourceFile>Library\fragment1.wxs</SourceFile>
+      <SourceFile>Library\fragment1copy.wxs</SourceFile>
+    </Candle>
+    <Lit />
+    <Light ExpectedErrors="93"/>
+  </UnitTest>
+  <UnitTest Name="Library.MultipleEntry">
+    <Candle>
+      <SourceFile>Library\product1.wxs</SourceFile>
+      <SourceFile>Library\product2.wxs</SourceFile>
+    </Candle>
+    <Lit ExpectedErrors="89;90" />
+  </UnitTest>
+  <UnitTest Name="Localize.en-us">
+    <Candle>
+      <SourceFile>Localized\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi">
+      <LocalizationFile>Localized\en-us.wxl</LocalizationFile>
+    </Light>
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="localized\en-us.msi" />
+  </UnitTest>
+  <UnitTest Name="Localize.he-il">
+    <Candle>
+      <SourceFile>Localized\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi">
+      <LocalizationFile>Localized\he-il.wxl</LocalizationFile>
+    </Light>
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="localized\he-il.msi" />
+  </UnitTest>
+  <UnitTest Name="Localize.empty">
+    <Candle>
+      <SourceFile>Localized\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="localized\empty.msi">
+      <LocalizationFile>Localized\empty.wxl</LocalizationFile>
+    </Light>
+  </UnitTest>
+  <UnitTest Name="Localize.FailIfMissing">
+    <Candle>
+      <SourceFile>Localized\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="102" />
+  </UnitTest>
+  <UnitTest Name="Localize.WixOut">
+    <Candle>
+      <SourceFile>Localized\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-xo" ExpectedResult="Localized\en-us.wixout">
+      <LocalizationFile>Localized\en-us.wxl</LocalizationFile>
+    </Light>
+  </UnitTest>
+  <UnitTest Name="Localize.WixoutDelayLoc">
+    <Candle>
+      <SourceFile>Localized\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-xo" ExpectedResult="Localized\product.wixout" />
+  </UnitTest>
+  <UnitTest Name="Merge_0_Module">
+    <Candle>
+      <SourceFile>merge.0\module.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE36" ExpectedResult="merge.0\module.msm" />
+    <!-- diff breaks because extraneous InstallValidate action is manually included -->
+  </UnitTest>
+  <UnitTest Name="Merge_0_Product">
+    <Candle>
+      <SourceFile>merge.0\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-pedantic -sice:ICE36 -sice:ICE39" ExpectedWarnings="1009;1084" ExpectedResult="merge.0\product.msi" />
+    <!-- merged information will not be decompiled and diffing will break -->
+  </UnitTest>
+  <UnitTest Name="Merge_1_Module">
+    <Candle>
+      <SourceFile>merge.1\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="merge.1\module.msm" />
+  </UnitTest>
+  <UnitTest Name="Merge_1_Product">
+    <Candle>
+      <SourceFile>merge.1\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE36" ExpectedWarnings="1079" ExpectedResult="merge.1\product.msi" />
+    <!-- merged information will not be decompiled and diffing will break -->
+  </UnitTest>
+  <UnitTest Name="Merge_2_Product">
+    <Candle>
+      <SourceFile>merge.2\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" ExpectedResult="merge.2\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Merge_3_Product">
+    <Candle>
+      <SourceFile>merge.3\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="129" />
+  </UnitTest>
+  <UnitTest Name="Merge_4">
+    <Candle>
+      <SourceFile>merge.4\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1079" ExpectedResult="merge.4\product.msi">
+      <LocalizationFile>merge.4\product.wxl</LocalizationFile>
+    </Light>
+    <!-- merged information will not be decompiled and diffing will break -->
+  </UnitTest>
+  <UnitTest Name="Merge_5">
+    <Candle>
+      <SourceFile>merge.5\module.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="merge.5\module.msm" />
+  </UnitTest>
+  <UnitTest Name="Mime">
+    <Candle>
+      <SourceFile>mime\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="mime\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Mime2">
+    <Candle>
+      <SourceFile>mime.2\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="mime.2\product.msi" />
+    <!-- DecompileAndDiff / -->
+  </UnitTest>
+  <UnitTest Name="MimeMap">
+    <Candle>
+      <SourceFile>mimemap\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" ExpectedResult="mimemap\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Miscellaneous">
+    <Candle ExpectedWarnings="1077">
+      <SourceFile>miscellaneous\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle ExpectedWarnings="1077" />
+    <Light ExpectedResult="miscellaneous\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Missing_Endif">
+    <Candle ExpectedErrors="147">
+      <SourceFile>if\missingendif.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="Missing_If_With_Else">
+    <Candle ExpectedErrors="146">
+      <SourceFile>if\missingifwithelse.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="Missing_If_with_Elseif">
+    <Candle ExpectedErrors="146">
+      <SourceFile>if\missingifwithelseif.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="MSBuild_AfterBuild">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedWarnings="2002" ExpectedResult="msbuild.extensionpoints\Product.msi" Arguments="/p:OutputType=Package /p:GenerateErrorOnAfterBuild=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_AfterClean">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2091" Arguments="/p:OutputType=Package /p:GenerateErrorOnAfterClean=true /target:Clean" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_AfterCompileAndLink">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedWarnings="2051" ExpectedResult="msbuild.extensionpoints\Product.msi" Arguments="/p:OutputType=Package /p:GenerateErrorOnAfterCompileAndLink=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_AfterRebuild">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedWarnings="2003" ExpectedResult="msbuild.extensionpoints\Product.msi" Arguments="/p:OutputType=Package /p:GenerateErrorOnAfterRebuild=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_AfterResolveReferences">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2041" Arguments="/p:OutputType=Package /p:GenerateErrorOnAfterResolveReferences=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_BeforeBuild">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2001" Arguments="/p:OutputType=Package /p:GenerateErrorOnBeforeBuild=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_BeforeClean">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2090" Arguments="/p:OutputType=Package /p:GenerateErrorOnBeforeClean=true /target:Clean" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_BeforeCompileAndLink">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2050" Arguments="/p:OutputType=Package /p:GenerateErrorOnBeforeCompileAndLink=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_BeforeRebuild">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2000" Arguments="/p:OutputType=Package /p:GenerateErrorOnBeforeRebuild=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_BeforeResolveReferences">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2040" Arguments="/p:OutputType=Package /p:GenerateErrorOnBeforeResolveReferences=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_CustomAfterWixTargets">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="1000" Arguments="/p:OutputType=Package /p:GenerateCustomAfterWixTargetsError=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_Light">
+    <WixProj SourceFile="msbuild.light\Product.wixproj" ExpectedResult="msbuild.light\Product.msi" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_MissingParameters_1">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" NoOutputName="true" ExpectedErrors="100" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_MissingParameters_2">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedWarnings="101" ExpectedResult="msbuild.extensionpoints\Product.msi" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_MissingParameters_3">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="102" Arguments="/p:OutputType=Bogus" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_MissingParameters_4">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="103" Arguments="/p:OutputType=Package /p:OutDir=C:\Temp" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_PostBuildEvent">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedWarnings="2011" ExpectedResult="msbuild.extensionpoints\Product.msi" Arguments="/p:OutputType=Package /p:GenerateErrorOnPostBuildEvent=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_PostBuildEventBuildVariables">
+    <WixProj SourceFile="msbuild.extensionpoints\PrePostBuildEventsWithVariables.sln" ExpectedWarnings="3001" ExpectedResult="msbuild.extensionpoints\Product.msi" Arguments="/p:VerifyPostBuildEvent=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_PreBuildEvent">
+    <WixProj SourceFile="msbuild.extensionpoints\ProductWithNoDefaults.wixproj" ExpectedErrors="2010" Arguments="/p:OutputType=Package /p:GenerateErrorOnPreBuildEvent=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_PreBuildEventBuildVariables">
+    <WixProj SourceFile="msbuild.extensionpoints\PrePostBuildEventsWithVariables.sln" ExpectedWarnings="3000" ExpectedResult="msbuild.extensionpoints\Product.msi" Arguments="/p:VerifyPreBuildEvent=true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_ProjectRefs">
+    <WixProj SourceFile="msbuild.projectrefs\msbuild.projectrefs.sln" ExpectedResult="msbuild.projectrefs\Product.msi" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_SolutionVars">
+    <WixProj SourceFile="msbuild.solutionvars\Product.sln" ExpectedResult="msbuild.solutionvars\product.msi" DefineSolutionProperties="true" />
+  </UnitTest>
+  <UnitTest Name="MSBuild_UserTargetsPath">
+    <WixProj SourceFile="msbuild.extensionpoints\UserTargetsPath.wixproj" ExpectedErrors="1000" />
+  </UnitTest>
+  <UnitTest Name="MultipleMedia">
+    <Candle>
+      <SourceFile>multipleMedia\product.wxs</SourceFile>
+    </Candle>
+    <Lit Arguments="-bf" />
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="multipleMedia\product.msi" />
+  </UnitTest>
+  <UnitTest Name="NetFx">
+    <Candle>
+      <SourceFile>netfx\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="netfx\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ODBC">
+    <Candle>
+      <SourceFile>ODBC\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="ODBC\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ODBC.Module">
+    <Candle>
+      <SourceFile>ODBC.module\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="ODBC.module\module.msm" />
+  </UnitTest>
+  <UnitTest Name="OSInfo">
+    <Candle>
+      <SourceFile>OSInfo\OSInfo.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="OSInfo\OSInfo.msi" />
+  </UnitTest>
+  <UnitTest Name="Patch">
+    <Candle>
+      <SourceFile>patch\patch.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="pcp" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="patch\patch.pcp" />
+  </UnitTest>
+  <UnitTest Name="Patch.MinorUpgrade">
+    <Candle UsePreviousOutput="false" Arguments="-tsa -sdut">
+      <SourceFile>patch.minorupgrade\baseline.wxs</SourceFile>
+    </Candle>
+    <Light OutputFile="patch.minorupgrade\baseline.wixout" />
+    <Candle UsePreviousOutput="false" Arguments="-tsa -sdut">
+      <SourceFile>patch.minorupgrade\upgrade.wxs</SourceFile>
+    </Candle>
+    <Light OutputFile="patch.minorupgrade\upgrade.wixout" />
+    <Torch TargetDatabase="patch.minorupgrade\baseline.wixout" UpdatedDatabase="patch.minorupgrade\upgrade.wixout" Arguments=" -xi -xo -p" OutputFile="patch.minorupgrade\transform.wixout" UsePreviousOutput="false" VerifyTransform="false"/>
+    <Candle UsePreviousOutput="false" OutputDirectory="patch.minorupgrade">
+      <SourceFile>patch.minorupgrade\patch.wxs</SourceFile>
+    </Candle>
+    <Light OutputFile="patch.minorupgrade\patch.wixout" UsePreviousOutput="false" >
+      <LibraryFile>patch.minorupgrade\patch.wixobj</LibraryFile>
+    </Light>
+    <Pyro InputFile="patch.minorupgrade\patch.wixout" OutputFile="patch.minorupgrade\patch.msp">
+      <Transform File="patch.minorupgrade\transform.wixout" Baseline="rtm" />
+    </Pyro>
+    <Compare File1="patch.minorupgrade\expected.msp" File2="patch.minorupgrade\patch.msp" />
+    <Compare File1="patch.minorupgrade\expected_transform.wixout" File2="patch.minorupgrade\transform.wixout" />
+  </UnitTest>
+  <UnitTest Name="PerfCounter">
+    <Candle>
+      <SourceFile>perfcounter\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+  </UnitTest>
+  <UnitTest Name="PerfMon">
+    <Candle>
+      <SourceFile>perfmon\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="perfmon\product.msi" />
+  </UnitTest>
+  <UnitTest Name="powershell.0">
+    <Candle>
+      <SourceFile>powershell.0\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="powershell.0\product.msi" />
+  </UnitTest>
+  <UnitTest Name="powershell.1">
+    <Candle>
+      <SourceFile>powershell.1\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="powershell.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Preprocessor">
+    <Candle>
+      <SourceFile>preprocessor\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="preprocessor\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Preprocessor.WarningAndError">
+    <Candle ExpectedWarnings="1096"  ExpectedErrors="250" >
+      <SourceFile>preprocessor.warninganderror\product.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="QTExec">
+    <Candle>
+      <SourceFile>qtexec\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="qtexec\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Registry0">
+    <Candle>
+      <SourceFile>reg\multireg.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="reg\multireg.msi" />
+  </UnitTest>
+  <UnitTest Name="Registry1">
+    <Candle>
+      <SourceFile>reg.1\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="reg.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Registry2">
+    <Candle>
+      <SourceFile>reg\otherreg.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="reg\otherreg.msi" />
+  </UnitTest>
+  <UnitTest Name="RemoveFile_Good">
+    <Candle>
+      <SourceFile>RemoveFile\product_good.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="removeFile\product.msi" />
+  </UnitTest>
+  <UnitTest Name="RemoveFile_Bad">
+    <Candle ExpectedErrors="35">
+      <SourceFile>RemoveFile\product_bad.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="RemoveFolder_Good">
+    <Candle>
+      <SourceFile>RemoveFolder\product_good.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="removeFolder\product.msi" />
+  </UnitTest>
+  <UnitTest Name="RemoveFolder_Bad">
+    <Candle ExpectedErrors="35;49">
+      <SourceFile>RemoveFolder\product_bad.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="RemoveFolder_Bad1">
+    <Candle>
+      <SourceFile>RemoveFolder\product_bad1.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="94" />
+  </UnitTest>
+  <UnitTest Name="RemoveReg">
+    <Candle>
+      <SourceFile>removeReg\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="removeReg\product.msi" />
+  </UnitTest>
+  <UnitTest Name="SecureObjects">
+    <Candle>
+      <SourceFile>secureObjects\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="secureObjects\product.msi" />
+  </UnitTest>
+  <UnitTest Name="SelfReg">
+    <Heat Arguments="file %WIX%\examples\data\selfreg.dll" />
+    <Candle>
+      <SourceFile>selfReg\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="selfReg\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Service.Module">
+    <Candle>
+      <SourceFile>service\bike.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="service\module.msm" />
+    <!-- merged information will not be decompiled and diffing will break -->
+  </UnitTest>
+  <UnitTest Name="ServiceConfig">
+    <Candle>
+      <SourceFile>ServiceConfig\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="serviceConfig\product.msi" />
+  </UnitTest>
+  <UnitTest Name="ShellExec">
+    <Candle>
+      <SourceFile>shellexec\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <!-- 1059 warnings occur because of the floating Publish elements, so skip diffing 
+         <Dark ExpectedWarnings="1059" />
+         <Candle />
+         <Light Arguments="-cultures:en-us" ExpectedResult="shellexec\product.msi" /> -->
+  </UnitTest>
+  <UnitTest Name="Shortcut">
+    <Candle>
+      <SourceFile>shortcut\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="shortcut\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Shortcut_Bad">
+    <Candle>
+      <SourceFile>shortcut\badshortcut.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="ShortNames">
+    <Candle>
+      <SourceFile>shortNames\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="shortNames\product.msi" />
+  </UnitTest>
+  <UnitTest Name="SpecialStandardAction">
+    <Candle>
+      <SourceFile>specialstandardaction\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedResult="specialstandardaction\product.msi" />
+    <!-- not darking this because it's a case we intentionally filter for <Dark /> -->
+  </UnitTest>
+  <UnitTest Name="SqlScripts">
+    <Candle>
+      <SourceFile>sqlscripts\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" ExpectedResult="sqlscripts\product.msi" />
+  </UnitTest>
+  <UnitTest Name="SqlString">
+    <Candle>
+      <SourceFile>sqlstring\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" ExpectedResult="sqlstring\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Streams">
+    <Candle>
+      <SourceFile>streams\product.wxs</SourceFile>
+    </Candle>
+    <Lit Arguments="-bf" />
+    <Light Arguments="-sice:ICE81" ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE81" ExpectedWarnings="1079" ExpectedResult="streams\product.msi" />
+  </UnitTest>
+  <UnitTest Name="StressCabinetCreation">
+    <Candle>
+      <SourceFile>stressCabinetCreation\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-ct 100" ExpectedResult="stressCabinetCreation\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Suppress">
+    <Candle>
+      <SourceFile>suppress\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1008" ExpectedResult="suppress\product.msi" />
+    <!-- not darking this because it's a case we intentionally filter for <Dark /> -->
+  </UnitTest>
+  <UnitTest Name="SuppressSequences">
+    <Candle>
+      <SourceFile>suppressSequences\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sadmin -sadv -sui -sice:ICE25 -sice:ICE30 -sice:ICE82" ExpectedWarnings="1009" ExpectedResult="suppressSequences\product.msi" />
+    <!-- not darking this because it's a case we intentionally filter for <Dark /> -->
+  </UnitTest>
+  <UnitTest Name="SuppressWarn">
+    <Candle SuppressWixCop="true">
+      <SourceFile>suppresswarn\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedWarnings="1008" ExpectedResult="suppresswarn\product.msi" />
+    <!-- not darking this because it's a case we intentionally filter for <Dark /> -->
+  </UnitTest>
+  <UnitTest Name="TextSrc">
+    <Candle>
+      <SourceFile>textsrc\product.wxs</SourceFile>
+      <SourceFile>textsrc\fragment.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE20 -sice:ICE31" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE20 -sice:ICE31" ExpectedResult="textsrc\product.msi" />
+  </UnitTest>
+  <UnitTest Name="TextSrc_2">
+    <Candle>
+      <SourceFile>textsrc.2\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE20 -sice:ICE31" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE20 -sice:ICE31" ExpectedResult="textsrc.2\product.msi" />
+  </UnitTest>
+  <UnitTest Name="TextSrc_3">
+    <Candle>
+      <SourceFile>textsrc.3\product.wxs</SourceFile>
+      <SourceFile>textsrc.3\fragment.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" SuppressExtensions="WixUIExtension" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="textsrc.3\product.msi" SuppressExtensions="WixUIExtension" />
+  </UnitTest>
+  <UnitTest Name="Transform">
+    <Torch TargetDatabase="transform\target.msi" UpdatedDatabase="transform\updated.msi" />
+    <Dark Arguments="-xo" />
+    <Torch TargetDatabase="transform\target.msi" UpdatedDatabase="transform\updated.msi" />
+  </UnitTest>
+  <UnitTest Name="TypeLib">
+    <Candle>
+      <SourceFile>typeLib\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="typeLib\product.msi" />
+  </UnitTest>
+  <UnitTest Name="UI">
+    <Candle>
+      <SourceFile>ui\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE20 -sice:ICE31" IntermediateOutputType="msi">
+      <LocalizationFile>ui\product.wxl</LocalizationFile>
+    </Light>
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE20 -sice:ICE31" ExpectedResult="ui\product.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.AnotherOne">
+    <Candle ExpectedWarnings="1069" SuppressWixCop="true">
+      <SourceFile>ui\anotherui.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" SuppressExtensions="WixUIExtension" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="ui\anotherui.msi" SuppressExtensions="WixUIExtension" />
+  </UnitTest>
+  <UnitTest Name="UI.AnotherOne.Module">
+    <Candle ExpectedWarnings="1069" SuppressWixCop="true">
+      <SourceFile>ui\anotheruimodule.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE03 -sice:ICEM12 -sice:ICE17" IntermediateOutputType="msm" SuppressExtensions="WixUIExtension" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE03 -sice:ICEM12 -sice:ICE17" ExpectedResult="ui\anotheruimodule.msm" SuppressExtensions="WixUIExtension" />
+  </UnitTest>
+  <UnitTest Name="UI.Fragmented">
+    <Candle>
+      <SourceFile>ui.fragmented\product.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\ActionText.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Error.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\TextStyles.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\UIProperties.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\UIText.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\AdminChangeFolder.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\AdminNetworkLocation.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\AdminWelcome.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\CancelSetup.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\CustomerInformation.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\CustomSetup.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\CustomSetupTips.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\DatabaseFolder.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\DestinationFolder.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\DiskSpaceRequirements.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\FilesInUse.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\InstallChangeFolder.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\InstallWelcome.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\LicenseAgreement.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\MaintenanceType.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\MaintenanceWelcome.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\OutOfSpace.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\PatchWelcome.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\ReadyToInstall.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\ReadyToRemove.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupCompleteError.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupCompleteSuccess.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupError.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupInitialization.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupInterrupted.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupProgress.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupResume.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SetupType.wxs</SourceFile>
+      <SourceFile>ui.fragmented\UI\Dialogs\SplashBitmap.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE45" IntermediateOutputType="msi" SuppressExtensions="WixUIExtension" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE45" ExpectedResult="ui.fragmented\product.msi" SuppressExtensions="WixUIExtension" />
+  </UnitTest>
+  <UnitTest Name="UI.Lists">
+    <Candle>
+      <SourceFile>ui.lists\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-sice:ICE71" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="ui.lists\product.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_Advanced">
+    <Candle >
+      <SourceFile>ui\wixui_advanced.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark ExpectedWarnings="1059" />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_advanced.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_FeatureTree">
+    <Candle>
+      <SourceFile>ui\wixui_featuretree.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_featuretree.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_InstallDir">
+    <Candle>
+      <SourceFile>ui\wixui_installdir.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_installdir.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_Minimal">
+    <Candle>
+      <SourceFile>ui\wixui_minimal.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_minimal.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_Mondo">
+    <Candle>
+      <SourceFile>ui\wixui_mondo.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_mondo.msi" />
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_OverriddenLoc">
+    <Candle>
+      <SourceFile>ui\wixui_overriddenloc.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_overriddenloc.msi">
+      <LocalizationFile>ui\overrides.wxl</LocalizationFile>
+    </Light>
+    <!-- TODO: properly decompile wix variables
+        <Dark />
+        -->
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_ProgressText">
+    <Candle>
+      <SourceFile>ui\wixui_progresstext.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_progresstext.msi" />
+    <!-- TODO: properly decompile Error and ActionText tables
+        <Dark />
+        -->
+  </UnitTest>
+  <UnitTest Name="UI.WiXUI_Substituted">
+    <Candle>
+      <SourceFile>ui\wixui_substituted.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedResult="ui\wixui_substituted.msi" />
+    <!-- TODO: properly decompile wix variables
+        <Dark />
+        -->
+  </UnitTest>
+  <UnitTest Name="UnrealTableOutput">
+    <Candle>
+      <SourceFile>unrealtableoutput\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-xo -sdut" ExpectedResult="unrealtableoutput\product.wixout" />
+  </UnitTest>
+  <UnitTest Name="Upgrade">
+    <Candle>
+      <SourceFile>upgrade\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="upgrade\product.msi" />
+  </UnitTest>
+  <UnitTest Name="Upgrade.Bad">
+    <Candle>
+      <SourceFile>upgrade.bad\product.wxs</SourceFile>
+    </Candle>
+    <Light ExpectedErrors="94" />
+  </UnitTest>
+  <UnitTest Name="User">
+    <Candle>
+      <SourceFile>user\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" ExpectedResult="user\product.msi" />
+  </UnitTest>
+  <UnitTest Name="UTF8">
+    <Candle>
+      <SourceFile>utf8\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="utf8\product.msi" />
+  </UnitTest>
+  <UnitTest Name="VSHelp">
+    <Candle>
+      <SourceFile>helpExtension\product.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="helpExtension\product.msi" />
+  </UnitTest>
+  <UnitTest Name="VSHelpMSM">
+    <Candle>
+      <SourceFile>helpExtension\module.wxs</SourceFile>
+    </Candle>
+    <Light IntermediateOutputType="msm" />
+    <Dark />
+    <Candle />
+    <Light ExpectedResult="helpExtension\module.msm" />
+  </UnitTest>
+  <UnitTest Name="WebError">
+    <Candle>
+      <SourceFile>weberror\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="weberror\product.msi" />
+  </UnitTest>
+  <UnitTest Name="WebFilter">
+    <Candle>
+      <SourceFile>webfilter\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="webfilter\product.msi" />
+  </UnitTest>
+  <UnitTest Name="WebSite0">
+    <Candle>
+      <SourceFile>website.0\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us -sice:ICE32" ExpectedResult="website.0\product.msi" />
+    <WixProj SourceFile="website.0\website.0.wixproj" ExpectedResult="website.0\product.msi" />
+  </UnitTest>
+  <UnitTest Name="WebSite1">
+    <Candle>
+      <SourceFile>website.1\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedWarnings="1079" ExpectedResult="website.1\product.msi" />
+  </UnitTest>
+  <UnitTest Name="WebSiteBad">
+    <Candle ExpectedErrors="5156">
+      <SourceFile>website.bad\product.wxs</SourceFile>
+    </Candle>
+  </UnitTest>
+  <UnitTest Name="WebSvcExt">
+    <Candle>
+      <SourceFile>websvcext\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="websvcext\product.msi" />
+  </UnitTest>
+  <UnitTest Name="WixVariable">
+    <Candle>
+      <SourceFile>wixVariable\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments='-dVariableName=value "-dOverridableVariable=another value" -dBinaryVariable=%WIX%\examples\data\readme.txt -dCommandLineVariable=something -sice:ICE71' IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-sice:ICE71" ExpectedResult="wixVariable\product.msi" />
+    <WixProj SourceFile="wixVariable\wixVariable.wixproj" ExpectedResult="wixVariable\product.msi" />
+  </UnitTest>
+  <UnitTest Name="XmlConfig">
+    <Candle>
+      <SourceFile>xmlConfig\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="xmlconfig\product.msi" />
+  </UnitTest>
+  <UnitTest Name="XmlFile">
+    <Candle>
+      <SourceFile>xmlFile\product.wxs</SourceFile>
+    </Candle>
+    <Light Arguments="-cultures:en-us" IntermediateOutputType="msi" />
+    <Dark />
+    <Candle />
+    <Light Arguments="-cultures:en-us" ExpectedResult="xmlfile\product.msi" />
+  </UnitTest>
+</UnitTests>

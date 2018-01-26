@@ -1,0 +1,14 @@
+package JSharpLibrary;
+
+/**
+ * Summary description for Class1.
+ */
+public class Class1
+{
+	public Class1()
+	{
+		//
+		// TODO: Add Constructor Logic here
+		//
+	}
+}

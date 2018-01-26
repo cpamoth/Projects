@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{3B8C4BD6-42BA-4721-ACFE-729889B8B4A3}">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" ReadOnly="no" InstallPrivileges="limited" />
+
+        <EnsureTable Id="File" />
+
+        <CustomAction Id="action1" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+        <CustomAction Id="action2" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+        <CustomAction Id="action3" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+        <CustomAction Id="action4" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+        <CustomAction Id="action5" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+        <CustomAction Id="action6" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+        <CustomAction Id="action1a" Script="vbscript"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+
+        <InstallExecuteSequence>
+            <Custom Action="action1" Sequence="32767" Overridable="yes" />
+            <Custom Action="action5" Before="action1" Overridable="yes" />
+            <Custom Action="action4" Before="action1" Overridable="yes" />
+            <Custom Action="action2" Before="action1" Overridable="yes" />
+            <Custom Action="action3" Sequence="32764" Overridable="yes" />
+        </InstallExecuteSequence>
+
+        <InstallUISequence>
+            <Custom Action="action1" Sequence="1" Overridable="yes" />
+            <Custom Action="action1a" Sequence="1" />
+            <Custom Action="action5" After="action1" Overridable="yes" />
+            <Custom Action="action4" After="action1" Overridable="yes" />
+            <Custom Action="action2" After="action1" Overridable="yes" />
+            <Custom Action="action3" After="action1" Overridable="yes" />
+            <Custom Action="action6" Sequence="6" />
+        </InstallUISequence>
+
+        <PropertyRef Id="blah" />
+    </Product>
+
+    <Fragment>
+        <Property Id="blah" Value="foo" />
+
+        <InstallExecuteSequence>
+            <Custom Action="action4" Before="action3" />
+            <InstallFiles Sequence="12345" />
+        </InstallExecuteSequence>
+    </Fragment>
+</Wix>

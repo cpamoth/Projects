@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="InstallWelcome">
+    <UI>
+      <Dialog Id="InstallWelcome" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+        <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Next &gt;">
+          <Publish Event="NewDialog" Value="LicenseAgreement"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Disabled="yes" Text="&lt; &amp;Back">
+          <Publish Event="NewDialog" Value="SplashBitmap"><![CDATA[Display_IsBitmapDlg]]></Publish>
+        </Control>
+        <Control Id="Copyright" Type="Text" X="135" Y="151" Width="228" Height="66" Transparent="yes" TabSkip="no">
+          <Text>WARNING: This computer program is protected by copyright law and international treaties. Unauthorized reproduction or distribution of this program, or any portion of it, may result in severe civil and criminal penalties, and will be prosecuted to the maximum extent possible under the law.</Text>
+          <Condition Action="hide"><![CDATA[SHOWCOPYRIGHT="No"]]></Condition>
+          <Condition Action="show"><![CDATA[SHOWCOPYRIGHT="Yes"]]></Condition>
+        </Control>
+        <Control Id="TextLine2" Type="Text" X="135" Y="55" Width="228" Height="63" Transparent="yes">
+          <Text>[ProductName] is powerful anti-spyware software that helps to detect and remove spyware and adware from your computer. The Installation Wizard will install [ProductName] on your computer. To continue, click Next.</Text>
+        </Control>
+        <Control Id="DlgLine" Type="Line" X="0" Y="234" Width="374" Height="0" />
+        <Control Id="Image" Type="Bitmap" X="0" Y="0" Width="374" Height="234" Text="NewBinary5" />
+        <Control Id="TextLine1" Type="Text" X="135" Y="8" Width="225" Height="45" Transparent="yes">
+          <Text>{&amp;TahomaBold10}Welcome to the Installation Wizard for [ProductName]</Text>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

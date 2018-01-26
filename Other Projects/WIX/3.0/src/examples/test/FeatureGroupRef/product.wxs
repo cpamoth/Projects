@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="12345678-1234-1234-1234-123456789012" Name="TestFeatureGroupReferencing" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{99EF1727-5ADE-436A-A62F-F2EBA4842D98}">
+        <Package Description="Tests to verify FeatureGroupRefs behave correctly within Product Node" Comments="Test from: wix\examples\test\featuregroupref\product.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" Compressed="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <FeatureGroupRef Id="FeatureGroup1" />
+    </Product>
+
+    <Fragment Id="FeatureGroup1">
+        <FeatureGroup Id="FeatureGroup1">
+            <FeatureGroupRef Id="FeatureGroup2" />
+        </FeatureGroup>
+    </Fragment>
+
+    <Fragment Id="Fragment2">
+        <FeatureGroup Id="FeatureGroup2">
+            <FeatureRef Id="Feature3" />
+        </FeatureGroup>
+    </Fragment>
+
+    <Fragment Id="Fragment3">
+        <Feature Id="Feature3" Level="20">
+            <ComponentRef Id="Component3" />
+        </Feature>
+    </Fragment>
+
+    <Fragment Id="FragmentC">
+        <DirectoryRef Id="TARGETDIR">
+            <Component Id="Component3" Guid="C3333333-3333-3333-3333-333333333333">
+                <File Id="TestShortcutProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="0F4ED17A-6490-4B28-8405-3D51382D4CD1" Name="TestFileShareProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{87D4301B-AAAC-47D0-B318-C193E89D35C6}">
+        <Package Description="Invalid - Test FileShare in a Product" Comments="Test from: wix\examples\test\fileshare.Invalid\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        <Property Id="ShareName" Value="testShare" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestFileShareProductDirectory" ShortName="testassm" Name="Test File Share">
+                    <Component Id="TestFileShareProductComponent" Guid="00030829-0000-0000-C000-006100000046" DiskId="1">
+                        <File Id="TestFileShareProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                        <util:FileShare Id="testShare" Name="[ShareName]" Description="This is a test share">
+                            <util:FileSharePermission User="testUser" GenericRead="yes" GenericWrite="yes" />
+
+                            <!-- Note: this is how not to do a read only file share. It should throw. -->
+                            <util:FileSharePermission User="every1" GenericRead="yes" />
+                        </util:FileShare>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <util:User Id="testUser" Name="scotk" Domain="redmond" />
+        <util:User Id="every1" Name="Everyone" />
+
+        <Feature Id="TestFileShareProductFeature" Title="Test FileShare Product Feature" Level="1">
+            <ComponentRef Id="TestFileShareProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

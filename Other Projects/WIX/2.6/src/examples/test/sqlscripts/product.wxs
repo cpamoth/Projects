@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="7CD51CE1-EFD3-46CB-AF28-5B7356D9C7F8" Name="TestSqlScriptsProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="41D1D25D-5214-4121-BFEA-34E81C1538B8" Description="Test SqlScripts in a Product" Comments="Test from: wix\examples\test\sqlscripts\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestSqlScriptProductDirectory" Name="testsql" LongName="Test Sql">
+          <Component Id="TestSqlScriptProductComponent1" Guid="3462DF37-C6C1-4AF1-9BED-90B85B2C274F" DiskId="1" KeyPath="yes">
+            <SqlDatabase Id="TestDB" Database="BlankDB" Server="Localhost" CreateOnInstall="yes" DropOnUninstall="yes" ConfirmOverwrite="yes">
+              <SqlScript Id="SqlScript1" BinaryKey="SqlScript1" ExecuteOnInstall="yes" RollbackOnReinstall="yes" ContinueOnError="no" Sequence="1" />
+            </SqlDatabase>
+          </Component>
+          <Component Id="TestSqlScriptProductComponent2" Guid="8431B393-F8C0-49F7-938E-BE055B41D99C" DiskId="1" KeyPath="yes">
+            <SqlScript Id="SqlScript2" SqlDb="TestDB" BinaryKey="SqlScript2" ExecuteOnInstall="yes" RollbackOnReinstall="no" ContinueOnError="no" Sequence="2" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestSqlScriptProductFeature" Title="Test SQL String Product Feature" Level="1">
+      <ComponentRef Id="TestSqlScriptProductComponent1" />
+      <ComponentRef Id="TestSqlScriptProductComponent2" />
+    </Feature>
+
+    <Binary Id="SqlScript1" SourceFile="$(env.WIX)\examples\test\sqlscripts\SqlScript1.sql" />
+    <Binary Id="SqlScript2" SourceFile="$(env.WIX)\examples\test\sqlscripts\SqlScript2.sql" />
+  </Product>
+</Wix>

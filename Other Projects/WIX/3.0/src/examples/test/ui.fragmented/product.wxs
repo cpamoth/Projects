@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{11608BD0-56AD-4F0B-826D-B9196AF480C7}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestFileProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+                        <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <UIRef Id="UI" />
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+        </Feature>
+
+        <!-- add some binary files to satisfy the foreign keys in the bitmap controls -->
+        <Binary Id="NewBinary1" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary2" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary3" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary4" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary5" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary6" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary7" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary8" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary9" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary10" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary11" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary12" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary13" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary14" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary15" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary16" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary17" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary18" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary19" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="NewBinary20" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+        <!-- add some properties to satisfy foreign keys -->
+        <Property Id="AgreeToLicense" Value="No" />
+        <Property Id="ApplicationUsers" Value="OnlyCurrentUser" />
+        <Property Id="_IsMaintenance" Value="Reinstall" />
+        <Property Id="_IsSetupTypeMin" Value="Typical" />
+
+    </Product>
+</Wix>

@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Update Example Small Update Patches" default="build.smallupdates" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    CustomDialogSet.build - Builds the custom dialog set .wixlib
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="..\update.include" unless="${property::exists('update.properties.defined')}" />
+  <include buildfile="..\products\products.build" unless="${property::exists('include.products')}" />
+  <property name="include.smallupdates" value="1" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Clean -->
+  <target name="clean.smallupdates" description="Cleans the build" >
+    <foreach item="String" in="${update.patches.smallupdate}" delim="${update.patches.delim}" property="Patch">
+      <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+        <delete failonerror="false">
+          <fileset>
+            <include name="${dir.build.update}\${Version}\${Patch}.wixobj" />
+            <include name="${dir.target.update}\${Version}\${Patch}.wixmsp" />
+            <include name="${dir.target.update}\${Version}\${Patch}.msp" />
+          </fileset>
+        </delete>
+      </foreach>
+      <foreach item="String" in="${update.versions.multi}" delim="${update.versions.delim}" property="SubVersion">
+        <property name="Version" value="9.${SubVersion}"/>
+          <delete failonerror="false">
+            <fileset>
+              <include name="${dir.build.update}\${Version}\${Patch}.wixobj" />
+              <include name="${dir.target.update}\${Version}\${Patch}.wixmsp" />
+              <include name="${dir.target.update}\${Version}\${Patch}.msp" />
+            </fileset>
+          </delete>
+      </foreach>
+    </foreach>
+  </target>
+
+  <!-- Build -->
+  <target name="build.smallupdates" description="Performs an incremental build" depends="dirs, build.shared, build.products">
+    <foreach item="String" in="${update.patches.smallupdate}" delim="${update.patches.delim}" property="Patch">
+
+      <!-- 1.0 patches -->
+      <foreach item="String" in="${update.versions.smallupdate.1.0}" delim="${update.versions.delim}" property="Version">
+        <candle out="${dir.build.update}\${Version}\${Patch}.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.src.update.smallupdates}\${Patch}.wxs" />
+          </sources>
+          <arg value="-dVersion=${Version}" />
+        </candle>
+        <light out="${dir.target.update}\${Version}\${Patch}.wixmsp" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.build.update}\${Version}\${Patch}.wixobj" />
+          </sources>
+          <arg value="-xo" />
+        </light>
+        <pyro out="${dir.target.update}\${Version}\${Patch}.msp" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.target.update}\${Version}\${Patch}.wixmsp" />
+          </sources>
+          <transforms>
+            <transform filepath="${dir.target.update}\${Version}\1.0\a.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\${Version}\1.0\b.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\${Version}\1.0\c.wixmst" baseline="rtm" />
+          </transforms>
+        </pyro>
+      </foreach>
+
+      <!-- 1.0/2.0 single-binary patches -->
+      <foreach item="String" in="${update.versions.smallupdate.2.0}" delim="${update.versions.delim}" property="Version">
+        <candle out="${dir.build.update}\${Version}\${Patch}.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.src.update.smallupdates}\${Patch}.wxs" />
+          </sources>
+          <arg value="-dVersion=${Version}" />
+        </candle>
+        <light out="${dir.target.update}\${Version}\${Patch}.wixmsp" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.build.update}\${Version}\${Patch}.wixobj" />
+          </sources>
+          <arg value="-xo" />
+        </light>
+        <pyro out="${dir.target.update}\${Version}\${Patch}.msp" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.target.update}\${Version}\${Patch}.wixmsp" />
+          </sources>
+          <transforms>
+            <transform filepath="${dir.target.update}\${Version}\1.0\a.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\${Version}\1.0\b.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\${Version}\1.0\c.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\${Version}\2.0\a.wixmst" baseline="sp1" />
+            <transform filepath="${dir.target.update}\${Version}\2.0\b.wixmst" baseline="sp1" />
+            <transform filepath="${dir.target.update}\${Version}\2.0\c.wixmst" baseline="sp1" />
+          </transforms>
+        </pyro>
+      </foreach>
+
+      <!-- 1.0/2.0 multi-binary patches -->
+      <foreach item="String" in="${update.versions.multi}" delim="${update.versions.delim}" property="SubVersion">
+        <property name="Version" value="9.${SubVersion}"/>
+        <mkdir dir="${dir.build.update}\${Version}" />
+        <mkdir dir="${dir.target.update}\${Version}" />
+
+        <candle out="${dir.build.update}\${Version}\${Patch}.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.src.update.smallupdates}\${Patch}.wxs" />
+          </sources>
+          <arg value="-dVersion=${Version}" />
+          <arg value="-dMultiBinary" />
+        </candle>
+        <light out="${dir.target.update}\${Version}\${Patch}.wixmsp" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.build.update}\${Version}\${Patch}.wixobj" />
+          </sources>
+          <arg value="-xo" />
+        </light>
+        <pyro out="${dir.target.update}\${Version}\${Patch}.msp" exedir="${dir.target.wix}" warningsaserrors="true">
+          <sources>
+            <include name="${dir.target.update}\${Version}\${Patch}.wixmsp" />
+          </sources>
+          <transforms>
+            <transform filepath="${dir.target.update}\1.${SubVersion}\1.0\a.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\1.${SubVersion}\1.0\b.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\1.${SubVersion}\1.0\c.wixmst" baseline="rtm" />
+            <transform filepath="${dir.target.update}\2.${SubVersion}\2.0\a.wixmst" baseline="sp1" />
+            <transform filepath="${dir.target.update}\2.${SubVersion}\2.0\b.wixmst" baseline="sp1" />
+            <transform filepath="${dir.target.update}\2.${SubVersion}\2.0\c.wixmst" baseline="sp1" />
+          </transforms>
+        </pyro>
+      </foreach>
+
+    </foreach>
+  </target>
+
+</project>

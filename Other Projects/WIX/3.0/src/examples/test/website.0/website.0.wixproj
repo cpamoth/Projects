@@ -1,0 +1,17 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{FF66E892-A01A-4c27-8620-1D2E42224B5D}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>website.0</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>*Pass via the command line*</WixToolPath>
+    <Cultures>en-us</Cultures>
+    <SuppressIces>ICE32</SuppressIces>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="product.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixToolPath)\Wix.targets" />
+</Project>

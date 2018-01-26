@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BuildInfo</name>
+    </assembly>
+    <members>
+        <member name="M:BuildInfo.XmlOps.Serialization.SerializeBuildInfo(BuildInfo.BuildInfo,System.String)">
+            <summary>
+            Serializes the BuildInfo object to an xnml file
+            </summary>
+            <param name="buildInformation">A BuildInfo object</param>
+            <param name="path">The directory to create the build.xml file in.</param>
+        </member>
+        <member name="M:BuildInfo.XmlOps.Serialization.DeserializeBuildInfo(System.String)">
+            <summary>
+            Deserializes a BuildInfo xml file to a BuildInfo object
+            </summary>
+            <param name="xmlName">Full path to the xml file</param>
+            <returns>The BuildInfo object</returns>
+        </member>
+    </members>
+</doc>

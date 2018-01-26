@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F400B367-33CF-429E-B571-0FDCF253ABC2}">
+        <Package Description="Stress cabinet creation." InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product1.cab" EmbedCab="yes" />
+        <Media Id="2" Cabinet="product2.cab" EmbedCab="yes" />
+        <Media Id="3" Cabinet="product3.cab" EmbedCab="yes" />
+        <Media Id="4" Cabinet="product4.cab" EmbedCab="yes" />
+        <Media Id="5" Cabinet="product5.cab" EmbedCab="yes" />
+        <Media Id="6" Cabinet="product6.cab" EmbedCab="yes" />
+        <Media Id="7" Cabinet="product7.cab" EmbedCab="yes" />
+        <Media Id="8" Cabinet="product8.cab" EmbedCab="yes" />
+        <Media Id="9" Cabinet="product9.cab" EmbedCab="yes" />
+        <Media Id="10" Cabinet="product10.cab" EmbedCab="yes" />
+        <Media Id="11" Cabinet="product11.cab" EmbedCab="yes" />
+        <Media Id="12" Cabinet="product12.cab" EmbedCab="yes" />
+        <Media Id="13" Cabinet="product13.cab" EmbedCab="yes" />
+        <Media Id="14" Cabinet="product14.cab" EmbedCab="yes" />
+        <Media Id="15" Cabinet="product15.cab" EmbedCab="yes" />
+        <Media Id="16" Cabinet="product16.cab" EmbedCab="yes" />
+        <Media Id="17" Cabinet="product17.cab" EmbedCab="yes" />
+        <Media Id="18" Cabinet="product18.cab" EmbedCab="yes" />
+        <Media Id="19" Cabinet="product19.cab" EmbedCab="yes" />
+        <Media Id="20" Cabinet="prod20.cab" />
+        <Media Id="21" Cabinet="prod21.cab" />
+        <Media Id="22" Cabinet="prod22.cab" />
+        <Media Id="23" Cabinet="prod23.cab" />
+        <Media Id="24" Cabinet="prod24.cab" />
+        <Media Id="25" Cabinet="prod25.cab" />
+        <Media Id="26" Cabinet="prod26.cab" />
+        <Media Id="27" Cabinet="prod27.cab" />
+        <Media Id="28" Cabinet="prod28.cab" />
+        <Media Id="29" Cabinet="prod29.cab" />
+        <Media Id="30" Cabinet="prod30.cab" />
+        <Media Id="31" Cabinet="prod31.cab" />
+        <Media Id="32" Cabinet="prod32.cab" />
+        <Media Id="33" Cabinet="prod33.cab" />
+        <Media Id="34" Cabinet="prod34.cab" />
+        <Media Id="35" Cabinet="prod35.cab" />
+        <Media Id="36" Cabinet="prod36.cab" />
+        <Media Id="37" Cabinet="prod37.cab" />
+        <Media Id="38" Cabinet="prod38.cab" />
+        <Media Id="39" Cabinet="prod39.cab" />
+        <Media Id="40" Cabinet="prod40.cab" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="FontsFolder" Name="Fonts">
+                <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                    <File Id="TestFileProductFile1" Name="test1.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" />
+                    <File Id="TestFileProductFile2" Name="test2.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="2" />
+                    <File Id="TestFileProductFile3" Name="test3.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="3" />
+                    <File Id="TestFileProductFile4" Name="test4.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="4" />
+                    <File Id="TestFileProductFile5" Name="test5.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="5" />
+                    <File Id="TestFileProductFile6" Name="test6.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="6" />
+                    <File Id="TestFileProductFile7" Name="test7.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="7" />
+                    <File Id="TestFileProductFile8" Name="test8.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="8" />
+                    <File Id="TestFileProductFile9" Name="test9.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="9" />
+                    <File Id="TestFileProductFile10" Name="test10.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="10" />
+                    <File Id="TestFileProductFile11" Name="test11.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="11" />
+                    <File Id="TestFileProductFile12" Name="test12.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="12" />
+                    <File Id="TestFileProductFile13" Name="test13.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="13" />
+                    <File Id="TestFileProductFile14" Name="test14.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="14" />
+                    <File Id="TestFileProductFile15" Name="test15.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="15" />
+                    <File Id="TestFileProductFile16" Name="test16.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="16" />
+                    <File Id="TestFileProductFile17" Name="test17.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="17" />
+                    <File Id="TestFileProductFile18" Name="test18.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="18" />
+                    <File Id="TestFileProductFile19" Name="test19.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="19" />
+                    <File Id="TestFileProductFile20" Name="test20.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="20" />
+                    <File Id="TestFileProductFile21" Name="test21.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="21" />
+                    <File Id="TestFileProductFile22" Name="test22.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="22" />
+                    <File Id="TestFileProductFile23" Name="test23.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="23" />
+                    <File Id="TestFileProductFile24" Name="test24.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="24" />
+                    <File Id="TestFileProductFile25" Name="test25.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="25" />
+                    <File Id="TestFileProductFile26" Name="test26.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="26" />
+                    <File Id="TestFileProductFile27" Name="test27.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="27" />
+                    <File Id="TestFileProductFile28" Name="test28.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="28" />
+                    <File Id="TestFileProductFile29" Name="test29.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="29" />
+                    <File Id="TestFileProductFile30" Name="test30.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="30" />
+                    <File Id="TestFileProductFile31" Name="test31.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="31" />
+                    <File Id="TestFileProductFile32" Name="test32.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="32" />
+                    <File Id="TestFileProductFile33" Name="test33.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="33" />
+                    <File Id="TestFileProductFile34" Name="test34.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="34" />
+                    <File Id="TestFileProductFile35" Name="test35.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="35" />
+                    <File Id="TestFileProductFile36" Name="test36.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="36" />
+                    <File Id="TestFileProductFile37" Name="test37.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="37" />
+                    <File Id="TestFileProductFile38" Name="test38.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="38" />
+                    <File Id="TestFileProductFile39" Name="test39.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="39" />
+                    <File Id="TestFileProductFile40" Name="test40.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="40" />
+                </Component>
+            </Directory>
+            <Directory Id="TestFolder" Name="foo" SourceName="." />
+        </Directory>
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

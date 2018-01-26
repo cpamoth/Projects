@@ -1,0 +1,28 @@
+<?xml version='1.0'?>
+<xsl:stylesheet xmlns:xsl='http://www.w3.org/TR/WD-xsl'>
+<xsl:template><xsl:copy><xsl:apply-templates select="@* | * | comment() | pi() | text()"/></xsl:copy></xsl:template>
+
+  <xsl:template match='Module/@Id | Package/@Id | Dependency/@Id | ComponentSearch/@Id'>
+    <xsl:copy>CC29E945-7BC2-11D1-A921-10A0C91E2AA2</xsl:copy>
+  </xsl:template>
+
+  <xsl:template match='Package/@Name | Package/@Description'>
+    <xsl:copy><xsl:value-of select='.' /> DEBUG</xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match='Package/@Keywords'>
+    <xsl:copy><xsl:value-of select='.' />, DEBUG</xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match='Package/@Comments'>
+    <xsl:copy><xsl:value-of select='.' /> (DEBUG)</xsl:copy>
+  </xsl:template>
+
+  <xsl:template match='Component/@Id[. = "CC29E943-7BC2-11D1-A921-00A0C91E2AA2"]'>
+    <xsl:copy>CC29E943-7BC2-11D1-A921-10A0C91E2AA2</xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match='File/@Name[. = "MSO9.DLL"]'>
+    <xsl:copy>MSO9D.DLL</xsl:copy>
+  </xsl:template>
+</xsl:stylesheet>

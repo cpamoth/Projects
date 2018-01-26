@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <PatchCreation Id="82D1AA12-19E4-4741-A32B-E5B7CE5D3369" OutputPath="PatchOutput" WholeFilesOnly="no" SourceList="sourcesList" AllowProductCodeMismatches="yes" AllowMajorVersionMismatches="no" CleanWorkingFolder="yes" SymbolFlags="37" Codepage="0">
+    <PatchInformation Manufacturer="Microsoft" ReadOnly="yes" />
+    <PatchMetadata AllowRemoval="yes" ManufacturerName="Microsoft" TargetProductName="Test" MoreInfoURL="http://www.microsoft.com/" CreationTimeUTC="01:01:01:01:01" DisplayName="Test Patch" Description="Patch that fixes broken stuff." Classification="Update">
+      <CustomProperty Company="Microsoft" Property="PatchCustomProp" Value="CustomPropValue" />
+    </PatchMetadata>
+    <Family Name="Patch_01" MediaSrcProp="PatchMediaSrc" DiskId="1" SequenceStart="5" DiskPrompt="Prompt!" VolumeLabel="Label">
+      <UpgradeImage Id="PatchUpgrade" SourceFile="PatchUpgradeSrc" SourcePatch="PatchUpgradeSrcPatch">
+        <TargetImage Id="PatchTarget" SourceFile="PatchTargetSrc" Order="11" Validation="TargetValidation" IgnoreMissingFiles="no">
+          <TargetFile Id="PatchTargetFile">
+            <IgnoreRange Offset="15" Length="25" />
+            <ProtectRange Offset="12" Length="4096" />
+          </TargetFile>
+        </TargetImage>
+        <SymbolPath Path="PatchUpgradeSymbolPath" />
+        <UpgradeFile File="PatchUpgradeFile" Ignore="yes" />
+        <UpgradeFile File="PatchUpgradeFile2" Ignore="no" AllowIgnoreOnError="no" WholeFile="yes" />
+      </UpgradeImage>
+      <ExternalFile File="PatchExternalFile" Source="PatchExternalSrc" Order="53">
+        <ProtectRange Offset="511" Length="1024" />
+        <SymbolPath Path="PatchExternalFilePath" />
+        <IgnoreRange Offset="4092" Length="1812" />
+      </ExternalFile>
+      <ProtectFile File="PatchProtectFile">
+        <ProtectRange Offset="10" Length="1918" />
+      </ProtectFile>
+    </Family>
+
+    <ReplacePatch Id="82D1AA12-19E4-4741-A32B-E5B7CE5D3370" />
+    <TargetProductCode Id="82D1AA12-19E4-4741-A32B-E5B7CE5D3372" />
+    <PatchProperty Name="Foo" Value="Bar" />
+    <PatchSequence PatchFamily="Patch Family" Target="Product Code" Sequence="1.0.1.0" />
+  </PatchCreation>
+</Wix>

@@ -1,0 +1,50 @@
+/*****************************************************************************
+ cutoff.rc - cutoff resource file
+ Owner(s): scotk
+******************************************************************************/
+
+#include "precomp.h"
+
+//
+// Standard Defines
+//
+
+#define VER_APP
+#define FILE_NAME "cutoff.exe"
+#define FILE_DESCRIPTION "Self Extractor"
+
+#define VER_COPYRIGHT_START "2002"
+#define VER_ORIGINAL_FILENAME "cutoff.exe"
+#define VER_INTERNAL_NAME "cutoff"
+#define VER_FILE_DESCRIPTION "Self Extracting Exe"
+#define VER_PRODUCT_NAME "Self Extracting Exe"
+
+//
+// Dialogs
+//
+
+// Dialog 1 has a progress bar and AVI
+IDD_EXTRACT DIALOG DISCARDABLE 0, 0, 250, 84
+STYLE DS_CENTER | WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | DS_MODALFRAME | WS_POPUP
+CAPTION "Extract"
+FONT 8, "MS Shell Dlg"
+BEGIN
+	PUSHBUTTON "&Cancel", IDCANCEL, 192, 62, 50, 14
+	LTEXT "Extracting", IDC_EXTRACTINGFILE, 7, 48, 235, 8, NOT WS_VISIBLE
+	LTEXT "", IDC_FILENAME, 45, 48, 235, 8
+	LTEXT "Initializing... Please wait...", IDC_EXTRACT_WAIT, 7, 48, 235, 8
+	CONTROL "Generic1", IDC_GENERIC1, "msctls_progress32", 0x0, 7, 62, 176, 8
+	CONTROL "User1", IDC_USER1, ANIMATE_CLASSW, WS_TABSTOP | 0x03, 7, 7, 184, 36
+END
+
+//
+// Icons
+//
+IDI_ICON ICON cutoff.ico
+
+
+//
+// Bitmaps
+//
+IDA_FILECOPY AVI filecopy.avi
+

@@ -1,0 +1,978 @@
+<Tests xmlns="http://schemas.microsoft.com/wix/2005/WixQTest">
+    <Test Name="ActionText" ExpectedResult="actiontext\module.msm">
+        <Compile>
+            <SourceFile>actiontext\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="AppPool" ExpectedResult="apppool\product.msi">
+        <Compile>
+            <SourceFile>apppool\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="AppSearch" ExpectedResult="appsearch\product.msi">
+        <Compile>
+            <SourceFile>appsearch\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="AppSearch.Invert" ExpectedResult="appsearch\product_invert.msi">
+        <Compile>
+            <SourceFile>appsearch\product_invert.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Assembly_Module" ExpectedResult="assembly\module.msm">
+        <Compile>
+            <SourceFile>assembly\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Assembly_Module_Vista_Culture" ExpectedResult="assemblyVista\module.msm">
+        <Compile>
+            <SourceFile>assemblyVista\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Assembly_Product" ExpectedResult="assembly\product.msi">
+        <Compile>
+            <SourceFile>assembly\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Bad_Else">
+        <Compile>
+            <SourceFile>if\badelse.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Bad_Elseif">
+        <Compile>
+            <SourceFile>if\badeleseif.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="BadRegistry">
+        <Compile>
+            <SourceFile>reg\badreg.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="BadRegistry2">
+        <Compile>
+            <SourceFile>reg\badreg2.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Billboard" ExpectedResult="ui\billboard.msi">
+        <Compile>
+            <SourceFile>ui\billboard.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="BinaryTooLong">
+        <Compile>
+            <SourceFile>binary\product.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Case_Sensitive_If" ExpectedResult="if.1\product.msi">
+        <Compile>
+            <SourceFile>if.1\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Category" ExpectedResult="category\product.msi">
+        <Compile>
+            <SourceFile>category\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="CcpDrive" ExpectedResult="ccpdrive\product.msi">
+        <Compile>
+            <SourceFile>ccpdrive\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="CcpSearch" ExpectedResult="ccpsearch\product.msi">
+        <Compile>
+            <SourceFile>ccpsearch\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Cert" ExpectedResult="cert\product.msi">
+        <Compile>
+            <SourceFile>cert\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Class" ExpectedResult="class\product.msi">
+        <Compile>
+            <SourceFile>class\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Class.2" ExpectedResult="class.2\product.msi">
+        <Compile>
+            <SourceFile>class.2\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Class.3">
+        <Compile>
+            <SourceFile>class.3\product.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Class.AppId" ExpectedResult="class.1\product.msi">
+        <Compile>
+            <SourceFile>Class.1\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="CompanionFile" ExpectedResult="companionfile\product.msi">
+        <Compile>
+            <SourceFile>companionfile\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Compression.Compressed" ExpectedResult="compression\compressed.msi">
+        <Compile>
+            <SourceFile>compression\compressed.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Compression.Uncompressed" ExpectedResult="compression\uncompressed.msi">
+        <Compile>
+            <SourceFile>compression\uncompressed.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Condition" ExpectedResult="condition\product.msi">
+        <Compile>
+            <SourceFile>condition\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="CopyFile" ExpectedResult="copyfile\product.msi">
+        <Compile>
+            <SourceFile>copyfile\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="CustomAction" ExpectedResult="customaction\product.msi">
+        <Compile>
+            <SourceFile>customaction\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="CustomAction.BadWin64">
+        <Compile>
+            <SourceFile>customaction\bad_win64.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="CustomTable" ExpectedResult="customtable\product.msi">
+        <Compile>
+            <SourceFile>customtable\product.fragment.wxs</SourceFile>
+            <SourceFile>customtable\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="DirectorySearch" ExpectedResult="directorysearch\product.msi">
+        <Compile>
+            <SourceFile>directorysearch\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Driver">
+        <Compile>
+            <SourceFile>driver\product.wxs</SourceFile>
+        </Compile>
+        <Link /> <!-- this test should succeed when we have the DIFxApp.wixlib -->
+    </Test>
+    <Test Name="Extension" ExpectedResult="extension\product.msi">
+        <Compile>
+            <SourceFile>extension\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="FeatureRef_0" ExpectedResult="featureref.0\product.msi">
+        <Compile>
+            <SourceFile>featureref.0\product.fragment.wxs</SourceFile>
+            <SourceFile>featureref.0\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="FeatureRef_1" ExpectedResult="featureref.1\product.msi">
+        <Compile>
+            <SourceFile>featureref.1\product.fragment.wxs</SourceFile>
+            <SourceFile>featureref.1\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="File_Module" ExpectedResult="file\module.msm">
+        <Compile>
+            <SourceFile>file\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="File_Product" ExpectedResult="file\product.msi">
+        <Compile>
+            <SourceFile>file\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="FileDefaultValues" ExpectedResult="fileDefaultValues\product.msi">
+        <Compile>
+            <SourceFile>fileDefaultValues\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="FileDuplicate" ExpectedResult="fileDuplicate\product.msi">
+        <Compile>
+            <SourceFile>fileDuplicate\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="FileShare" ExpectedResult="fileShare\product.msi">
+        <Compile>
+            <SourceFile>fileshare\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="FileShare_Invalid">
+        <Compile>
+            <SourceFile>fileshare.Invalid\product.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="FollowParent" ExpectedResult="followParent\product.msi">
+        <Compile>
+            <SourceFile>followParent\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+<!-- disabled until the wix qtests support testing with extensions
+    <Test Name="Foreach">
+        <Compile>
+            <SourceFile>foreach\success.wxs</SourceFile>
+        </Compile>
+        <Link/>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Foreach_Bad_Nesting">
+        <Compile Success="false">
+            <SourceFile>foreach\fail_bad_nesting.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Foreach_No_End">
+        <Compile Success="false">
+            <SourceFile>foreach\fail_no_end.wxs</SourceFile>
+        </Compile>
+    </Test>
+-->
+    <Test Name="Fragment" ExpectedResult="fragment\product.msi">
+        <Compile>
+            <SourceFile>fragment\product.wxs</SourceFile>
+            <SourceFile>fragment\fragment.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Fragment.0" ExpectedResult="fragment.0\product.msi">
+        <Compile>
+            <SourceFile>fragment.0\product.wxs</SourceFile>
+            <SourceFile>fragment.0\fragment.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="HelpExtension" ExpectedResult="helpExtension\product.msi" Extensions="Microsoft.Tools.WindowsInstallerXml.Extensions.VSCompiler, WixVSExtension">
+        <Compile>
+            <SourceFile>HelpExtension\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="HttpHeader" ExpectedResult="httpheader\product.msi">
+        <Compile>
+            <SourceFile>httpheader\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Icon" ExpectedResult="icon\module.msm">
+        <Compile>
+            <SourceFile>icon\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="If" ExpectedResult="if\product.msi">
+        <Compile>
+            <SourceFile>if\if.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="IgnoreModularization" ExpectedResult="ignore\module.msm">
+        <Compile>
+            <SourceFile>ignore\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="IniFile" ExpectedResult="iniFile\product.msi">
+        <Compile>
+            <SourceFile>IniFile\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="LaunchConditions" ExpectedResult="launchconditions\product.msi">
+        <Compile>
+            <SourceFile>launchconditions\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="LaunchConditions.Invert" ExpectedResult="launchconditions\product_invert.msi">
+        <Compile>
+            <SourceFile>launchconditions\product_invert.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Library" ExpectedResult="library\product.msi">
+        <Compile>
+            <SourceFile>Library\product.wxs</SourceFile>
+            <SourceFile>Library\fragment.wxs</SourceFile>
+        </Compile>
+        <Lib />
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Library.DuplicateSymbol">
+        <Compile>
+            <SourceFile>Library\fragment1.wxs</SourceFile>
+            <SourceFile>Library\fragment1copy.wxs</SourceFile>
+        </Compile>
+        <Lib />
+        <Link />
+    </Test>
+    <Test Name="Library.MultipleEntry">
+        <Compile>
+            <SourceFile>Library\product1.wxs</SourceFile>
+            <SourceFile>Library\product2.wxs</SourceFile>
+        </Compile>
+        <Lib />
+    </Test>
+    <Test Name="Localize.en-us" ExpectedResult="localized\en-us.msi">
+        <Compile>
+            <SourceFile>Localized\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LocalizationFile>Localized\en-us.wxl</LocalizationFile>
+        </Link>
+    </Test>
+    <Test Name="Localize.he-il" ExpectedResult="localized\he-il.msi">
+        <Compile>
+            <SourceFile>Localized\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LocalizationFile>Localized\he-il.wxl</LocalizationFile>
+        </Link>
+    </Test>
+    <Test Name="Localize.empty" ExpectedResult="localized\empty.msi">
+        <Compile>
+            <SourceFile>Localized\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LocalizationFile>Localized\empty.wxl</LocalizationFile>
+        </Link>
+    </Test>
+    <Test Name="Localize.FailIfMissing">
+        <Compile>
+            <SourceFile>Localized\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Localize.WixOut" ExpectedResult="Localized\en-us.wixout">
+        <Compile>
+            <SourceFile>Localized\product.wxs</SourceFile>
+        </Compile>
+        <Link Arguments="-xo">
+            <LocalizationFile>Localized\en-us.wxl</LocalizationFile>
+        </Link>
+    </Test>
+    <Test Name="Localize.WixoutDelayLoc" ExpectedResult="Localized\product.wixout">
+        <Compile>
+            <SourceFile>Localized\product.wxs</SourceFile>
+        </Compile>
+        <Link Arguments="-xo" />
+    </Test>
+    <Test Name="Merge_0_Module" ExpectedResult="merge.0\module.msm">
+        <Compile>
+            <SourceFile>merge.0\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Merge_0_Product" ExpectedResult="merge.0\product.msi">
+        <Compile>
+            <SourceFile>merge.0\product.wxs</SourceFile>
+        </Compile>
+        <Link Arguments="-sw1008 -sw1009" />
+    </Test>
+    <Test Name="Merge_1_Module" ExpectedResult="merge.1\module.msm">
+        <Compile>
+            <SourceFile>merge.1\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+<!-- Why is this disabled?
+    <Test Name="Merge_1_Product">
+        <Compile>
+            <SourceFile>merge.1\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+-->
+    <Test Name="Merge_2_Product" ExpectedResult="merge.2\product.msi">
+        <Compile>
+            <SourceFile>merge.2\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Merge_3_Product">
+        <Compile>
+            <SourceFile>merge.3\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Merge_5" ExpectedResult="merge.5\module.msm">
+        <Compile>
+            <SourceFile>merge.5\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Mime" ExpectedResult="mime\product.msi">
+        <Compile>
+            <SourceFile>mime\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="MimeMap" ExpectedResult="mimemap\product.msi">
+        <Compile>
+            <SourceFile>mimemap\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Missing_Endif">
+        <Compile>
+            <SourceFile>if\missingendif.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Missing_If_With_Else">
+        <Compile>
+            <SourceFile>if\missingifwithelse.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Missing_If_with_Elseif">
+        <Compile>
+            <SourceFile>if\missingifwitheleseif.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="MMC" ExpectedResult="mmc\product.msi" Extensions="Microsoft.Tools.WindowsInstallerXml.Extensions.MmcCompiler, WixMMCExtension">
+        <Compile>
+            <SourceFile>mmc\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="MultipleMedia" ExpectedResult="multipleMedia\product.msi">
+        <Compile>
+            <SourceFile>multipleMedia\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="NetFx" ExpectedResult="netfx\product.msi" Extensions="Microsoft.Tools.WindowsInstallerXml.Extensions.NetFxCompiler, WixNetFxExtension">
+        <Compile>
+            <SourceFile>netfx\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\netfx.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="ODBC" ExpectedResult="ODBC\product.msi">
+        <Compile>
+            <SourceFile>ODBC\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="ODBC.Module" ExpectedResult="ODBC.module\module.msm">
+        <Compile>
+            <SourceFile>ODBC.module\module.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="Patch" ExpectedResult="patch\patch.pcp">
+        <Compile>
+            <SourceFile>patch\patch.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="PatchCertificate" ExpectedResult="patchcertificate\product.msi">
+        <Compile>
+            <SourceFile>patchcertificate\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="PerfMon" ExpectedResult="perfmon\product.msi">
+        <Compile>
+            <SourceFile>perfmon\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="PrintEula" ExpectedResult="printeula\product.msi">
+        <Compile>
+            <SourceFile>printeula\product.wxs</SourceFile>
+            <SourceFile>printeula\ui.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="QTExec" ExpectedResult="qtexec\product.msi">
+        <Compile>
+            <SourceFile>qtexec\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Registry0" ExpectedResult="reg\multireg.msi">
+        <Compile>
+            <SourceFile>reg\multireg.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Registry1" ExpectedResult="reg.1\product.msi">
+        <Compile>
+            <SourceFile>reg.1\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Registry2" ExpectedResult="reg\otherreg.msi">
+        <Compile>
+            <SourceFile>reg\otherreg.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="RemoveFile_Good" ExpectedResult="removeFile\product.msi">
+        <Compile>
+            <SourceFile>RemoveFile\product_good.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="RemoveFile_Bad">
+        <Compile>
+            <SourceFile>RemoveFile\product_bad.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="RemoveFile_Bad1">
+        <Compile>
+            <SourceFile>RemoveFile\product_bad1.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="RemoveFolder_Good" ExpectedResult="removeFolder\product.msi">
+        <Compile>
+            <SourceFile>RemoveFolder\product_good.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="RemoveFolder_Bad">
+        <Compile>
+            <SourceFile>RemoveFolder\product_bad.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="RemoveFolder_Bad1">
+        <Compile>
+            <SourceFile>RemoveFolder\product_bad1.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <!-- Test Name="RemoveReg" ExpectedResult="RemoveReg\product.msi">
+        <Compile>
+            <SourceFile>RemoveReg\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test -->
+    <Test Name="SecureObjects" ExpectedResult="secureObjects\product.msi">
+        <Compile>
+            <SourceFile>secureObjects\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Service.Module" ExpectedResult="service\product.msi">
+        <Compile>
+            <SourceFile>service\bike.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="ServiceConfig" ExpectedResult="serviceConfig\product.msi">
+        <Compile>
+            <SourceFile>ServiceConfig\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+        </Link>
+    </Test>    
+    <Test Name="Shortcut" ExpectedResult="shortcut\product.msi">
+        <Compile>
+            <SourceFile>shortcut\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Shortcut_Bad">
+        <Compile>
+            <SourceFile>shortcut\badproduct.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="Signature" ExpectedResult="signature\product.msi">
+        <Compile>
+            <SourceFile>signature\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="SmallTables" ExpectedResult="smallTables\product.msi">
+        <Compile>
+            <SourceFile>smallTables\product.wxs</SourceFile>
+        </Compile>
+        <Link Arguments="-ust" />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="SpecialStandardAction" ExpectedResult="specialstandardaction\product.msi">
+        <Compile>
+            <SourceFile>specialstandardaction\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <!-- not darking this because it's a case we intentionally filter for <DecompileAndDiff /> -->
+    </Test>
+    <Test Name="SqlScripts" ExpectedResult="sqlscripts\product.msi">
+        <Compile>
+            <SourceFile>sqlscripts\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="SqlString" ExpectedResult="sqlstring\product.msi">
+        <Compile>
+            <SourceFile>sqlstring\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Ssl" ExpectedResult="ssl\product.msi">
+        <Compile>
+            <SourceFile>ssl\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="Suppress" ExpectedResult="suppress\product.msi">
+        <Compile>
+            <SourceFile>suppress\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <!-- not darking this because it's a case we intentionally filter for <DecompileAndDiff /> -->
+    </Test>
+    <Test Name="SuppressWarn" ExpectedResult="suppresswarn\product.msi">
+        <Compile>
+            <SourceFile>suppresswarn\product.wxs</SourceFile>
+        </Compile>
+        <Link Arguments="-sw1008" />
+        <!-- not darking this because it's a case we intentionally filter for <DecompileAndDiff /> -->
+    </Test>
+    <Test Name="SuppressSequences" ExpectedResult="suppressSequences\product.msi">
+        <Compile Arguments="-sw1069">
+            <SourceFile>suppressSequences\product.wxs</SourceFile>
+        </Compile>
+        <Link Arguments="-sadmin -sadv -sui -sw1008 -sw1009 -sw1076" />
+        <!-- not darking this because it's a case we intentionally filter for <DecompileAndDiff /> -->
+    </Test>
+    <Test Name="TextSrc" ExpectedResult="textsrc\product.msi">
+        <Compile>
+            <SourceFile>textsrc\product.wxs</SourceFile>
+            <SourceFile>textsrc\fragment.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="TextSrc_2" ExpectedResult="textsrc.2\product.msi">
+        <Compile>
+            <SourceFile>textsrc.2\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="TextSrc_3" ExpectedResult="textsrc.3\product.msi">
+        <Compile>
+            <SourceFile>textsrc.3\product.wxs</SourceFile>
+            <SourceFile>textsrc.3\fragment.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="TypeLib" ExpectedResult="typeLib\product.msi">
+        <Compile>
+            <SourceFile>typeLib\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI" ExpectedResult="ui\product.msi">
+        <Compile>
+            <SourceFile>ui\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LocalizationFile>ui\product.wxl</LocalizationFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.AnotherOne" ExpectedResult="ui\anotherui.msi">
+        <Compile>
+            <SourceFile>ui\anotherui.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.AnotherOne.Module" ExpectedResult="ui\anotheruimodule.msm">
+        <Compile>
+            <SourceFile>ui\anotheruimodule.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="UI.Fragmented" ExpectedResult="ui.fragmented\product.msi">
+        <Compile>
+            <SourceFile>ui.fragmented\product.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\ActionText.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Error.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\TextStyles.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\UIProperties.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\UIText.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\AdminChangeFolder.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\AdminNetworkLocation.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\AdminWelcome.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\CancelSetup.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\CustomerInformation.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\CustomSetup.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\CustomSetupTips.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\DatabaseFolder.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\DestinationFolder.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\DiskSpaceRequirements.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\FilesInUse.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\InstallChangeFolder.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\InstallWelcome.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\LicenseAgreement.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\MaintenanceType.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\MaintenanceWelcome.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\OutOfSpace.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\PatchWelcome.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\ReadyToInstall.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\ReadyToRemove.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupCompleteError.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupCompleteSuccess.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupError.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupInitialization.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupInterrupted.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupProgress.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupResume.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SetupType.wxs</SourceFile>
+            <SourceFile>ui.fragmented\UI\Dialogs\SplashBitmap.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.WiXUI_FeatureTree" ExpectedResult="ui\wixui_featuretree.msi">
+        <Compile>
+            <SourceFile>ui\wixui_featuretree.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixui.wixlib</LibraryFile>
+            <LocalizationFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\WixUI_en-us.wxl</LocalizationFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.WiXUI_InstallDir" ExpectedResult="ui\wixui_installdir.msi">
+        <Compile>
+            <SourceFile>ui\wixui_installdir.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixui.wixlib</LibraryFile>
+            <LocalizationFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\WixUI_en-us.wxl</LocalizationFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.WiXUI_ProgressText" ExpectedResult="ui\wixui_progresstext.msi">
+        <Compile>
+            <SourceFile>ui\wixui_progresstext.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixui.wixlib</LibraryFile>
+            <LocalizationFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\WixUI_en-us.wxl</LocalizationFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.WiXUI_Minimal" ExpectedResult="ui\wixui_minimal.msi">
+        <Compile>
+            <SourceFile>ui\wixui_minimal.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixui.wixlib</LibraryFile>
+            <LocalizationFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\WixUI_en-us.wxl</LocalizationFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="UI.WiXUI_Mondo" ExpectedResult="ui\wixui_mondo.msi">
+        <Compile>
+            <SourceFile>ui\wixui_mondo.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <!-- add the wixca library to ensure there are no symbol collisions -->
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixui.wixlib</LibraryFile>
+            <LocalizationFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\WixUI_en-us.wxl</LocalizationFile>
+        </Link>
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Upgrade" ExpectedResult="upgrade\product.msi">
+        <Compile>
+            <SourceFile>upgrade\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="Upgrade.Bad">
+        <Compile>
+            <SourceFile>upgrade.bad\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+    </Test>
+    <Test Name="User" ExpectedResult="user\product.msi">
+        <Compile>
+            <SourceFile>user\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="UTF8" ExpectedResult="utf8\product.msi">
+        <Compile>
+            <SourceFile>utf8\product.wxs</SourceFile>
+        </Compile>
+        <Link />
+        <DecompileAndDiff />
+    </Test>
+    <Test Name="WebError" ExpectedResult="weberror\product.msi">
+        <Compile>
+            <SourceFile>weberror\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="WebFilter" ExpectedResult="webfilter\product.msi">
+        <Compile>
+            <SourceFile>webfilter\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="WebSite0" ExpectedResult="website.0\product.msi">
+        <Compile>
+            <SourceFile>website.0\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="WebSite1" ExpectedResult="website.1\product.msi">
+        <Compile>
+            <SourceFile>website.1\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="WebSiteBad">
+        <Compile>
+            <SourceFile>website.bad\product.wxs</SourceFile>
+        </Compile>
+    </Test>
+    <Test Name="WebSvcExt" ExpectedResult="websvcext\product.msi">
+        <Compile>
+            <SourceFile>websvcext\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\sca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="XmlConfig" ExpectedResult="xmlconfig\product.msi">
+        <Compile>
+            <SourceFile>xmlconfig\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+    <Test Name="XmlFile" ExpectedResult="xmlfile\product.msi">
+        <Compile>
+            <SourceFile>xmlFile\product.wxs</SourceFile>
+        </Compile>
+        <Link>
+            <LibraryFile>%TARGETROOT%\wix20\x86\%FLAVOR%\lang-neutral\wixca.wixlib</LibraryFile>
+        </Link>
+    </Test>
+</Tests>

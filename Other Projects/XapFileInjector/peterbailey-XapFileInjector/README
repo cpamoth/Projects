@@ -1,0 +1,26 @@
+DESCRIPTION
+=================
+This programme takes a Silverlight .xap file, and places or replaces a specified file in it. It can save the modified .xap to a new file if required.
+
+It is commonly used to inject environment-specific configuration files into a .xap file after build.
+
+
+EXAMPLE
+=================
+XapFileInjector.exe -x c:\debug_version.xap -o c:\release_version.xap -f c:\release.config -n config.xml
+
+Given a xap file c:\debug_version.xap, and a file c:\release.config, this program will create a new .xap file at c:\release_version.xap, which is a copy of debug_version.xap with the injected file added to it with the name config.xml (overwriting any existing file inside).
+
+This example is typical of the scenario where you might want to generate Silverlight xap files for different environments, but do not want to manually recompile to change config values to point to different services etc. However, this tool is not limited to configuration files, it can be used for any type of file (e.g. DLLs, license files).
+
+
+PARAMETERS:
+=================
+To access more information on the available parameters, call:
+
+XapFileInjector.exe --help
+
+THANKS
+=================
+This program uses Ionic.Zip (http://dotnetzip.codeplex.com/) and NDesk.Options (http://www.ndesk.org/Options). Big thanks to both parties, your work is much appreciated.
+

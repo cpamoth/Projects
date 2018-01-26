@@ -1,0 +1,14 @@
+<VSTemplate Version="2.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>WiX File</Name>
+    <Description>A blank WiX file (.wxs)</Description>
+    <Icon>BlankFile.ico</Icon>
+    <ProjectType>WiX</ProjectType>
+    <SortOrder>20</SortOrder>
+    <DefaultName>WixFile</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem SubType="Code" ReplaceParameters="true" TargetFileName="$fileinputname$.wxs">BlankFile.wxs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

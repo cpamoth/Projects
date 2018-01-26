@@ -1,0 +1,19 @@
+//-------------------------------------------------------------------------------------------------
+// <copyright file="flattenxml.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+//
+// <summary>
+// flattenxml.exe resource file.
+// </summary>
+//-------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_ORIGINAL_FILENAME "flattenxml.exe"
+#define VER_INTERNAL_NAME "flattenxml"
+#define VER_PRODUCT_NAME "Windows Installer XML"
+#define VER_FILE_DESCRIPTION "WiX Toolset FlattenXml"
+#include "wix.rc"
+
+#define MANIFEST_RESOURCE_ID 1
+MANIFEST_RESOURCE_ID RT_MANIFEST "flattenxml.exe.manifest"

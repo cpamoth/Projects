@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="votive" default="votive.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    votive.build - Builds the votive project (votive.dll).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="votive.build" description="Peforms a full rebuild (clean then build)" if="${vsip.installed}">
+    <!-- sconce/votive -->
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="true">
+      <arg value="/property:Configuration=Debug" if="${debug}" />
+      <arg value="/property:Configuration=Release" if="${ship}" />
+      <arg value="/target:Rebuild" />
+      <arg file="${dir.src.votive}\votive\Votive.csproj" />
+    </exec>
+  </target>
+
+  <!-- Clean -->
+  <target name="votive.clean" description="Cleans the build" if="${vsip.installed}">
+    <!-- sconce/votive -->
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="true">
+      <arg value="/property:Configuration=Debug" if="${debug}" />
+      <arg value="/property:Configuration=Release" if="${ship}" />
+      <arg value="/target:Clean" />
+      <arg file="${dir.src.votive}\votive\Votive.csproj" />
+    </exec>
+  </target>
+
+  <!-- Inc -->
+  <target name="votive.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile" if="${vsip.installed}">
+    <!-- sconce/votive -->
+    <exec program="msbuild.exe" basedir="${framework::get-framework-directory('net-2.0')}" failonerror="true">
+      <arg value="/property:Configuration=Debug" if="${debug}" />
+      <arg value="/property:Configuration=Release" if="${ship}" />
+      <arg value="/target:Build" />
+      <arg file="${dir.src.votive}\votive\Votive.csproj" />
+    </exec>
+
+    <copy todir="${dir.target.wix}">
+      <fileset basedir="${dir.src.votive}\SDK\Redist">
+        <include name="ProjectAggregator2.msi" />
+      </fileset>
+    </copy>
+  </target>
+</project>

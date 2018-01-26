@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestWebSiteProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{3D637E70-729D-4C1B-8969-B98A4D113673}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\shortcut\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Property Id="PORT" Value="80">
+            <RegistrySearch Id="PortLocator" Root="HKLM" Key="Software\Microsoft\Wix\Test\WebSite0" Name="Port" Type="file" />
+        </Property>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestWebSiteProductDirectory" ShortName="testassm" Name="Test Website Product">
+                    <Component Id="TestWebSiteProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+                        <iis:WebSite Id="Test" Description="Test web server" Directory="TestWebSiteProductDirectory" AutoStart="yes" DirProperties="ReadAndExecute" ConfigureIfExists="no" WebLog="TestLog">
+                            <iis:WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+                            <iis:WebVirtualDir Id="vdir1" Alias="test1\foo" Directory="TestWebSiteProductDirectory" DirProperties="ReadOnly">
+                                <iis:WebApplication Id="VDirTestApp1" Name="foo\Virtual Directory Test ASP Application" Isolation="high" />
+                            </iis:WebVirtualDir>
+                        </iis:WebSite>
+                        <File Id="TestFile" Source="$(env.WIX)\examples\data\test.txt" Name="test.txt" />
+                        <iis:WebServiceExtension Id="extension" Allow="yes" File="[!TestFile]" />
+                    </Component>
+                    <Component Id="TestWebSitePortComponent" Guid="12330829-0000-0000-C000-000000000046" DiskId="1">
+                        <RegistryValue Id="AllAccessKey" Root="HKLM" Key="Software\Microsoft\Wix\Test\WebSite0" Name="Port" Type="integer" Value="[PORT]" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+        </Directory>
+
+        <Feature Id="TestWebSiteProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestWebSiteProductComponent" />
+        </Feature>
+
+        <iis:WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" />
+        <iis:WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+        <iis:WebLog Id="TestLog" Type="IIS" />
+    </Product>
+</Wix>

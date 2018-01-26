@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment>
+    <UI>
+      <Dialog Id="TestDialog" Width="1" Height="1" TrackDiskSpace="yes">
+        <Control Id="TestControl" Height="1" Width="1" Type="Text" Y="1" X="1">
+          <Text SourceFile="$(env.WIX)\examples\data\test.txt" />
+        </Control>
+        <Control Id="TestControl2" Height="2" Width="2" Type="Text" Y="2" X="2" Text="[foo]Text[bar]" />
+        <Control Id="TestButtonControl" Height="1" Width="1" Type="PushButton" Y="1" X="1" />
+      </Dialog>
+      <TextStyle Id="Tahoma8" FaceName="Tahoma" Size="8" Red="255" Green="255" Blue="255" />
+      <TextStyle Id="Tahoma10" FaceName="Tahoma" Size="10" Red="0" Green="0" Blue="0" />
+      <TextStyle Id="Tahoma12" FaceName="Tahoma" Size="12" Red="255" Green="0" Blue="0" />
+      <TextStyle Id="Tahoma14" FaceName="Tahoma" Size="14" Red="0" Green="255" Blue="0" />
+      <TextStyle Id="Tahoma16" FaceName="Tahoma" Size="16" Red="0" Green="0" Blue="255" />
+    </UI>
+  </Fragment>
+</Wix>

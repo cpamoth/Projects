@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix RequiredVersion="2.0.0000.0" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="000C1109-0000-0021-C000-000000000046" Name="TestMSBuildProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E062397D-DC16-4205-8783-6F8C8AD64909}">
+    <Package Description="Test MSBuild Product" Comments="Test from: wix\examples\test\msbuild.extensionpoints\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Property Id="SolutionExt" Value="$(var.SolutionExt)" />
+    <Property Id="SolutionFileName" Value="$(var.SolutionFileName)" />
+    <Property Id="SolutionName" Value="$(var.SolutionName)" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="Test" Name="Test">
+          <Component Id="TestFileComponent" Guid="{35E1FE30-0735-4a57-AB69-7180690B3A7E}" DiskId="1">
+            <File Id="TestFile.txt" Name="TestFile.txt" Source="$(var.SolutionDir)TestFile.txt" KeyPath="yes" />
+            <File Id="$(var.SolutionName)$(var.SolutionExt)" Name="$(var.SolutionFileName)" Source="$(var.SolutionPath)" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="MainFeature" Level="1" Title="Main Feature">
+      <ComponentRef Id="TestFileComponent" />
+    </Feature>
+
+  </Product>
+</Wix>

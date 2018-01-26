@@ -1,0 +1,53 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A9347D0-ACA1-457D-BAAE-AF8AA149E46B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml.Extensions.IsolatedApp</RootNamespace>
+    <AssemblyName>WixIsolatedAppExtension</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="IsolatedAppClickThroughConsole.cs" />
+    <Compile Include="IsolatedAppClickThroughUI.cs" />
+    <Compile Include="IsolatedAppFabricator.cs" />
+    <Compile Include="IsolatedMsiBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(OutputPath)\IsolatedApp.wixlib">
+      <Link>Data\IsolatedApp.wixlib</Link>
+    </EmbeddedResource>
+    <XsdGenSource Include="Xsd\IsolatedApp.xsd">
+      <SubType>Designer</SubType>
+      <Namespace>Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.IsolatedApp</Namespace>
+      <CommonNamespace>Microsoft.Tools.WindowsInstallerXml.Serialize</CommonNamespace>
+    </XsdGenSource>
+  </ItemGroup>
+  <ItemGroup>
+    <MsgGenSource Include="Data\Messages.xml">
+      <ResourcesLogicalName>$(RootNamespace).Data.messages.resources</ResourcesLogicalName>
+    </MsgGenSource>
+  </ItemGroup>
+  <Import Project="..\..\..\..\WixBuild.Common.targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="$(OutputPath)heat.exe" />
+    <Reference Include="$(OutputPath)wconsole.dll" />
+    <Reference Include="$(OutputPath)wix.dll" />
+    <Reference Include="$(OutputPath)WixUtilExtension.dll" />
+    <Reference Include="$(OutputPath)wui.dll" />
+  </ItemGroup>
+</Project>

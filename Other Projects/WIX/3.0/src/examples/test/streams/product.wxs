@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <!-- let's also test guid generation here -->
+    <Product Id="*" Name="TestStreamsProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{671118B0-8857-4EAA-A440-2CB8CAAFB4A0}">
+        <Package Description="Test Streams in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Feature Id="testFeature" Level="1">
+            <ComponentRef Id="testComponent" />
+        </Feature>
+
+        <!-- test an embedded cabinet -->
+        <Media Id="1" Cabinet="test______the_maximum_cabinet_length_is_62_characters_long.cab" EmbedCab="yes" />
+
+        <!-- test a signed external cabinet -->
+        <Media Id="2" Cabinet="external.cab">
+            <!-- Since the id only contains "Media" and the diskId, its not possible to excercise the full length of the stream here -->
+            <DigitalSignature SourceFile="$(env.WIX)\examples\data\test.txt">
+                <DigitalCertificate Id="test_max_length_digital_certificate_name" SourceFile="$(env.WIX)\examples\data\test.txt" />
+            </DigitalSignature>
+        </Media>
+
+        <Binary Id="max_length_binary_without_modularization_being_appended" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+        <!-- test the maximum length icon identifier -->
+        <Icon Id="max_length_icon_without_modularization_being_appended.ico" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Property Id="ARPPRODUCTICON" Value="max_length_icon_without_modularization_being_appended.ico" />
+
+        <!-- Since the name must be a short name, its not possible to excercise the full length of the stream here -->
+        <SFPCatalog Name="filename.txt" Dependency="parent.txt" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+        <!-- test adding certificates for later patches (certificates are not referenced by this product) -->
+        <PatchCertificates>
+            <DigitalCertificate Id="patch_cert_1" SourceFile="$(env.WIX)\examples\data\test.txt" />
+            <DigitalCertificate Id="patch_cert_2" SourceFile="$(env.WIX)\examples\data\test.txt" />
+            <DigitalCertificate Id="patch_cert_3" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        </PatchCertificates>
+    </Product>
+
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="testComponent" Guid="000C1109-0000-0000-C000-000000000046" DiskId="1">
+                <File Id="testFile" KeyPath="yes" Name="testFile" Source="$(env.WIX)\examples\data\test.txt" />
+            </Component>
+        </Directory>
+
+        <!-- test adding certificates for later patches (certificates are not referenced by this product) -->
+        <PatchCertificates>
+            <DigitalCertificate Id="patch_cert_4" SourceFile="$(env.WIX)\examples\data\test.txt" />
+            <DigitalCertificate Id="patch_cert_5" SourceFile="$(env.WIX)\examples\data\test.txt" />
+            <DigitalCertificate Id="patch_cert_6" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        </PatchCertificates>
+    </Fragment>
+</Wix>

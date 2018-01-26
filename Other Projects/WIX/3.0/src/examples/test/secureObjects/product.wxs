@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="000C1109-0000-0000-C000-550000000046" Name="TestSecureObjProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{1B2C1E1E-8559-4694-892D-F44E3FE03BEF}">
+        <Package Description="Test SecureObjects Custom Action" Comments="Test from: wix\examples\test\secureobjects\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Property Id="BikeUser" Value="NT AUTHORITY\LocalService" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestSecureObjectsProductDirectory" ShortName="secobj" Name="Test Secure Objects">
+                    <Component Id="TestSecureObjectsServiceComponent" Guid="00030829-0000-0000-C000-570000000046">
+                        <File Id="bike.exe" Name="bike.exe" Source="$(env.WIX)\examples\data\bike.exe" DiskId="1" KeyPath="yes">
+                            <util:PermissionEx User="Guests" GenericAll="yes" />
+                            <util:PermissionEx User="Everyone" GenericAll="yes" />
+                            <util:PermissionEx User="LocalService" GenericAll="yes" />
+                        </File>
+                        <RegistryKey Id="BikeCore" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike" Action="createAndRemoveOnUninstall">
+                            <util:PermissionEx User="Guests" Read="yes" Write="yes" CreateSubkeys="yes" EnumerateSubkeys="yes" Notify="yes" CreateLink="yes" />
+                        </RegistryKey>
+                        <RegistryValue Id="BikeLogLevel" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike\Settings" Name="LogLevel" Value="0" Type="integer" />
+                        <RegistryValue Id="BikeTraceLevel" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike\Settings" Name="TraceLevel" Value="1" Type="integer" />
+                        <RegistryValue Id="BikeTraceFiles" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike\Settings" Name="TraceFiles" Value="0" Type="integer" />
+
+                        <ServiceInstall Id="bike.exe" Name="bike" DisplayName="Bike" Type="ownProcess" Start="auto" ErrorControl="normal" Description="Bike Service" Account="[BikeUser]">
+                            <util:PermissionEx User="Guests" ServiceStart="yes" ServiceStop="yes" ServiceQueryConfig="yes" ServiceEnumerateDependents="yes" ServiceUserDefinedControl="yes" />
+                            <util:ServiceConfig FirstFailureActionType="none" SecondFailureActionType="restart" ThirdFailureActionType="reboot" ResetPeriodInDays="1" />
+                        </ServiceInstall>
+                        <ServiceControl Id="bike.exe" Name="bike" Start="install" Stop="both" Remove="uninstall" />
+                    </Component>
+                    <Directory Id="TestSecureObjectsCreateFolderDirectory" ShortName="cfolder" Name="Create Folder">
+                        <Component Id="TestSecureObjectsCreateFolderComponent" Guid="00030829-0000-0000-C000-580000000046" KeyPath="yes">
+                            <CreateFolder>
+                                <util:PermissionEx User="Everyone" ReadAttributes="yes" WriteAttributes="yes" ChangePermission="yes" Synchronize="yes" />
+                                <util:PermissionEx User="Guests" ReadAttributes="yes" />
+                            </CreateFolder>
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestSecureObjectsProductFeature" Title="Test SecureObjects Feature" Level="1">
+            <ComponentRef Id="TestSecureObjectsServiceComponent" />
+            <ComponentRef Id="TestSecureObjectsCreateFolderComponent" />
+        </Feature>
+    </Product>
+</Wix>

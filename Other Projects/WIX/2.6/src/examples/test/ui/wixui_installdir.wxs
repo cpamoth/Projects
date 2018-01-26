@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="FC946E59-48F8-4898-AB05-DC2069F73A24" Name="TestFileProduct" Language="1033" Version="0.0.0.0" UpgradeCode="6F8245F0-E877-43C4-9445-6A3AC8C819FB" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test File in a Product" Comments="Test from: wix\examples\test\ui\wixui_installdir.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TESTFILEPRODUCTDIR" Name="WIXTEST" LongName="Test File">
+          <Component Id="TestFileProductComponent" Guid="AD95D064-BB8F-4D98-9B4F-2FEEA5532531" DiskId="1">
+            <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestFileProductComponent" />
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="TESTFILEPRODUCTDIR" />
+    <UIRef Id="WixUI_InstallDir" />
+
+  </Product>
+</Wix>

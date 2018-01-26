@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="TestCustomActionProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{FA17127A-7C1D-4C9F-B395-B9CCA155DE9E}">
+        <Package Description="Invalid - Test CustomAction in a Product" Comments="Test from: wix\examples\test\CustomAction.Invalid\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="TestCustomActionComponent" DiskId="1" Guid="">
+                <File Id="JScriptCodeFile" Name="test.js" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                <File Id="VBScriptCodeFile" Name="test.vbs" Source="$(env.WIX)\examples\data\test.txt" />
+            </Component>
+        </Directory>
+
+        <Feature Id="TestCustomActionFeature" Level="1">
+            <ComponentRef Id="TestCustomActionComponent" />
+        </Feature>
+
+        <CustomActionRef Id="TestJScriptInline" />
+        <CustomActionRef Id="TestVBScriptInline" />
+        <CustomActionRef Id="SetSpecifiedDir" />
+        <CustomActionRef Id="ClearSpecifiedDir" />
+        <CustomActionRef Id="BootNotepad" />
+    </Product>
+
+    <Fragment>
+        <!-- JScript tests -->
+        <CustomAction Id="TestJScriptInline" Script="jscript" Win64="yes">jscript code here</CustomAction>
+
+        <CustomAction Id="TestJScriptProperty" JScriptCall="" Return="check" Property="JScriptCodeProperty" Win64="yes" />
+        <CustomAction Id="TestJScriptProperty2" JScriptCall="scriptFunction" Return="check" Property="JScriptCodeProperty" Win64="yes" />
+        <Property Id="JScriptCodeProperty" Value="blah" />
+
+        <CustomAction Id="TestJScriptBinary" JScriptCall="" Return="check" BinaryKey="JScriptCodeBinary" Win64="yes" />
+        <Binary Id="JScriptCodeBinary" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+        <CustomAction Id="TestJScriptFile" JScriptCall="" Return="check" FileKey="JScriptCodeFile" Win64="yes" />
+    </Fragment>
+
+    <Fragment>
+        <!-- VBScript tests -->
+        <CustomAction Id="TestVBScriptInline" Script="vbscript" Return="check" Win64="yes">Dim i
+     i = 0
+     i = i + 1
+        </CustomAction>
+        <CustomAction Id="TestVBScriptInlineCDATA" Script="vbscript" Return="check" Win64="yes"><![CDATA[MsgBox "Hello World"]]></CustomAction>
+
+        <CustomAction Id="TestVBScriptProperty" VBScriptCall="" Return="check" Property="VBScriptCodeProperty" Win64="yes" />
+        <Property Id="VBScriptCodeProperty" Value="blah" />
+
+        <CustomAction Id="TestVBScriptBinary" VBScriptCall="" Return="check" BinaryKey="VBScriptCodeBinary" Win64="yes" />
+        <CustomAction Id="TestVBScriptBinary2" VBScriptCall="scriptFunction" Return="check" BinaryKey="VBScriptCodeBinary" Win64="yes" />
+        <Binary Id="VBScriptCodeBinary" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+        <CustomAction Id="TestVBScriptFile" VBScriptCall="" Return="check" FileKey="VBScriptCodeFile" Win64="yes" />
+
+        <InstallExecuteSequence>
+            <Custom Action="TestVBScriptInline" After="InstallFiles" />
+        </InstallExecuteSequence>
+    </Fragment>
+
+    <Fragment>
+        <!-- other tests -->
+        <CustomAction Id="SetSpecifiedDir" Win64="yes" Return="check" Directory="TARGETDIR" Value="[ProductName]" />
+        <CustomAction Id="ClearSpecifiedDir" Return="check" Directory="TARGETDIR" Value="" Win64="yes" />
+        <CustomAction Id="BootNotepad" Return="check" Property="NOTEPAD" ExeCommand="" Win64="yes" />
+    </Fragment>
+</Wix>

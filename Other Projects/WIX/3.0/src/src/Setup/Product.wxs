@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) Microsoft Corporation.  All rights reserved.
+
+  Product.wxs - WiX source for the WiX MSI.
+-->
+
+<?include WixVer.wxi ?>
+<?define ProductName = "Windows Installer XML v3" ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="$(var.ProductName)" Language="1033" Manufacturer="Microsoft Corporation" Version="$(var.WixVersion)" UpgradeCode="3618724B-2523-44F9-A908-866AA619504D">
+
+        <Package Manufacturer="Microsoft Corporation" Description="Windows Installer XML Toolset Visual Studio Package" Comments="Windows Installer XML Toolset Visual Studio Package" Compressed="yes" InstallerVersion="200" Languages="1033" Keywords="Database, Installer" ShortNames="no" SummaryCodepage="1252" />
+
+        <!-- Major upgrade -->
+        <Upgrade Id="3618724B-2523-44F9-A908-866AA619504D">
+            <UpgradeVersion Minimum="$(var.WixVersion)" OnlyDetect="yes" Property="NEWERVERSIONDETECTED" />
+            <UpgradeVersion Minimum="1.0.0.0" IncludeMinimum="yes" Maximum="$(var.WixVersion)" IncludeMaximum="no" Property="OLDERVERSIONBEINGUPGRADED" />
+        </Upgrade>
+
+        <Condition Message="An administrator must approve or install [ProductName].">
+            Privileged
+        </Condition>
+        <Condition Message="A later version of [ProductName] is already installed.">
+            NOT NEWERVERSIONDETECTED
+        </Condition>
+
+        <!-- Media -->
+        <Media Id="1" Cabinet="WiX.cab" EmbedCab="yes" />
+
+        <!-- Icons -->
+        <Icon Id="WixIcon" SourceFile="$(var.VotiveRoot)\Icons\ProjectFile.ico" />
+
+        <!-- Properties -->
+        <Property Id="ARPHELPLINK" Value="http://sourceforge.net/support/getsupport.php?group_id=105970" />
+        <Property Id="ARPPRODUCTICON" Value="WixIcon" />
+        <Property Id="ARPURLINFOABOUT" Value="http://wix.sourceforge.net" />
+        <Property Id="ARPURLUPDATEINFO" Value="http://wix.sourceforge.net" />
+
+        <!-- Directories -->
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" />
+            <Directory Id="APPLICATIONFOLDER" Name="$(var.ProductName)" />
+
+            <Directory Id="ProgramMenuFolder" Name="ProgMenu">
+                <Directory Id="WixShortcutFolder" Name="$(var.ProductName)" />
+            </Directory>
+        </Directory>
+
+        <!-- Features -->
+        <Feature Id="Feature_WiX" Title="WiX Toolset" Description="Windows Installer XML toolset" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="1" Absent="disallow">
+            <ComponentGroupRef Id="Toolset" />
+            <ComponentGroupRef Id="Extensions" />
+        </Feature>
+
+        <Feature Id="Feature_VS2005" Title="Visual Studio 2005 IntelliSense" Description="Schema files for IntelliSense in the Visual Studio editor" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="0" TypicalDefault="install">
+            <Condition Level="1">VS2005DEVENV OR VS2005_ROOT_FOLDER</Condition>
+            <ComponentRef Id="VSSchema" />
+            <ComponentGroupRef Id="Extensions" />
+        </Feature>
+        
+        <Feature Id="Feature_Votive2005" Title="Visual Studio 2005 Project and IntelliSense" Description="Votive Package for Visual Studio 2005" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="0" TypicalDefault="install">
+            <Condition Level="1">VS2005DEVENV AND VS2005PROJECTAGGREGATOR2</Condition>
+            <ComponentGroupRef Id="VotiveCommon" />
+        </Feature>
+
+        <Feature Id="Feature_ClickThrough" Title="ClickThrough" Description="Extensible UI to create syndicated applications for specialized areas" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="1" TypicalDefault="install">
+            <ComponentGroupRef Id="ClickThroughComponents" />
+            <ComponentGroupRef Id="Extensions" />
+            <ComponentGroupRef Id="SetupExeComponents" />
+        </Feature>
+
+        <Feature Id="Feature_NAnt" Title="NAnt Support" Description="Custom tasks for the NAnt build tool" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="1" TypicalDefault="install">
+            <ComponentRef Id="NAntTasks" />
+        </Feature>
+
+        <Feature Id="Feature_MSBuild" Title="MSBuild Support" Description="Custom tasks for the MSBuild build tool" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="1" TypicalDefault="install">
+            <ComponentRef Id="WixMSBuildBinaries" />
+        </Feature>
+
+        <Feature Id="Feature_SDK" Title="WiX SDK" Description="Headers, libraries, and tools for building WiX extensions and custom actions" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="1" TypicalDefault="install">
+            <ComponentRef Id="DocCompiler" />
+            <ComponentRef Id="MsgGen" />
+            <ComponentRef Id="XsdStitch" />
+            <ComponentRef Id="SdkLibs" />
+            <ComponentRef Id="SdkHeaders" />
+        </Feature>
+
+        <Feature Id="Feature_Doc" Title="WiX Documentation" Description="Compiled help and schema files" AllowAdvertise="no" Display="expand" InstallDefault="local" Level="1" TypicalDefault="install">
+            <ComponentRef Id="ChmDocumentation" />
+            <ComponentRef Id="WixSchemas" />
+        </Feature>
+
+        <!-- Install Sequences -->
+        <InstallExecuteSequence>
+            <FindRelatedProducts Before="LaunchConditions" />
+            <RemoveExistingProducts After="InstallValidate" />
+            <Custom Action="VS2005Setup" Before="InstallFinalize"><![CDATA[&Feature_Votive2005 > 1]]></Custom>
+        </InstallExecuteSequence>
+
+        <InstallUISequence>
+            <FindRelatedProducts Before="LaunchConditions" />
+        </InstallUISequence>
+
+        <!-- WixUI_Advanced scaffolding (to be replaced by extension authoring) -->
+        <Property Id="ApplicationFolderName" Value="$(var.ProductName)" />
+        <Property Id="ALLUSERS" Value="1" />
+        <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+
+        <WixVariable Id="WixUISupportPerMachine" Value="1" />
+        <WixVariable Id="WixUISupportPerUser" Value="0" />
+
+        <UI>
+            <DialogRef Id="PrerequisitesDlg" />
+            <UIRef Id="WixUI_Advanced" />
+            <UIRef Id="WixUI_ErrorProgressText" />
+        </UI>
+    </Product>
+</Wix>

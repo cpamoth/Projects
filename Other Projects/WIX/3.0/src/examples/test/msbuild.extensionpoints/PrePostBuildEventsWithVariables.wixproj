@@ -1,0 +1,123 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{59fbea85-2b4a-4dca-87f2-3cc9ab2d225c}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Product</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>*Pass via the command line*</WixToolPath>
+    <RunPostBuildEvent Condition=" '$(RunPostBuildEvent)' == '' ">Always</RunPostBuildEvent>
+    <PreBuildEventFile>$(MSBuildProjectDirectory)\PreBuildVars.txt</PreBuildEventFile>
+    <PostBuildEventFile>$(MSBuildProjectDirectory)\PostBuildVars.txt</PostBuildEventFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <IntermediateOutputPath>obj\Release\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="product.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixToolPath)\Wix.targets" />
+
+  <PropertyGroup>
+    <PreBuildEvent>
+      echo ConfigurationName=$(ConfigurationName) &gt; $(PreBuildEventFile)
+      echo OutDir=$(OutDir) &gt;&gt; $(PreBuildEventFile)
+      echo PlatformName=$(PlatformName) &gt;&gt; $(PreBuildEventFile)
+      echo ProjectDir=$(ProjectDir) &gt;&gt; $(PreBuildEventFile)
+      echo ProjectExt=$(ProjectExt) &gt;&gt; $(PreBuildEventFile)
+      echo ProjectFileName=$(ProjectFileName) &gt;&gt; $(PreBuildEventFile)
+      echo ProjectName=$(ProjectName) &gt;&gt; $(PreBuildEventFile)
+      echo ProjectPath=$(ProjectPath) &gt;&gt; $(PreBuildEventFile)
+      echo SolutionDir=$(SolutionDir) &gt;&gt; $(PreBuildEventFile)
+      echo SolutionExt=$(SolutionExt) &gt;&gt; $(PreBuildEventFile)
+      echo SolutionFileName=$(SolutionFileName) &gt;&gt; $(PreBuildEventFile)
+      echo SolutionName=$(SolutionName) &gt;&gt; $(PreBuildEventFile)
+      echo SolutionPath=$(SolutionPath) &gt;&gt; $(PreBuildEventFile)
+      echo TargetDir=$(TargetDir) &gt;&gt; $(PreBuildEventFile)
+      echo TargetExt=$(TargetExt) &gt;&gt; $(PreBuildEventFile)
+      echo TargetFileName=$(TargetFileName) &gt;&gt; $(PreBuildEventFile)
+      echo TargetName=$(TargetName) &gt;&gt; $(PreBuildEventFile)
+      echo TargetPath=$(TargetPath) &gt;&gt; $(PreBuildEventFile)
+    </PreBuildEvent>
+    <PostBuildEvent>
+      echo ConfigurationName=$(ConfigurationName) &gt; $(PostBuildEventFile)
+      echo OutDir=$(OutDir) &gt;&gt; $(PostBuildEventFile)
+      echo PlatformName=$(PlatformName) &gt;&gt; $(PostBuildEventFile)
+      echo ProjectDir=$(ProjectDir) &gt;&gt; $(PostBuildEventFile)
+      echo ProjectExt=$(ProjectExt) &gt;&gt; $(PostBuildEventFile)
+      echo ProjectFileName=$(ProjectFileName) &gt;&gt; $(PostBuildEventFile)
+      echo ProjectName=$(ProjectName) &gt;&gt; $(PostBuildEventFile)
+      echo ProjectPath=$(ProjectPath) &gt;&gt; $(PostBuildEventFile)
+      echo SolutionDir=$(SolutionDir) &gt;&gt; $(PostBuildEventFile)
+      echo SolutionExt=$(SolutionExt) &gt;&gt; $(PostBuildEventFile)
+      echo SolutionFileName=$(SolutionFileName) &gt;&gt; $(PostBuildEventFile)
+      echo SolutionName=$(SolutionName) &gt;&gt; $(PostBuildEventFile)
+      echo SolutionPath=$(SolutionPath) &gt;&gt; $(PostBuildEventFile)
+      echo TargetDir=$(TargetDir) &gt;&gt; $(PostBuildEventFile)
+      echo TargetExt=$(TargetExt) &gt;&gt; $(PostBuildEventFile)
+      echo TargetFileName=$(TargetFileName) &gt;&gt; $(PostBuildEventFile)
+      echo TargetName=$(TargetName) &gt;&gt; $(PostBuildEventFile)
+      echo TargetPath=$(TargetPath) &gt;&gt; $(PostBuildEventFile)
+    </PostBuildEvent>
+  </PropertyGroup>
+
+  <Target Name="BeforeBuild">
+    <Delete Files="$(PreBuildEventFile)" Condition="Exists('$(PreBuildEventFile)')" />
+    <Delete Files="$(PostBuildEventFile)" Condition="Exists('$(PostBuildEventFile)')" />
+  </Target>
+
+  <Target Name="AfterBuild">
+    <!-- Construct what we think the results should be -->
+    <CreateItem
+      Include="
+        ConfigurationName=$(ConfigurationName);
+        OutDir=$(OutDir);
+        PlatformName=$(PlatformName);
+        ProjectDir=$(ProjectDir);
+        ProjectExt=$(ProjectExt);
+        ProjectFileName=$(ProjectFileName);
+        ProjectName=$(ProjectName);
+        ProjectPath=$(ProjectPath);
+        SolutionDir=$(SolutionDir);
+        SolutionExt=$(SolutionExt);
+        SolutionFileName=$(SolutionFileName);
+        SolutionName=$(SolutionName);
+        SolutionPath=$(SolutionPath);
+        TargetDir=$(TargetDir);
+        TargetExt=$(TargetExt);
+        TargetFileName=$(TargetFileName);
+        TargetName=$(TargetName);
+        TargetPath=$(TargetPath);">
+
+      <Output TaskParameter="Include" ItemName="_ExpectedItems" />
+    </CreateItem>
+
+    <!-- Get the pre- and post-build results -->
+    <ReadLinesFromFile File="$(PreBuildEventFile)" Condition="Exists('$(PreBuildEventFile)')">
+      <Output TaskParameter="Lines" ItemName="_PreBuildEventResults" />
+    </ReadLinesFromFile>
+    <ReadLinesFromFile File="$(PostBuildEventFile)" Condition="Exists('$(PostBuildEventFile)')">
+      <Output TaskParameter="Lines" ItemName="_PostBuildEventResults" />
+    </ReadLinesFromFile>
+
+    <CreateProperty Value="true" Condition=" '@(_PreBuildEventResults)' == '@(_ExpectedItems)' ">
+      <Output TaskParameter="Value" PropertyName="PreBuildSuccessful" />
+    </CreateProperty>
+    <CreateProperty Value="true" Condition=" '@(_PostBuildEventResults)' == '@(_ExpectedItems)' ">
+      <Output TaskParameter="Value" PropertyName="PostBuildSuccessful" />
+    </CreateProperty>
+
+    <Delete Files="$(PreBuildEventFile)" Condition="Exists('$(PreBuildEventFile)')" />
+    <Delete Files="$(PostBuildEventFile)" Condition="Exists('$(PostBuildEventFile)')" />
+
+    <Warning Code="UNITTEST3000" Text="PreBuildEventSuccessful" Condition=" '$(VerifyPreBuildEvent)' == 'true' and '$(PreBuildSuccessful)' == 'true' " />
+    <Warning Code="UNITTEST3001" Text="PostBuildEventSuccessful" Condition=" '$(VerifyPostBuildEvent)' == 'true' and '$(PostBuildSuccessful)' == 'true' " />
+  </Target>
+</Project>

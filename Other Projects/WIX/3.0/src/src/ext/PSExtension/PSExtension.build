@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="psextension" default="psextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    psextension.build - Builds the PSExtension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="psextension.wixext.dir.src" value="${dir.src.ext}\PSExtension\wixext" readonly="true" />
+  <property name="psextension.wixlib.dir.src" value="${dir.src.ext}\PSExtension\wixlib" readonly="true" />
+
+  <!-- extension files -->
+  <property name="psextension.file.ps.xsd" value="${psextension.wixext.dir.src}\Xsd\ps.xsd" readonly="true" />
+  <property name="psextension.file.ps.cs" value="${dir.build.ext.psextension}\ps.cs" readonly="true" />
+  <property name="psextension.file.messages.xml" value="${psextension.wixext.dir.src}\Data\messages.xml" readonly="true" />
+  <property name="psextension.file.messages.cs" value="${dir.build.ext.psextension}\messages.cs" readonly="true" />
+  <property name="psextension.file.messages.resources" value="${dir.build.ext.psextension}\messages.resources" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="psextension.build" description="Peforms a full rebuild (clean then build)" depends="psextension.clean, psextension.inc" />
+
+  <!-- Clean -->
+  <target name="psextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.psextension}" failonerror="false" if="${directory::exists(dir.build.ext.psextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixPSExtension.dll" />
+        <include name="WixPSExtension.pdb" />
+        <include name="ps.wixlib" />
+        <include name="ps.xsd" />
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="PSExtension.clean" description="Another clean call">
+      <call target="psextension.clean"/>
+  </target>
+
+  <!-- Inc -->
+  <target name="psextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+
+    <!-- Copy the xsd file to the target directory -->
+    <copy file="${psextension.wixext.dir.src}\Xsd\ps.xsd" todir="${dir.target.wix}" />
+
+    <!-- Flatten all of the xml/xsd files -->
+    <foreach item="File" property="flattenxml.source">
+      <in>
+        <items>
+          <include name="${psextension.wixext.dir.src}\Data\tables.xml" />
+          <include name="${psextension.wixext.dir.src}\Xsd\ps.xsd" />
+        </items>
+      </in>
+      <do>
+        <property name="flattenxml.target" value="${dir.build.ext.psextension}\${path::get-file-name(flattenxml.source)}" />
+        <call target="flattenXml" />
+      </do>
+    </foreach>
+
+    <!-- Compile the messages.xml into the Message.cs class -->
+    <exec program="${tool.msggen}" unless="${file::up-to-date(psextension.file.messages.xml,psextension.file.messages.cs)}">
+      <arg value="-nologo" />
+      <arg value="${psextension.file.messages.xml}" />
+      <arg value="${psextension.file.messages.cs}" />
+      <arg value="${psextension.file.messages.resources}" />
+    </exec>
+
+    <!-- Compile the ps.xsd file into the ps.cs file -->
+    <exec program="${tool.xsdgen}" unless="${file::up-to-date(psextension.file.ps.xsd,psextension.file.ps.cs)}">
+      <arg value="${psextension.wixext.dir.src}\Xsd\ps.xsd" />
+      <arg value="${psextension.file.ps.cs}" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.PS" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Serialize" />
+    </exec>
+
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Build the wixlib -->
+    <candle out="${dir.build.ext.psextension}\ps.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+      <defines>
+        <define name="caerrwxi" value="${file.target.caerr.wxi}" />
+      </defines>
+      <sources basedir="${psextension.wixlib.dir.src}">
+        <include name="PSExtension.wxs" />
+      </sources>
+    </candle>
+    <lit out="${dir.target.wix}\ps.wixlib" exedir="${dir.target.wix}" bindfiles="true" warningsaserrors="true">
+      <sources basedir="${dir.build.ext.psextension}">
+        <include name="ps.wixobj" />
+      </sources>
+    </lit>
+
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixPSExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${psextension.wixext.dir.src}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="PSCompiler.cs" />
+        <include name="PSExtension.cs" />
+        <include name="${psextension.file.messages.cs}" />
+        <include name="${psextension.file.ps.cs}" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+      <!-- Embed the xml/xsd files into the assembly -->
+      <resources failonempty="true" basedir="${dir.build.ext.psextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Xsd">
+        <include name="ps.xsd" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.build.ext.psextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="Messages.resources" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.target.wix}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="ps.wixlib" />
+      </resources>
+    </csc>
+  </target>
+
+</project>

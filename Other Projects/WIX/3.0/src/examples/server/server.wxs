@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension" xmlns:sql="http://schemas.microsoft.com/wix/SqlExtension">
+    <Product Id="F73522A2-EBF6-436F-8C89-178902306EE7" Name="Server Test" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation">
+        <Package Id="81146712-3931-46AD-9FC2-99ED6CA027BB" Description="Server Test" Comments="Server Test" InstallerVersion="200" Compressed="yes" />
+
+        <Property Id="PORT" Value="6161" />
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="WwwDir" Name="Test Program">
+                    <Component Id="WebSiteComponent" Guid="5A3AD6CA-B17E-4C73-9F29-47D94677715E">
+                        <File Id="PassPortFilter" Name="ppfilter.dll" Vital="yes" Source="$(env.Setup)\x86\debug\wix\ca\scasched.dll" DiskId="1" />
+                        <iis:WebSite Id="Test" Description="Scott's Test Web Site" Directory="WwwDir" AutoStart="yes" DirProperties="ReadAndExecute" ConfigureIfExists="no">
+                            <iis:WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+
+                            <iis:WebVirtualDir Id="vdir1" Alias="test1" Directory="ProgramFilesFolder" DirProperties="ReadOnly">
+                                <iis:WebApplication Id="VDirTestApp1" Name="Virtual Directory Test ASP Application" Isolation="high" WebAppPool="AppPool1" />
+                            </iis:WebVirtualDir>
+                        </iis:WebSite>
+                    </Component>
+
+                    <Component Id="AppPool1Component" Guid="5A3AD6CC-B17E-4C73-9F29-47D94677715E" Location="local" DiskId="1">
+                        <iis:WebAppPool Id="AppPool1" Identity="networkService" RecycleMinutes="61" RecycleRequests="61" MaxCpuUsage="61" QueueLimit="4444" MaxWorkerProcesses="5">
+                            <iis:RecycleTime Value="1:45" />
+                            <iis:RecycleTime Value="13:30" />
+                            <iis:RecycleTime Value="22:00" />
+                        </iis:WebAppPool>
+                        <!--<User Id='AppPoolUser' Name='another' Password='abcABC123!@#'/>-->
+                    </Component>
+
+                    <Component Id="WebSiteLocator" Guid="5A3AD6CC-B17E-4C73-6161-47D94677715E" Location="local" DiskId="1">
+                        <iis:WebVirtualDir Id="RootVDir" WebSite="ExistingSite" Alias="test2" Directory="WwwDir" DirProperties="ReadAndExecute">
+                            <iis:WebApplication Id="VDirTestApp2" Name="Virtual Directory Test ASP Application" Isolation="high" WebAppPool="AppPool1" />
+                        </iis:WebVirtualDir>
+                    </Component>
+
+                    <Component Id="SqlComponent" Guid="5A3AD6CA-B17E-4C73-9F29-616161616161">
+                        <sql:SqlDatabase Id="NorthwindDB" Database="Northwind" Server="" CreateOnInstall="yes" ConfirmOverwrite="yes" />
+                        <sql:SqlDatabase Id="TestDB" Database="BlankDB" Server="" CreateOnInstall="yes" DropOnUninstall="yes" ConfirmOverwrite="yes" />
+                    </Component>
+
+                    <Component Id="PropertyComponent" Guid="5B3BD6CB-B17E-4C73-9F29-616161616161">
+                        <iis:WebProperty Id="MaxGlobalBandwidth" Value="5000" />
+                        <iis:WebProperty Id="IIs5IsolationMode" />
+                    </Component>
+
+                    <Component Id="CertificateComponent" Guid="5B3BD6CB-B17E-4C73-9F29-616161616161">
+                        <Condition>CERTIFICATE AND PASSWORD</Condition>
+                        <iis:Certificate Id="Test Certificate" StoreName="my" StoreLocation="localMachine" Overwrite="yes" Request="yes" CertificatePath="[CERTIFICATE]" PFXPassword="[PASSWORD]" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="Server" Title="Server" Level="1">
+            <Feature Id="IIsTestFeature" Title="IIsTestFeature" Level="1">
+                <ComponentRef Id="WebSiteComponent" />
+                <ComponentRef Id="AppPool1Component" />
+            </Feature>
+            <Feature Id="SqlTestFeature" Title="SqlTestFeature" Level="1">
+                <ComponentRef Id="SqlComponent" />
+            </Feature>
+        </Feature>
+
+        <UI>
+            <Error Id="25638">The database '[3]' already exists, do you wish to continue and update the existing database?.</Error>
+        </UI>
+
+        <InstallExecuteSequence>
+            <Custom Action="ConfigureUsers" After="InstallFiles" />
+            <Custom Action="ConfigureIIs" After="ConfigureUsers" />
+            <Custom Action="ConfigureSql" After="ConfigureIIs" />
+        </InstallExecuteSequence>
+
+        <iis:WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" AspDetailedError="yes" HttpExpires="D, 0x15180" CacheControlMaxAge="2592000" CacheControlCustom="private" />
+        <iis:WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+
+        <iis:WebSite Id="ExistingSite" Description="Test web server">
+            <iis:WebAddress Id="ExistingAddress" Port="8080" />
+        </iis:WebSite>
+    </Product>
+</Wix>
+

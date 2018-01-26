@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestShortcutProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test File in a Product" Comments="Test from: wix\examples\test\shortcut\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestShortcutProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestShortcutProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestShortcutProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes">
+              <Shortcut Id="TestShortcutProductShortcut" Directory="ProgramMenuFolder" Name="testcut" LongName="Test Shortcut" Description="Shortcut to test.txt" Advertise="yes" />
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+    </Directory>
+
+    <Feature Id="TestShortcutProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestShortcutProductComponent" />
+    </Feature>
+
+    <InstallExecuteSequence>
+      <CreateShortcuts Suppress="yes" />
+    </InstallExecuteSequence>
+  </Product>
+</Wix>

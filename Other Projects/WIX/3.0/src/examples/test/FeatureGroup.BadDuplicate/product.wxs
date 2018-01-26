@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="12345678-1234-1234-1234-123456789012" Name="TestFeatureGroupNesting" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{08DB3FB1-BA40-46C7-ADDC-760C6F9BAF59}">
+        <Package Description="Tests to verify FeatureGroups below FeatureGroups behave correctly" Comments="Test from: wix\examples\test\componentgroupnest\product.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="Component1" Guid="C1111111-1111-1111-1111-111111111111" KeyPath="yes">
+                <Category Id="11111111-1111-1111-1111-111111111111" Qualifier="1" AppData="AppData1" />
+            </Component>
+        </Directory>
+
+        <Feature Id="Feature1" Title="Feature 1" Level="1">
+            <FeatureGroupRef Id="FeatureGroup1" />
+        </Feature>
+    </Product>
+
+    <Fragment Id="Fragment1">
+        <FeatureGroup Id="FeatureGroup1">
+            <ComponentRef Id="Component1" />
+            <ComponentRef Id="Component1" />
+            <ComponentRef Id="Component1" />
+            <FeatureGroupRef Id="FeatureGroup2" />
+            <FeatureGroupRef Id="FeatureGroup3" />
+        </FeatureGroup>
+    </Fragment>
+
+    <Fragment Id="Fragment2">
+        <FeatureGroup Id="FeatureGroup2">
+            <ComponentRef Id="Component2" />
+            <Feature Id="Feature2" Title="Feature 2" Level="2">
+                <FeatureGroupRef Id="FeatureGroup4" />
+            </Feature>
+        </FeatureGroup>
+    </Fragment>
+
+    <Fragment Id="Fragment3">
+        <FeatureGroup Id="FeatureGroup3">
+            <ComponentRef Id="Component3" />
+            <Feature Id="Feature3" Title="Feature 3" Level="3">
+                <FeatureGroupRef Id="FeatureGroup4" />
+            </Feature>
+        </FeatureGroup>
+    </Fragment>
+
+    <Fragment Id="Fragment4">
+        <FeatureGroup Id="FeatureGroup4">
+            <Feature Id="Feature4" Title="Feature 4" Level="4">
+                <ComponentRef Id="Component4" />
+            </Feature>
+        </FeatureGroup>
+    </Fragment>
+
+    <Fragment Id="FragmentB">
+        <DirectoryRef Id="TARGETDIR">
+            <Component Id="Component2" Guid="C2222222-2222-2222-2222-222222222222" KeyPath="yes">
+                <Category Id="22222222-2222-2222-2222-222222222222" Qualifier="2" AppData="AppData2" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment Id="FragmentC">
+        <DirectoryRef Id="TARGETDIR">
+            <Component Id="Component3" Guid="C3333333-3333-3333-3333-333333333333" KeyPath="yes">
+                <Category Id="33333333-3333-3333-3333-333333333333" Qualifier="3" AppData="AppData3" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+    <Fragment Id="FragmentD">
+        <DirectoryRef Id="TARGETDIR">
+            <Component Id="Component4" Guid="C4444444-4444-4444-4444-444444444444" KeyPath="yes">
+                <Category Id="44444444-4444-4444-4444-444444444444" Qualifier="4" AppData="AppData4" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

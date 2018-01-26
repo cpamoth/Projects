@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="shared" default="build.shared" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    CustomDialogSet.build - Builds the custom dialog set .wixlib
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="..\update.include" unless="${property::exists('update.properties.defined')}" />
+  <include buildfile="..\bin\bin.build" unless="${property::exists('include.bin')}" />
+  <property name="include.shared" value="1" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Clean -->
+  <target name="clean.shared" description="Cleans the build">
+    <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+      <delete failonerror="false">
+        <fileset>
+          <include name="${dir.build.update}\${Version}\shared.wixobj" />
+        </fileset>
+      </delete>
+    </foreach>
+  </target>
+
+  <!-- Build -->
+  <target name="build.shared" description="Performs an incremental build" depends="dirs, build.bin">
+    <foreach item="String" in="${update.versions}" delim="${update.versions.delim}" property="Version">
+      <candle out="${dir.build.update}\${Version}\shared.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+        <sources basedir="${dir.src.update.shared}">
+          <include name="shared.wxs" />
+        </sources>
+        <arg value="-dVersion=${Version}" />
+        <arg value="-dBinDir=${dir.target.update}\${Version}" />
+      </candle>
+    </foreach>
+  </target>
+
+</project>

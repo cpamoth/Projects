@@ -1,0 +1,56 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Votive2005", "Core\Votive2005.csproj", "{17ADF054-A7C7-42BA-AFEA-C61F1432C260}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sconce2005", "..\sconce\Sconce2005.csproj", "{A0A82600-B8B1-4E6C-8B8C-248587175210}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E} = {50AFB92D-878F-4FF2-8D3D-1150356A197E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VotiveUI2005_1033", "Satellite\1033\VotiveUI2005_1033.vcproj", "{50AFB92D-878F-4FF2-8D3D-1150356A197E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{17ADF054-A7C7-42BA-AFEA-C61F1432C260}.Release|Win32.ActiveCfg = Release|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release|Win32.ActiveCfg = Release|Any CPU
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Debug|Win32.Build.0 = Debug|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release|Win32.ActiveCfg = Release|Win32
+		{50AFB92D-878F-4FF2-8D3D-1150356A197E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestEventSource" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="A41383B0-81F0-45FC-A1C6-099674F12EAC">
+        <Package Description="Test EventSource" Comments="Test from: wix\examples\test\eventlog\eventsource.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="Program Files" FileSource="$(env.WIX)\examples\data">
+                <Component Id="TestEventSourceComponent" Guid="60003957-5A7C-4FE3-9E80-CD18D28B3FCC" DisableRegistryReflection="yes">
+                    <File Id="TestFileProductFile" Name="test.txt" KeyPath="yes" />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat1" EventMessageFile="%SystemRoot%\system32\eventlog.dll" />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat2" EventMessageFile="%SystemRoot%\system32\eventlog.dll" CategoryMessageFile="[SystemFolder]COMRes.dll" CategoryCount="2" />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat3" EventMessageFile="%SystemRoot%\system32\eventlog.dll" ParameterMessageFile="%SystemRoot%\System32\MsObjs.dll"  />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat4" EventMessageFile="%SystemRoot%\system32\eventlog.dll" CategoryMessageFile="[SystemFolder]COMRes.dll" CategoryCount="2" ParameterMessageFile="%SystemRoot%\System32\MsObjs.dll"  />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat5" EventMessageFile="%SystemRoot%\system32\eventlog.dll" SupportsFailureAudits="yes" />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat6" EventMessageFile="%SystemRoot%\system32\eventlog.dll" SupportsFailureAudits="yes" SupportsSuccessAudits="yes" />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat7" EventMessageFile="%SystemRoot%\system32\eventlog.dll" SupportsFailureAudits="yes" SupportsSuccessAudits="yes" SupportsErrors="yes" />
+                    <util:EventSource Log="Application" Name="BobIsSoGreat8" EventMessageFile="%SystemRoot%\system32\eventlog.dll" SupportsFailureAudits="yes" SupportsSuccessAudits="yes" SupportsErrors="yes" SupportsInformationals="yes" SupportsWarnings="yes" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestEventSourceFeature" Title="Test EventSource Feature" Level="1">
+            <ComponentRef Id="TestEventSourceComponent" />
+        </Feature>
+    </Product>
+</Wix>

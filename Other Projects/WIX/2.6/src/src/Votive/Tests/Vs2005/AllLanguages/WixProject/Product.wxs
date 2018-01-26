@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="747880C4-493F-4abc-A2C9-2A6F1DFD1B7A" Name="Your Product" Language="1033" Version="0.0.0.0" Manufacturer="Your Company">
+    <Package Id="????????-????-????-????-????????????" Description="Description of your product" Comments="This will appear in the file summary stream." InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="Product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="MyAppDir" LongName="My Application Directory">
+
+          <Component Id="CppComponent" Guid="382A6A07-714E-41eb-800F-0CBF12B29B0C">
+            <File Id="$(var.CppConsoleApp.TargetName)" Name="$(var.CppConsoleApp.TargetDosFileName)" LongName="$(var.CppConsoleApp.TargetFileName)" Source="$(var.CppConsoleApp.TargetPath)" DiskId="1" KeyPath="yes" Vital="yes" Checksum="yes" />
+          </Component>
+
+          <Component Id="CSharpComponent" Guid="B5DB5FFA-0F71-497a-BF6E-95F411155A17">
+            <File Id="$(var.CSharpLibrary.TargetName)" Name="$(var.CSharpLibrary.TargetDosFileName)" LongName="$(var.CSharpLibrary.TargetFileName)" Source="$(var.CSharpLibrary.TargetPath)" DiskId="1" KeyPath="yes" Vital="yes" Checksum="yes" />
+          </Component>
+
+          <Component Id="JSharpComponent" Guid="80DAC8EA-0221-482c-817F-FE4B9FE3AC9D">
+            <File Id="$(var.JSharpLibrary.TargetName)" Name="$(var.JSharpLibrary.TargetDosFileName)" LongName="$(var.JSharpLibrary.TargetFileName)" Source="$(var.JSharpLibrary.TargetPath)" DiskId="1" KeyPath="yes" Vital="yes" Checksum="yes" />
+          </Component>
+
+          <Component Id="VBComponent" Guid="37A3F118-E0CA-4b05-A33B-59142A269B64">
+            <File Id="$(var.VBWindowsApp.TargetName)" Name="$(var.VBWindowsApp.TargetDosFileName)" LongName="$(var.VBWindowsApp.TargetFileName)" Source="$(var.VBWindowsApp.TargetPath)" DiskId="1" KeyPath="yes" Vital="yes" Checksum="yes" />
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="Feature Title" Level="1">
+      <ComponentRef Id="CppComponent" />
+      <ComponentRef Id="CSharpComponent" />
+      <ComponentRef Id="JSharpComponent" />
+      <ComponentRef Id="VBComponent" />
+    </Feature>
+  </Product>
+</Wix>

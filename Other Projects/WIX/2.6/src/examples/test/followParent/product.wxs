@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="????????-????-????-????-????????????" Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Feature Id="TestFileProductFeature1" Title="Test File Product Feature" Level="1" InstallDefault="followParent" />
+    <Feature Id="TestFileProductFeature2" Title="Test File Product Feature" Level="1" InstallDefault="followParent" />
+  </Product>
+</Wix>

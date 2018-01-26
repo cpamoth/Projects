@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-460000000046" Name="TestRegistryProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-470000000046" Description="Test Registry in a Product" Comments="Test from: wix\examples\test\registry\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestRegistryProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestRegistryProductComponent" Guid="00030829-0000-6100-C000-000000000046" DiskId="1">
+            <Registry Id="AllAccessKey" Root="HKLM" Key="Software\Microsoft\Wix\Test\AllAccess" Type="string" Value="skoty" KeyPath="yes">
+					<!-- 
+						The following is an example of giving KEY_ALL_ACCESS permission to the 
+						Everyone group.  The definition of KEY_ALL_ACCESS in WinNT.h is as 
+						follows:
+
+						#define KEY_ALL_ACCESS          ((STANDARD_RIGHTS_ALL        |\
+                                  KEY_QUERY_VALUE            |\
+                                  KEY_SET_VALUE              |\
+                                  KEY_CREATE_SUB_KEY         |\
+                                  KEY_ENUMERATE_SUB_KEYS     |\
+                                  KEY_NOTIFY                 |\
+                                  KEY_CREATE_LINK)            \
+                                  &                           \
+                                 (~SYNCHRONIZE))
+
+                        The definition for STANDARD_RIGHTS_ALL is as follows:
+
+                        #define STANDARD_RIGHTS_ALL              (0x001F0000L)
+						#define DELETE                           (0x00010000L)
+						#define READ_CONTROL                     (0x00020000L)
+						#define WRITE_DAC                        (0x00040000L)
+						#define WRITE_OWNER                      (0x00080000L)
+						#define SYNCHRONIZE                      (0x00100000L)
+
+						The definition of the rest of the components in KEY_ALL_ACCESS is as
+						follows:
+
+						#define KEY_QUERY_VALUE         (0x0001)
+						#define KEY_SET_VALUE           (0x0002)
+						#define KEY_CREATE_SUB_KEY      (0x0004)
+						#define KEY_ENUMERATE_SUB_KEYS  (0x0008)
+						#define KEY_NOTIFY              (0x0010)
+						#define KEY_CREATE_LINK         (0x0020)
+
+						So, the number you come up with for KEY_ALL_ACCESS is 0x000F003F, or
+						983103.  Notice that SYNCHRONIZE is included in STANDARD_RIGHTS_ALL but
+						then explicitly negated.  This equates to the following mapping to WiX 
+						attributes in Permission element:
+
+						KEY_QUERY_VALUE        - Read
+						KEY_SET_VALUE          - Write
+						KEY_CREATE_SUB_KEY     - CreateSubkeys
+						KEY_ENUMERATE_SUB_KEYS - EnumerateSubkeys
+						KEY_NOTIFY             - Notify
+						KEY_CREATE_LINK        - CreateLink
+						DELETE                 - Delete
+						READ_CONTROL           - ReadPermission
+						WRITE_DAC              - ChangePermission
+						WRITE_OWNER            - TakeOwnership
+					  -->
+              <Permission User="Everyone" Delete="yes" ReadPermission="yes" ChangePermission="yes" TakeOwnership="yes" Read="yes" Write="yes" CreateSubkeys="yes" EnumerateSubkeys="yes" Notify="yes" CreateLink="yes" />
+            </Registry>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestRegistryProductFeature" Title="Test Registry Product Feature" Level="1">
+      <ComponentRef Id="TestRegistryProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<!--
+This is a qtest for if logic.
+Specifically, this excercises:
+	Missing endif
+-->
+
+<?define variable=1?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <Product Id="F73522A2-EBF6-436F-8C89-178902306EE7" Name="Server Test" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{B8DD17E2-7566-4030-93BF-84B3A1C8606B}">
+        <Package Description="Server Test" Comments="Server Test" InstallerVersion="200" Compressed="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="0" Guid="" />
+            <?ifdef variable?>
+            <Component Id="4" Guid="" />
+        </Directory>
+    </Product>
+
+</Wix>
+

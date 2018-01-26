@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestMultiRegProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test MultiReg in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestMultiRegProductDirectory" Name="testassm" LongName="Test MultiReg">
+          <Component Id="TestMultiRegProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+            <Registry Id="TestMultiRegProductKey1" Root="HKLM" Key="Test" Name="Foo" Type="string" Value="foo" Action="write">
+              <RegistryValue>foo</RegistryValue>
+            </Registry>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestMultiRegProductFeature" Title="Test MultiReg Product Feature" Level="1">
+      <ComponentRef Id="TestMultiRegProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

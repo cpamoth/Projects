@@ -1,0 +1,27 @@
+----------------------------------------------------------------------------------------------------
+TODO List for Votive
+----------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+Code Clean up
+----------------------------------------------------------------------------------------------------
+* Fix StyleCop issues
+
+----------------------------------------------------------------------------------------------------
+Bugs
+----------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+Planned Features (not in any particular order)
+----------------------------------------------------------------------------------------------------
+* Multi-threaded build
+
+* Project upgrader from VS 2003 to VS 2005 project
+
+* Project Designer - the ability to view all of the components, features, directories, files, etc.
+  in a visual designer
+
+* UI Designer - the ability to design a UI using the WinForms designer (or something like it)
+
+* Debugger - the ability to single step through a running instance of an MSI and to view/modify
+  properties on the fly

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+    <Product Id="000C1109-1234-4321-C000-000000000046" Name="TestXmlFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{B78F1FB6-0630-4AB0-BE06-2F686D1D177E}">
+        <Package Description="Test XmlFile in a Product" Comments="Test from: wix\examples\test\xmlfile\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Property Id="NewAttributeValue" Value="hello" />
+        <Property Id="ChildAttributeName" Value="New" />
+        <Property Id="SpecialText" Value="This is some really special text. :)" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestXmlFileProductDirectory" ShortName="testxml" Name="Test XmlFile">
+                    <Component Id="TestXmlFileProductComponent1" Guid="00030829-1234-4321-C000-000000000046" DiskId="1">
+                        <File Id="TestXmlFile1" Name="test.xml" Source="$(env.WIX)\examples\data\test.xml" KeyPath="yes" />
+                        <util:XmlConfig Id="NewAttribute1Install" File="[#TestXmlFile1]" ElementPath="/Root" Name="New" Value="[NewAttributeValue]" Action="create" Node="value" On="install"/>
+                        <util:XmlConfig Id="NewAttribute1Uninstall" File="[#TestXmlFile1]" ElementPath="/Root" Name="New" Value="[NewAttributeValue]" Action="delete" Node="value" On="uninstall"/>
+
+                        <!-- Specify a verify path. This prevents a duplicate node with "key='foo'" from being created-->
+                        <util:XmlConfig Id="NewNodeInst" File="[#TestXmlFile1]" ElementPath="/Root" VerifyPath="/Root/Child[\[]@key='foo'[\]]" Name="Child" Value="this is text" Action="create" Node="element" On="install" Sequence="1"/>
+                        <!-- Add an attribute to the new node. Note that Action/Node/On are NOT set. -->
+                        <util:XmlConfig Id="NewNodeNewAttribute" File="[#TestXmlFile1]" ElementPath="NewNodeInst" Name="key" Value="foo"/>
+                        <!-- This will uninstall NewNode. Note that the VerifyPath is the same. -->
+                        <util:XmlConfig Id="NewNodeUninst" File="[#TestXmlFile1]" ElementPath="/Root" VerifyPath="/Root/Child[\[]@key='foo'[\]]" Action="delete" Node="element" On="uninstall" Sequence="1"/>
+
+                        <util:XmlConfig Id="NewNodeChild" File="[#TestXmlFile1]" ElementPath="/Root/Child[\[]@key='foo'[\]]" VerifyPath="/Root/Child[\[]@key='foo'[\]]/GrandChild" Name="GrandChild" Value="hi mom" Action="create" Node="element" On="install" Sequence="2"/>
+                        <util:XmlConfig Id="NewNodeChildNewAttribute" File="[#TestXmlFile1]" ElementPath="NewNodeInst" Name="name" Value="Junior"/>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestXmlFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestXmlFileProductComponent1" />
+        </Feature>
+    </Product>
+</Wix>

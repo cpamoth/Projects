@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) Microsoft Corporation.  All rights reserved.
+
+  Extensions.wxs - WiX source for the WiX v3 extensions.
+-->
+
+<?include WixVer.wxi ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="BinDir" FileSource="$(var.TargetDir)">
+            <Component Id="DifxAppExt" Guid="1B2303F6-9A78-417C-B96F-A8EE9AD0F9CA">
+                <File Id="WixDifxAppExtension.dll" Name="WixDifxAppExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="IisExt" Guid="C6180B6E-D43E-4C50-AF51-8E777E466C36">
+                <File Id="WixIIsExtension.dll" Name="WixIIsExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="IsolatedAppExt" Guid="74272337-F5E3-408D-829D-6F64ADEBC7B5">
+                <File Id="WixIsolatedAppExtension.dll" Name="WixIsolatedAppExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="NetFxExt" Guid="E0E8C41F-CD1F-4748-9426-CA7D79AC59AC">
+                <File Id="WixNetFxExtension.dll" Name="WixNetFxExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="OfficeExt" Guid="BE07FBC7-1BA3-47D0-B7CB-0E510D721117">
+                <File Id="WixOfficeExtension.dll" Name="WixOfficeExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="PSExt" Guid="314E32F5-A6A4-4A79-91BB-8EA8A0D5D435">
+                <File Id="WixPSExtension.dll" Name="WixPSExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="SqlExt" Guid="E44D227D-E9BC-4A65-A3B4-FFC558389E05">
+                <File Id="WixSqlExtension.dll" Name="WixSqlExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="UIExt" Guid="14707444-6B6D-4500-9682-3DB806728723">
+                <File Id="WixUIExtension.dll" Name="WixUIExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="UtilExt" Guid="F322AA8C-D8C0-4071-AEA5-143F3910AAB7">
+                <File Id="WixUtilExtension.dll" Name="WixUtilExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+            <Component Id="VSExt" Guid="296D9B35-8F06-4E88-8E93-7CC58CB8E08F">
+                <File Id="WixVSExtension.dll" Name="WixVSExtension.dll" KeyPath="yes" Checksum="yes" Vital="yes" />
+            </Component>
+        </DirectoryRef>
+
+        <DirectoryRef Id="DocDir" FileSource="$(var.TargetDir)">
+            <Component Id="ExtensionXsds" Guid="D6176999-AE97-49FE-ADB5-2DF354A4AC5E">
+                <File Id="difxapp.xsd" Name="difxapp.xsd" />
+                <File Id="iis.xsd" Name="iis.xsd" />
+                <File Id="netfx.xsd" Name="netfx.xsd" />
+                <File Id="ps.xsd" Name="ps.xsd" />
+                <File Id="sql.xsd" Name="sql.xsd" />
+                <File Id="util.xsd" Name="util.xsd" KeyPath="yes" />
+                <File Id="vs.xsd" Name="vs.xsd" />
+            </Component>
+        </DirectoryRef>
+
+        <ComponentGroup Id="Extensions">
+            <ComponentRef Id="DifxAppExt" />
+            <ComponentRef Id="IisExt" />
+            <ComponentRef Id="IsolatedAppExt" />
+            <ComponentRef Id="NetFxExt" />
+            <ComponentRef Id="OfficeExt" />
+            <ComponentRef Id="PSExt" />
+            <ComponentRef Id="SqlExt" />
+            <ComponentRef Id="UIExt" />
+            <ComponentRef Id="UtilExt" />
+            <ComponentRef Id="VSExt" />
+            <ComponentRef Id="ExtensionXsds" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

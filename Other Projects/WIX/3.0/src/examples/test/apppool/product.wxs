@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix RequiredVersion="2.0.0000.0" xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+    <Product Id="000C1109-0000-0021-C000-000000000046" Name="TestAppPoolProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{E9100417-B7A6-43EA-8D58-4284A5D75800}">
+        <Package Description="Test App Pool" Comments="Test from: wix\examples\test\apppool\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Property Id="PORT" Value="80" />
+        <Property Id="AppPool1Name" Value="App Pool 1" />
+        <Property Id="WebSiteName" Value="Test web server" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        
+        <!-- The below AppPool 'locator' could be referenced by any WebApp that is listed later in this file
+             or in any fragments. It is in this example for demonstration (which is why nothing else references it.-->
+        <iis:WebAppPool Id="AppPoolLocator" Name="DefaultAppPool" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestWebSiteProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestWebSiteProductComponent" Guid="10030829-0000-0000-C000-000000000046" DiskId="1">
+                        <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                        <iis:WebSite Id="Test" Description="[WebSiteName]" Directory="TestWebSiteProductDirectory" AutoStart="yes" DirProperties="ReadAndExecute" ConfigureIfExists="no">
+                            <iis:WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+                            <iis:WebVirtualDir Id="vdir1" Alias="test1" Directory="TestWebSiteProductDirectory" DirProperties="ReadOnly">
+                                <iis:WebApplication Id="VDirTestApp1" Name="Virtual Directory Test ASP Application" Isolation="high" WebAppPool="AppPool1" />
+                            </iis:WebVirtualDir>
+                        </iis:WebSite>
+                    </Component>
+                    <Component Id="AppPool1Component" Guid="5A3AD6AA-B17E-4C73-9F29-47D94677715E" Location="local" DiskId="1" KeyPath="yes">
+                        <CreateFolder />
+                        <iis:WebAppPool Id="AppPool1" Name="[AppPool1Name]" Identity="networkService" RecycleMinutes="61" RecycleRequests="61" MaxCpuUsage="61" QueueLimit="4444" MaxWorkerProcesses="5" VirtualMemory="196608" PrivateMemory="300608">
+                            <iis:RecycleTime Value="1:45" />
+                            <iis:RecycleTime Value="13:30" />
+                            <iis:RecycleTime Value="22:00" />
+                        </iis:WebAppPool>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestWebSiteProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestWebSiteProductComponent" />
+            <ComponentRef Id="AppPool1Component" />
+        </Feature>
+
+        <iis:WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" />
+        <iis:WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+    </Product>
+</Wix>

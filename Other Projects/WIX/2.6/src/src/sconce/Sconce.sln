@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sconce", "Sconce.csproj", "{A0A82600-B8B1-4E6C-8B8C-248587175210}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug.ActiveCfg = Debug|.NET
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Debug.Build.0 = Debug|.NET
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release.ActiveCfg = Release|.NET
+		{A0A82600-B8B1-4E6C-8B8C-248587175210}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

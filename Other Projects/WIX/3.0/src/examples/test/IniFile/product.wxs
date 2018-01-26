@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="00000000-0000-0000-0000-000000000000" Name="IniFile" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{2927F6C8-4FA4-44C4-AFAD-372EA710B397}">
+        <Package Description="IniFile" Platforms="Intel" Languages="0" InstallerVersion="200" Compressed="yes" Manufacturer="Microsoft Corporation" Keywords="MergeModule, MSI, Database" Comments="RemoveFile" SummaryCodepage="1252" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="Program Files" />
+            <Directory Id="WindowsFolder" Name="WINDOWS">
+                <Directory Id="SystemFolder" Name="SYSTEM32">
+                    <Component Id="blah" Guid="00000000-0000-0000-0000-000000000000" Location="local" KeyPath="yes" Permanent="yes">
+                        <CreateFolder />
+                        <IniFile Id="IniFile1" Name="foo1.ini" Directory="ProgramFilesFolder" Section="bar1" Key="bat1" Value="bow1" Action="addLine" />
+                        <IniFile Id="IniFile2" Name="foo2.ini" Directory="ProgramFilesFolder" Section="bar2" Key="bat2" Value="bow2" Action="addTag" />
+                        <IniFile Id="IniFile3" Name="foo3.ini" Directory="TESTPROPERTY" Section="bar3" Key="bat3" Value="bow3" Action="createLine" />
+                        <IniFile Id="IniFile1a" Name="foo1a.ini" Directory="ProgramFilesFolder" Section="bar1a" Key="bat1a" Value="bow1a" Action="removeLine" />
+                        <IniFile Id="IniFile1b" Name="foo1b.ini" Directory="ProgramFilesFolder" Section="bar1b" Key="bat1b" Value="bow1b" Action="removeTag" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Property Id="TESTPROPERTY" Value="C:\" />
+
+        <Feature Id="fake" Level="1">
+            <ComponentRef Id="blah" />
+        </Feature>
+    </Product>
+
+    <Fragment>
+        <DirectoryRef Id="TARGETDIR">
+            <Directory Id="OtherDir" Name="Other" />
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

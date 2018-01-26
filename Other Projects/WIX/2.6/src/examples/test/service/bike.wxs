@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Module Id="Bike" Guid="00000000-0000-0000-0000-000000000000" Language="1033" Version="0.0.0.0">
+
+    <Package Id="????????-????-????-????-????????????" Description="bike.exe - Courier Agent" Platforms="Intel" Languages="0" InstallerVersion="100" Compressed="yes" Manufacturer="Microsoft Corporation" Keywords="MergeModule, MSI, Database" Comments="bike.exe - Courier Agent" SummaryCodepage="1252" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="WindowsFolder" Name="WINDOWS">
+        <Directory Id="SystemFolder" Name="SYSTEM32">
+          <Component Id="bike.exe" Guid="00000000-0000-0000-0000-000000000000" Location="local">
+            <File Id="bike.exe" Name="bike.exe" Source="$(env.WIX)\examples\data\bike.exe" KeyPath="yes" />
+            <Registry Id="EventMessageFile" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\EventLog\Application\Bike" Name="EventMessageFile" Value="[!bike.exe]" Type="expandable" />
+            <Registry Id="EventTypesSupported" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\EventLog\Application\Bike" Name="TypesSupported" Value="7" Type="integer" />
+
+            <Registry Id="LogLevel" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike\Settings" Name="LogLevel" Value="0" Type="integer" />
+            <Registry Id="TraceLevel" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike\Settings" Name="TraceLevel" Value="1" Type="integer" />
+            <Registry Id="TraceFiles" Root="HKLM" Key="SOFTWARE\Microsoft\Office\Delivery\Bike\Settings" Name="TraceFiles" Value="0" Type="integer" />
+
+            <ServiceInstall Id="bike.exe" Name="BikeCourier" DisplayName="Bike Courier" Type="ownProcess" Interactive="yes" Start="auto" Vital="yes" ErrorControl="normal" />
+            <ServiceControl Id="bike.exe" Name="BikeCourier" Start="install" Stop="both" Remove="uninstall" Wait="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

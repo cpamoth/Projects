@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="iisextension" default="iisextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    iisextension.build - Builds the iisextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="iisextension.wixext.dir.src" value="${dir.src.ext}\iisextension\wixext" readonly="true" />
+  <property name="iisextension.wixlib.dir.src" value="${dir.src.ext}\iisextension\wixlib" readonly="true" />
+
+  <!-- extension files -->
+  <property name="iisextension.file.iis.xsd" value="${iisextension.wixext.dir.src}\Xsd\iis.xsd" readonly="true" />
+  <property name="iisextension.file.messages.xml" value="${iisextension.wixext.dir.src}\Data\messages.xml" readonly="true" />
+  <property name="iisextension.file.messages.cs" value="${dir.build.ext.iisextension}\messages.cs" readonly="true" />
+  <property name="iisextension.file.messages.resources" value="${dir.build.ext.iisextension}\messages.resources" readonly="true" />
+  <property name="iisextension.file.iis.cs" value="${dir.build.ext.iisextension}\iis.cs" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="iisextension.build" description="Peforms a full rebuild (clean then build)" depends="iisextension.clean, iisextension.inc" />
+
+  <!-- Clean -->
+  <target name="iisextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.iisextension}" failonerror="false" if="${directory::exists(dir.build.ext.iisextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixIIsExtension.dll" />
+        <include name="WixIIsExtension.pdb" />
+        <include name="iis.wixlib" />
+        <include name="iis.xsd" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="iisextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the xsd file to the target directory -->
+    <copy file="${iisextension.wixext.dir.src}\Xsd\iis.xsd" todir="${dir.target.wix}" />
+
+    <!-- Flatten all of the xml/xsd files -->
+    <foreach item="File" property="flattenxml.source">
+      <in>
+        <items>
+          <include name="${iisextension.wixext.dir.src}\Data\tables.xml" />
+          <include name="${iisextension.file.iis.xsd}" />
+        </items>
+      </in>
+      <do>
+        <property name="flattenxml.target" value="${dir.build.ext.iisextension}\${path::get-file-name(flattenxml.source)}" />
+        <call target="flattenXml" />
+      </do>
+    </foreach>
+
+    <!-- Compile the messages.xml into the Message.cs class -->
+    <exec program="${tool.msggen}" unless="${file::up-to-date(iisextension.file.messages.xml,iisextension.file.messages.cs)}">
+      <arg value="-nologo" />
+      <arg value="${iisextension.file.messages.xml}" />
+      <arg value="${iisextension.file.messages.cs}" />
+      <arg value="${iisextension.file.messages.resources}" />
+    </exec>
+
+    <!-- Compile the xsd file into the cs file -->
+    <exec program="${tool.xsdgen}" unless="${file::up-to-date(iisextension.file.iis.xsd,iisextension.file.iis.cs)}">
+      <arg value="${iisextension.file.iis.xsd}" />
+      <arg value="${iisextension.file.iis.cs}" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.IIs" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Serialize" />
+    </exec>
+
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Build the wixlib -->
+    <candle out="${dir.build.ext.iisextension}\iis.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+      <defines>
+        <define name="caerrwxi" value="${file.target.caerr.wxi}" />
+        <define name="scaschedDll" value="${file.target.scasched}" />
+        <define name="scaexecDll" value="${file.target.scaexec}" />
+      </defines>
+      <sources basedir="${iisextension.wixlib.dir.src}">
+        <include name="IIsExtension.wxs" />
+      </sources>
+    </candle>
+    <lit out="${dir.target.wix}\iis.wixlib" exedir="${dir.target.wix}" bindfiles="true" warningsaserrors="true">
+      <localizations failonempty="true" basedir="${iisextension.wixlib.dir.src}">
+        <include name="en-us.wxl" />
+      </localizations>
+      <sources basedir="${dir.build.ext.iisextension}">
+        <include name="iis.wixobj" />
+      </sources>
+    </lit>
+
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixIIsExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${iisextension.wixext.dir.src}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="IIsCompiler.cs" />
+        <include name="IIsDecompiler.cs" />
+        <include name="IIsExtension.cs" />
+        <include name="IIsFinalizeHarvesterMutator.cs" />
+        <include name="IIsHarvesterMutator.cs" />
+        <include name="IIsHeatExtension.cs" />
+        <include name="IIsWebSiteHarvester.cs" />
+        <include name="${iisextension.file.messages.cs}" />
+        <include name="${iisextension.file.iis.cs}" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="heat.exe" />
+        <include name="wix.dll" />
+        <include name="WixUtilExtension.dll" />
+      </references>
+      <!-- Embed the xml/xsd files into the assembly -->
+      <resources failonempty="true" basedir="${dir.build.ext.iisextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Xsd">
+        <include name="iis.xsd" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.build.ext.iisextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="Messages.resources" />
+        <include name="tables.xml" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.target.wix}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="iis.wixlib" />
+      </resources>
+    </csc>
+  </target>
+
+</project>

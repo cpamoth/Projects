@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+		<Product Id="$guid2$" Name="PUT-PRODUCT-NAME-HERE" Language="1033" Version="1.0.0.0" Manufacturer="PUT-COMPANY-NAME-HERE" UpgradeCode="$guid3$">
+		<Package InstallerVersion="200" Compressed="yes" />
+
+		<Media Id="1" Cabinet="$safeprojectname$.cab" EmbedCab="yes" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLLOCATION" Name="PUT-APPLICATION-DIRECTORY-HERE">
+
+					<Component Id="ProductComponent" Guid="$guid4$">
+						<!-- TODO: Insert your files, registry keys, and other resources here. -->
+					</Component>
+
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="ProductFeature" Title="PUT-FEATURE-TITLE-HERE" Level="1">
+			<ComponentRef Id="ProductComponent" />
+		</Feature>
+	</Product>
+</Wix>

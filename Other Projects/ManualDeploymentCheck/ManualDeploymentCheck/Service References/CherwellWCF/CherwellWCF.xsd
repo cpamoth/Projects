@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CherwellWCF.LightObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CherwellWCF.LightObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="LightChange">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Developer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RallyNumbers" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ScheduledDeployDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Specifics" nillable="true" type="tns:ArrayOfLightSpecific" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightChange" nillable="true" type="tns:LightChange" />
+  <xs:complexType name="ArrayOfLightSpecific">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightSpecific" nillable="true" type="tns:LightSpecific" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightSpecific" nillable="true" type="tns:ArrayOfLightSpecific" />
+  <xs:complexType name="LightSpecific">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Component" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Deployed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DestinationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SVNPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Servers" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Version" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightSpecific" nillable="true" type="tns:LightSpecific" />
+  <xs:complexType name="ArrayOfLightChangeDeployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LightChangeDeployment" nillable="true" type="tns:LightChangeDeployment" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLightChangeDeployment" nillable="true" type="tns:ArrayOfLightChangeDeployment" />
+  <xs:complexType name="LightChangeDeployment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Component" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeployDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DeployedBy" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeploymentVerified" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DestinationPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Developer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="OnServer" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Owner" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RallyNumbers" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SVNPath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Servers" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Version" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LightChangeDeployment" nillable="true" type="tns:LightChangeDeployment" />
+</xs:schema>

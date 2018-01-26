@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="4DF5C000-4B70-41b7-A70C-B4FB01A79487" Name="PatchTest" Language="1033" Version="1.6.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="43620969-B364-44d5-A9C7-EA7125CD780E">
+        <Package Description="My first Windows Installer package" Comments="Patch Test" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestProgram" ShortName="TestProg" Name="Test Program" />
+            </Directory>
+        </Directory>
+
+        <Feature Id="Feature1" Title="Feature 1" Level="1">
+            <ComponentRef Id="Component1" />
+            <ComponentRef Id="Component2" />
+            <ComponentRef Id="Component3" />
+            <ComponentRef Id="Component4" />
+        </Feature>
+
+        <Property Id="UnchangedProperty" Value="Should remain unchanged" />
+        <Property Id="ChangedProperty" Value="Changed" />
+        <Property Id="NewProperty" Value="New Property" />
+
+    </Product>
+
+    <Fragment>
+        <DirectoryRef Id="TestProgram">
+
+            <!--Unmanaged binary-->
+            <Component Id="Component1" Guid="B9AB73FB-5190-4be5-B88A-0BB680216E89">
+                <File Id="z" Name="z.exe" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\z\1.1\z.exe" />
+            </Component>
+
+            <!--Managed binary-->
+            <Component Id="Component2" Guid="C24D543B-B531-41dd-A37C-DFE913CC95B4">
+                <File Id="assembly" Name="assembly.dll" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll" />
+            </Component>
+
+            <!--Unversioned file-->
+            <Component Id="Component3" Guid="6089D3E1-2CF4-444d-B126-4E2899AD81BA">
+                <File Id="test" Name="test.txt" DiskId="1" KeyPath="yes" Source="$(env.WIX)\examples\data\test2.txt" />
+            </Component>
+
+            <!--Registries-->
+            <Component Id="Component4" Guid="4DF5C000-4B70-41b7-A70C-B4FB01A79487">
+                <RegistryValue Id="UnchangedKey" Root="HKLM" Key="SOFTWARE\WixPatchTest" Name="ExampleUnchangedKey" Type="string" Value="Unchanged" Action="write" />
+                <RegistryValue Id="ChangedKey" Root="HKLM" Key="SOFTWARE\WixPatchTest" Name="ExampleChangedKey" Type="string" Value="Changed" Action="write" />
+            </Component>
+
+        </DirectoryRef>
+    </Fragment>
+
+</Wix>

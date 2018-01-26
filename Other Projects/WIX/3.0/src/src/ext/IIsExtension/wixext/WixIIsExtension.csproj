@@ -1,0 +1,98 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CC3521F5-D0A8-4CBA-99E2-092FCD04125D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml.Extensions</RootNamespace>
+    <AssemblyName>WixIIsExtension</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Generated\iis.cs" />
+    <Compile Include="Generated\Messages.cs" />
+    <Compile Include="IIsCompiler.cs" />
+    <Compile Include="IIsDecompiler.cs" />
+    <Compile Include="IIsExtension.cs" />
+    <Compile Include="IIsFinalizeHarvesterMutator.cs" />
+    <Compile Include="IIsHarvesterMutator.cs" />
+    <Compile Include="IIsWebSiteHarvester.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IIsHeatExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\heat\heat.csproj">
+      <Project>{97B3B5DF-70D2-4658-9259-1DB34976F89F}</Project>
+      <Name>heat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Wix\Wix.csproj">
+      <Project>{9E03A94C-C70E-45C6-A269-E737BBD8B319}</Project>
+      <Name>Wix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UtilExtension\wixext\WixUtilExtension.csproj">
+      <Project>{3E74F4F0-7DC9-4837-9443-D5BE061C892C}</Project>
+      <Name>WixUtilExtension</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\messages.xml" />
+    <EmbeddedResource Include="Data\tables.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xsd\iis.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\..\..\..\Target\wix\x86\debug\lang-neutral\iis.wixlib">
+      <Link>Data\iis.wixlib</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>mkdir $(ProjectDir)Generated
+$(ProjectDir)..\..\..\..\..\..\Target\wix\x86\debug\lang-neutral\MsgGen.exe $(ProjectDir)Data\messages.xml $(ProjectDir)Generated\Messages.cs $(ProjectDir)Data\messages.resources
+$(ProjectDir)..\..\..\..\..\..\Target\wix\x86\debug\lang-neutral\XsdGen.exe $(ProjectDir)Xsd\iis.xsd $(ProjectDir)Generated\iis.cs Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.IIs Microsoft.Tools.WindowsInstallerXml.Serialize
+</PreBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)\$(TargetName).* $(ProjectDir)\..\..\..\heat\bin\debug</PostBuildEvent>
+  </PropertyGroup>
+</Project>

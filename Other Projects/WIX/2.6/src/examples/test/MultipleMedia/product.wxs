@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0021-C000-000000000046" Name="TestMultipleMedia" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0022-C000-000000000046" Description="Test multiple media" Comments="Test multiple media" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+    <Media Id="2" Cabinet="product2.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Component Id="TestComponent" Guid="">
+          <File Id="File1" Name="File1.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" KeyPath="yes" />
+          <File Id="File2" Name="File2.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="2" />
+          <File Id="File3" Name="File3.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" />
+          <File Id="File4" Name="File4.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="2" />
+          <File Id="File5" Name="File5.txt" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" />
+        </Component>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestComponent" />
+    </Feature>
+  </Product>
+</Wix>

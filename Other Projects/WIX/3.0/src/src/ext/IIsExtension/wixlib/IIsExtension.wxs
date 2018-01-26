@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <?include $(var.caerrwxi)?>
+
+    <Fragment>
+        <Property Id="IISMAJORVERSION">
+            <RegistrySearch Id="IIsMajorVersionSearch" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp" Name="MajorVersion" Type="raw" />
+        </Property>
+
+        <Property Id="IISMINORVERSION">
+            <RegistrySearch Id="IIsMinorVersionSearch" Root="HKLM" Key="SOFTWARE\Microsoft\InetStp" Name="MinorVersion" Type="raw" />
+        </Property>
+    </Fragment>
+
+    <Fragment>
+        <UI>
+            <Error Id="$(var.msierrIISCannotConnect)">!(loc.msierrIISCannotConnect)</Error>
+            <Error Id="$(var.msierrIISFailedReadWebSite)">!(loc.msierrIISFailedReadWebSite)</Error>
+            <Error Id="$(var.msierrIISFailedReadWebDirs)">!(loc.msierrIISFailedReadWebDirs)</Error>
+            <Error Id="$(var.msierrIISFailedReadVDirs)">!(loc.msierrIISFailedReadVDirs)</Error>
+            <Error Id="$(var.msierrIISFailedReadFilters)">!(loc.msierrIISFailedReadFilters)</Error>
+            <Error Id="$(var.msierrIISFailedReadMimeMap)">!(loc.msierrIISFailedReadMimeMap)</Error>
+            <Error Id="$(var.msierrIISFailedReadAppPool)">!(loc.msierrIISFailedReadAppPool)</Error>
+            <Error Id="$(var.msierrIISFailedReadProp)">!(loc.msierrIISFailedReadProp)</Error>
+            <Error Id="$(var.msierrIISFailedReadWebSvcExt)">!(loc.msierrIISFailedReadWebSvcExt)</Error>
+
+            <Error Id="$(var.msierrIISFailedSchedTransaction)">!(loc.msierrIISFailedSchedTransaction)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallWebs)">!(loc.msierrIISFailedSchedInstallWebs)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallWebDirs)">!(loc.msierrIISFailedSchedInstallWebDirs)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallVDirs)">!(loc.msierrIISFailedSchedInstallVDirs)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallFilters)">!(loc.msierrIISFailedSchedInstallFilters)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallAppPool)">!(loc.msierrIISFailedSchedInstallAppPool)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallProp)">!(loc.msierrIISFailedSchedInstallProp)</Error>
+            <Error Id="$(var.msierrIISFailedSchedInstallWebSvcExt)">!(loc.msierrIISFailedSchedInstallWebSvcExt)</Error>
+
+            <Error Id="$(var.msierrIISFailedSchedUninstallWebs)">!(loc.msierrIISFailedSchedUninstallWebs)</Error>
+            <Error Id="$(var.msierrIISFailedSchedUninstallWebDirs)">!(loc.msierrIISFailedSchedUninstallWebDirs)</Error>
+            <Error Id="$(var.msierrIISFailedSchedUninstallVDirs)">!(loc.msierrIISFailedSchedUninstallVDirs)</Error>
+            <Error Id="$(var.msierrIISFailedSchedUninstallFilters)">!(loc.msierrIISFailedSchedUninstallFilters)</Error>
+            <Error Id="$(var.msierrIISFailedSchedUninstallAppPool)">!(loc.msierrIISFailedSchedUninstallAppPool)</Error>
+            <Error Id="$(var.msierrIISFailedSchedUninstallProp)">!(loc.msierrIISFailedSchedUninstallProp)</Error>
+            <Error Id="$(var.msierrIISFailedSchedUninstallWebSvcExt)">!(loc.msierrIISFailedSchedUninstallWebSvcExt)</Error>
+
+            <Error Id="$(var.msierrIISFailedStartTransaction)">!(loc.msierrIISFailedStartTransaction)</Error>
+            <Error Id="$(var.msierrIISFailedOpenKey)">!(loc.msierrIISFailedOpenKey)</Error>
+            <Error Id="$(var.msierrIISFailedCreateKey)">!(loc.msierrIISFailedCreateKey)</Error>
+            <Error Id="$(var.msierrIISFailedWriteData)">!(loc.msierrIISFailedWriteData)</Error>
+            <Error Id="$(var.msierrIISFailedCreateApp)">!(loc.msierrIISFailedCreateApp)</Error>
+            <Error Id="$(var.msierrIISFailedDeleteKey)">!(loc.msierrIISFailedDeleteKey)</Error>
+
+            <ProgressText Action="ConfigureIIs">!(loc.ConfigureIIs)</ProgressText>
+            <ProgressText Action="StartMetabaseTransaction">!(loc.StartMetabaseTransaction)</ProgressText>
+            <ProgressText Action="RollbackMetabaseTransaction">!(loc.RollbackMetabaseTransaction)</ProgressText>
+            <ProgressText Action="CommitMetabaseTransaction">!(loc.CommitMetabaseTransaction)</ProgressText>
+            <ProgressText Action="WriteMetabaseChanges">!(loc.WriteMetabaseChanges)</ProgressText>
+        </UI>
+
+        <CustomAction Id="ConfigureIIs" BinaryKey="IIsSchedule" DllEntry="ConfigureIIs" Execute="immediate" Return="check" SuppressModularization="yes" />
+        <CustomAction Id="StartMetabaseTransaction" BinaryKey="IIsExecute" DllEntry="StartMetabaseTransaction" Impersonate="no" Execute="deferred" Return="check" HideTarget="yes" SuppressModularization="yes" />
+        <CustomAction Id="RollbackMetabaseTransaction" BinaryKey="IIsExecute" DllEntry="RollbackMetabaseTransaction" Impersonate="no" Execute="rollback" Return="check" HideTarget="yes" SuppressModularization="yes" />
+        <CustomAction Id="CommitMetabaseTransaction" BinaryKey="IIsExecute" DllEntry="CommitMetabaseTransaction" Impersonate="no" Execute="commit" Return="check" HideTarget="yes" SuppressModularization="yes" />
+        <CustomAction Id="WriteMetabaseChanges" BinaryKey="IIsExecute" DllEntry="WriteMetabaseChanges" Impersonate="no" Execute="deferred" Return="check" HideTarget="yes" SuppressModularization="yes" />
+
+        <InstallExecuteSequence>
+            <Custom Action="ConfigureIIs" After="InstallCertificates" Overridable="yes">NOT SKIPCONFIGUREIIS</Custom>
+        </InstallExecuteSequence>
+    </Fragment>
+
+    <Fragment>
+        <Binary Id="IIsSchedule" SourceFile="$(var.scaschedDll)" />
+        <Binary Id="IIsExecute" SourceFile="$(var.scaexecDll)" />
+    </Fragment>
+
+    <Fragment>
+        <!-- UI>
+            <Error Id="$(var.msierrCertificate)">Failed to .  ([2]   [3]   [4]   [5])</Error>
+        </UI -->
+
+        <CustomAction Id="InstallCertificates" BinaryKey="IIsSchedule" DllEntry="InstallCertificates" Execute="immediate" Return="check" SuppressModularization="yes" />
+        <CustomAction Id="UninstallCertificates" BinaryKey="IIsSchedule" DllEntry="UninstallCertificates" Execute="immediate" Return="check" SuppressModularization="yes" />
+
+        <CustomAction Id="AddUserCertificate" BinaryKey="IIsExecute" DllEntry="AddUserCertificate" Impersonate="yes" Execute="deferred" Return="check" HideTarget="yes" SuppressModularization="yes" TerminalServerAware="yes" />
+        <CustomAction Id="AddMachineCertificate" BinaryKey="IIsExecute" DllEntry="AddMachineCertificate" Impersonate="no" Execute="deferred" Return="check" HideTarget="yes" SuppressModularization="yes" />
+        <CustomAction Id="DeleteUserCertificate" BinaryKey="IIsExecute" DllEntry="DeleteUserCertificate" Impersonate="yes" Execute="deferred" Return="check" HideTarget="yes" SuppressModularization="yes" TerminalServerAware="yes" />
+        <CustomAction Id="DeleteMachineCertificate" BinaryKey="IIsExecute" DllEntry="DeleteMachineCertificate" Impersonate="no" Execute="deferred" Return="check" HideTarget="yes" SuppressModularization="yes" />
+
+        <CustomAction Id="RollbackAddUserCertificate" BinaryKey="IIsExecute" DllEntry="DeleteUserCertificate" Impersonate="yes" Execute="rollback" Return="check" HideTarget="yes" SuppressModularization="yes" TerminalServerAware="yes" />
+        <CustomAction Id="RollbackAddMachineCertificate" BinaryKey="IIsExecute" DllEntry="DeleteMachineCertificate" Impersonate="no" Execute="rollback" Return="check" HideTarget="yes" SuppressModularization="yes" />
+        <CustomAction Id="RollbackDeleteUserCertificate" BinaryKey="IIsExecute" DllEntry="AddUserCertificate" Impersonate="yes" Execute="rollback" Return="check" HideTarget="yes" SuppressModularization="yes" TerminalServerAware="yes" />
+        <CustomAction Id="RollbackDeleteMachineCertificate" BinaryKey="IIsExecute" DllEntry="AddMachineCertificate" Impersonate="no" Execute="rollback" Return="check" HideTarget="yes" SuppressModularization="yes" />
+
+        <InstallExecuteSequence>
+            <Custom Action="UninstallCertificates" Before="RemoveFiles" />
+            <Custom Action="InstallCertificates" After="InstallFiles" />
+        </InstallExecuteSequence>
+    </Fragment>
+</Wix>

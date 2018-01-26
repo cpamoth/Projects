@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="BinDir" FileSource="$(var.TargetDir)">
+            <Component Id="BootstrapperBinaries" Guid="04867F11-D8F5-4B08-84D3-7B154BF2D4C2">
+                <File Id="Setup.exe" Name="setup.exe" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="SetupBuilderBinaries" Guid="ABC668D9-EBC2-42F2-93D9-B9B8235C5F9F">
+                <File Id="SetupBuilder.dll" Name="SetupBuilder.dll" KeyPath="yes" Vital="yes" />
+            </Component>
+            <Component Id="SetupBldBinaries" Guid="AB1CE8C4-B249-44BD-892E-518009755431">
+                <File Id="SetupBld.exe" Name="setupbld.exe" KeyPath="yes" Vital="yes" />
+            </Component>
+        </DirectoryRef>
+
+        <!-- Features -->
+        <ComponentGroup Id="SetupExeComponents" >
+            <ComponentRef Id="BootstrapperBinaries" />
+            <ComponentRef Id="SetupBuilderBinaries" />
+            <ComponentRef Id="SetupBldBinaries" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

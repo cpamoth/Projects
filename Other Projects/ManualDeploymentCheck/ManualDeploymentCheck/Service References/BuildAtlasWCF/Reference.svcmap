@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5f3dc80f-7611-4476-8d01-49d0852f9f95" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://buildatlas.geninfo.com/BuildAtlasWCF.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BuildAtlasWCF.wsdl" MetadataType="Wsdl" ID="30d9f69b-a997-4bba-a635-02af085f65b1" SourceId="1" SourceUrl="http://buildatlas.geninfo.com/BuildAtlasWCF.svc?wsdl" />
+    <MetadataFile FileName="BuildAtlasWCF.xsd" MetadataType="Schema" ID="abc0b34c-efbe-4d93-97b3-4ea75bdb38d2" SourceId="1" SourceUrl="http://buildatlas.geninfo.com/BuildAtlasWCF.svc?xsd=xsd3" />
+    <MetadataFile FileName="BuildAtlasWCF1.xsd" MetadataType="Schema" ID="8eb935bf-59f7-4929-953b-373c29a055c3" SourceId="1" SourceUrl="http://buildatlas.geninfo.com/BuildAtlasWCF.svc?xsd=xsd1" />
+    <MetadataFile FileName="BuildAtlasWCF2.xsd" MetadataType="Schema" ID="3104ce38-94a8-45a0-9ce9-d056d66061a9" SourceId="1" SourceUrl="http://buildatlas.geninfo.com/BuildAtlasWCF.svc?xsd=xsd2" />
+    <MetadataFile FileName="BuildAtlasWCF.disco" MetadataType="Disco" ID="c3fe6ae1-fe5e-4bf4-9ca2-de4f5cdca8e1" SourceId="1" SourceUrl="http://buildatlas.geninfo.com/BuildAtlasWCF.svc?disco" />
+    <MetadataFile FileName="BuildAtlasWCF3.xsd" MetadataType="Schema" ID="563ed2fb-e24e-43e2-b429-2bbed4461cad" SourceId="1" SourceUrl="http://buildatlas.geninfo.com/BuildAtlasWCF.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

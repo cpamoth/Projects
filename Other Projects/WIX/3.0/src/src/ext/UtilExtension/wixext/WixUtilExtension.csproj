@@ -1,0 +1,99 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E74F4F0-7DC9-4837-9443-D5BE061C892C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml.Extensions</RootNamespace>
+    <AssemblyName>WixUtilExtension</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>618</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\heat\heat.csproj">
+      <Project>{97B3B5DF-70D2-4658-9259-1DB34976F89F}</Project>
+      <Name>heat</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Wix\Wix.csproj">
+      <Project>{9E03A94C-C70E-45C6-A269-E737BBD8B319}</Project>
+      <Name>Wix</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyHarvester.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FeedBuilder.cs" />
+    <Compile Include="Generated\Messages.cs" />
+    <Compile Include="Generated\util.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="SetupExeBuilder.cs" />
+    <Compile Include="TypeLibraryHarvester.cs" />
+    <Compile Include="UtilCompiler.cs" />
+    <Compile Include="UtilDecompiler.cs" />
+    <Compile Include="UtilExtension.cs" />
+    <Compile Include="UtilFinalizeHarvesterMutator.cs" />
+    <Compile Include="UtilHeatExtension.cs" />
+    <Compile Include="DllHarvester.cs" />
+    <Compile Include="FileHarvester.cs" />
+    <Compile Include="DirectoryHarvester.cs" />
+    <Compile Include="UtilHarvesterMutator.cs" />
+    <Compile Include="RegistryHarvester.cs" />
+    <Compile Include="UtilMutator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\messages.xml" />
+    <EmbeddedResource Include="Data\tables.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xsd\util.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\..\..\..\Target\wix\x86\debug\lang-neutral\util.wixlib">
+      <Link>Data\util.wixlib</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetDir)\$(TargetName).* $(ProjectDir)\..\..\..\heat\bin\debug</PostBuildEvent>
+    <PreBuildEvent>mkdir $(ProjectDir)Generated
+$(ProjectDir)..\..\..\..\..\..\Target\wix\x86\debug\lang-neutral\MsgGen.exe $(ProjectDir)Data\messages.xml $(ProjectDir)Generated\Messages.cs $(ProjectDir)Data\messages.resources
+$(ProjectDir)..\..\..\..\..\..\Target\wix\x86\debug\lang-neutral\XsdGen.exe $(ProjectDir)Xsd\util.xsd $(ProjectDir)Generated\util.cs Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.Util Microsoft.Tools.WindowsInstallerXml.Serialize
+</PreBuildEvent>
+  </PropertyGroup>
+</Project>

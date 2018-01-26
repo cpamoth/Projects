@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="TestOsInfoCustomActionProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{93F48BF1-D0CA-4802-ACC4-96D4197DF3F9}">
+        <Package Description="Invalid - Test CustomAction in a Product" Comments="Test from: wix\examples\test\OsInfo\OsInfo.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="TestOsInfoComponent" Guid="D90F3BFC-08E5-4EC3-93FE-F9CEAD894983">
+                <File Id="File" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+            </Component>
+        </Directory>
+
+        <Feature Id="TestOsInfoFeature" Level="1">
+            <ComponentRef Id="TestOsInfoComponent" />
+        </Feature>
+
+        <PropertyRef Id="WIX_SUITE_SINGLEUSERTS" />
+        <Property Id="BLAHBLAHBLAH" Value="ABC" Secure="yes" />
+        <Property Id="YADDAYADDA" Value="XYZ" Secure="yes" />
+        <PropertyRef Id="WIX_DIR_COMMON_DOCUMENTS" />
+    </Product>
+</Wix>

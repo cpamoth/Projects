@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="UIProperties">
+    <Property Id="ErrorDialog"><![CDATA[SetupError]]></Property>
+    <Property Id="DefaultUIFont"><![CDATA[Tahoma8]]></Property>
+  </Fragment>
+</Wix>

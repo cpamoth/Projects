@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestBinaryProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{C6257BAB-7F79-4DE3-9794-B952F3FADA1A}">
+        <Package Description="Test Binary in a Product" Comments="Test from: wix\examples\test\Binary\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestBinaryProductDirectory" ShortName="testassm" Name="Test Binary">
+                    <Component Id="TestBinaryProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestBinaryProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestBinaryProductFeature" Title="Test Binary Product Feature" Level="1">
+            <ComponentRef Id="TestBinaryProductComponent" />
+        </Feature>
+
+        <Binary Id="ThisIsTooLong4567890123456789012345678901234567890123456" SourceFile="$(env.WIX)\examples\data\test.txt" />
+    </Product>
+</Wix>

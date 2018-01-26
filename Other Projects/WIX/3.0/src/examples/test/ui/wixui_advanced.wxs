@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" UpgradeCode="C1B6366F-84FF-4CC1-B30A-9F05B4F9A1D9" Manufacturer="Microsoft Corporation">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="APPLICATIONFOLDER" ShortName="testassm" Name="Test File">
+                <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+                    <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                </Component>
+                <Component Id="TestFile.exe" Guid="fd04cf10-6aff-42fd-9278-d522c9c67bff" DiskId="1">
+                    <File Id="TestFile.exe" Name="TestFile.exe" Source="$(env.WIX)\examples\data\gethash.exe" KeyPath="yes" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Description="This is the Test File Product Feature feature description string, which might be slightly long, wordy, verbose, long-winded, effusive, garrulous, loquacious, rambling, and not at all taciturn." Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+        </Feature>
+        <Feature Id="TestFileProductFeature2" Title="Executable" Description="This is the executable feature description string, which might be slightly long." Level="1">
+            <ComponentRef Id="TestFile.exe" />
+        </Feature>
+
+        <Property Id="ApplicationFolderName" Value="BobsAdvancedUiTestProduct" />
+        <!--<Property Id="APPLICATIONFOLDER" Value="[WixPerMachineFolder]" />-->
+        <Property Id="ALLUSERS" Value="1" />
+        <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+        <!--<Property Id="WixAppFolder" Value="WixPerUserFolder" />-->
+
+        <WixVariable Id="WixUISupportPerMachine" Value="0" />
+        <WixVariable Id="WixUISupportPerUser" Value="1" />
+
+        <UIRef Id="WixUI_Advanced" />
+        <UIRef Id="WixUI_ErrorProgressText" />
+    </Product>
+</Wix>

@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBWindowsApp", "VBWindowsApp\VBWindowsApp.vbproj", "{15907805-A51A-4830-A01C-09B77C3A16AE}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpLibrary", "CSharpLibrary\CSharpLibrary.csproj", "{DE5A93EB-2002-4293-B457-8F6A10B6BB13}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{E6FDF86B-F3D1-11D4-8576-0002A516ECE8}") = "JSharpLibrary", "JSharpLibrary\JSharpLibrary.vjsproj", "{1912EA11-7336-42EB-92FE-F2CF0251DD78}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppConsoleApp", "CppConsoleApp\CppConsoleApp.vcproj", "{D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{A49CE20D-CE64-4A08-9F24-92A6443D6699}") = "WixProject", "WixProject\WixProject.wixproj", "{5457DA08-F055-4186-B965-43A28B6CB576}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15907805-A51A-4830-A01C-09B77C3A16AE} = {15907805-A51A-4830-A01C-09B77C3A16AE}
+		{1912EA11-7336-42EB-92FE-F2CF0251DD78} = {1912EA11-7336-42EB-92FE-F2CF0251DD78}
+		{D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4} = {D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4}
+		{DE5A93EB-2002-4293-B457-8F6A10B6BB13} = {DE5A93EB-2002-4293-B457-8F6A10B6BB13}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{15907805-A51A-4830-A01C-09B77C3A16AE}.Debug.ActiveCfg = Debug|.NET
+		{15907805-A51A-4830-A01C-09B77C3A16AE}.Debug.Build.0 = Debug|.NET
+		{15907805-A51A-4830-A01C-09B77C3A16AE}.Release.ActiveCfg = Release|.NET
+		{15907805-A51A-4830-A01C-09B77C3A16AE}.Release.Build.0 = Release|.NET
+		{DE5A93EB-2002-4293-B457-8F6A10B6BB13}.Debug.ActiveCfg = Debug|.NET
+		{DE5A93EB-2002-4293-B457-8F6A10B6BB13}.Debug.Build.0 = Debug|.NET
+		{DE5A93EB-2002-4293-B457-8F6A10B6BB13}.Release.ActiveCfg = Release|.NET
+		{DE5A93EB-2002-4293-B457-8F6A10B6BB13}.Release.Build.0 = Release|.NET
+		{1912EA11-7336-42EB-92FE-F2CF0251DD78}.Debug.ActiveCfg = Debug|.NET
+		{1912EA11-7336-42EB-92FE-F2CF0251DD78}.Debug.Build.0 = Debug|.NET
+		{1912EA11-7336-42EB-92FE-F2CF0251DD78}.Release.ActiveCfg = Release|.NET
+		{1912EA11-7336-42EB-92FE-F2CF0251DD78}.Release.Build.0 = Release|.NET
+		{D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4}.Debug.ActiveCfg = Debug|Win32
+		{D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4}.Debug.Build.0 = Debug|Win32
+		{D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4}.Release.ActiveCfg = Release|Win32
+		{D3C37EA5-A7E2-4D46-A7DB-3211FE59FDD4}.Release.Build.0 = Release|Win32
+		{5457DA08-F055-4186-B965-43A28B6CB576}.Debug.ActiveCfg = Debug
+		{5457DA08-F055-4186-B965-43A28B6CB576}.Debug.Build.0 = Debug
+		{5457DA08-F055-4186-B965-43A28B6CB576}.Release.ActiveCfg = Release
+		{5457DA08-F055-4186-B965-43A28B6CB576}.Release.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

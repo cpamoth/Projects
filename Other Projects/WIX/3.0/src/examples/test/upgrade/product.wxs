@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestMultiRegProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{27EF0129-21A0-49F2-9720-A19536460F9D}">
+        <Package Description="Test MultiReg in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="TestMultiRegProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                <RegistryValue Id="TestMultiRegProductKey1" Root="HKLM" Key="SOFTWARE\Microsoft\Test" Name="Foo" Type="integer" Value="1" Action="write" KeyPath="yes" />
+            </Component>
+        </Directory>
+
+        <Feature Id="TestMultiRegProductFeature" Title="Test MultiReg Product Feature" Level="1">
+            <ComponentRef Id="TestMultiRegProductComponent" />
+        </Feature>
+
+        <Upgrade Id="00110000-6000-11D3-8CFE-0050048383C9">
+            <UpgradeVersion Minimum="9.00.0000" Maximum="10.00.0000" RemoveFeatures="[RMV_PREV2E]" Property="UPG_PREV2E" MigrateFeatures="yes" IncludeMinimum="yes" ExcludeLanguages="yes" />
+            <UpgradeVersion Minimum="10.00.0000" Maximum="11.00.0000" RemoveFeatures="[RMV_PREV1E]" Property="UPG_PREV1E" MigrateFeatures="yes" IncludeMinimum="yes" />
+            <UpgradeVersion Minimum="11.00.0000" RemoveFeatures="[RMV_FUTURE3E]" Property="UPG_FUTURE3E" MigrateFeatures="yes" OnlyDetect="yes" IncludeMinimum="yes" />
+        </Upgrade>
+
+        <Upgrade Id="{FF6BDCBD-838F-44B7-B4B7-CC7070549F3B}">
+            <UpgradeVersion Property="UCFF6BDCBD838F44B7B4B7CC7070549F3B" Minimum="1.0.0" />
+        </Upgrade>
+
+        <InstallExecuteSequence>
+            <RemoveExistingProducts After="InstallInitialize" />
+        </InstallExecuteSequence>
+    </Product>
+</Wix>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment>
+    <Property Id="Property1" Value="Value of Property 1" />
+  </Fragment>
+</Wix>

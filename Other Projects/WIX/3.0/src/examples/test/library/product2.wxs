@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="21234567-89AB-CDEF-0123-456789ABCDEF" Language="1033" Manufacturer="Microsoft" Name="Test Msi" Version="12.0.1.0" UpgradeCode="{F4812650-6BE1-4115-9A28-EDF36F72B909}">
+        <Package />
+        <PropertyRef Id="Property2" />
+    </Product>
+</Wix>

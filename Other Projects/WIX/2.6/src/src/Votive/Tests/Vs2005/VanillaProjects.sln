@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{A49CE20D-CE64-4A08-9F24-92A6443D6699}") = "VanillaProduct", "VanillaProduct\VanillaProduct.wixproj", "{B2C94346-4FF9-4815-9CFF-260132B4D586}"
+EndProject
+Project("{A49CE20D-CE64-4A08-9F24-92A6443D6699}") = "VanillaModule", "VanillaModule\VanillaModule.wixproj", "{07755C4A-D624-4B21-A79C-36D2B9E6B548}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Debug|Default.ActiveCfg = Debug
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Debug|Default.Build.0 = Debug
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Release|Default.ActiveCfg = Release
+		{B2C94346-4FF9-4815-9CFF-260132B4D586}.Release|Default.Build.0 = Release
+		{07755C4A-D624-4B21-A79C-36D2B9E6B548}.Debug|Default.ActiveCfg = Debug
+		{07755C4A-D624-4B21-A79C-36D2B9E6B548}.Debug|Default.Build.0 = Debug
+		{07755C4A-D624-4B21-A79C-36D2B9E6B548}.Release|Default.ActiveCfg = Release
+		{07755C4A-D624-4B21-A79C-36D2B9E6B548}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

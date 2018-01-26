@@ -1,0 +1,120 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <Projectguid>{EFD68851-2545-48A9-A34E-A658FCED5B13}</Projectguid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.Tools.WindowsInstallerXml.Tools.ClickThrough</RootNamespace>
+    <AssemblyName>ctui</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ClickThroughForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClickThroughForm.Designer.cs">
+      <DependentUpon>ClickThroughForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StepPictures.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StepPictures.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <EmbeddedResource Include="ClickThroughForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ClickThroughForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WelcomePage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorkPage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WorkPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="StepPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WelcomePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WelcomePage.Designer.cs">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WixBanner.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WorkPage.Designer.cs">
+      <DependentUpon>WorkPage.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="StepPictures.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>StepPictures.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle2.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle3.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle4.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle5.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle6.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle7.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle8.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle9.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedNativeResource Include="ctui.rc" />
+  </ItemGroup>
+
+  <Import Project="..\..\..\WixBuild.Common.targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+
+    <Reference Include="$(OutputPath)wix.dll" />
+    <Reference Include="$(OutputPath)wui.dll" />
+  </ItemGroup>
+</Project>

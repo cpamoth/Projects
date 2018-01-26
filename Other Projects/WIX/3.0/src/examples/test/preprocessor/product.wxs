@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F7A778C1-9A39-447A-920F-F515170BF876}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <!-- normal define -->
+        <?define var0 = "some value" ?>
+
+        <!-- no space define -->
+        <?define var1="some value"?>
+
+        <!-- lots of various spaces define -->
+        <?define     var2		="some value
+
+
+"
+	 ?>
+
+        <!-- previous variable resolved in define -->
+        <?define var3 = "$(var.var0)" ?>
+
+        <!-- quote inside define value -->
+        <?define var4 = """?>
+
+        <!-- single-quote define -->
+        <?define var5 = '''?>
+
+        <!-- no-quote define -->
+        <?define var6 = '?>
+
+        <!-- put variable values in properties so they get into the msi file -->
+        <Property Id="propery0" Value="$(var.var0)" />
+        <Property Id="propery1" Value="$(var.var1)" />
+        <Property Id="propery2" Value="$(var.var2)" />
+        <Property Id="propery3" Value="$(var.var3)" />
+        <Property Id="propery4" Value="$(var.var4)" />
+        <Property Id="propery5" Value="$(var.var5)" />
+        <Property Id="propery6" Value="$(var.var6)" />
+    </Product>
+</Wix>

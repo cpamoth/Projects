@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="product.fragment">
+    <CustomTable Id="TestProductCustomTable">
+      <Column Id="TestProductFirstColumn" Type="string" Width="72" PrimaryKey="yes" />
+      <Column Id="TestProductSecondColumn" Type="int" Width="2" />
+      <Column Id="TestProductThirdColumn" Type="string" Width="255" Nullable="yes" />
+    </CustomTable>
+  </Fragment>
+</Wix>

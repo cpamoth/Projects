@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Patch 
+        AllowRemoval="yes"
+        Manufacturer="Microsoft" 
+        MoreInfoURL="http://www.microsoft.com/"
+        DisplayName="Minor Upgrade Patch" 
+        Description="Minor Upgrade Patch for Testing Purposes" 
+        Classification="Service Pack"
+        >
+
+        <Media Id="100" Cabinet="patch.cab" Source="?">
+            <PatchBaseline Id="rtm"/>
+        </Media>
+
+        <PatchFamily Id='MyPatchFamily' Version='1.0.0.0' Supersede='yes'/>
+    </Patch>
+</Wix>
+

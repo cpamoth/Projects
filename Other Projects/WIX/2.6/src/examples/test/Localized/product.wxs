@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-D000-000000000046" Name="TestLocalization" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-D000-000000000046" Languages="$(loc.languages)" Description="Test Localization" Comments="WiX Test" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="test.cab" />
+
+    <Feature Id="MyFeature" Level="1" Description="$(loc.hello), this is a localized description.">
+      <ComponentRef Id="MyComponent" />
+    </Feature>
+
+    <Directory Id="TargetDir" Name="SourceDir">
+      <Component Id="MyComponent" DiskId="1" Guid="">
+        <File Id="test.txt" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+      </Component>
+    </Directory>
+  </Product>
+</Wix>

@@ -1,0 +1,19 @@
+//-------------------------------------------------------------------------------------------------
+// <copyright file="heat.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+//
+// <summary>
+// heat.exe resource file.
+// </summary>
+//-------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_ORIGINAL_FILENAME "WixUnit.exe"
+#define VER_INTERNAL_NAME "WixUnit"
+#define VER_PRODUCT_NAME "Windows Installer XML Toolset Unit"
+#define VER_FILE_DESCRIPTION "WiX Toolset Unit Tester"
+#include "wix.rc"
+
+#define MANIFEST_RESOURCE_ID 1
+MANIFEST_RESOURCE_ID RT_MANIFEST "wixunit.exe.manifest"

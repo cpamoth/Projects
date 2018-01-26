@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="000C1109-0000-0000-C000-616100000046" Name="Test NetFx in a Product" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{34C0A119-9750-4215-97E5-61619A5221C9}">
+    <Package Id="????????-????-????-????-????????????" Description="Test NetFx in a Product" Comments="Test from: wix\examples\test\netfx\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestNetFxProductDirectory" Name="hsqah0zy" LongName="Test NetFx Directory">
+          <Component Id="TestNetFxProductComponent" Guid="00030829-0000-0000-C000-616100000046" DiskId="1">
+            <File Id="TestNetFxProductFile" Name="WiXTasks.dll" Source="$(env.WIX)\examples\data\WiXTasks.dll" KeyPath="yes">
+              <netfx:NativeImage Id="private_assembly" Platform="32bit" Priority="3" />
+            </File>
+          </Component>
+          <Directory Id="TestNetFxProductDirectory2" Name="kmfptrpe" LongName="Another Test Directory">
+            <Component Id="TestNetFxProductComponent2" Guid="00030822-0000-0000-C000-616100000046" DiskId="1">
+              <File Id="TestNetFxProductFile2" Name="WiXTasks.dll" Source="$(env.WIX)\examples\data\WiXTasks.dll" KeyPath="yes" Assembly=".net">
+                <netfx:NativeImage Id="gac_assembly" Platform="32bit" Priority="0" />
+              </File>
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="TestNetFxProductFeature" Title="Test NetFx Product Feature" Level="1">
+      <ComponentRef Id="TestNetFxProductComponent" />
+      <ComponentRef Id="TestNetFxProductComponent2" />
+    </Feature>
+  </Product>
+</Wix>

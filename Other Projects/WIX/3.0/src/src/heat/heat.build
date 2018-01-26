@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="heat" default="heat.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    heat.build - Builds the heat project (heat.exe).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- heat-specific properties -->
+  <property name="heat.file.res.target" value="${dir.build.heat}\heat.res" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="heat.build" description="Peforms a full rebuild (clean then build)" depends="heat.clean, heat.inc" />
+
+  <!-- Clean -->
+  <target name="heat.clean" description="Cleans the build">
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="heat.exe" />
+        <include name="heat.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="heat.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the heat.exe.config -->
+    <copy file="${dir.src.heat}\app.config" tofile="${dir.target.wix}\heat.exe.config" />
+
+    <!-- Compile the heat.rc file -->
+    <rc rcfile="${dir.src.heat}\heat.rc" langid="0" output="${heat.file.res.target}" options="${rc.standardOptions} ${cl.standardIncludes}" />
+
+    <csc
+      target="exe"
+      output="${dir.target.wix}\heat.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.heat}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyDefaultHeatExtensionAttribute.cs" />
+        <include name="AssemblyInfo.cs" />
+        <include name="heat.cs" />
+        <include name="HeatCore.cs" />
+        <include name="HeatExtension.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+        <include name="wconsole.dll" />
+      </references>
+      <arg value="-win32res:&quot;${heat.file.res.target}&quot;" />
+    </csc>
+  </target>
+
+</project>

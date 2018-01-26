@@ -1,0 +1,21 @@
+//--------------------------------------------------------------------------------------------------
+// <copyright file="setupbld.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+// 
+// <summary>
+// WiX shim to native code resource file.
+// </summary>
+//--------------------------------------------------------------------------------------------------
+
+#define VER_APP
+#define VER_LANG_NEUTRAL
+#define VER_ORIGINAL_FILENAME "setupbld.exe"
+#define VER_INTERNAL_NAME "setupbld"
+#define VER_PRODUCT_NAME "WiX Setup Builder"
+#define VER_FILE_DESCRIPTION "WiX Setup Builder"
+#include "wix.rc"
+
+// Additional resources here
+#define MANIFEST_RESOURCE_ID 1
+MANIFEST_RESOURCE_ID RT_MANIFEST "setupbld.exe.manifest"

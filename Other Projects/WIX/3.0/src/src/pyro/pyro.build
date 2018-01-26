@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="pyro" default="pyro.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    pyro.build - Builds the pyro project (pyro.exe).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- pyro-specific properties -->
+  <property name="pyro.file.res.target" value="${dir.build.pyro}\pyro.res" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="pyro.build" description="Peforms a full rebuild (clean then build)" depends="pyro.clean, pyro.inc" />
+
+  <!-- Clean -->
+  <target name="pyro.clean" description="Cleans the build">
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="pyro.exe" />
+        <include name="pyro.exe.manifest" />
+        <include name="pyro.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="pyro.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the pyro.exe.config -->
+    <copy file="${dir.src.pyro}\app.config" tofile="${dir.target.wix}\pyro.exe.config" />
+
+    <!-- Compile the pyro.rc file -->
+    <rc rcfile="${dir.src.pyro}\pyro.rc" langid="0" output="${pyro.file.res.target}" options="${rc.standardOptions} ${cl.standardIncludes}" />
+
+    <csc
+      target="exe"
+      output="${dir.target.wix}\pyro.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.pyro}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="pyro.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+        <include name="wconsole.dll" />
+      </references>
+      <arg value="-win32res:&quot;${pyro.file.res.target}&quot;" />
+    </csc>
+  </target>
+
+</project>

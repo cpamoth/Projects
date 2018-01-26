@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="SetupCompleteError">
+    <UI>
+      <Dialog Id="SetupCompleteError" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes">
+        <Control Id="Finish" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Cancel="yes" Text="&amp;Finish">
+          <Publish Event="EndDialog" Value="Exit"><![CDATA[1]]></Publish>
+          <Condition Action="default"><![CDATA[NOT UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Disabled="yes" Text="Cancel">
+          <Publish Property="Suspend" Value="1"><![CDATA[1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+          <Condition Action="disable"><![CDATA[NOT UpdateStarted]]></Condition>
+          <Condition Action="enable"><![CDATA[UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Disabled="yes" Text="&lt; &amp;Back">
+          <Publish Property="Suspend" Value="{}"><![CDATA[1]]></Publish>
+          <Publish Event="EndDialog" Value="Return"><![CDATA[1]]></Publish>
+          <Condition Action="disable"><![CDATA[NOT UpdateStarted]]></Condition>
+          <Condition Action="enable"><![CDATA[UpdateStarted]]></Condition>
+          <Condition Action="default"><![CDATA[UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="FinishText1" Type="Text" X="135" Y="80" Width="228" Height="50" Transparent="yes">
+          <Text>Your system has not been modified. To complete installation at another time, please run setup again.</Text>
+          <Condition Action="hide"><![CDATA[UpdateStarted]]></Condition>
+          <Condition Action="show"><![CDATA[NOT UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="FinishText2" Type="Text" X="135" Y="135" Width="228" Height="25" Transparent="yes">
+          <Text>Click Finish to exit the wizard.</Text>
+          <Condition Action="hide"><![CDATA[UpdateStarted]]></Condition>
+          <Condition Action="show"><![CDATA[NOT UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="RestContText1" Type="Text" X="135" Y="80" Width="228" Height="50" Transparent="yes">
+          <Text>You can either keep any existing installed elements on your system to continue this installation at a later time or you can restore your system to its original state prior to the installation.</Text>
+          <Condition Action="hide"><![CDATA[NOT UpdateStarted]]></Condition>
+          <Condition Action="show"><![CDATA[UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="RestContText2" Type="Text" X="135" Y="135" Width="228" Height="25" Transparent="yes">
+          <Text>Click Restore or Continue Later to exit the wizard.</Text>
+          <Condition Action="hide"><![CDATA[NOT UpdateStarted]]></Condition>
+          <Condition Action="show"><![CDATA[UpdateStarted]]></Condition>
+        </Control>
+        <Control Id="TextLine2" Type="Text" X="135" Y="55" Width="228" Height="25" Transparent="yes">
+          <Text>The wizard was interrupted before [ProductName] could be completely installed.</Text>
+        </Control>
+        <Control Id="DlgLine" Type="Line" X="0" Y="234" Width="374" Height="0" />
+        <Control Id="Image" Type="Bitmap" X="0" Y="0" Width="374" Height="234" Text="NewBinary5" />
+        <Control Id="TextLine1" Type="Text" X="135" Y="8" Width="225" Height="45" Transparent="yes">
+          <Text>{&amp;TahomaBold10}Installation Wizard Completed</Text>
+        </Control>
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

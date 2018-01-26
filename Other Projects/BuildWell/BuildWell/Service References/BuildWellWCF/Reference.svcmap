@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fc04dd52-1017-4778-8eb1-ed87f649e7f8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://hcsbuildsrv2/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BuildWellWCF.xsd" MetadataType="Schema" ID="5df805f8-2f72-4738-86cf-9f693484de0c" SourceId="1" SourceUrl="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc?xsd=xsd1" />
+    <MetadataFile FileName="BuildWellWCF.disco" MetadataType="Disco" ID="f3b65a4c-741c-491f-b5b4-75240f009745" SourceId="1" SourceUrl="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc?disco" />
+    <MetadataFile FileName="BuildWellWCF.wsdl" MetadataType="Wsdl" ID="df9a8ce4-30df-4737-9834-cb15e6ba03f9" SourceId="1" SourceUrl="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc?wsdl" />
+    <MetadataFile FileName="BuildWellWCF1.xsd" MetadataType="Schema" ID="93956356-3f4c-4948-b6ec-2037ade1a26c" SourceId="1" SourceUrl="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

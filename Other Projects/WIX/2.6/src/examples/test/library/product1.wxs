@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="01234567-89AB-CDEF-0123-456789ABCDEF" Language="1033" Manufacturer="Microsoft" Name="Test Msi" Version="12.0.1.0">
+    <Package Id="01234567-89AB-CDEF-0123-456789ABCDEF" />
+    <PropertyRef Id="Property1" />
+  </Product>
+</Wix>

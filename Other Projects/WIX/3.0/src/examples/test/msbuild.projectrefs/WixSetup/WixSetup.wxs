@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="851677d6-32e6-4dd3-964c-e1c37b44c89c" Name="ProjectRefTest" Language="1033" Version="1.0.0.0" Manufacturer="Microsoft" UpgradeCode="0902dd0e-057c-4702-8fc4-0830252bb416">
+    <Package InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="WixSetup.cab" EmbedCab="yes" />
+
+    <Property Id="CSharpWindowsApp.Configuration" Value="$(var.CSharpWindowsApp.Configuration)" />
+    <Property Id="CSharpWindowsApp.FullConfiguration" Value="$(var.CSharpWindowsApp.FullConfiguration)" />
+    <Property Id="CSharpWindowsApp.Platform" Value="$(var.CSharpWindowsApp.Platform)" />
+    <Property Id="CSharpWindowsApp.ProjectExt" Value="$(var.CSharpWindowsApp.ProjectExt)" />
+    <Property Id="CSharpWindowsApp.ProjectFileName" Value="$(var.CSharpWindowsApp.ProjectFileName)" />
+    <Property Id="CSharpWindowsApp.ProjectName" Value="$(var.CSharpWindowsApp.ProjectName)" />
+    <Property Id="CSharpWindowsApp.TargetExt" Value="$(var.CSharpWindowsApp.TargetExt)" />
+    <Property Id="CSharpWindowsApp.TargetFileName" Value="$(var.CSharpWindowsApp.TargetFileName)" />
+    <Property Id="CSharpWindowsApp.TargetName" Value="$(var.CSharpWindowsApp.TargetName)" />
+
+    <Property Id="VBClassLibrary.Configuration" Value="$(var.VBClassLibrary.Configuration)" />
+    <Property Id="VBClassLibrary.FullConfiguration" Value="$(var.VBClassLibrary.FullConfiguration)" />
+    <Property Id="VBClassLibrary.Platform" Value="$(var.VBClassLibrary.Platform)" />
+    <Property Id="VBClassLibrary.ProjectExt" Value="$(var.VBClassLibrary.ProjectExt)" />
+    <Property Id="VBClassLibrary.ProjectFileName" Value="$(var.VBClassLibrary.ProjectFileName)" />
+    <Property Id="VBClassLibrary.ProjectName" Value="$(var.VBClassLibrary.ProjectName)" />
+    <Property Id="VBClassLibrary.TargetExt" Value="$(var.VBClassLibrary.TargetExt)" />
+    <Property Id="VBClassLibrary.TargetFileName" Value="$(var.VBClassLibrary.TargetFileName)" />
+    <Property Id="VBClassLibrary.TargetName" Value="$(var.VBClassLibrary.TargetName)" />
+
+    <Property Id="VCConsoleApp.Configuration" Value="$(var.VCConsoleApp.Configuration)" />
+    <Property Id="VCConsoleApp.FullConfiguration" Value="$(var.VCConsoleApp.FullConfiguration)" />
+    <Property Id="VCConsoleApp.Platform" Value="$(var.VCConsoleApp.Platform)" />
+    <Property Id="VCConsoleApp.ProjectExt" Value="$(var.VCConsoleApp.ProjectExt)" />
+    <Property Id="VCConsoleApp.ProjectFileName" Value="$(var.VCConsoleApp.ProjectFileName)" />
+    <Property Id="VCConsoleApp.ProjectName" Value="$(var.VCConsoleApp.ProjectName)" />
+    <Property Id="VCConsoleApp.TargetExt" Value="$(var.VCConsoleApp.TargetExt)" />
+    <Property Id="VCConsoleApp.TargetFileName" Value="$(var.VCConsoleApp.TargetFileName)" />
+    <Property Id="VCConsoleApp.TargetName" Value="$(var.VCConsoleApp.TargetName)" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="WixProjectRefTest">
+
+          <Component Id="CSharpWindowsAppOutput" Guid="a248f316-bfd1-4cc0-aef7-091c53477cfa">
+            <File Id="$(var.CSharpWindowsApp.TargetFileName)" Name="$(var.CSharpWindowsApp.TargetFileName)" Source="$(var.CSharpWindowsApp.TargetPath)" KeyPath="yes" Vital="yes" />
+          </Component>
+
+          <Component Id="VBClassLibraryOutput" Guid="9142B13A-7E27-48f8-9503-9A6924F357C7">
+            <File Id="$(var.VBClassLibrary.TargetFileName)" Name="$(var.VBClassLibrary.TargetFileName)" Source="$(var.VBClassLibrary.TargetPath)" KeyPath="yes" Vital="yes" />
+          </Component>
+
+          <!-- The hash of the VCConsoleApp changes from build to build, so it will break the tests -->
+          <!-- Component Id="VCConsoleAppOutput" Guid="52F62B82-2D5C-4bc1-8057-38264E3513B5">
+            <File Id="$(var.VCConsoleApp.TargetFileName)" Name="$(var.VCConsoleApp.TargetFileName)" Source="$(var.VCConsoleApp.TargetPath)" KeyPath="yes" Vital="yes" />
+          </Component -->
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="MyFeature" Level="1">
+      <ComponentRef Id="CSharpWindowsAppOutput" />
+      <ComponentRef Id="VBClassLibraryOutput" />
+    </Feature>
+  </Product>
+</Wix>

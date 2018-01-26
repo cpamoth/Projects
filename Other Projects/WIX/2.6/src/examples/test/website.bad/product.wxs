@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestWebSiteProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test File in a Product" Comments="Test from: wix\examples\test\shortcut\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Property Id="PORT" Value="80">
+      <RegistrySearch Id="PortLocator" Root="HKLM" Key="Software\Microsoft\Wix\Test\WebSite0" Name="Port" Type="file" />
+    </Property>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestWebSiteProductDirectory" Name="testassm" LongName="Test Website Product">
+          <Component Id="TestWebSiteProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <WebSite Id="Test" Description="Test web server" Directory="TestWebSiteProductDirectory" AutoStart="yes" DirProperties="ReadAndExecute" ConfigureIfExists="no" WebLog="TestLog">
+              <WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+              <WebVirtualDir Id="vdir1" Alias="test1\foo" Directory="TestWebSiteProductDirectory" DirProperties="ReadOnly">
+                <WebApplication Id="VDirTestApp1" Name="foo\Virtual Directory Test ASP Application" Isolation="high" />
+              </WebVirtualDir>
+            </WebSite>
+            <File Id="TestFile" Source="$(env.WIX)\examples\data\test.txt" Name="test.txt" />
+            <WebServiceExtension Id="extension" Allow="yes" File="[!TestFile]" />
+          </Component>
+          <Component Id="TestWebSitePortComponent" Guid="12330829-0000-0000-C000-000000000046" DiskId="1">
+            <Registry Id="AllAccessKey" Root="HKLM" Key="Software\Microsoft\Wix\Test\WebSite0" Name="Port" Type="integer" Value="[PORT]" />
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+    </Directory>
+
+    <Feature Id="TestWebSiteProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestWebSiteProductComponent" />
+    </Feature>
+
+    <WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" />
+    <WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+    <WebLog Id="TestLog" Type="IIS" />
+  </Product>
+</Wix>

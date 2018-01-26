@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFeatureRefProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test FeatureRef in a Product" Comments="Test from: wix\examples\test\featureref\product.wxs" InstallerVersion="200" Compressed="yes" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Component Id="Comp1" Guid="AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA">
+          <Class Id="BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB" Advertise="yes" Context="LocalServer32" Description="Microsoft Class Thingy" Handler="2">
+            <ProgId Id="Foo.bar" Description="Microsoft ProgId Thingy" Icon="foobar.exe" IconIndex="1">
+              <Extension Id="mdb">
+                <MIME ContentType="application/foobar" Default="no" />
+              </Extension>
+            </ProgId>
+          </Class>
+
+          <!-- test non-advertised -->
+          <File Id="ClassServer" Name="server.dll" Source="$(env.WIX)\examples\data\test.txt" DiskId="1" KeyPath="yes">
+            <Class Id="BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBC" Context="LocalServer32" Description="Microsoft Class Thingy" Handler="2" Server="[!ServerFile]">
+              <ProgId Id="Foo.bartwo" Description="Microsoft ProgId Thingy" Icon="foobar.exe" IconIndex="1">
+                <Extension Id="mdbtwo">
+                  <MIME Class="BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBD" ContentType="application/foobartwo" Default="yes" />
+                </Extension>
+              </ProgId>
+            </Class>
+          </File>
+        </Component>
+      </Directory>
+    </Directory>
+
+    <Feature Id="BaseFeature" Level="1" Title="Test Feature">
+      <ComponentRef Id="Comp1" />
+    </Feature>
+
+    <Media Id="1" Cabinet="embedded" />
+  </Product>
+</Wix>

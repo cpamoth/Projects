@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BuildWellWCF" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IBuildWellWCF_SaveBuild_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveBuild" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_SaveBuild_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveBuildResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_AppendToBuildLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:AppendToBuildLog" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_AppendToBuildLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AppendToBuildLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildBinaryRevision_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildBinaryRevision" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildBinaryRevision_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildBinaryRevisionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildDate" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildLog" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildChangeControl_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildChangeControl" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildChangeControl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildChangeControlResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildStatus" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_UpdateBuildStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBuildStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_AddBuildReference_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddBuildReference" />
+  </wsdl:message>
+  <wsdl:message name="IBuildWellWCF_AddBuildReference_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddBuildReferenceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IBuildWellWCF">
+    <wsdl:operation name="SaveBuild">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/SaveBuild" message="tns:IBuildWellWCF_SaveBuild_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/SaveBuildResponse" message="tns:IBuildWellWCF_SaveBuild_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AppendToBuildLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/AppendToBuildLog" message="tns:IBuildWellWCF_AppendToBuildLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/AppendToBuildLogResponse" message="tns:IBuildWellWCF_AppendToBuildLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildBinaryRevision">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildBinaryRevision" message="tns:IBuildWellWCF_UpdateBuildBinaryRevision_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildBinaryRevisionResponse" message="tns:IBuildWellWCF_UpdateBuildBinaryRevision_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildDate" message="tns:IBuildWellWCF_UpdateBuildDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildDateResponse" message="tns:IBuildWellWCF_UpdateBuildDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildLog" message="tns:IBuildWellWCF_UpdateBuildLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildLogResponse" message="tns:IBuildWellWCF_UpdateBuildLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildChangeControl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildChangeControl" message="tns:IBuildWellWCF_UpdateBuildChangeControl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildChangeControlResponse" message="tns:IBuildWellWCF_UpdateBuildChangeControl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildStatus" message="tns:IBuildWellWCF_UpdateBuildStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/UpdateBuildStatusResponse" message="tns:IBuildWellWCF_UpdateBuildStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBuildReference">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBuildWellWCF/AddBuildReference" message="tns:IBuildWellWCF_AddBuildReference_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBuildWellWCF/AddBuildReferenceResponse" message="tns:IBuildWellWCF_AddBuildReference_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IBuildWellWCF" type="tns:IBuildWellWCF">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SaveBuild">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/SaveBuild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AppendToBuildLog">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/AppendToBuildLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildBinaryRevision">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/UpdateBuildBinaryRevision" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildDate">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/UpdateBuildDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildLog">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/UpdateBuildLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildChangeControl">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/UpdateBuildChangeControl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBuildStatus">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/UpdateBuildStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBuildReference">
+      <soap:operation soapAction="http://tempuri.org/IBuildWellWCF/AddBuildReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BuildWellWCF">
+    <wsdl:port name="BasicHttpBinding_IBuildWellWCF" binding="tns:BasicHttpBinding_IBuildWellWCF">
+      <soap:address location="http://hcsbuildsrv2.geninfo.com/BuildWellWCF/BuildWellWCF.BuildWellWCF.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

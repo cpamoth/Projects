@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestShortcutProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test File in a Product" Comments="Test from: wix\examples\test\class\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestShortcutProductDirectory" Name="testassm" LongName="Test File">
+          <Component Id="TestShortcutProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+            <File Id="TestShortcutProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes">
+              <TypeLib Id="DEAD6166-6161-BEEF-6161-F00D61616161" Description="advertised typelib" HelpDirectory="TARGETDIR" Language="9" MajorVersion="65535" Cost="9">
+                <Class Id="61616161-6161-6161-6161-616161616161" Context="LocalServer" Advertise="no" />
+                <Class Id="DEAD6161-6161-BEEF-6161-F00D61616161" Context="LocalServer" Advertise="no" />
+              </TypeLib>
+              <TypeLib Id="DEAD6162-6161-BEEF-6161-F00D61616161" Advertise="no" Control="yes" Description="non-advertised typelib" HasDiskImage="yes" HelpDirectory="TARGETDIR" Hidden="yes" Language="9" MajorVersion="10" Restricted="yes" ResourceId="3" />
+            </File>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+    </Directory>
+
+    <Feature Id="TestShortcutProductFeature" Title="Test File Product Feature" Level="1">
+      <ComponentRef Id="TestShortcutProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

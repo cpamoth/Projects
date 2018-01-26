@@ -1,0 +1,38 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    The messages for the Windows Installer XML Toolset Utility Extension.
+-->
+<Messages Namespace="Microsoft.Tools.WindowsInstallerXml.Extensions" Resources="Data.Messages" xmlns="http://schemas.microsoft.com/genmsgs/2004/07/messages">
+    <Class Name="UtilErrors" ContainerName="UtilErrorEventArgs" BaseContainerName="WixErrorEventArgs">
+        <Message Id="IllegalAttributeWithoutComponent" Number="5050">
+            <Instance>
+                The {0}/@{1} attribute cannot be specified unless the element has a component as an ancestor. A {0} that does not have a component ancestor is not installed.
+                <Parameter Type="System.String" Name="elementName" />
+                <Parameter Type="System.String" Name="attributeName" />
+            </Instance>
+        </Message>
+        <Message Id="IllegalElementWithoutComponent" Number="5051">
+            <Instance>
+                The {0} element cannot be specified unless the element has a component as an ancestor. A {0} that does not have a component ancestor is not installed.
+                <Parameter Type="System.String" Name="elementName" />
+            </Instance>
+        </Message>
+        <Message Id="DirectoryNotFound" Number="5052" SourceLineNumbers="no">
+            <Instance>The directory '{0}' could not be found.
+                <Parameter Type="System.String" Name="directory" />
+            </Instance>
+        </Message>
+        <Message Id="EmptyDirectory" Number="5053" SourceLineNumbers="no">
+            <Instance>
+                The directory '{0}' did not contain any files or sub-directories and since empty directories are not being kept, there was nothing to harvest.
+                <Parameter Type="System.String" Name="directory" />
+            </Instance>
+        </Message>
+    </Class>
+    <Class Name="UtilWarnings" ContainerName="UtilWarningEventArgs" BaseContainerName="WixWarningEventArgs">
+    </Class>
+    <Class Name="UtilVerboses" ContainerName="UtilVerboseEventArgs" BaseContainerName="WixVerboseEventArgs">
+    </Class>
+</Messages>

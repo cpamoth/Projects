@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    file.wxs - small example that installs a single file.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="48C49ACE-90CF-4161-9C6E-9162115A54DD" Name="WixPatchExampleA" Language="1033" Version="$(var.Version).0.0" Manufacturer="Microsoft Corporation" UpgradeCode="48C49ACE-90CF-4161-9C6E-9162115A54DD">
+        <Package Description="Installs a file." Comments="Tests installation of a single file." InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+        <FeatureRef Id="TestFileProductFeature"/>
+    </Product>
+
+    <Fragment>
+        <Feature Id="TestFileProductFeature" Title="Wix File Product Feature" Level="1">
+            <ComponentRef Id="WixExampleFileComponent.Z" />
+            <ComponentRef Id="WixExampleFileComponent.Y" />
+            <ComponentRef Id="WixExampleRegistryComponent.W" />
+        </Feature>
+    </Fragment>
+</Wix>
+

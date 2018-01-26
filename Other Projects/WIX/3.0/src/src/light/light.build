@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="light" default="light.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    light.build - Builds the light project (light.exe).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- light-specific properties -->
+  <property name="light.file.res.target" value="${dir.build.light}\light.res" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="light.build" description="Peforms a full rebuild (clean then build)" depends="light.clean, light.inc" />
+
+  <!-- Clean -->
+  <target name="light.clean" description="Cleans the build">
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="darice.cub" />
+        <include name="light.exe" />
+        <include name="light.exe.manifest" />
+        <include name="light.pdb" />
+        <include name="mergemod.cub" />
+        <include name="mergemod.dll" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="light.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the light.exe.config -->
+    <copy file="${dir.src.light}\app.config" tofile="${dir.target.wix}\light.exe.config" />
+
+    <!-- Copy the darice.cub, mergemod.cub, and mergemod.dll to the target directory -->
+    <copy file="${dir.src.light}\bin\darice.cub" tofile="${dir.target.wix}\darice.cub" unless="${file::up-to-date('${dir.src.light}\bin\darice.cub', '${dir.target.wix}\darice.cub')}" />
+    <copy file="${dir.src.light}\bin\mergemod.cub" tofile="${dir.target.wix}\mergemod.cub" unless="${file::up-to-date('${dir.src.light}\bin\mergemod.cub', '${dir.target.wix}\mergemod.cub')}" />
+    <copy file="${dir.src.light}\bin\mergemod.dll" tofile="${dir.target.wix}\mergemod.dll" unless="${file::up-to-date('${dir.src.light}\bin\mergemod.dll', '${dir.target.wix}\mergemod.dll')}" />
+
+    <!-- Compile the light.rc file -->
+    <rc rcfile="${dir.src.light}\light.rc" langid="0" output="${light.file.res.target}" options="${rc.standardOptions} ${cl.standardIncludes}" />
+
+    <csc
+      target="exe"
+      output="${dir.target.wix}\light.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.light}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="light.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+        <include name="wconsole.dll" />
+      </references>
+      <arg value="-win32res:&quot;${light.file.res.target}&quot;" />
+    </csc>
+  </target>
+
+</project>

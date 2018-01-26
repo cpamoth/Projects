@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix RequiredVersion="2.0.0000.0" xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:sca="http://schemas.microsoft.com/wix/2005/10/sca">
+    <Product Id="000C1109-0000-0021-C000-000000000046" Name="Test" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{567A32EE-D3DF-441B-A56A-D60758713012}">
+        <Package Description="Test" Comments="Test" InstallerVersion="200" Compressed="yes" />
+
+        <UI>
+            <ComboBox Property="ComboBoxProperty">
+                <ListItem Value="1" />
+                <ListItem Value="2" Text="some localizable text" />
+                <ListItem Value="3" Text="some localizable text" />
+            </ComboBox>
+
+            <ListBox Property="ListBoxProperty">
+                <ListItem Value="1" />
+                <ListItem Value="2" Text="some localizable text" />
+                <ListItem Value="3" Text="some localizable text" />
+            </ListBox>
+
+            <ListView Property="ListViewProperty">
+                <ListItem Value="1" />
+                <ListItem Value="2" Text="some localizable text" />
+                <ListItem Value="3" Text="some localizable text" Icon="Binary1" />
+            </ListView>
+        </UI>
+
+        <Binary Id="Binary1" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+    </Product>
+</Wix>

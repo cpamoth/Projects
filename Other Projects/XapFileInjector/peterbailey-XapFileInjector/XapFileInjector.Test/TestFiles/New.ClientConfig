@@ -1,0 +1,17 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IEmbedService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://example.com/example.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IEmbedService" contract="ExampleReference.IExampleService"
+                name="BasicHttpBinding_IEmbedService" />
+        </client>
+    </system.serviceModel>
+</configuration>

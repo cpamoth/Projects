@@ -1,0 +1,28 @@
+From: vsipinfo@microsoft.com
+Sent: Saturday, October 16, 2004 6:56 PM
+To: Justin Rockwood
+Subject: Visual Studio .NET Package Load Key
+
+Thank you for registering your product for a Package Load Key. 
+Here is the PLK you requested: 
+
+Package/Product Name: wix project package
+Version: 2.0
+Package GUID: {b0ab1f0f-7b08-47fd-8e7c-a5c0ec855568}
+Package Load Key: MQRZZ9D0PTMKC3DCKRIZD0M1KIETE0RKZJMMDZAKDCJMICZIR3KAQMJRZAHKK9R3MAJHEJZ3EEZMKRCHD9M8JDHMI9ZQDKJHZIE1H1H1PCHACAMIQDR3ZCPIR2R9AHCI
+
+To have the package load you'll have to have the following information under this package's registry info: 
+
+NoRemove Packages 
+
+{ 
+	ForceRemove {b0ab1f0f-7b08-47fd-8e7c-a5c0ec855568} = s 'wix project package' 
+	{ 
+	val CompanyName = s 'Microsoft' 
+	val ProductName = s 'wix project package' 
+	val ProductVersion = s '2.0' 
+	val MinEdition = s 'standard' 
+	val ID = d '1' 
+	}
+}
+Please note that ID above is set to 1 as an example only.  The PLK needs to be added to the string table in the resources of your main package's DLL.  The ID value of the PLK string in the string table is the value that should be placed in the ID field in the registry.  The PLK string may instead be added to the package's satellite DLL, but using the main package DLL is preferred.

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFeatureRefProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F2C26B34-67B4-4203-8631-CC84612E0E4F}">
+        <Package Description="Test FeatureRef in a Product" Comments="Test from: wix\examples\test\featureref\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestFeatureRefProductDirectory" ShortName="testassm" Name="Test FeatureRef" />
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestFeatureRefParentProductFeature" Title="Test FeatureRef Parent Product Feature" Level="1">
+            <FeatureRef Id="TestFeatureRefProductFeature" />
+        </Feature>
+    </Product>
+</Wix>

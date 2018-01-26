@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestWebSiteProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{EBBBB220-3DA3-460F-AC99-61195A5A395B}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\shortcut\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestWebSiteProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestWebSiteProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1" KeyPath="yes">
+                        <CreateFolder />
+                        <iis:WebSite Id="Test" Description="Test web server" Directory="TestWebSiteProductDirectory" StartOnInstall="yes" DirProperties="ReadAndExecute" ConfigureIfExists="no">
+                            <iis:WebAddress Id="TestAddress" Port="[PORT]" Secure="no" />
+                            <iis:WebVirtualDir Id="vdir1" Alias="test1" Directory="TestWebSiteProductDirectory" DirProperties="ReadOnly">
+                                <iis:WebApplication Id="VDirTestApp1" Name="Virtual Directory Test ASP Application" Isolation="high" />
+                            </iis:WebVirtualDir>
+                        </iis:WebSite>
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+        </Directory>
+
+        <Feature Id="TestWebSiteProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestWebSiteProductComponent" />
+        </Feature>
+
+        <iis:WebDirProperties Id="ReadOnly" Read="yes" Write="no" Script="no" Execute="no" AnonymousAccess="no" />
+        <iis:WebDirProperties Id="ReadAndExecute" Read="yes" Write="no" Script="yes" Execute="yes" AnonymousAccess="no" />
+    </Product>
+</Wix>

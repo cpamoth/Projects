@@ -1,0 +1,14 @@
+*.csproj.user
+*.resharper.user
+*.resharper
+*.suo
+*.cache
+*.swp
+*.crunchproject.*.xml
+*.crunchsolution.*.xml
+
+Debug/
+Release/
+obj/
+bin/
+_ReSharper.*

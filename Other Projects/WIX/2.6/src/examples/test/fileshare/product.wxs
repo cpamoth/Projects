@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="000C110B-0000-0000-CDEF-000000000046" Name="TestFileShareProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation">
+    <Package Id="000C110B-0000-0000-CDEF-000000000046" Description="Test FileShare in a Product" Comments="Test from: wix\examples\test\fileshare\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+    <Property Id="ShareName" Value="testShare" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="TestFileShareProductDirectory" Name="testassm" LongName="Test File Share">
+          <Component Id="TestFileShareProductComponent" Guid="00030829-0000-0000-C000-006100000046" DiskId="1">
+            <File Id="TestFileShareProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+            <FileShare Id="testShare" Name="[ShareName]" Description="This is a test share">
+              <Permission User="testUser" GenericRead="yes" GenericWrite="yes" />
+
+              <!-- Note: this is how you do a read only file share -->
+              <Permission User="every1" Read="yes" ReadExtendedAttributes="yes" Traverse="yes" ReadAttributes="yes" ReadPermission="yes" Synchronize="yes" />
+            </FileShare>
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <User Id="testUser" Name="scotk" Domain="redmond" />
+    <User Id="every1" Name="Everyone" />
+
+    <Feature Id="TestFileShareProductFeature" Title="Test FileShare Product Feature" Level="1">
+      <ComponentRef Id="TestFileShareProductComponent" />
+    </Feature>
+  </Product>
+</Wix>

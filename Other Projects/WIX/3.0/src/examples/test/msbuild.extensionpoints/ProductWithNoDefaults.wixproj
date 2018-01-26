@@ -1,0 +1,81 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration></Configuration>
+    <ProductVersion>3.0</ProductVersion>
+    <ProjectGuid>{3DD50021-426D-4f34-A4E0-C2E6A50BB3DD}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName></OutputName>
+    <OutputType></OutputType>
+    <WixToolPath>*Pass via the command line*</WixToolPath>
+    <CustomAfterWixTargets>$(MSBuildProjectDirectory)\CustomAfterWixTargets.wixproj</CustomAfterWixTargets>
+    <PreBuildEventFile>$(MSBuildProjectDirectory)\PreBuildEventRan.txt</PreBuildEventFile>
+    <PostBuildEventFile>$(MSBuildProjectDirectory)\PostBuildEventRan.txt</PostBuildEventFile>
+</PropertyGroup>
+  <PropertyGroup Condition=" '$(GenerateErrorOnPreBuildEvent)' == 'true' ">
+    <PreBuildEvent>
+      copy /y $(MSBuildProjectDirectory)\TestFile.txt $(PreBuildEventFile) &amp; attrib -r $(PreBuildEventFile)
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(GenerateErrorOnPostBuildEvent)' == 'true' ">
+    <PostBuildEvent>
+      copy /y $(MSBuildProjectDirectory)\TestFile.txt $(PostBuildEventFile) &amp; attrib -f $(PostBuildEventFile)
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="product.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixToolPath)\Wix.targets" />
+
+  <Target Name="BeforeRebuild">
+    <Error Code="UNITTEST2000" Text="BeforeRebuildRan" Condition=" '$(GenerateErrorOnBeforeRebuild)' == 'true' " />
+  </Target>
+
+  <Target Name="AfterRebuild">
+    <Warning Code="UNITTEST2003" Text="AfterRebuildRan" Condition=" '$(GenerateErrorOnAfterRebuild)' == 'true' " />
+
+    <CreateProperty Value="true" Condition="Exists('$(PostBuildEventFile)')">
+      <Output TaskParameter="Value" PropertyName="PostBuildEventRan" />
+    </CreateProperty>
+    <Delete Files="$(PostBuildEventFile)" Condition="Exists('$(PostBuildEventFile)')" />
+    <Warning Code="UNITTEST2011" Text="PostBuildEventRan" Condition=" '$(GenerateErrorOnPostBuildEvent)' == 'true' and '$(PostBuildEventRan)' == 'true' " />
+  </Target>
+
+  <Target Name="BeforeBuild">
+    <Error Code="UNITTEST2001" Text="BeforeBuildRan" Condition=" '$(GenerateErrorOnBeforeBuild)' == 'true' " />
+  </Target>
+
+  <Target Name="AfterBuild">
+    <Warning Code="UNITTEST2002" Text="AfterBuildRan" Condition=" '$(GenerateErrorOnAfterBuild)' == 'true' " />
+  </Target>
+
+  <Target Name="BeforeResolveReferences">
+    <Error Code="UNITTEST2040" Text="BeforeResolveReferencesRan" Condition=" '$(GenerateErrorOnBeforeResolveReferences)' == 'true' " />
+
+    <CreateProperty Value="true" Condition="Exists('$(PreBuildEventFile)')">
+      <Output TaskParameter="Value" PropertyName="PreBuildEventRan" />
+    </CreateProperty>
+    <Delete Files="$(PreBuildEventFile)" Condition="Exists('$(PreBuildEventFile)')" />
+    <Error Code="UNITTEST2010" Text="PreBuildEventRan" Condition=" '$(GenerateErrorOnPreBuildEvent)' == 'true' and '$(PreBuildEventRan)' == 'true' " />
+  </Target>
+
+  <Target Name="AfterResolveReferences">
+    <Error Code="UNITTEST2041" Text="AfterResolveReferencesRan" Condition=" '$(GenerateErrorOnAfterResolveReferences)' == 'true' " />
+  </Target>
+
+  <Target Name="BeforeCompileAndLink">
+    <Error Code="UNITTEST2050" Text="BeforeCompileAndLinkRan" Condition=" '$(GenerateErrorOnBeforeCompileAndLink)' == 'true' " />
+  </Target>
+
+  <Target Name="AfterCompileAndLink">
+    <Warning Code="UNITTEST2051" Text="AfterCompileAndLinkRan" Condition=" '$(GenerateErrorOnAfterCompileAndLink)' == 'true' " />
+  </Target>
+
+  <Target Name="BeforeClean">
+    <Error Code="UNITTEST2090" Text="BeforeCleanRan" Condition=" '$(GenerateErrorOnBeforeClean)' == 'true' " />
+  </Target>
+
+  <Target Name="AfterClean">
+    <Error Code="UNITTEST2091" Text="BeforeCleanRan" Condition=" '$(GenerateErrorOnAfterClean)' == 'true' " />
+  </Target>
+
+</Project>

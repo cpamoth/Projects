@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+    <Product Id="000C1109-0000-0000-C000-000000000999" Name="Test WebSvcExt in a Product" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{3788FE2E-2E63-494A-B35B-EFFF03BA564D}">
+        <Package Description="Test WebSvcExt in a Product" Comments="Test from: wix\examples\test\websvcext\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Property Id="PORT" Value="80">
+            <RegistrySearch Id="PortLocator" Root="HKLM" Key="Software\Microsoft\Wix\Test\WebSite0" Name="Port" Type="file" />
+        </Property>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestWebSvcExtProductDirectory" ShortName="wsvcext" Name="Test WebSvcExt Product">
+                    <Component Id="TestWebSvcExtProductComponent1" Guid="00030829-0000-0000-C000-000000001999" DiskId="1">
+                        <File Id="TestFile1" Source="$(env.WIX)\examples\data\test.txt" Name="test1.exe" KeyPath="yes" />
+                        <iis:WebServiceExtension Id="extension1" Allow="yes" File="[!TestFile1]" Group="WiXTest" Description="WiX Test Extension1" UIDeletable="yes" />
+                    </Component>
+                    <Component Id="TestWebSvcExtProductComponent2" Guid="00030829-0000-0000-C000-000000002999" DiskId="1">
+                        <File Id="TestFile2" Source="$(env.WIX)\examples\data\test.txt" Name="test2.exe" KeyPath="yes" />
+                        <iis:WebServiceExtension Id="extension2" Allow="no" File="[!TestFile2]" Group="WiXTest" Description="WiX Test Extension2" UIDeletable="yes" />
+                    </Component>
+                    <Component Id="TestWebSvcExtProductComponent3" Guid="00030829-0000-0000-C000-000000003999" DiskId="1">
+                        <File Id="TestFile3" Source="$(env.WIX)\examples\data\test.txt" Name="test3.exe" KeyPath="yes" />
+                        <iis:WebServiceExtension Id="extension3" Allow="yes" File="[!TestFile3]" Group="WiXTest" Description="WiX Test Extension3" UIDeletable="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestWebSvcExtProductFeature" Title="Test WebSvcExt Product Feature" Level="1">
+            <ComponentRef Id="TestWebSvcExtProductComponent1" />
+            <ComponentRef Id="TestWebSvcExtProductComponent2" />
+            <ComponentRef Id="TestWebSvcExtProductComponent3" />
+        </Feature>
+    </Product>
+</Wix>

@@ -1,0 +1,4 @@
+<WixLocalization xmlns="http://schemas.microsoft.com/wix/2003/11/localization">
+	<String Id="languages">1033</String>
+	<String Id="hello">Hello</String>
+</WixLocalization>

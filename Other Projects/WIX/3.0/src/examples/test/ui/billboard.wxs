@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestFileProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{7A5200E9-26DB-490D-A102-2BC6D734028F}">
+        <Package Description="Test File in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestFileProductDirectory" ShortName="testassm" Name="Test File">
+                    <Component Id="TestFileProductComponent" Guid="00030829-0000-0000-C000-000000000046" DiskId="1">
+                        <File Id="TestFileProductFile" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <UI>
+            <Dialog Id="MyDialog" Height="150" Width="120">
+                <Control Id="MyTextControl" Height="10" Width="10" Type="Text" X="0" Y="0">
+                    <Publish Property="NotARealProperty" Value="[ProductName]" />
+                </Control>
+
+                <Control Id="MyEditBox" Height="10" Width="10" Type="Edit" X="0" Y="10" Property="NotARealPropertyEither" />
+
+                <Control Id="MyBillboard" Height="100" Width="100" Type="Billboard" X="40" Y="10">
+                    <Subscribe Event="Setprogress" Attribute="Progress" />
+                </Control>
+            </Dialog>
+
+            <BillboardAction Id="InstallFiles">
+                <Billboard Id="BB1" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes">
+                        <Text>Welcome to [ProductName].</Text>
+                    </Control>
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="teammngr" />
+                </Billboard>
+                <Billboard Id="BB2" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes">
+                        <Text>Get the most out of [ProductName] by registering.</Text>
+                    </Control>
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="word" />
+                </Billboard>
+                <Billboard Id="BB3" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes" Text="Tighter Integration." />
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="excel" />
+                </Billboard>
+                <Billboard Id="BB4" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes">
+                        <Text>[ProductName] lets you achieve powerful results.</Text>
+                    </Control>
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="access" />
+                </Billboard>
+                <Billboard Id="BB5" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes">
+                        <Text>Create and Publish to the Web.</Text>
+                    </Control>
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="ppt" />
+                </Billboard>
+                <Billboard Id="BB6" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes">
+                        <Text>Visit Microsoft Office On-line.</Text>
+                    </Control>
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="outlook" />
+                </Billboard>
+                <Billboard Id="BB7" Feature="TestFileProductFeature">
+                    <Control Id="Text" Type="Text" X="250" Y="350" Width="400" Height="15" Integer="yes">
+                        <Text>Thanks for Choosing [ProductName].</Text>
+                    </Control>
+                    <Control Id="Bitmap" Type="Bitmap" X="10" Y="0" Width="150" Height="120" Text="frontpage" />
+                </Billboard>
+            </BillboardAction>
+        </UI>
+
+        <Feature Id="TestFileProductFeature" Title="Test File Product Feature" Level="1">
+            <ComponentRef Id="TestFileProductComponent" />
+        </Feature>
+        <InstallUISequence>
+            <Show Dialog="MyDialog" After="CostFinalize" />
+        </InstallUISequence>
+
+        <!-- add some binary files to satisfy the foreign keys in the bitmap controls -->
+        <Binary Id="access" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="excel" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="frontpage" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="outlook" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="ppt" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="teammngr" SourceFile="$(env.WIX)\examples\data\test.txt" />
+        <Binary Id="word" SourceFile="$(env.WIX)\examples\data\test.txt" />
+
+    </Product>
+</Wix>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="Update Example" default="inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    CustomDialogSet.build - Builds the custom dialog set .wixlib
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="update.include" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <include buildfile="bin\bin.build" unless="${property::exists('include.bin')}" />
+  <include buildfile="shared\shared.build" unless="${property::exists('include.shared')}" />
+  <include buildfile="products\products.build" unless="${property::exists('include.products')}" />
+  <include buildfile="smallupdates\smallupdates.build" unless="${property::exists('include.smallupdates')}" />
+  <include buildfile="minorupgrades\minorupgrades.build" unless="${property::exists('include.minorupgrades')}" />
+
+  <!-- Build -->
+  <target name="build" description="Builds the Update Example" depends="clean, inc" />
+
+  <!-- Clean -->
+  <target name="clean" description="Cleans the Update Example" 
+          depends="clean.bin, clean.shared, clean.products, clean.smallupdates, clean.minorupgrades" />
+
+  <!-- Inc -->
+  <target name="inc" description="Incrementally builds the entire WiX toolset" 
+          depends="build.bin, build.shared, build.products, build.smallupdates, build.minorupgrades" />
+
+</project>

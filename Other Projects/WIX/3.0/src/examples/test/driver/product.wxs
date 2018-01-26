@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:difxapp="http://schemas.microsoft.com/wix/DifxAppExtension">
+    <Product Id="*" Name="TestDriverProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{43402001-32CD-4098-82AC-4FABF73168FB}">
+        <Package Description="Test Driver in a Product" Comments="Test from: wix\examples\test\driver\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestDriverProductDirectory" ShortName="testdriv" Name="Test Driver">
+                    <Component Id="TestDriverProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <difxapp:Driver AddRemovePrograms="no" DeleteFiles="yes" ForceInstall="yes" Legacy="yes" PlugAndPlayPrompt="no" Sequence="10" />
+                        <File Id="TestDriverProductFile" Name="assembly.dll" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestDriverProductFeature" Title="Test Driver Product Feature" Level="1">
+            <ComponentRef Id="TestDriverProductComponent" />
+        </Feature>
+    </Product>
+</Wix>

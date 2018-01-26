@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="isolatedappextension" default="isolatedappextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    isolatedappextension.build - Builds the isolatedappextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="dir.build.ext.isolatedappextension" value="${dir.build.ext}\isolatedappextension" readonly="true" />
+  <property name="dir.src.isolatedappextension.wixext" value="${dir.src.ext}\IsolatedAppExtension\wixext" readonly="true" />
+  <property name="dir.src.isolatedappextension.wixlib" value="${dir.src.ext}\IsolatedAppExtension\wixlib" readonly="true" />
+
+  <!-- updateexe-specific properties -->
+  <property name="dir.build.isolatedappextension.updateexe" value="${dir.build.ext.isolatedappextension}\updateexe" readonly="true" />
+  <property name="dir.src.isolatedappextension.updateexe" value="${dir.src.ext}\IsolatedAppExtension\updateexe" readonly="true" />
+  <property name="updateexe.file.target" value="${dir.target.wix}\update.exe" readonly="true" />
+  <property name="updateexe.file.targetpdb" value="${dir.target.wix}\update.pdb" readonly="true" />
+
+  <!-- extension files -->
+  <property name="isolatedappextension.file.isolatedapp.xsd" value="${dir.src.isolatedappextension.wixext}\Xsd\isolatedapp.xsd" readonly="true" />
+  <property name="isolatedappextension.file.messages.xml" value="${dir.src.isolatedappextension.wixext}\Data\messages.xml" readonly="true" />
+  <property name="isolatedappextension.file.messages.cs" value="${dir.build.ext.isolatedappextension}\Messages.cs" readonly="true" />
+  <property name="isolatedappextension.file.messages.resources" value="${dir.build.ext.isolatedappextension}\Messages.resources" readonly="true" />
+  <property name="isolatedappextension.file.isolatedapp.cs" value="${dir.build.ext.isolatedappextension}\IsolatedApp.cs" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="isolatedappextension.build" description="Peforms a full rebuild (clean then build)" depends="isolatedappextension.clean, isolatedappextension.inc" />
+
+  <!-- Clean -->
+  <target name="isolatedappextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.isolatedappextension.updateexe}" failonerror="false" if="${directory::exists(dir.build.isolatedappextension.updateexe)}" />
+    <delete file="${updateexe.file.target}" failonerror="false" if="${file::exists(updateexe.file.target)}" />
+    <delete file="${updateexe.file.targetpdb}" failonerror="false" if="${file::exists(updateexe.file.targetpdb)}" />
+
+    <delete dir="${dir.build.ext.isolatedappextension}" failonerror="false" if="${directory::exists(dir.build.ext.isolatedappextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixIsolatedAppExtension.dll" />
+        <include name="WixIsolatedAppExtension.pdb" />
+        <include name="IsolatedApp.wixlib" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="isolatedappextension.inc" description="Performs an incremental build" depends="isolatedappwixlib.inc">
+    <mkdir dir="${dir.build.ext.isolatedappextension}" />
+
+    <!-- Flatten all of the xml/xsd files -->
+    <foreach item="File" property="flattenxml.source">
+      <in>
+        <items>
+          <include name="${isolatedappextension.file.isolatedapp.xsd}" />
+        </items>
+      </in>
+      <do>
+        <property name="flattenxml.target" value="${dir.build.ext.isolatedappextension}\${path::get-file-name(flattenxml.source)}" />
+        <call target="flattenXml" />
+      </do>
+    </foreach>
+
+    <!-- Compile the messages.xml into the Message.cs class -->
+    <exec program="${tool.msggen}" unless="${file::up-to-date(isolatedappextension.file.messages.xml,isolatedappextension.file.messages.cs)}">
+      <arg value="-nologo" />
+      <arg value="${isolatedappextension.file.messages.xml}" />
+      <arg value="${isolatedappextension.file.messages.cs}" />
+      <arg value="${isolatedappextension.file.messages.resources}" />
+    </exec>
+
+    <!-- Compile the xsd file into the cs file -->
+    <exec program="${tool.xsdgen}" unless="${file::up-to-date(isolatedappextension.file.isolatedapp.xsd,isolatedappextension.file.isolatedapp.cs)}">
+      <arg value="${isolatedappextension.file.isolatedapp.xsd}" />
+      <arg value="${isolatedappextension.file.isolatedapp.cs}" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Extensions.Serialize.IsolatedApp" />
+      <arg value="Microsoft.Tools.WindowsInstallerXml.Serialize" />
+    </exec>
+
+    <!-- csc
+      target="library"
+      output="${dir.target.wix}\WixIsolatedAppExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+
+      <sources basedir="${dir.src.isolatedappextension.wixext}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="BrowsePathStep.cs" />
+        <include name="BrowsePathStep.Designer.cs" />
+        <include name="BuildStep.cs" />
+        <include name="BuildStep.Designer.cs" />
+        <include name="IsolatedAppFabricator.cs" />
+        <include name="IsolatedMsiBuilder.cs" />
+        <include name="NativeMethods.cs" />
+        <include name="PackageInfoStep.cs" />
+        <include name="PackageInfoStep.Designer.cs" />
+        <include name="PickEntryStep.cs" />
+        <include name="PickEntryStep.Designer.cs" />
+        <include name="UpdateInfoStep.cs" />
+        <include name="UpdateInfoStep.Designer.cs" />
+        <include name="${isolatedappextension.file.messages.cs}" />
+        <include name="${isolatedappextension.file.isolatedapp.cs}" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="ct.exe" />
+        <include name="heat.exe" />
+        <include name="wix.dll" />
+        <include name="WixUtilExtension.dll" />
+      </references>
+
+      <resources failonempty="true" basedir="${dir.build.ext.isolatedappextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Xsd">
+        <include name="isolatedapp.xsd" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.build.ext.isolatedappextension}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="Messages.resources" />
+      </resources>
+      <resources failonempty="true" basedir="${dir.target.wix}" prefix="Microsoft.Tools.WindowsInstallerXml.Extensions.Data">
+        <include name="isolatedapp.wixlib" />
+      </resources>
+    </csc -->
+    <nant buildfile="${dir.src.ext}\IsolatedAppExtension\wixext\IsolatedAppExtensionDll.build" inheritall="true" failonerror="true"/>
+  </target>
+
+  <target name="updateexe.inc" description="Performs an incremental build" depends="makeDirs">
+    <mkdir dir="${dir.build.isolatedappextension.updateexe}" />
+
+    <fileset id="compileCpp.fileset.sources" basedir="${dir.src.isolatedappextension.updateexe}">
+      <!--include name="download.cpp" /-->
+      <include name="updateexe.cpp" />
+    </fileset>
+    <property name="compileCpp.dir.build" value="${dir.build.isolatedappextension.updateexe}" />
+    <property name="compileCpp.file.precomp.h" value="${dir.src.isolatedappextension.updateexe}\precomp.h" />
+    <property name="compileCpp.file.rc" value="${dir.src.isolatedappextension.updateexe}\update.rc" />
+    <property name="compileCpp.additionalOptions" value="-I &quot;${dir.src.ambient}\appsynup\inc&quot;"/>
+    <property name="makeNativeExe.file.target" value="${updateexe.file.target}" />
+    <property name="makeNativeExe.additionalLibs" value="&quot;${file.target.dutil}&quot; &quot;${dir.platformsdk.lib}\wininet.lib&quot; &quot;${dir.platformsdk.lib}\msi.lib&quot; &quot;${file.target.appsynup}&quot;" />
+
+    <!-- Make update.exe -->
+    <call target="makeNativeExe" />
+  </target>
+
+  <target name="isolatedappwixlib.inc" description="Performs an incremental build" depends="updateexe.inc">
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Build the wixlib -->
+    <candle out="${dir.build.ext.isolatedappextension}\IsolatedApp.wixobj" exedir="${dir.target.wix}" warningsaserrors="true">
+      <defines>
+        <define name="targetDirectory" value="${dir.target.wix}" />
+      </defines>
+      <sources basedir="${dir.src.isolatedappextension.wixlib}">
+        <include name="IsolatedApp.wxs" />
+      </sources>
+    </candle>
+    <lit out="${dir.target.wix}\IsolatedApp.wixlib" exedir="${dir.target.wix}" bindfiles="true" warningsaserrors="true">
+      <sources basedir="${dir.build.ext.isolatedappextension}">
+        <include name="IsolatedApp.wixobj" />
+      </sources>
+    </lit>
+  </target>
+
+</project>

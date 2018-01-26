@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="000C1109-0000-0000-C000-000000000046" Name="TestAssemblyProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{F743C0FA-A00C-474F-BAB6-83D90643FD07}">
+        <Package Description="Test Assembly in a Product" Comments="Test from: wix\examples\test\assembly\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="TestAssemblyProductDirectory" ShortName="testassm" Name="Test Assembly">
+                    <Component Id="TestAssemblyProductComponent" Guid="00030829-0000-0000-C000-000000000046">
+                        <File Id="TestAssemblyProductFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" DiskId="1" Source="$(env.WIX)\examples\data\assembly.dll" />
+                        <Class Id="BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB" Advertise="yes" Context="LocalServer32" Description="Microsoft Foobar Application" Handler="2">
+                            <ProgId Id="ProgId1" Description="Microsoft Thingy" Icon="foobar.exe" IconIndex="1">
+                                <Extension Id="xyz">
+                                    <Verb Id="open" />
+                                    <Verb Id="print" Argument="arg" Command="Print the file." Sequence="1" />
+                                </Extension>
+                            </ProgId>
+                        </Class>
+                        <Extension Id="bgh">
+                            <Verb Id="open" Argument="another arg" Command="theCommand" TargetFile="TestAssemblyProductFile" />
+                        </Extension>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <Feature Id="TestAssemblyProductFeature" Title="Test Assembly Product Feature" Level="1">
+            <ComponentRef Id="TestAssemblyProductComponent" />
+        </Feature>
+
+        <Icon Id="foobar.exe" SourceFile="$(env.WIX)\examples\data\test.txt" />
+    </Product>
+</Wix>

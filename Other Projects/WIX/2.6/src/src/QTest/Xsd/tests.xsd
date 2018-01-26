@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://schemas.microsoft.com/wix/2005/WixQTest"
+              xmlns="http://schemas.microsoft.com/wix/2005/WixQTest">
+	<xs:annotation>
+		<xs:documentation>
+			Copyright (c) Microsoft Corporation.  All rights reserved.
+
+			Schema for the WiX QTest program.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="Compile">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="SourceFile" maxOccurs="unbounded" />
+			</xs:choice>
+			<xs:attribute name="Arguments" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DecompileAndDiff">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="LibraryFile" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							If specified, a child LibraryFile will be passed into the re-link
+							step of decompilation and diffing.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:attribute name="Arguments" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Lib">
+		<xs:complexType>
+			<xs:attribute name="Arguments" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="LibraryFile">
+		<xs:simpleType>
+			<xs:restriction base="xs:string" />
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="LocalizationFile">
+		<xs:simpleType>
+			<xs:restriction base="xs:string" />
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="Link">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="LibraryFile" minOccurs="0" />
+				<xs:element ref="LocalizationFile" minOccurs="0" />
+			</xs:choice>
+			<xs:attribute name="Arguments" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="SourceFile">
+		<xs:simpleType>
+			<xs:restriction base="xs:string" />
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="Test">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Compile" />
+				<xs:element ref="Lib" minOccurs="0" />
+				<xs:element ref="Link" minOccurs="0" />
+				<xs:element ref="DecompileAndDiff" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="ExpectedResult" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						Path to the expected result of the test.  If this attribute is not specified,
+						the last command is expected to be a failure.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Extensions" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+						Semicolon delimited list of extensions to pass into each WiX tool.
+						It is not possible to pass an extension into a subset of the tools.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Name" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="Tests">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="Test" maxOccurs="unbounded" />
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>

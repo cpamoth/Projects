@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Module Id="TestAssemblyModule" Language="1033" Version="0.0">
+        <Package Id="000C1109-0000-0000-C000-000000000046" Description="Test Assembly in a Module" Comments="Test from: wix\examples\test\assembly\module.wxs" Manufacturer="Microsoft Corporation" InstallerVersion="200" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="TestAssemblyModuleDirectory" Name=".">
+                <Component Id="TestAssemblyModuleComponent" Guid="00030829-0000-0000-C000-000000000046">
+                    <File Id="TestAssemblyModuleFile" Name="assembly.dll" Assembly=".net" KeyPath="yes" Source="$(env.WIX)\examples\data\assembly.dll">
+                        <Shortcut Id="TestShortcutProductShortcut1" Directory="ProgramMenuFolder" ShortName="testcut1" Name="Test Shortcut1" Description="Shortcut to assembly.txt" Advertise="yes" DescriptionResourceDll="[#TestAssemblyModuleFile]" DescriptionResourceId="1" DisplayResourceDll="[#TestAssemblyModuleFile]" DisplayResourceId="0" />
+                        <Shortcut Id="TestShortcutProductShortcut2" Directory="ProgramMenuFolder" ShortName="testcut2" Name="Test Shortcut2" Description="Shortcut to assembly.txt" Advertise="yes" DescriptionResourceDll="[#TestAssemblyModuleFile]" DescriptionResourceId="32766" DisplayResourceDll="[#TestAssemblyModuleFile]" DisplayResourceId="32767" />
+                    </File>
+                </Component>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="ProgMenu" />
+        </Directory>
+    </Module>
+</Wix>

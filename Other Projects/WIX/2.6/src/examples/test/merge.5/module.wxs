@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Module Id="TestModule" Guid="6AEA9E8C-8AE9-4441-83EA-1F4E7AFEFEC7" Language="1033" Codepage="1252" Version="1.0.0.0">
+    <Package Id="????????-????-????-????-????????????" Description="test" Comments="test" Manufacturer="test" InstallerVersion="110" Compressed="yes" />
+
+    <Property Id="TEST1" Secure="yes">
+      <DirectorySearch Id="test1_path" Path="C:\Program Files\test1\" Depth="0" />
+    </Property>
+    <Property Id="TEST2" Secure="yes">
+      <DirectorySearch Id="test2_path" Path="C:\Program Files\test2\" Depth="0" />
+    </Property>
+    <Property Id="TEST3" Secure="yes">
+      <DirectorySearch Id="test3_path" Path="C:\Program Files\test3\" Depth="0" />
+    </Property>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="INSTALLDIR">
+        <Directory Id="test" Name="data">
+          <Component Id="data" Guid="ECE818D4-EAE5-4A9F-9355-8F734C16CE94" Permanent="yes" NeverOverwrite="yes" KeyPath="yes">
+            <Condition><![CDATA[(TEST1 = "")			AND			(TEST2 = "")			AND			(TEST3 = "")			 ]]></Condition>
+            <File Id="test.txt" Name="test.txt" Source="$(env.WIX)\examples\data\test.txt" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Module>
+</Wix>

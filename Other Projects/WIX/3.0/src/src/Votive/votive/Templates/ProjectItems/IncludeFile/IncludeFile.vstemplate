@@ -1,0 +1,14 @@
+<VSTemplate Version="2.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>WiX Include File</Name>
+    <Description>An empty WiX include file (.wxi)</Description>
+    <Icon>IncludeFile.ico</Icon>
+    <ProjectType>WiX</ProjectType>
+    <SortOrder>30</SortOrder>
+    <DefaultName>Include</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem SubType="Code" ReplaceParameters="true" TargetFileName="$fileinputname$.wxi">IncludeFile.wxi</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

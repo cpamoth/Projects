@@ -1,0 +1,36 @@
+//--------------------------------------------------------------------------------------------------
+// <copyright file="Votive.rc" company="Microsoft">
+//    Copyright (c) Microsoft Corporation.  All rights reserved.
+// </copyright>
+// 
+// <summary>
+// Resource file for the votive.dll containing the icons for the file extensions.
+// </summary>
+//--------------------------------------------------------------------------------------------------
+
+#define VER_DLL
+#define VER_LANG_NEUTRAL
+#define VER_ORIGINAL_FILENAME  "votive.dll"
+#define VER_INTERNAL_NAME      "votive"
+#define VER_PRODUCT_NAME       "Windows Installer XML"
+#define VER_FILE_DESCRIPTION   "WiX Visual Studio Package"
+#include "wix.rc"
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+
+#define IDI_WIXPROJFILE                 4000
+#define IDI_WXSFILE                     4001
+#define IDI_WXIFILE                     4002
+#define IDI_WXLFILE                     4003
+#define IDI_WIXLIBFILE                  4004
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_WIXPROJFILE         ICON    "..\\Icons\\ProjectFile.ico"
+IDI_WXSFILE             ICON    "..\\Icons\\ProductFile.ico"
+IDI_WXIFILE             ICON    "..\\Icons\\IncludeFile.ico"
+IDI_WXLFILE             ICON    "..\\Icons\\LanguageFile.ico"
+IDI_WIXLIBFILE          ICON    "..\\Icons\\WixLibraryFile.ico"

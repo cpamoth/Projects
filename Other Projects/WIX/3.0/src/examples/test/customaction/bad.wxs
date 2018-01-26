@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="TestCustomActionProduct" Language="1033" Version="0.0.0.0" Manufacturer="Microsoft Corporation" UpgradeCode="{FA17127A-7C1D-4C9F-B395-B9CCA155DE9E}">
+        <Package Description="Invalid - Test CustomAction in a Product" Comments="Test from: wix\examples\test\CustomAction.Invalid\product.wxs" InstallerVersion="200" Compressed="yes" />
+
+        <Media Id="1" Cabinet="product.cab" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Component Id="TestCustomActionComponent" DiskId="1" Guid="">
+                <File Id="JScriptCodeFile" Name="test.js" Source="$(env.WIX)\examples\data\test.txt" KeyPath="yes" />
+            </Component>
+        </Directory>
+
+        <Feature Id="TestCustomActionFeature" Level="1">
+            <ComponentRef Id="TestCustomActionComponent" />
+        </Feature>
+    </Product>
+
+    <Fragment>
+        <CustomAction Id="TestAsyncNoWaitWithNonExeSource1" Return="asyncNoWait" Script="jscript">jscript code here</CustomAction>
+        <CustomAction Id="TestAsyncNoWaitWithNonExeSource2" Return="asyncNoWait" Directory="TARGETDIR" ExeCommand="some command" />
+        <CustomAction Id="TestTSAware1" Execute="deferred" TerminalServerAware="yes" Directory="TARGETDIR" ExeCommand="some command" />
+        <CustomAction Id="TestTSAware2" Execute="commit" TerminalServerAware="yes" Directory="TARGETDIR" ExeCommand="some command" />
+        <CustomAction Id="TestTSAware3" Execute="firstSequence" TerminalServerAware="yes" Directory="TARGETDIR" ExeCommand="some command" />
+    </Fragment>
+</Wix>

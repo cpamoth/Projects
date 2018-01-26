@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment Id="CustomSetup">
+    <UI>
+      <Dialog Id="CustomSetup" Width="374" Height="266" Title="[ProductName]" NoMinimize="yes" TrackDiskSpace="yes">
+        <Control Id="Tree" Type="SelectionTree" X="8" Y="70" Width="220" Height="118" Property="_BrowseProperty" Sunken="yes" TabSkip="no" />
+        <Control Id="ChangeFolder" Type="PushButton" X="301" Y="203" Width="66" Height="17" Text="&amp;Change...">
+          <Publish Event="SelectionBrowse" Value="InstallChangeFolder"><![CDATA[1]]></Publish>
+          <Condition Action="hide"><![CDATA[Installed]]></Condition>
+        </Control>
+        <Control Id="Help" Type="PushButton" X="22" Y="243" Width="66" Height="17" Text="&amp;Help">
+          <Publish Event="SpawnDialog" Value="CustomSetupTips"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Details" Type="PushButton" X="93" Y="243" Width="66" Height="17" Text="&amp;Space">
+          <Publish Event="SelectionBrowse" Value="DiskSpaceRequirements"><![CDATA[1]]></Publish>
+          <Condition Action="hide"><![CDATA[Installed]]></Condition>
+        </Control>
+        <Control Id="Back" Type="PushButton" X="164" Y="243" Width="66" Height="17" Text="&lt; &amp;Back">
+          <Publish Event="NewDialog" Value="DestinationFolder"><![CDATA[Installed]]></Publish>
+          <Publish Event="NewDialog" Value="SetupType"><![CDATA[NOT Installed]]></Publish>
+        </Control>
+        <Control Id="Next" Type="PushButton" X="230" Y="243" Width="66" Height="17" Default="yes" Text="&amp;Next &gt;">
+          <Publish Event="NewDialog" Value="ReadyToInstall"><![CDATA[OutOfNoRbDiskSpace <> 1]]></Publish>
+          <Publish Event="NewDialog" Value="OutOfSpace"><![CDATA[OutOfNoRbDiskSpace = 1]]></Publish>
+          <Publish Property="_IsSetupTypeMin" Value="Custom"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="301" Y="243" Width="66" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelSetup"><![CDATA[1]]></Publish>
+        </Control>
+        <Control Id="Size" Type="Text" X="241" Y="133" Width="120" Height="50" Text="Feature size">
+          <Subscribe Event="SelectionSize" Attribute="Text" />
+        </Control>
+        <Control Id="DlgDesc" Type="Text" X="17" Y="23" Width="292" Height="25" Transparent="yes">
+          <Text>Select the program features you want installed.</Text>
+        </Control>
+        <Control Id="DlgTitle" Type="Text" X="9" Y="6" Width="292" Height="25" Transparent="yes">
+          <Text>{&amp;MSSansBold8}Custom Setup</Text>
+        </Control>
+        <Control Id="DlgText" Type="Text" X="9" Y="51" Width="360" Height="10">
+          <Text>Click on an icon in the list below to change how a feature is installed.</Text>
+        </Control>
+        <Control Id="InstallLabel" Type="Text" X="8" Y="190" Width="360" Height="10" Text="Install to:">
+          <Condition Action="hide"><![CDATA[Installed]]></Condition>
+        </Control>
+        <Control Id="ItemDescription" Type="Text" X="241" Y="80" Width="120" Height="50">
+          <Text>Multiline description of the currently selected item</Text>
+          <Subscribe Event="SelectionDescription" Attribute="Text" />
+        </Control>
+        <Control Id="Location" Type="Text" X="8" Y="203" Width="291" Height="20">
+          <Text>&lt;selected feature path&gt;</Text>
+          <Subscribe Event="SelectionPath" Attribute="Text" />
+        </Control>
+        <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="374" Height="44" Text="NewBinary1" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="374" Height="0" />
+        <Control Id="DlgLine" Type="Line" X="48" Y="234" Width="326" Height="0" />
+        <Control Id="FeatureGroup" Type="GroupBox" X="235" Y="67" Width="131" Height="120" Text="Feature Description" />
+      </Dialog>
+    </UI>
+  </Fragment>
+</Wix>

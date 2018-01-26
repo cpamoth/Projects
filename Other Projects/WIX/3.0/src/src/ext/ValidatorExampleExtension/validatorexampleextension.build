@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="validatorexampleextension" default="validatorexampleextension.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    validatorexampleextension.build - Builds the validatorexampleextension project
+  </description>
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- extension directories -->
+  <property name="validatorexampleextension.wixext.dir.src" value="${dir.src.ext}\validatorexampleextension\wixext" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="validatorexampleextension.build" description="Peforms a full rebuild (clean then build)" depends="validatorexampleextension.clean, validatorexampleextension.inc" />
+
+  <!-- Clean -->
+  <target name="validatorexampleextension.clean" description="Cleans the build">
+    <delete dir="${dir.build.ext.validatorexampleextension}" failonerror="false" if="${directory::exists(dir.build.ext.validatorexampleextension)}" />
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="WixValidatorExampleExtension.dll" />
+        <include name="WixValidatorExampleExtension.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="validatorexampleextension.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+
+    <!-- Pull in the wix tools NAnt tasks -->
+    <loadtasks assembly="${file.nanttasks}" />
+
+    <!-- Compile the extension -->
+    <csc
+      target="library"
+      output="${dir.target.wix}\WixValidatorExampleExtension.dll"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${validatorexampleextension.wixext.dir.src}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="ValidatorXmlExtension.cs" />
+        <include name="ValidatorExampleExtension.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+      </references>
+    </csc>
+  </target>
+
+</project>

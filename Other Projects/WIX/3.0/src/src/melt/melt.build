@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="melt" default="melt.inc" xmlns="http://nant.sf.net/release/0.85-rc3/nant.xsd">
+  <description>
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    melt.build - Builds the melt project (melt.exe).
+  </description>
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Properties
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Include the global build properties -->
+  <include buildfile="..\..\wix.include" unless="${property::exists('wix.properties.defined')}" />
+
+  <!-- melt-specific properties -->
+  <property name="melt.file.res.target" value="${dir.build.melt}\melt.res" readonly="true" />
+
+  <!--
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // Targets
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+  <!-- Build -->
+  <target name="melt.build" description="Peforms a full rebuild (clean then build)" depends="melt.clean, melt.inc" />
+
+  <!-- Clean -->
+  <target name="melt.clean" description="Cleans the build">
+    <delete failonerror="false">
+      <fileset basedir="${dir.target.wix}">
+        <include name="melt.exe" />
+        <include name="melt.pdb" />
+      </fileset>
+    </delete>
+  </target>
+
+  <!-- Inc -->
+  <target name="melt.inc" description="Performs an incremental build" depends="makeDirs, createKeyFile">
+    <!-- Copy the melt.exe.config -->
+    <copy file="${dir.src.melt}\app.config" tofile="${dir.target.wix}\melt.exe.config" />
+
+    <!-- Compile the melt.rc file -->
+    <rc rcfile="${dir.src.melt}\melt.rc" langid="0" output="${melt.file.res.target}" options="${rc.standardOptions} ${cl.standardIncludes}" />
+
+    <csc
+      target="exe"
+      output="${dir.target.wix}\melt.exe"
+      debug="${csc.debug}"
+      optimize="${ship}"
+      define="${csc.defines}"
+      warnaserror="true"
+      warninglevel="4"
+      checked="true"
+    >
+      <sources basedir="${dir.src.melt}">
+        <include name="${file.wixver}" />
+        <include name="${file.wixkey}" />
+        <include name="AssemblyInfo.cs" />
+        <include name="melt.cs" />
+      </sources>
+      <references basedir="${dir.target.wix}">
+        <include name="wix.dll" />
+        <include name="wconsole.dll" />
+      </references>
+      <arg value="-win32res:&quot;${melt.file.res.target}&quot;" />
+    </csc>
+  </target>
+
+</project>

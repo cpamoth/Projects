@@ -1,0 +1,14 @@
+<VSTemplate Version="2.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>WiX Localization File</Name>
+    <Description>An empty WiX localization file (.wxl)</Description>
+    <Icon>LocalizationFile.ico</Icon>
+    <ProjectType>WiX</ProjectType>
+    <SortOrder>40</SortOrder>
+    <DefaultName>Strings</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem SubType="Code" ReplaceParameters="true" TargetFileName="$fileinputname$.wxl">LocalizationFile.wxl</ProjectItem>
+  </TemplateContent>
+</VSTemplate>
