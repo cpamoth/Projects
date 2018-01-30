@@ -1,0 +1,12 @@
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Release\netcoreapp1.0\ComputerServicing.dll.config
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Release\netcoreapp1.0\ComputerServicing.deps.json
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Release\netcoreapp1.0\ComputerServicing.runtimeconfig.json
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Release\netcoreapp1.0\ComputerServicing.runtimeconfig.dev.json
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Release\netcoreapp1.0\ComputerServicing.dll
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Release\netcoreapp1.0\ComputerServicing.pdb
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Release\netcoreapp1.0\ComputerServicing.dll.config
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Release\netcoreapp1.0\ComputerServicing.csproj.CoreCompileInputs.cache
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Release\netcoreapp1.0\ComputerServicing.AssemblyInfoInputs.cache
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Release\netcoreapp1.0\ComputerServicing.AssemblyInfo.cs
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Release\netcoreapp1.0\ComputerServicing.dll
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Release\netcoreapp1.0\ComputerServicing.pdb
