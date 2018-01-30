@@ -18,7 +18,7 @@ INSERT INTO [Users] (Url) VALUES
 GO
 
 CREATE TABLE [Services] (
-    [ServiceId] NVARCHAR NOT NULL IDENTITY,
+    [ServiceId] int NOT NULL IDENTITY,
     [URL] NVARCHAR(max) NOT NULL,
     CONSTRAINT [PK_Services] PRIMARY KEY ([ServiceId])
 )
