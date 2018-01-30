@@ -7,3 +7,12 @@ C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj
 C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.AssemblyInfo.cs
 C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.dll
 C:\GitHub\camoth\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.pdb
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.deps.json
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.runtimeconfig.json
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.runtimeconfig.dev.json
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.dll
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\bin\Debug\netcoreapp1.0\ComputerServicing.pdb
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.csprojResolveAssemblyReference.cache
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.AssemblyInfo.cs
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.dll
+C:\github.com\Projects\DotNetCore\ComputerServicing\src\ComputerServicing\obj\Debug\netcoreapp1.0\ComputerServicing.pdb

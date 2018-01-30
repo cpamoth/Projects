@@ -9818,10 +9818,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub\\camoth\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\ComputerServicing.csproj",
+      "projectUniqueName": "C:\\github.com\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\ComputerServicing.csproj",
       "projectName": "ComputerServicing",
-      "projectPath": "C:\\GitHub\\camoth\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\ComputerServicing.csproj",
-      "outputPath": "C:\\GitHub\\camoth\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\obj\\",
+      "projectPath": "C:\\github.com\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\ComputerServicing.csproj",
+      "outputPath": "C:\\github.com\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.0"
