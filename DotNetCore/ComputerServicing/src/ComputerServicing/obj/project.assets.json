@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
       "Libuv/1.9.1": {
@@ -9821,100 +9821,84 @@
       "projectUniqueName": "C:\\github.com\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\ComputerServicing.csproj",
       "projectName": "ComputerServicing",
       "projectPath": "C:\\github.com\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\ComputerServicing.csproj",
-      "packagesPath": "C:\\Users\\camoth\\.nuget\\packages\\",
       "outputPath": "C:\\github.com\\Projects\\DotNetCore\\ComputerServicing\\src\\ComputerServicing\\obj\\",
       "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\camoth\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-      ],
       "originalTargetFrameworks": [
         "netcoreapp1.0"
       ],
-      "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
-        "C:\\Users\\camoth\\.dotnet\\NuGetFallbackFolder": {},
-        "https://api.nuget.org/v3/index.json": {}
-      },
       "frameworks": {
         "netcoreapp1.0": {
           "projectReferences": {}
         }
-      },
-      "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
       }
     },
     "frameworks": {
       "netcoreapp1.0": {
         "dependencies": {
-          "Microsoft.ApplicationInsights.AspNetCore": {
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": {
             "target": "Package",
-            "version": "[1.0.0, )"
-          },
-          "Microsoft.AspNetCore.Diagnostics": {
-            "target": "Package",
-            "version": "[1.0.2, )"
+            "version": "1.0.2"
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[1.0.2, )"
-          },
-          "Microsoft.AspNetCore.Mvc": {
-            "target": "Package",
-            "version": "[1.0.3, )"
-          },
-          "Microsoft.AspNetCore.Routing": {
-            "target": "Package",
-            "version": "[1.0.3, )"
-          },
-          "Microsoft.AspNetCore.Server.IISIntegration": {
-            "target": "Package",
-            "version": "[1.0.2, )"
-          },
-          "Microsoft.AspNetCore.Server.Kestrel": {
-            "target": "Package",
-            "version": "[1.0.3, )"
-          },
-          "Microsoft.AspNetCore.StaticFiles": {
-            "target": "Package",
-            "version": "[1.0.2, )"
-          },
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": {
-            "target": "Package",
-            "version": "[1.0.2, )"
+            "version": "1.0.2"
           },
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
-            "version": "[1.0.2, )"
-          },
-          "Microsoft.Extensions.Logging": {
-            "target": "Package",
-            "version": "[1.0.2, )"
-          },
-          "Microsoft.Extensions.Logging.Console": {
-            "target": "Package",
-            "version": "[1.0.2, )"
+            "version": "1.0.2"
           },
           "Microsoft.Extensions.Logging.Debug": {
             "target": "Package",
-            "version": "[1.0.2, )"
+            "version": "1.0.2"
           },
-          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+          "Microsoft.AspNetCore.Server.Kestrel": {
             "target": "Package",
-            "version": "[1.0.2, )"
+            "version": "1.0.3"
+          },
+          "Microsoft.AspNetCore.Diagnostics": {
+            "target": "Package",
+            "version": "1.0.2"
+          },
+          "Microsoft.AspNetCore.Server.IISIntegration": {
+            "target": "Package",
+            "version": "1.0.2"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "[1.0.4, )",
+            "version": "1.0.4",
             "autoReferenced": true
           },
           "Microsoft.VisualStudio.Web.BrowserLink": {
             "target": "Package",
-            "version": "[1.0.1, )"
+            "version": "1.0.1"
+          },
+          "Microsoft.Extensions.Options.ConfigurationExtensions": {
+            "target": "Package",
+            "version": "1.0.2"
+          },
+          "Microsoft.Extensions.Logging.Console": {
+            "target": "Package",
+            "version": "1.0.2"
+          },
+          "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "1.0.3"
+          },
+          "Microsoft.ApplicationInsights.AspNetCore": {
+            "target": "Package",
+            "version": "1.0.0"
+          },
+          "Microsoft.Extensions.Logging": {
+            "target": "Package",
+            "version": "1.0.2"
+          },
+          "Microsoft.AspNetCore.StaticFiles": {
+            "target": "Package",
+            "version": "1.0.2"
+          },
+          "Microsoft.AspNetCore.Routing": {
+            "target": "Package",
+            "version": "1.0.3"
           }
         },
         "imports": [

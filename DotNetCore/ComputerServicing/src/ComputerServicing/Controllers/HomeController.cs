@@ -8,56 +8,80 @@ namespace ComputerServicing.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index
         {
-            return View();
+            get
+            {
+                return View();
+            }
         }
 
-        public IActionResult About()
+        public IActionResult About
         {
-            ViewData["Message"] = "Your application description page.";
+            get
+            {
+                ViewData["Message"] = "Your application description page.";
 
-            return View();
+                return View();
+            }
         }
 
-        public IActionResult Contact()
+        public IActionResult Contact
         {
-            ViewData["Message"] = "Your contact page.";
+            get
+            {
+                ViewData["Message"] = "Your contact page.";
 
-            return View();
+                return View();
+            }
         }
 
-        public IActionResult Error()
+        public IActionResult Error
         {
-            return View();
+            get
+            {
+                return View();
+            }
         }
 
-        public IActionResult ShoppingCart()
+        public IActionResult ShoppingCart
         {
-            ViewData["Message"] = "Shopping Cart";
+            get
+            {
+                ViewData["Message"] = "Shopping Cart";
 
-            return View();
+                return View();
+            }
         }
 
-        public IActionResult Support()
+        public IActionResult Support
         {
-            ViewData["Message"] = "Support";
+            get
+            {
+                ViewData["Message"] = "Support";
 
-            return View();
+                return View();
+            }
         }
 
-        public IActionResult Login()
+        public IActionResult Login
         {
-            ViewData["Message"] = "Login";
+            get
+            {
+                ViewData["Message"] = "Login";
 
-            return View();
+                return View();
+            }
         }
 
-        public IActionResult CostofServices()
+        public IActionResult CostofServices
         {
-            ViewData["Message"] = "Message";
+            get
+            {
+                ViewData["Message"] = "Message";
 
-            return View();
+                return View();
+            }
         }
     }
 }

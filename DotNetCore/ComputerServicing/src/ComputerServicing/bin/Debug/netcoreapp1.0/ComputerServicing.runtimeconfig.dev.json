@@ -1,7 +1,6 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\camoth\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\camoth\\.nuget\\packages"
     ]
   }

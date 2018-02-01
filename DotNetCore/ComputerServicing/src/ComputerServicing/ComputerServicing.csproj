@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <None Update="wwwroot\**\*">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>      
     </None>
   </ItemGroup>
 
