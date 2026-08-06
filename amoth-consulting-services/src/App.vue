@@ -1,14 +1,14 @@
 <script setup>
-import NavBar from './components/NavBar.vue'
-import { useRoute } from 'vue-router'
+import NavBar from './shared/components/NavBar.vue'
+import { useTheme } from './shared/composables/useTheme.js'
 
-const route = useRoute()
+const { theme, toggleTheme } = useTheme()
 </script>
 
 <template>
   <a href="#main-content" class="skip-to-main">Skip to main content</a>
   <header>
-    <NavBar />
+    <NavBar :theme="theme" @toggle-theme="toggleTheme" />
   </header>
 
   <main id="main-content">

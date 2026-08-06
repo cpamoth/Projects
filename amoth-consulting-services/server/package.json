@@ -1,0 +1,24 @@
+{
+  "name": "amoth-consulting-services-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "init-db": "node src/database/init.js"
+  },
+  "dependencies": {
+    "fastify": "^4.25.2",
+    "fastify-cors": "^8.4.2",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.1.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {}
+}

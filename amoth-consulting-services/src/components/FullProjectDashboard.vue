@@ -18,14 +18,14 @@
 </template>
 
 <script setup>
-import ActiveProjects from './ActiveProjects.vue'
-import PendingTasks from './PendingTasks.vue'
-import ScheduledMeetings from './ScheduledMeetings.vue'
-import CompletionRate from './CompletionRate.vue'
+import ActiveProjects from '../features/dashboard/components/ActiveProjects.vue'
+import PendingTasks from '../features/dashboard/components/PendingTasks.vue'
+import ScheduledMeetings from '../features/dashboard/components/ScheduledMeetings.vue'
+import CompletionRate from '../features/dashboard/components/CompletionRate.vue'
 </script>
 
 <style scoped>
-.full-dashboard { max-width: 1200px; margin: 2rem auto 3rem; }
+.full-dashboard { width: 100%; margin: 0 0 .5rem; padding: .5rem; }
 .full-dashboard-header { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
 .full-dashboard-header h1 { margin: 0; }
 .full-dashboard-header p { margin: 0; color: #575757; }

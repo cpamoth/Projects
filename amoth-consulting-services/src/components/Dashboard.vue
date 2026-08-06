@@ -3,7 +3,7 @@
     <div class="dashboard">
       <div class="dashboard-header">
         <div>
-          <h1 class="green">Welcome back, {{ username }}!</h1>
+          <h1 class="green">Welcome back, {{ displayName }}!</h1>
           <p class="subtitle">Here's what's happening with your account</p>
         </div>
         <button @click="logout" class="logout-btn">Sign Out</button>
@@ -53,37 +53,44 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import ActiveProjects from './ActiveProjects.vue'
-import PendingTasks from './PendingTasks.vue'
-import ScheduledMeetings from './ScheduledMeetings.vue'
-import CompletionRate from './CompletionRate.vue'
+import ActiveProjects from '../features/dashboard/components/ActiveProjects.vue'
+import PendingTasks from '../features/dashboard/components/PendingTasks.vue'
+import ScheduledMeetings from '../features/dashboard/components/ScheduledMeetings.vue'
+import CompletionRate from '../features/dashboard/components/CompletionRate.vue'
 
 const router = useRouter()
-const username = ref('')
+const displayName = ref('')
 
-onMounted(() => {
+function loadDisplayName() {
   const token = localStorage.getItem('token')
-  if (token) {
-    const decodedToken = atob(token)
-    const [user] = decodedToken.split(':')
-    
-    // Try to get full name from user profile
-    const userProfile = localStorage.getItem('userProfile')
-    if (userProfile) {
-      try {
-        const profile = JSON.parse(userProfile)
-        if (profile.fullName && profile.fullName.trim()) {
-          username.value = profile.fullName
-        } else {
-          username.value = user
-        }
-      } catch (e) {
-        username.value = user
+  if (!token) {
+    displayName.value = ''
+    return
+  }
+
+  const decodedToken = atob(token)
+  const [user] = decodedToken.split(':')
+  const userProfile = localStorage.getItem('userProfile')
+
+  if (userProfile) {
+    try {
+      const profile = JSON.parse(userProfile)
+      if (profile.fullName && profile.fullName.trim()) {
+        displayName.value = profile.fullName
+        return
       }
-    } else {
-      username.value = user
+    } catch (e) {
+      // ignore and fall back to username
     }
   }
+
+  displayName.value = user
+}
+
+onMounted(() => {
+  loadDisplayName()
+  window.addEventListener('authStateChanged', loadDisplayName)
+  window.addEventListener('storage', loadDisplayName)
 })
 
 function logout() {
@@ -94,9 +101,9 @@ function logout() {
 
 <style scoped>
 .dashboard { 
-  max-width: 1200px; 
-  margin: 2rem auto; 
-  padding: 1rem 
+  width: 100%; 
+  margin: 0; 
+  padding: .5rem 
 }
 
 .dashboard-header {

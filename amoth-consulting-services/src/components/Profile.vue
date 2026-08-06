@@ -56,6 +56,8 @@
           <p v-if="passwordChanged" class="success" role="alert">Password changed successfully!</p>
         </form>
       </section>
+
+      <BillingOptions />
     </div>
   </PageWrapper>
 </template>
@@ -63,6 +65,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import BillingOptions from '../features/profile/components/BillingOptions.vue'
 
 const router = useRouter()
 const username = ref('')
@@ -101,7 +104,7 @@ onMounted(() => {
     try {
       const profile = JSON.parse(profileData)
       email.value = profile.email || ''
-      fullName.value = profile.fullName || ''
+      fullName.value = profile.fullName?.trim() || username.value
       bio.value = profile.bio || ''
     } catch (e) {
       console.error('Error loading profile data', e)
@@ -117,10 +120,11 @@ function updateProfile() {
     saving.value = false
     const profileData = {
       email: email.value,
-      fullName: fullName.value,
+      fullName: fullName.value?.trim() || username.value,
       bio: bio.value
     }
     localStorage.setItem('userProfile', JSON.stringify(profileData))
+    window.dispatchEvent(new Event('authStateChanged'))
     saved.value = true
     setTimeout(() => {
       saved.value = false
@@ -184,7 +188,7 @@ function changePassword() {
 </script>
 
 <style scoped>
-.profile { max-width: 900px; margin: 2rem auto; padding: 1rem }
+.profile { width: 100%; margin: 0; padding: .5rem }
 .profile h1 { margin-bottom: 1rem }
 
 .profile-section { margin-bottom: 3rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-background-soft) }

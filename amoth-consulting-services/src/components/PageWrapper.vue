@@ -1,13 +1,9 @@
 <template>
-  <div class="centered-page">
+  <PageWrapperView>
     <slot />
-  </div>
+  </PageWrapperView>
 </template>
 
 <script setup>
-// simple wrapper component for centered page layouts
+import PageWrapperView from '../shared/layouts/PageWrapper.vue'
 </script>
-
-<style scoped>
-/* nothing here; styling comes from global .centered-page utility */
-</style>
