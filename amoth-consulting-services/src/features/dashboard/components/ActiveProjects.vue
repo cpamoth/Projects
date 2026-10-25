@@ -11,7 +11,6 @@
         <thead>
           <tr>
             <th>Project</th>
-            <th>Client</th>
             <th>Status</th>
             <th>Due Date</th>
             <th>Progress</th>
@@ -20,14 +19,13 @@
         <tbody>
           <tr v-for="project in projects" :key="project.id">
             <td>{{ project.name }}</td>
-            <td>{{ project.client }}</td>
-            <td><span :class="`status-pill ${project.status.replace(/\s+/g, '-').toLowerCase()}`">{{ project.status }}</span></td>
-            <td>{{ project.dueDate }}</td>
+            <td><span :class="`status-pill ${statusClass(project.status)}`">{{ project.status || 'Unknown' }}</span></td>
+            <td>{{ formatDate(project.endDate) }}</td>
             <td>
-              <div class="progress-track" role="progressbar" :aria-valuenow="project.progress" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-fill" :style="{ width: `${project.progress}%` }"></div>
+              <div class="progress-track" role="progressbar" :aria-valuenow="progress(project)" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-fill" :style="{ width: `${progress(project)}%` }"></div>
               </div>
-              <small>{{ project.progress }}%</small>
+              <small>{{ progress(project) }}%</small>
             </td>
           </tr>
         </tbody>
@@ -41,22 +39,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const props = defineProps({
-  showHeader: { type: Boolean, default: true }
+defineProps({
+  showHeader: { type: Boolean, default: true },
+  projects: { type: Array, default: () => [] },
 })
 
 const router = useRouter()
-const defaultProjects = [
-  { id: 1, name: 'Platform migration', client: 'Acme Corp', status: 'In Progress', dueDate: '2026-06-30', progress: 60 },
-  { id: 2, name: 'Operational analytics', client: 'Globex', status: 'At Risk', dueDate: '2026-05-14', progress: 45 },
-  { id: 3, name: 'Security roadmap', client: 'Initech', status: 'On Track', dueDate: '2026-07-19', progress: 75 },
-  { id: 4, name: 'Digital transformation', client: 'Umbrella', status: 'On Hold', dueDate: '2026-09-01', progress: 30 }
-]
 
-const projects = ref(defaultProjects)
+function progress(project) {
+  const rate = Number(project.completionRate)
+  return Number.isFinite(rate) ? Math.min(100, Math.max(0, Math.round(rate))) : 0
+}
+
+function formatDate(date) {
+  if (!date) return 'Not set'
+  const value = new Date(date)
+  return Number.isNaN(value.getTime()) ? 'Not set' : value.toLocaleDateString()
+}
+
+function statusClass(status) {
+  return String(status || 'unknown').replace(/\s+/g, '-').toLowerCase()
+}
 
 const openAll = () => {
   router.push('/projects')

@@ -1,5 +1,5 @@
 <template>
-  <section class="pending-tasks">
+  <section id="pending-tasks" class="pending-tasks">
     <h2>Pending Tasks</h2>
 
     <div v-if="tasks.length === 0" class="empty">No pending tasks currently. Great job!</div>
@@ -8,11 +8,18 @@
       <li v-for="task in tasks" :key="task.id" class="task-item">
         <div>
           <strong>{{ task.title }}</strong>
-          <p class="task-meta">{{ task.project }} • Due {{ task.dueDate }}</p>
+          <p class="task-meta">{{ projectName(task) }} • Due {{ formatDate(task.dueDate) }}</p>
         </div>
         <div class="task-actions">
-          <span class="priority" :class="task.priority.toLowerCase()">{{ task.priority }}</span>
-          <button @click="markDone(task.id)" class="btn-done">Mark done</button>
+          <span class="task-status">{{ task.status || 'Pending' }}</span>
+          <button
+            type="button"
+            :disabled="updatingTaskId !== null"
+            @click="$emit('mark-done', task.id)"
+            class="btn-done"
+          >
+            {{ updatingTaskId === task.id ? 'Saving…' : 'Mark done' }}
+          </button>
         </div>
       </li>
     </ul>
@@ -20,17 +27,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+const props = defineProps({
+  tasks: { type: Array, default: () => [] },
+  projects: { type: Array, default: () => [] },
+  updatingTaskId: { type: [Number, String], default: null },
+})
 
-const tasks = ref([
-  { id: 101, title: 'Finalize user stories', project: 'Platform migration', dueDate: '2026-04-07', priority: 'High' },
-  { id: 102, title: 'Deploy staging environment', project: 'Digital transformation', dueDate: '2026-04-12', priority: 'Medium' },
-  { id: 103, title: 'Security policy review', project: 'Security roadmap', dueDate: '2026-04-14', priority: 'High' },
-  { id: 104, title: 'Stakeholder feedback session', project: 'Operational analytics', dueDate: '2026-04-18', priority: 'Low' }
-])
+defineEmits(['mark-done'])
 
-function markDone(taskId) {
-  tasks.value = tasks.value.filter(task => task.id !== taskId)
+function projectName(task) {
+  const project = props.projects.find((entry) => String(entry.id) === String(task.projectId))
+  return project?.name || 'Unassigned project'
+}
+
+function formatDate(date) {
+  if (!date) return 'No date set'
+  const value = new Date(date)
+  return Number.isNaN(value.getTime()) ? 'No date set' : value.toLocaleDateString()
 }
 </script>
 
@@ -89,18 +102,15 @@ function markDone(taskId) {
   gap: 0.6rem;
 }
 
-.priority {
+.task-status {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  border: 1px solid transparent;
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.priority.low { background: #e6f4ff; color: #1d4ed8; border-color: #bae0ff; }
-.priority.medium { background: #fff7e6; color: #b57b00; border-color: #ffe2a8; }
-.priority.high { background: #ffe8e8; color: #b02a1d; border-color: #feb6b6; }
+.task-status { background: #fff7e6; color: #8a5a00; }
 
 .btn-done {
   border: none;
@@ -114,5 +124,10 @@ function markDone(taskId) {
 
 .btn-done:hover {
   background: #1e4f7f;
+}
+
+.btn-done:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 </style>

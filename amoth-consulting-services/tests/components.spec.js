@@ -49,7 +49,7 @@ describe('Vue component smoke tests', () => {
 
   it('renders ActiveProjects.vue', async () => {
     render(ActiveProjects, { global: { stubs: globalStubs }, props: { showHeader: true } })
-    expect(await screen.findByText(/Active Projects/i)).toBeTruthy()
+    expect(await screen.findByRole('heading', { name: /Active Projects/i })).toBeTruthy()
   })
 
   it('renders BillingOptions.vue', async () => {

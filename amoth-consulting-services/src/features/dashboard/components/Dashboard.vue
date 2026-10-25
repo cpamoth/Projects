@@ -6,97 +6,112 @@
           <h1 class="green">Welcome back, {{ displayName }}!</h1>
           <p class="subtitle">Here's what's happening with your account</p>
         </div>
-        <button @click="logout" class="logout-btn">Sign Out</button>
+        <button class="btn-refresh" type="button" :disabled="isLoading" @click="refreshDashboard">
+          {{ isLoading ? 'Refreshing…' : 'Refresh dashboard' }}
+        </button>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">8</div>
-          <div class="stat-label">Active Projects</div>
-          <p class="stat-desc">Currently in progress</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">3</div>
-          <div class="stat-label">Scheduled Meetings</div>
-          <p class="stat-desc">This week</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">12</div>
-          <div class="stat-label">Pending Tasks</div>
-          <p class="stat-desc">Awaiting action</p>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">95%</div>
-          <div class="stat-label">Completion Rate</div>
-          <p class="stat-desc">Across all projects</p>
-        </div>
+      <p v-if="isLoading && !hasLoaded" class="dashboard-message" role="status">Loading your dashboard…</p>
+      <div v-if="errorMessage" class="dashboard-error" role="alert">
+        <span>{{ errorMessage }}</span>
+        <button v-if="!hasLoaded" type="button" @click="refreshDashboard">Try again</button>
       </div>
 
-      <CompletionRate />
-      <ActiveProjects />
-      <PendingTasks />
-      <ScheduledMeetings />
+      <template v-if="hasLoaded">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">{{ activeProjects.length }}</div>
+            <div class="stat-label">Active Projects</div>
+            <p class="stat-desc">Currently active or in progress</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ upcomingMeetings.length }}</div>
+            <div class="stat-label">Upcoming Meetings</div>
+            <p class="stat-desc">Scheduled for the future</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ pendingTasks.length }}</div>
+            <div class="stat-label">Pending Tasks</div>
+            <p class="stat-desc">Awaiting completion</p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{ completionRate }}%</div>
+            <div class="stat-label">Completion Rate</div>
+            <p class="stat-desc">Completed tasks across all projects</p>
+          </div>
+        </div>
 
-      <section class="recent-activity">
-        <h2 class="green">Quick Next Steps</h2>
-        <ul class="action-list">
-          <li><a href="#" class="action-link">View Active Projects</a></li>
-          <li><a href="#" class="action-link">Schedule a Meeting</a></li>
-          <li><a href="#" class="action-link">Review Pending Tasks</a></li>
-          <li><a href="/profile" class="action-link">Update Your Profile</a></li>
-        </ul>
-      </section>
+        <CompletionRate :rate="completionRate" :completed-count="tasks.length - pendingTasks.length" :task-count="tasks.length" />
+        <ActiveProjects :projects="activeProjects" />
+        <PendingTasks
+          :tasks="pendingTasks"
+          :projects="projects"
+          :updating-task-id="updatingTaskId"
+          @mark-done="markTaskComplete"
+        />
+        <ScheduledMeetings :meetings="upcomingMeetings" />
+
+        <section class="recent-activity">
+          <h2 class="green">Quick Next Steps</h2>
+          <ul class="action-list">
+            <li><RouterLink to="/projects" class="action-link">View Active Projects</RouterLink></li>
+            <li><a href="#pending-tasks" class="action-link">Review Pending Tasks</a></li>
+            <li><a href="#scheduled-meetings" class="action-link">View Upcoming Meetings</a></li>
+            <li><RouterLink to="/profile" class="action-link">Update Your Profile</RouterLink></li>
+          </ul>
+        </section>
+      </template>
     </div>
   </PageWrapper>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, onUnmounted } from 'vue'
 import ActiveProjects from './ActiveProjects.vue'
 import PendingTasks from './PendingTasks.vue'
 import ScheduledMeetings from './ScheduledMeetings.vue'
 import CompletionRate from './CompletionRate.vue'
+import { getAuthUser } from '../../../services/authApi.js'
+import { useDashboardData } from '../composables/useDashboardData.js'
 
-const router = useRouter()
 const displayName = ref('')
+const {
+  activeProjects,
+  completionRate,
+  errorMessage,
+  hasLoaded,
+  isLoading,
+  pendingTasks,
+  projects,
+  refreshDashboard,
+  markTaskComplete,
+  upcomingMeetings,
+  tasks,
+  updatingTaskId,
+} = useDashboardData()
 
 function loadDisplayName() {
-  const token = localStorage.getItem('token')
-  if (!token) {
+  const user = getAuthUser()
+  if (!user) {
     displayName.value = ''
     return
   }
 
-  const decodedToken = atob(token)
-  const [user] = decodedToken.split(':')
-  const userProfile = localStorage.getItem('userProfile')
-
-  if (userProfile) {
-    try {
-      const profile = JSON.parse(userProfile)
-      if (profile.fullName && profile.fullName.trim()) {
-        displayName.value = profile.fullName
-        return
-      }
-    } catch (e) {
-      // ignore and fall back to username
-    }
-  }
-
-  displayName.value = user
+  displayName.value = user.fullName || user.username
 }
 
 onMounted(() => {
   loadDisplayName()
   window.addEventListener('authStateChanged', loadDisplayName)
   window.addEventListener('storage', loadDisplayName)
+  refreshDashboard()
 })
 
-function logout() {
-  localStorage.removeItem('token')
-  router.push('/login')
-}
+onUnmounted(() => {
+  window.removeEventListener('authStateChanged', loadDisplayName)
+  window.removeEventListener('storage', loadDisplayName)
+})
+
 </script>
 
 <style scoped>
@@ -118,31 +133,44 @@ function logout() {
   margin: 0 0 0.5rem 0;
 }
 
+.btn-refresh,
+.dashboard-error button {
+  border: 0;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  background: #2b6cb0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-refresh:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.dashboard-message,
+.dashboard-error {
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.dashboard-message {
+  background: var(--color-background-soft);
+}
+
+.dashboard-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff3f0;
+  color: #8d2118;
+}
+
 .subtitle {
   color: #666;
   font-size: 1rem;
   margin: 0;
-}
-
-.logout-btn { 
-  padding: 0.75rem 1.5rem; 
-  background: #2b6cb0; 
-  color: #fff; 
-  border: none; 
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-  white-space: nowrap;
-}
-
-.logout-btn:hover {
-  background: #1e4f7f;
-}
-
-.logout-btn:focus-visible {
-  outline: 3px solid #2b6cb0;
-  outline-offset: 2px;
 }
 
 .stats-grid {
@@ -238,10 +266,6 @@ function logout() {
 @media (max-width: 768px) {
   .dashboard-header {
     flex-direction: column;
-  }
-
-  .logout-btn {
-    align-self: flex-start;
   }
 
   .stats-grid {

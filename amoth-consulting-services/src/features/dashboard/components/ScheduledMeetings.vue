@@ -1,5 +1,5 @@
 <template>
-  <section class="scheduled-meetings">
+  <section id="scheduled-meetings" class="scheduled-meetings">
     <h2>Scheduled Meetings</h2>
 
     <div v-if="meetings.length === 0" class="empty">No upcoming meetings scheduled.</div>
@@ -8,9 +8,8 @@
       <li v-for="meeting in meetings" :key="meeting.id" class="meeting-item">
         <div>
           <strong>{{ meeting.title }}</strong>
-          <p class="meeting-meta">{{ meeting.date }} • {{ meeting.time }} • {{ meeting.project }}</p>
+          <p class="meeting-meta">{{ formatDate(meeting.scheduledDate) }}</p>
         </div>
-        <button @click="completeMeeting(meeting.id)" class="btn-complete">Mark complete</button>
       </li>
     </ul>
 
@@ -21,16 +20,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+defineProps({
+  meetings: { type: Array, default: () => [] },
+})
 
-const meetings = ref([
-  { id: 201, title: 'Sprint planning', project: 'Platform migration', date: '2026-04-05', time: '09:30 AM', project: 'Platform migration' },
-  { id: 202, title: 'Stakeholder demo', project: 'Digital transformation', date: '2026-04-09', time: '02:00 PM', project: 'Digital transformation' },
-  { id: 203, title: 'Risk workshop', project: 'Security roadmap', date: '2026-04-11', time: '11:00 AM', project: 'Security roadmap' }
-])
-
-function completeMeeting(meetingId) {
-  meetings.value = meetings.value.filter(m => m.id !== meetingId)
+function formatDate(date) {
+  const value = new Date(date)
+  return Number.isNaN(value.getTime()) ? 'Date unavailable' : value.toLocaleString()
 }
 </script>
 
@@ -81,20 +77,6 @@ function completeMeeting(meetingId) {
   margin: 0.2rem 0 0;
   color: #666;
   font-size: 0.9rem;
-}
-
-.btn-complete {
-  border: none;
-  background: #2b6cb0;
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.btn-complete:hover {
-  background: #1e4f7f;
 }
 
 .meeting-summary {
