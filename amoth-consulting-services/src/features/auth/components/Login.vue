@@ -1,12 +1,18 @@
 <template>
   <PageWrapper>
-    <div class="login">
+    <ResetPassword v-if="resetMode" :token="resetToken" @close="resetMode = false" />
+    <div v-else class="login">
       <form @submit.prevent="onSubmit" class="login-form" novalidate>
       <h2 class="green">Account Login</h2>
 
       <div class="field">
         <label for="username"><span class="label-text">Username <span class="required">*</span></span></label>
         <input id="username" v-model="username" type="text" required />
+      </div>
+
+      <div v-if="mfaRequired" class="field">
+        <label for="mfaToken"><span class="label-text">Authenticator code <span class="required">*</span></span></label>
+        <input id="mfaToken" v-model="mfaToken" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required />
       </div>
 
       <div class="field">
@@ -17,6 +23,7 @@
 
       <button :disabled="!formValid || loading" type="submit" @click="onSubmit">{{ loading ? 'Signing in...' : 'Sign In' }}</button>
       <p v-if="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
+      <button type="button" class="reset-link" @click="resetMode = true">Forgot password?</button>
       </form>
     </div>
   </PageWrapper>
@@ -24,34 +31,43 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { login, setAuthUser } from '../../../services/authApi.js'
+import ResetPassword from './ResetPassword.vue'
 
 const emit = defineEmits(['login'])
 const router = useRouter()
+const route = useRoute()
+const resetToken = typeof route.query?.resetToken === 'string' ? route.query.resetToken : ''
+const resetMode = ref(Boolean(resetToken))
 
 const username = ref('')
 const password = ref('')
 const loading = ref(false)
 const passwordTouched = ref(false)
+const mfaToken = ref('')
+const mfaRequired = ref(false)
 const errorMessage = ref('')
 
 const formValid = computed(() => username.value && password.value.length >= 6)
 
-function onSubmit() {
-  console.log('Login: onSubmit called', { username: username.value, passwordLength: password.value.length })
+async function onSubmit() {
   passwordTouched.value = true
   if (!formValid.value) return
   loading.value = true
-  // mock authentication: persist a token and navigate home
-  setTimeout(() => {
-    loading.value = false
-    const token = btoa(`${username.value}:${password.value}`)
-    localStorage.setItem('token', token)
-    emit('login', { username: username.value, password: password.value, token })
-    // Trigger storage event for other components
+  errorMessage.value = ''
+  try {
+    const result = await login(username.value.trim(), password.value, mfaToken.value)
+    setAuthUser(result.user)
+    emit('login', result.user)
     window.dispatchEvent(new Event('authStateChanged'))
     router.push('/dashboard')
-  }, 300)
+  } catch (error) {
+    mfaRequired.value = Boolean(error.mfaRequired)
+    errorMessage.value = error.message
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -65,6 +81,7 @@ input::placeholder { color: rgba(145,145,145,0.5); }
 button { padding: .6rem 1rem; border: none; background: var(--vt-c-indigo); color: #fff; border-radius: 4px; cursor: pointer }
 button:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(2,6,23,0.06); transition: all .18s ease }
 button[disabled] { opacity: .6; cursor: not-allowed }
+.reset-link { display: block; margin-top: .75rem; padding: 0; border: 0; background: none; color: var(--accent); text-decoration: underline; cursor: pointer; }
 .error { color: #e53e3e; font-size: .85rem; margin-top: .25rem }
 .required { color: #e53e3e; }
 .label-text { display: inline; }

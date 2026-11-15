@@ -21,8 +21,10 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
+Use Node.js 24.x, as specified by `.nvmrc` and the package manifests.
+
 ```sh
-npm install
+npm ci
 ```
 
 ### Compile and Hot-Reload for Development
@@ -35,4 +37,17 @@ npm run dev
 
 ```sh
 npm run build
+```
+
+## Backend content
+
+Service content is served by the Fastify API. Start the backend in `server/` and the frontend in separate terminals:
+
+```sh
+cd server
+npm run dev
+```
+
+```sh
+npm run dev
 ```

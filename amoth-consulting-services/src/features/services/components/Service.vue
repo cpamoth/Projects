@@ -26,7 +26,14 @@
 </template>
 
 <script setup>
-import { services } from '../../../data/services.js'
+import { onMounted, ref } from 'vue'
+import { getServices } from '../../../services/contentApi.js'
+
+const services = ref([])
+
+onMounted(async () => {
+  services.value = await getServices()
+})
 </script>
 
 <style scoped>

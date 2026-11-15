@@ -6,7 +6,6 @@
           <h1 class="green">Welcome back, {{ displayName }}!</h1>
           <p class="subtitle">Here's what's happening with your account</p>
         </div>
-        <button @click="logout" class="logout-btn">Sign Out</button>
       </div>
 
       <div class="stats-grid">
@@ -52,39 +51,22 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import ActiveProjects from '../features/dashboard/components/ActiveProjects.vue'
 import PendingTasks from '../features/dashboard/components/PendingTasks.vue'
 import ScheduledMeetings from '../features/dashboard/components/ScheduledMeetings.vue'
 import CompletionRate from '../features/dashboard/components/CompletionRate.vue'
+import { getAuthUser } from '../services/authApi.js'
 
-const router = useRouter()
 const displayName = ref('')
 
 function loadDisplayName() {
-  const token = localStorage.getItem('token')
-  if (!token) {
+  const user = getAuthUser()
+  if (!user) {
     displayName.value = ''
     return
   }
 
-  const decodedToken = atob(token)
-  const [user] = decodedToken.split(':')
-  const userProfile = localStorage.getItem('userProfile')
-
-  if (userProfile) {
-    try {
-      const profile = JSON.parse(userProfile)
-      if (profile.fullName && profile.fullName.trim()) {
-        displayName.value = profile.fullName
-        return
-      }
-    } catch (e) {
-      // ignore and fall back to username
-    }
-  }
-
-  displayName.value = user
+  displayName.value = user.fullName || user.username
 }
 
 onMounted(() => {
@@ -93,10 +75,6 @@ onMounted(() => {
   window.addEventListener('storage', loadDisplayName)
 })
 
-function logout() {
-  localStorage.removeItem('token')
-  router.push('/login')
-}
 </script>
 
 <style scoped>
@@ -122,27 +100,6 @@ function logout() {
   color: #666;
   font-size: 1rem;
   margin: 0;
-}
-
-.logout-btn { 
-  padding: 0.75rem 1.5rem; 
-  background: #2b6cb0; 
-  color: #fff; 
-  border: none; 
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-  white-space: nowrap;
-}
-
-.logout-btn:hover {
-  background: #1e4f7f;
-}
-
-.logout-btn:focus-visible {
-  outline: 3px solid #2b6cb0;
-  outline-offset: 2px;
 }
 
 .stats-grid {
@@ -238,10 +195,6 @@ function logout() {
 @media (max-width: 768px) {
   .dashboard-header {
     flex-direction: column;
-  }
-
-  .logout-btn {
-    align-self: flex-start;
   }
 
   .stats-grid {

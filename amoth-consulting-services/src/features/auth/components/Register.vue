@@ -6,25 +6,31 @@
 
       <label for="fullname">
         <span class="label-text">Full Name <span class="required">*</span></span>
-        <input id="fullname" v-model="fullName" type="text" required />
+        <input id="fullname" v-model="fullName" type="text" maxlength="120" required />
       </label>
 
       <label for="username">
         <span class="label-text">Username <span class="required">*</span></span>
-        <input id="username" v-model="username" type="text" required />
+        <input id="username" v-model="username" type="text" minlength="3" maxlength="64" pattern="[A-Za-z0-9_.-]+" required />
+      </label>
+
+      <label for="email">
+        <span class="label-text">Email <span class="required">*</span></span>
+        <input id="email" v-model="email" type="email" maxlength="254" required />
       </label>
 
       <label for="password">
         <span class="label-text">Password <span class="required">*</span></span>
-        <input id="password" v-model="password" type="password" minlength="6" required />
+        <input id="password" v-model="password" type="password" minlength="12" maxlength="128" required />
+        <span class="field-hint">Use at least 12 characters.</span>
       </label>
 
       <label for="confirm">
         <span class="label-text">Confirm Password <span class="required">*</span></span>
-        <input id="confirm" v-model="confirm" type="password" minlength="6" required />
+        <input id="confirm" v-model="confirm" type="password" minlength="12" maxlength="128" required />
       </label>
 
-      <button :disabled="loading || !canSubmit" type="submit">{{ loading ? 'Creating…' : 'Register' }}</button>
+      <button :disabled="loading" type="submit">{{ loading ? 'Creating…' : 'Register' }}</button>
       <p v-if="error" class="error" role="alert">{{ error }}</p>
       </form>
     </div>
@@ -32,8 +38,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { register, setAuthUser } from '../../../services/authApi.js'
 
 const router = useRouter()
 const fullName = ref('')
@@ -44,9 +51,7 @@ const confirm = ref('')
 const loading = ref(false)
 const error = ref('')
 
-const canSubmit = computed(() => fullName.value.trim() && username.value.trim() && password.value.length >= 6)
-
-function onSubmit() {
+async function onSubmit() {
   error.value = ''
   if (password.value !== confirm.value) {
     error.value = 'Passwords do not match'
@@ -57,14 +62,16 @@ function onSubmit() {
   const trimmedUsername = username.value.trim()
 
   loading.value = true
-  setTimeout(() => {
-    loading.value = false
-    const token = btoa(`${trimmedUsername}:${password.value}`)
-    localStorage.setItem('token', token)
-    localStorage.setItem('userProfile', JSON.stringify({ fullName: trimmedFullName, username: trimmedUsername, email: email.value }))
+  try {
+    const result = await register({ username: trimmedUsername, email: email.value.trim(), password: password.value, fullName: trimmedFullName })
+    setAuthUser(result.user)
     window.dispatchEvent(new Event('authStateChanged'))
     router.push('/dashboard')
-  }, 600)
+  } catch (requestError) {
+    error.value = requestError.message
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -79,6 +86,7 @@ button { padding: .6rem 1rem; border: none; background: var(--vt-c-indigo); colo
 button:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(2,6,23,0.06); transition: all .18s ease }
 button[disabled] { opacity: .6; cursor: not-allowed }
 .error { color: #e53e3e; font-size: .85rem; margin-top: .25rem }
+.field-hint { font-size: .85rem; color: var(--color-text); opacity: .8; }
 .required { color: #e53e3e; }
 .label-text { display: block; margin-bottom: .5rem; }
 </style>

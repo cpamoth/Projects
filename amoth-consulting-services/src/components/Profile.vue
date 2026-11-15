@@ -42,8 +42,8 @@
 
           <div class="field">
             <label for="newPassword"><span class="label-text">New Password <span class="required">*</span></span></label>
-            <input id="newPassword" v-model="newPassword" type="password" minlength="6" required />
-            <p v-if="newPassword.length < 6" class="error">Password must be at least 6 characters</p>
+            <input id="newPassword" v-model="newPassword" type="password" minlength="12" required />
+            <p v-if="newPassword.length < 12" class="error">Password must be at least 12 characters</p>
           </div>
 
           <div class="field">
@@ -51,7 +51,7 @@
             <input id="confirmPassword" v-model="confirmPassword" type="password" minlength="6" required />
           </div>
 
-          <button type="submit" :disabled="savingPassword || newPassword.length < 6">{{ savingPassword ? 'Updating…' : 'Update Password' }}</button>
+          <button type="submit" :disabled="savingPassword || newPassword.length < 12">{{ savingPassword ? 'Updating…' : 'Update Password' }}</button>
           <p v-if="passwordError" class="error" role="alert">{{ passwordError }}</p>
           <p v-if="passwordChanged" class="success" role="alert">Password changed successfully!</p>
         </form>
@@ -66,6 +66,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import BillingOptions from '../features/profile/components/BillingOptions.vue'
+import { changePassword as changePasswordApi, getAuthUser } from '../services/authApi.js'
 
 const router = useRouter()
 const username = ref('')
@@ -83,23 +84,15 @@ const passwordChanged = ref(false)
 const passwordError = ref('')
 
 onMounted(() => {
-  // Get username from token
-  const token = localStorage.getItem('token')
-  if (!token) {
+  const user = getAuthUser()
+  if (!user) {
     router.push('/login')
     return
   }
-  
-  try {
-    const decoded = atob(token)
-    const parts = decoded.split(':')
-    username.value = parts[0]
-  } catch (e) {
-    router.push('/login')
-  }
+  username.value = user.username || ''
 
   // Load profile data from localStorage
-  const profileData = localStorage.getItem('userProfile')
+  const profileData = sessionStorage.getItem('profileDraft')
   if (profileData) {
     try {
       const profile = JSON.parse(profileData)
@@ -123,7 +116,7 @@ function updateProfile() {
       fullName: fullName.value?.trim() || username.value,
       bio: bio.value
     }
-    localStorage.setItem('userProfile', JSON.stringify(profileData))
+    sessionStorage.setItem('profileDraft', JSON.stringify(profileData))
     window.dispatchEvent(new Event('authStateChanged'))
     saved.value = true
     setTimeout(() => {
@@ -132,7 +125,7 @@ function updateProfile() {
   }, 600)
 }
 
-function changePassword() {
+async function changePassword() {
   passwordError.value = ''
   passwordChanged.value = false
 
@@ -143,47 +136,23 @@ function changePassword() {
   }
 
   // Validate password length
-  if (newPassword.value.length < 6) {
-    passwordError.value = 'Password must be at least 6 characters'
+  if (newPassword.value.length < 12) {
+    passwordError.value = 'Password must be at least 12 characters'
     return
   }
 
   savingPassword.value = true
-  
-  setTimeout(() => {
+  try {
+    await changePasswordApi({ currentPassword: currentPassword.value, newPassword: newPassword.value, confirmPassword: confirmPassword.value })
+    currentPassword.value = ''
+    newPassword.value = ''
+    confirmPassword.value = ''
+    passwordChanged.value = true
+  } catch (error) {
+    passwordError.value = error.message
+  } finally {
     savingPassword.value = false
-    
-    // Get current token to verify password
-    const token = localStorage.getItem('token')
-    try {
-      const decoded = atob(token)
-      const parts = decoded.split(':')
-      const storedPassword = parts[1]
-      
-      // Check if current password is correct
-      if (currentPassword.value !== storedPassword) {
-        passwordError.value = 'Current password is incorrect'
-        return
-      }
-      
-      // Update token with new password
-      const newToken = btoa(`${parts[0]}:${newPassword.value}`)
-      localStorage.setItem('token', newToken)
-      window.dispatchEvent(new Event('authStateChanged'))
-      
-      // Reset form
-      currentPassword.value = ''
-      newPassword.value = ''
-      confirmPassword.value = ''
-      passwordChanged.value = true
-      
-      setTimeout(() => {
-        passwordChanged.value = false
-      }, 3000)
-    } catch (e) {
-      passwordError.value = 'Error updating password'
-    }
-  }, 600)
+  }
 }
 </script>
 

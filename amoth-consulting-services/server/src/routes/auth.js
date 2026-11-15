@@ -1,8 +1,12 @@
+import { createHash, randomBytes } from 'node:crypto';
 import { getDb } from '../database/db.js';
 import { generateToken, comparePassword, hashPassword, verifyToken } from '../utils/auth.js';
 import { authMiddleware } from '../middleware/auth.js';
 import { createCsrfToken, csrfCookieName, csrfCookieOptions } from '../middleware/csrf.js';
 import { createMfaSecret, decryptSecret, encryptSecret, verifyMfaToken } from '../utils/mfa.js';
+import { assertEmailConfigured, sendPasswordResetEmail } from '../utils/email.js';
+
+const hashResetToken = (token) => createHash('sha256').update(token).digest('hex');
 
 const sessionCookieOptions = (request) => ({
   httpOnly: true,
@@ -161,6 +165,99 @@ export async function loginRoute(fastify, options) {
     } catch (error) {
       console.error('Login error:', error);
       return reply.status(500).send({ error: 'Login failed' });
+    }
+  });
+}
+
+export async function requestPasswordResetRoute(fastify) {
+  fastify.post('/password-reset/request', {
+    config: { rateLimit: { max: 3, timeWindow: '1 minute' } },
+    schema: {
+      body: {
+        type: 'object',
+        required: ['email'],
+        additionalProperties: false,
+        properties: { email: { type: 'string', format: 'email', maxLength: 254 } }
+      }
+    }
+  }, async (request, reply) => {
+    try {
+      assertEmailConfigured();
+      const { email } = request.body;
+      const user = await getDb().get('SELECT id, email FROM users WHERE LOWER(email) = LOWER(?)', [email]);
+      if (user) {
+        const token = randomBytes(32).toString('base64url');
+        const tokenHash = hashResetToken(token);
+        await getDb().run(
+          `INSERT INTO password_reset_tokens (user_id, token_hash, expires_at)
+           VALUES (?, ?, CURRENT_TIMESTAMP + INTERVAL '1 hour')
+           ON CONFLICT (user_id) DO UPDATE SET
+             token_hash = EXCLUDED.token_hash,
+             expires_at = EXCLUDED.expires_at,
+             created_at = CURRENT_TIMESTAMP`,
+          [user.id, tokenHash]
+        );
+
+        const resetUrl = new URL('/login', process.env.FRONTEND_URL || 'http://localhost:5173');
+        resetUrl.searchParams.set('resetToken', token);
+        try {
+          await sendPasswordResetEmail({ to: user.email, resetUrl: resetUrl.toString() });
+        } catch (error) {
+          fastify.log?.error(error);
+          await getDb().run('DELETE FROM password_reset_tokens WHERE user_id = ?', [user.id]);
+        }
+      }
+
+      return reply.send({ message: 'If an account exists for that email, a password reset link has been sent.' });
+    } catch (error) {
+      fastify.log?.error(error);
+      return reply.status(error.code === 'EMAIL_CONFIGURATION' ? 503 : 500).send({
+        error: error.code === 'EMAIL_CONFIGURATION'
+          ? 'Password reset is not configured. Please contact support.'
+          : 'Unable to request a password reset. Please try again later.'
+      });
+    }
+  });
+}
+
+export async function resetPasswordRoute(fastify) {
+  fastify.post('/password-reset/confirm', {
+    config: { rateLimit: { max: 5, timeWindow: '1 minute' } },
+    schema: {
+      body: {
+        type: 'object',
+        required: ['token', 'password'],
+        additionalProperties: false,
+        properties: {
+          token: { type: 'string', minLength: 40, maxLength: 64 },
+          password: { type: 'string', minLength: 12, maxLength: 128 }
+        }
+      }
+    }
+  }, async (request, reply) => {
+    try {
+      const hashedPassword = await hashPassword(request.body.password);
+      const result = await getDb().run(
+        `WITH valid_reset AS (
+           DELETE FROM password_reset_tokens
+           WHERE token_hash = ? AND expires_at > CURRENT_TIMESTAMP
+           RETURNING user_id
+         )
+         UPDATE users
+         SET password = ?, updatedAt = CURRENT_TIMESTAMP
+         WHERE id = (SELECT user_id FROM valid_reset)
+         RETURNING id`,
+        [hashResetToken(request.body.token), hashedPassword]
+      );
+
+      if (!result.lastID) {
+        return reply.status(400).send({ error: 'This password reset link is invalid or has expired.' });
+      }
+
+      return reply.send({ message: 'Password reset successfully. You can now sign in.' });
+    } catch (error) {
+      fastify.log?.error(error);
+      return reply.status(500).send({ error: 'Unable to reset password. Please try again later.' });
     }
   });
 }

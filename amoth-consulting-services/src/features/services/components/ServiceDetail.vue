@@ -38,21 +38,25 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { services } from '../../../data/services.js'
+import { getServiceById } from '../../../services/contentApi.js'
+import { services as fallbackServices } from '../../../data/services.js'
 
 const route = useRoute()
 const router = useRouter()
 const serviceId = computed(() => route.params.serviceId)
-const service = computed(() => {
-  const found = services.find((item) => item.id === serviceId.value)
-  return found || services[0]
-})
+const service = ref(
+  fallbackServices.find((item) => item.id === serviceId.value) || fallbackServices[0]
+)
 
-if (!service.value) {
-  router.replace('/services')
-}
+onMounted(async () => {
+  service.value = await getServiceById(serviceId.value)
+
+  if (!service.value) {
+    router.replace('/services')
+  }
+})
 </script>
 
 <style scoped>

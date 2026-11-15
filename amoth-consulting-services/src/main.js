@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './router/routes.js'
+import { getAuthUser } from './services/authApi.js'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,8 +14,7 @@ const router = createRouter({
 // global guard for protected routes
 router.beforeEach((to, from, next) => {
   if (to.meta && to.meta.requiresAuth) {
-    const token = localStorage.getItem('token')
-    if (!token) return next('/login')
+    if (!getAuthUser()) return next('/login')
   }
   next()
 })

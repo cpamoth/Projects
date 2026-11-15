@@ -85,6 +85,23 @@ export const services = [
     ]
   },
   {
+    id: 'ai-services',
+    title: 'AI Services',
+    summary: 'AI strategy, workflow automation, model evaluation, and practical GenAI adoption built for real business outcomes.',
+    highlights: [
+      'AI opportunity assessment and prioritization',
+      'Generative AI workflow and automation design',
+      'Responsible AI evaluation and implementation support'
+    ],
+    details: 'We help organizations identify where AI creates the most value and turn promising ideas into usable, governed solutions. Our work spans AI strategy, automation, model selection, integration, and implementation planning for teams ready to adopt intelligent systems responsibly.',
+    approach: 'We start with business use cases, validate the best AI approach, and design practical workflows with measurable ROI. Our engagements balance experimentation with governance so teams can move from pilot to production without unnecessary risk.',
+    benefits: [
+      'Clear prioritization of high-value AI opportunities',
+      'Operational efficiencies through AI-enabled automation',
+      'Responsible adoption with governance and performance guardrails'
+    ]
+  },
+  {
     id: 'ux-product-design',
     title: 'UX, Product & Design',
     summary: 'Product discovery, UX research, and design systems that deliver delightful, usable experiences for customers.',

@@ -356,8 +356,8 @@ function processPayment() {
   text-transform: uppercase;
 }
 
-.status.pending { background: #fff7e6; color: #b57b00; }
-.status.overdue { background: #ffe8e8; color: #b02a1d; }
+.status.pending { background: #334155; color: #ffffff; }
+.status.overdue { background: #334155; color: #ffffff; }
 .status.paid { background: #e6f8ed; color: #0c7a3f; }
 
 .invoice-details {
@@ -394,13 +394,22 @@ function processPayment() {
 
 .btn-pay,
 .btn-submit {
-  background: var(--accent);
+  background: var(--vt-c-indigo);
   color: white;
 }
 
+.btn-submit:hover,
+.btn-pay:hover {
+  background: #1e293b;
+}
+
 .btn-cancel {
-  background: #e2e8f0;
-  color: #1e293b;
+  background: #334155;
+  color: #ffffff;
+}
+
+.btn-cancel:hover {
+  background: #1e293b;
 }
 
 .payment-form-container {

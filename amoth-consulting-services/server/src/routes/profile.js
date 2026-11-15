@@ -87,7 +87,21 @@ export async function updateUserProfileRoute(fastify, options) {
 }
 
 export async function changePasswordRoute(fastify, options) {
-  fastify.post('/change-password', { onRequest: [authMiddleware] }, async (request, reply) => {
+  fastify.post('/change-password', {
+    onRequest: [authMiddleware],
+    schema: {
+      body: {
+        type: 'object',
+        required: ['currentPassword', 'newPassword', 'confirmPassword'],
+        additionalProperties: false,
+        properties: {
+          currentPassword: { type: 'string', minLength: 1, maxLength: 128 },
+          newPassword: { type: 'string', minLength: 12, maxLength: 128 },
+          confirmPassword: { type: 'string', minLength: 12, maxLength: 128 }
+        }
+      }
+    }
+  }, async (request, reply) => {
     try {
       const { currentPassword, newPassword, confirmPassword } = request.body;
 
@@ -103,9 +117,9 @@ export async function changePasswordRoute(fastify, options) {
         });
       }
 
-      if (newPassword.length < 6) {
+      if (newPassword.length < 12) {
         return reply.status(400).send({
-          error: 'Password must be at least 6 characters'
+          error: 'Password must be at least 12 characters'
         });
       }
 

@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest'
+import { mount } from '@vue/test-utils'
 import { render, screen } from '@testing-library/vue'
 import About from '../src/components/About.vue'
 import Accessibility from '../src/components/Accessibility.vue'
 import ActiveProjects from '../src/components/ActiveProjects.vue'
+import App from '../src/App.vue'
 import BillingOptions from '../src/components/BillingOptions.vue'
 import CompletionRate from '../src/components/CompletionRate.vue'
 import Dashboard from '../src/components/Dashboard.vue'
@@ -17,8 +19,10 @@ import Register from '../src/components/Register.vue'
 import ScheduledMeetings from '../src/components/ScheduledMeetings.vue'
 import Service from '../src/components/Service.vue'
 import ServiceDetail from '../src/components/ServiceDetail.vue'
+import SharedNavBar from '../src/shared/components/NavBar.vue'
 import TheWelcome from '../src/components/TheWelcome.vue'
 import WelcomeItem from '../src/components/WelcomeItem.vue'
+import { useTheme } from '../src/shared/composables/useTheme.js'
 
 const globalStubs = {
   PageWrapper: {
@@ -37,6 +41,64 @@ const globalStubs = {
 }
 
 describe('Vue component smoke tests', () => {
+  it('renders the application shell', () => {
+    render(App, {
+      global: {
+        stubs: {
+          ...globalStubs,
+          RouterView: { template: '<div>Route content</div>' },
+          NavBar: {
+            props: ['theme'],
+            emits: ['toggle-theme'],
+            template: '<nav aria-label="Main Navigation">NavBar stub</nav>',
+          },
+        },
+      },
+    })
+
+    expect(screen.getByText(/Skip to main content/i)).toBeTruthy()
+    expect(screen.getByText(/Route content/i)).toBeTruthy()
+  })
+
+  it('renders the shared nav bar for an authenticated user and emits theme toggles', async () => {
+    sessionStorage.setItem('authUser', JSON.stringify({ username: 'alice', fullName: 'Alice Johnson' }))
+
+    const wrapper = mount(SharedNavBar, {
+      props: { theme: 'dark' },
+      global: {
+        stubs: {
+          RouterLink: {
+            props: ['to'],
+            template: '<a><slot /></a>',
+          },
+        },
+      },
+    })
+
+    expect(wrapper.text()).toContain('Alice Johnson')
+    await wrapper.get('.theme-switcher').trigger('click')
+    expect(wrapper.emitted('toggle-theme')).toBeTruthy()
+  })
+
+  it('uses the theme composable to persist light mode when toggled', async () => {
+    localStorage.clear()
+
+    const ThemeHarness = {
+      components: {},
+      setup() {
+        const { theme, toggleTheme } = useTheme()
+        return { theme, toggleTheme }
+      },
+      template: '<button @click="toggleTheme">{{ theme }}</button>',
+    }
+
+    const wrapper = mount(ThemeHarness)
+    expect(wrapper.text()).toContain('dark')
+    await wrapper.trigger('click')
+    expect(localStorage.getItem('theme')).toBe('light')
+    expect(document.documentElement.dataset.theme).toBe('light')
+  })
+
   it('renders About.vue', async () => {
     render(About, { global: { stubs: globalStubs } })
     expect(await screen.findByText(/Our Experience/i)).toBeTruthy()
@@ -121,6 +183,7 @@ describe('Vue component smoke tests', () => {
   it('renders Service.vue', async () => {
     render(Service, { global: { stubs: globalStubs } })
     expect(await screen.findByText(/Our Services/i)).toBeTruthy()
+    expect(await screen.findByText(/AI Services/i)).toBeTruthy()
   })
 
   it('renders ServiceDetail.vue', async () => {

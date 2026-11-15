@@ -2,7 +2,7 @@
 
 This project consists of:
 1. **Frontend**: Vue 3 + Vite (client/)
-2. **Backend**: Fastify + SQLite (server/)
+2. **Backend**: Fastify + PostgreSQL (server/)
 
 ## Setup Instructions
 
@@ -17,10 +17,18 @@ cd server
 ```bash
 npm install
 ```
-
+Get-Service *postgres*
+Start-Service postgresql-x64-16
 3. Create `.env` file:
 ```bash
 cp .env.example .env
+```
+
+Edit `server/.env` with your PostgreSQL credentials. The default configuration expects a database named `amoth` on `localhost:5432`.
+
+Create the database once before initializing the schema:
+```sql
+CREATE DATABASE amoth;
 ```
 
 4. Initialize the database:
@@ -35,9 +43,7 @@ npm run dev
 
 The backend will be available at `http://localhost:3001`
 
-**Demo Credentials:**
-- Username: `demo`
-- Password: `demo`
+Demo users are not created by default. For local development only, set `SEED_DEMO_USER=true` and optionally `DEMO_PASSWORD` before initializing the database.
 
 ### Frontend Setup
 
@@ -79,7 +85,15 @@ See `server/README.md` for detailed API documentation.
 PORT=3001
 NODE_ENV=development
 JWT_SECRET=your-secret-key-change-this-in-production
-DATABASE_PATH=./src/database/app.db
+MFA_ENCRYPTION_KEY=64-character-hex-key-change-this-in-production
+CORS_ORIGIN=http://localhost:5173
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=amoth
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=your-postgres-password
+DATABASE_SSL=false
+DATABASE_SSL_REJECT_UNAUTHORIZED=true
 ```
 
 ## Running Both Servers
@@ -99,9 +113,14 @@ npm run dev
 
 ## Database
 
-The backend uses SQLite with automatic schema creation. The database file is located at `server/src/database/app.db`.
+The backend uses PostgreSQL. `npm run init-db` creates the application tables and seeds the demo user and service content.
 
-To reset the database, delete `app.db` and run:
+To reset the development database, run this from `psql`:
+```sql
+DROP DATABASE amoth;
+CREATE DATABASE amoth;
+```
+Then reinitialize it:
 ```bash
 npm run init-db
 ```
@@ -153,7 +172,6 @@ amoth-consulting-services/
 ```bash
 # Reset database
 cd server
-rm src/database/app.db
 npm run init-db
 ```
 

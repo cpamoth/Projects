@@ -1,6 +1,13 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import { cleanup, fireEvent, render, screen } from '@testing-library/vue'
 import NavBar from '../shared/components/NavBar.vue'
+
+vi.mock('../services/authApi.js', () => ({
+  clearAuthUser: vi.fn(() => sessionStorage.removeItem('authUser')),
+  getAuthUser: vi.fn(() => JSON.parse(sessionStorage.getItem('authUser') || 'null')),
+  logout: vi.fn().mockResolvedValue(undefined),
+}))
 
 const renderNavBar = () => render(NavBar, {
   props: { theme: 'light' },
@@ -17,6 +24,7 @@ const renderNavBar = () => render(NavBar, {
 describe('NavBar.vue', () => {
   beforeEach(() => {
     localStorage.clear()
+    sessionStorage.clear()
   })
 
   afterEach(() => {
@@ -24,8 +32,7 @@ describe('NavBar.vue', () => {
   })
 
   it('shows profile full name when authenticated', async () => {
-    localStorage.setItem('token', btoa('jdoe:pass123'))
-    localStorage.setItem('userProfile', JSON.stringify({ fullName: 'Jane Doe', username: 'jdoe' }))
+    sessionStorage.setItem('authUser', JSON.stringify({ fullName: 'Jane Doe', username: 'jdoe' }))
 
     renderNavBar()
 
@@ -34,8 +41,7 @@ describe('NavBar.vue', () => {
   })
 
   it('falls back to username when full name is not available', async () => {
-    localStorage.setItem('token', btoa('jdoe:pass123'))
-    localStorage.setItem('userProfile', JSON.stringify({ username: 'jdoe', fullName: '' }))
+    sessionStorage.setItem('authUser', JSON.stringify({ username: 'jdoe', fullName: '' }))
 
     renderNavBar()
 
@@ -43,14 +49,14 @@ describe('NavBar.vue', () => {
   })
 
   it('removes token on sign out', async () => {
-    localStorage.setItem('token', btoa('jdoe:pass123'))
-    localStorage.setItem('userProfile', JSON.stringify({ fullName: 'Jane Doe', username: 'jdoe' }))
+    sessionStorage.setItem('authUser', JSON.stringify({ fullName: 'Jane Doe', username: 'jdoe' }))
 
     renderNavBar()
 
     const logoutButton = screen.getAllByRole('button', { name: /sign out/i })[0]
     await fireEvent.click(logoutButton)
+    await nextTick()
 
-    expect(localStorage.getItem('token')).toBeNull()
+    expect(sessionStorage.getItem('authUser')).toBeNull()
   })
 })

@@ -1,4 +1,4 @@
-const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '')
+const apiUrl = (import.meta.env.DEV ? '' : import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 
 function getCsrfToken() {
   return document.cookie.split('; ').find((entry) => entry.startsWith('csrf='))?.split('=').slice(1).join('=') || ''

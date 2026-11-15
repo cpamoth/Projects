@@ -33,8 +33,8 @@ export async function getProjectRoute(fastify, options) {
 
       // Get tasks for this project
       const tasks = await db.all(
-        'SELECT * FROM tasks WHERE projectId = ? ORDER BY dueDate ASC',
-        [request.params.id]
+        'SELECT * FROM tasks WHERE projectId = ? AND userId = ? ORDER BY dueDate ASC',
+        [request.params.id, request.user.userId]
       );
 
       return reply.send({ ...project, tasks });

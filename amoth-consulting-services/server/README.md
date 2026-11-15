@@ -5,10 +5,10 @@ A Fastify-based REST API backend for the Amoth Consulting Services application, 
 ## Tech Stack
 
 - **Framework**: Fastify 4
-- **Database**: SQLite3
+- **Database**: PostgreSQL
 - **Authentication**: JWT + bcryptjs
 - **CORS**: Enabled for frontend integration
-- **Node.js**: v20.19.0 or v22.12.0+
+- **Node.js**: v24.x (required)
 
 ## Project Structure
 
@@ -41,7 +41,7 @@ server/
 
 ```bash
 cd server
-npm install
+npm ci
 ```
 
 ### 2. Create Environment File
@@ -56,7 +56,30 @@ Edit `.env` and customize if needed:
 PORT=3001
 NODE_ENV=development
 JWT_SECRET=your-secret-key-change-this-in-production
-DATABASE_PATH=./src/database/app.db
+MFA_ENCRYPTION_KEY=64-character-hex-key-change-this-in-production
+CORS_ORIGIN=http://localhost:5173
+FRONTEND_URL=http://localhost:5173
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-smtp-username
+SMTP_PASSWORD=your-smtp-password
+SMTP_FROM=Amoth Consulting <no-reply@example.com>
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=amoth
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=your-postgres-password
+DATABASE_SSL=false
+DATABASE_SSL_REJECT_UNAUTHORIZED=true
+```
+
+For production, set a randomly generated `JWT_SECRET` of at least 32 characters, set `CORS_ORIGIN` to the deployed frontend URL, and use `DATABASE_SSL=true` with certificate verification enabled.
+Set `MFA_ENCRYPTION_KEY` to a randomly generated 32-byte key encoded as 64 hexadecimal characters. Store it with the other production secrets.
+
+Create the PostgreSQL database before initialization:
+
+```sql
+CREATE DATABASE amoth;
 ```
 
 ### 3. Initialize Database
@@ -65,11 +88,9 @@ DATABASE_PATH=./src/database/app.db
 npm run init-db
 ```
 
-This creates the SQLite database with all required tables and a demo user.
+This creates the PostgreSQL tables and seeds the demo user and service content.
 
-**Demo Credentials:**
-- Username: `demo`
-- Password: `demo`
+For local development only, set `SEED_DEMO_USER=true` and optionally `DEMO_PASSWORD` before running the initializer. Demo users are never created by default or in production.
 
 ### 4. Start the Server
 
@@ -88,6 +109,8 @@ The server will start at `http://localhost:3001`
 ## API Endpoints
 
 ### Authentication (Public)
+
+Cookie-authenticated state-changing requests must include the `X-CSRF-Token` header matching the non-HttpOnly `csrf` cookie. The frontend client handles this automatically. Bearer-token API clients are exempt from the cookie CSRF check.
 
 #### Register User
 ```
@@ -122,10 +145,33 @@ Content-Type: application/json
 Response: 200
 {
   "message": "Login successful",
-  "token": "jwt_token",
   "user": { id, username, email, fullName, bio }
 }
 ```
+
+If MFA is enabled, login without a valid six-digit `mfaToken` returns `401` with `mfaRequired: true`.
+
+#### Password Reset
+
+Configure `SMTP_HOST`, `SMTP_PORT`, and `SMTP_FROM` (and SMTP credentials when required) plus `FRONTEND_URL`. Reset requests send a one-hour, single-use link and return the same response whether or not the email matches an account.
+
+```
+POST /api/auth/password-reset/request
+{ "email": "user@example.com" }
+
+POST /api/auth/password-reset/confirm
+{ "token": "token-from-email-link", "password": "new-password-at-least-12-characters" }
+```
+
+The database migration creates the reset-token table automatically when the server starts.
+
+#### MFA Setup
+```
+POST /api/auth/mfa/setup
+POST /api/auth/mfa/enable
+```
+
+Use the setup response URI with an authenticator app, then send its six-digit code to the enable endpoint. MFA secrets are encrypted before storage.
 
 ### Profile (Protected)
 

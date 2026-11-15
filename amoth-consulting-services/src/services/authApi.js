@@ -10,6 +10,16 @@ export const register = (user) => apiRequest('/api/auth/register', {
   body: JSON.stringify(user)
 })
 
+export const requestPasswordReset = (email) => apiRequest('/api/auth/password-reset/request', {
+  method: 'POST',
+  body: JSON.stringify({ email })
+})
+
+export const resetPassword = (token, password) => apiRequest('/api/auth/password-reset/confirm', {
+  method: 'POST',
+  body: JSON.stringify({ token, password })
+})
+
 export const logout = () => apiRequest('/api/auth/logout', { method: 'POST' })
 
 export const changePassword = (passwords) => apiRequest('/api/change-password', {

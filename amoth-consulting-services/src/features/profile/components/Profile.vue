@@ -26,7 +26,9 @@
             <textarea id="bio" v-model="bio" rows="4"></textarea>
           </div>
 
-          <button type="submit" :disabled="saving">{{ saving ? 'Saving…' : 'Save Changes' }}</button>
+          <button type="submit" :disabled="saving || loadingProfile">{{ saving ? 'Saving…' : 'Save Changes' }}</button>
+          <p v-if="loadingProfile" role="status">Loading profile…</p>
+          <p v-if="profileError" class="error" role="alert">{{ profileError }}</p>
           <p v-if="saved" class="success" role="alert">Profile updated successfully!</p>
         </form>
       </section>
@@ -42,8 +44,8 @@
 
           <div class="field">
             <label for="newPassword"><span class="label-text">New Password <span class="required">*</span></span></label>
-            <input id="newPassword" v-model="newPassword" type="password" minlength="6" required />
-            <p v-if="newPassword.length < 6" class="error">Password must be at least 6 characters</p>
+            <input id="newPassword" v-model="newPassword" type="password" minlength="12" required />
+            <p v-if="newPassword.length < 12" class="error">Password must be at least 12 characters</p>
           </div>
 
           <div class="field">
@@ -51,10 +53,24 @@
             <input id="confirmPassword" v-model="confirmPassword" type="password" minlength="6" required />
           </div>
 
-          <button type="submit" :disabled="savingPassword || newPassword.length < 6">{{ savingPassword ? 'Updating…' : 'Update Password' }}</button>
+          <button type="submit" :disabled="savingPassword || newPassword.length < 12">{{ savingPassword ? 'Updating…' : 'Update Password' }}</button>
           <p v-if="passwordError" class="error" role="alert">{{ passwordError }}</p>
           <p v-if="passwordChanged" class="success" role="alert">Password changed successfully!</p>
         </form>
+      </section>
+
+      <section class="profile-section">
+        <h2>Multi-factor authentication</h2>
+        <p>Protect your account with an authenticator app.</p>
+        <button type="button" :disabled="settingUpMfa" @click="startMfaSetup">{{ settingUpMfa ? 'Preparing…' : 'Set up MFA' }}</button>
+        <p v-if="mfaUri" class="mfa-uri">{{ mfaUri }}</p>
+        <form v-if="mfaUri" @submit.prevent="confirmMfaSetup" class="profile-form">
+          <label for="mfaToken">Authenticator code</label>
+          <input id="mfaToken" v-model="mfaToken" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required />
+          <button type="submit">Enable MFA</button>
+        </form>
+        <p v-if="mfaMessage" class="success" role="status">{{ mfaMessage }}</p>
+        <p v-if="mfaError" class="error" role="alert">{{ mfaError }}</p>
       </section>
 
       <BillingOptions />
@@ -66,6 +82,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import BillingOptions from './BillingOptions.vue'
+import { changePassword as changePasswordApi, enableMfa, getAuthUser, setAuthUser, setupMfa } from '../../../services/authApi.js'
+import { getProfile, updateProfile as updateProfileApi } from '../../../services/profileApi.js'
 
 const router = useRouter()
 const username = ref('')
@@ -78,61 +96,100 @@ const confirmPassword = ref('')
 
 const saving = ref(false)
 const saved = ref(false)
+const loadingProfile = ref(false)
+const profileError = ref('')
 const savingPassword = ref(false)
 const passwordChanged = ref(false)
 const passwordError = ref('')
+const mfaUri = ref('')
+const mfaToken = ref('')
+const mfaMessage = ref('')
+const mfaError = ref('')
+const settingUpMfa = ref(false)
 
-onMounted(() => {
-  // Get username from token
-  const token = localStorage.getItem('token')
-  if (!token) {
+async function startMfaSetup() {
+  settingUpMfa.value = true
+  mfaError.value = ''
+  try {
+    const result = await setupMfa()
+    mfaUri.value = result.uri
+    mfaMessage.value = 'Scan this URI in your authenticator app, then enter the six-digit code to enable MFA.'
+  } catch (error) {
+    mfaError.value = error.message
+  } finally {
+    settingUpMfa.value = false
+  }
+}
+
+async function confirmMfaSetup() {
+  mfaError.value = ''
+  try {
+    await enableMfa(mfaToken.value)
+    mfaMessage.value = 'MFA enabled successfully.'
+    mfaUri.value = ''
+    mfaToken.value = ''
+  } catch (error) {
+    mfaError.value = error.message
+  }
+}
+
+onMounted(async () => {
+  const user = getAuthUser()
+  if (!user) {
     router.push('/login')
     return
   }
-  
-  try {
-    const decoded = atob(token)
-    const parts = decoded.split(':')
-    username.value = parts[0]
-  } catch (e) {
-    router.push('/login')
-  }
+  username.value = user.username || ''
+  email.value = user.email || ''
+  fullName.value = user.fullName || username.value
 
-  // Load profile data from localStorage
-  const profileData = localStorage.getItem('userProfile')
-  if (profileData) {
-    try {
-      const profile = JSON.parse(profileData)
-      email.value = profile.email || ''
-      fullName.value = profile.fullName?.trim() || username.value
-      bio.value = profile.bio || ''
-    } catch (e) {
-      console.error('Error loading profile data', e)
-    }
+  loadingProfile.value = true
+  profileError.value = ''
+  try {
+    const profile = await getProfile()
+    username.value = profile.username || username.value
+    email.value = profile.email || ''
+    fullName.value = profile.fullName || ''
+    bio.value = profile.bio || ''
+    setAuthUser({ ...user, ...profile })
+    window.dispatchEvent(new Event('authStateChanged'))
+  } catch (error) {
+    profileError.value = error.message
+  } finally {
+    loadingProfile.value = false
   }
 })
 
-function updateProfile() {
+async function updateProfile() {
   saving.value = true
   saved.value = false
-  
-  setTimeout(() => {
-    saving.value = false
-    const profileData = {
+  profileError.value = ''
+
+  try {
+    const result = await updateProfileApi({
       email: email.value,
       fullName: fullName.value?.trim() || username.value,
       bio: bio.value
-    }
-    localStorage.setItem('userProfile', JSON.stringify(profileData))
+    })
+    const user = { ...getAuthUser(), ...result.user }
+    username.value = user.username || username.value
+    email.value = user.email || ''
+    fullName.value = user.fullName || ''
+    bio.value = user.bio || ''
+    setAuthUser(user)
     window.dispatchEvent(new Event('authStateChanged'))
     saved.value = true
     setTimeout(() => {
       saved.value = false
     }, 3000)
-  }, 600)
+  } catch (error) {
+    profileError.value = error.message
+  } finally {
+    saving.value = false
+  }
 }
 
-function changePassword() {
+async function changePassword() {
   passwordError.value = ''
   passwordChanged.value = false
 
@@ -143,47 +200,23 @@ function changePassword() {
   }
 
   // Validate password length
-  if (newPassword.value.length < 6) {
-    passwordError.value = 'Password must be at least 6 characters'
+  if (newPassword.value.length < 12) {
+    passwordError.value = 'Password must be at least 12 characters'
     return
   }
 
   savingPassword.value = true
-  
-  setTimeout(() => {
+  try {
+    await changePasswordApi({ currentPassword: currentPassword.value, newPassword: newPassword.value, confirmPassword: confirmPassword.value })
+    currentPassword.value = ''
+    newPassword.value = ''
+    confirmPassword.value = ''
+    passwordChanged.value = true
+  } catch (error) {
+    passwordError.value = error.message
+  } finally {
     savingPassword.value = false
-    
-    // Get current token to verify password
-    const token = localStorage.getItem('token')
-    try {
-      const decoded = atob(token)
-      const parts = decoded.split(':')
-      const storedPassword = parts[1]
-      
-      // Check if current password is correct
-      if (currentPassword.value !== storedPassword) {
-        passwordError.value = 'Current password is incorrect'
-        return
-      }
-      
-      // Update token with new password
-      const newToken = btoa(`${parts[0]}:${newPassword.value}`)
-      localStorage.setItem('token', newToken)
-      window.dispatchEvent(new Event('authStateChanged'))
-      
-      // Reset form
-      currentPassword.value = ''
-      newPassword.value = ''
-      confirmPassword.value = ''
-      passwordChanged.value = true
-      
-      setTimeout(() => {
-        passwordChanged.value = false
-      }, 3000)
-    } catch (e) {
-      passwordError.value = 'Error updating password'
-    }
-  }, 600)
+  }
 }
 </script>
 

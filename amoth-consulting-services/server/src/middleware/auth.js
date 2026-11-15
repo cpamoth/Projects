@@ -2,13 +2,16 @@ import { verifyToken } from '../utils/auth.js';
 
 export async function authMiddleware(request, reply) {
   try {
-    const token = request.headers.authorization?.replace('Bearer ', '');
+    const authorization = request.headers.authorization || '';
+    const [scheme, token] = authorization.split(' ');
+    const sessionToken = request.cookies?.session;
+    const providedToken = sessionToken || (scheme === 'Bearer' && authorization.split(' ').length === 2 ? token : null);
     
-    if (!token) {
+    if (!providedToken) {
       return reply.status(401).send({ error: 'Missing authorization token' });
     }
 
-    const decoded = verifyToken(token);
+    const decoded = verifyToken(providedToken);
     
     if (!decoded) {
       return reply.status(401).send({ error: 'Invalid or expired token' });

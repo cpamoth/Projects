@@ -1,0 +1,174 @@
+name: Test and Deploy
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate application
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: amoth
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d amoth"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            server/package-lock.json
+
+      - name: Install client dependencies
+        run: npm ci
+
+      - name: Run client tests
+        run: npm run test -- --run
+
+      - name: Build client
+        run: npm run build
+
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci --no-audit --no-fund
+
+      - name: Run server tests
+        run: npm run test:server
+
+      - name: Initialize test database
+        working-directory: server
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci-only-secret
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
+          DATABASE_NAME: amoth
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_SSL: false
+        run: npm run init-db
+
+      - name: Start API for smoke test
+        working-directory: server
+        env:
+          NODE_ENV: test
+          JWT_SECRET: ci-only-secret
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
+          DATABASE_NAME: amoth
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_SSL: false
+          PORT: 3001
+        run: |
+          nohup npm start > "$RUNNER_TEMP/amoth-api.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/amoth-api.pid"
+
+      - name: Check API health
+        run: |
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:3001/health; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/amoth-api.log"
+          exit 1
+
+      - name: Stop API
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/amoth-api.pid" ]; then
+            kill "$(cat "$RUNNER_TEMP/amoth-api.pid")" || true
+          fi
+
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: dist
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to production host
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      DEPLOY_SSH_PORT: ${{ secrets.DEPLOY_SSH_PORT || '22' }}
+      DEPLOY_RESTART_COMMAND: ${{ secrets.DEPLOY_RESTART_COMMAND }}
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Download frontend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: dist
+
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Trust deployment host
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "$DEPLOY_SSH_PORT" "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Create remote release directories
+        run: |
+          ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p '$DEPLOY_PATH/frontend' '$DEPLOY_PATH/server'"
+
+      - name: Upload frontend
+        run: |
+          rsync -az --delete -e "ssh -p $DEPLOY_SSH_PORT" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/frontend/"
+
+      - name: Upload server
+        run: |
+          rsync -az --delete -e "ssh -p $DEPLOY_SSH_PORT" \
+            --exclude '.env' \
+            --exclude 'node_modules' \
+            --exclude 'src/database/*.db' \
+            server/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/server/"
+
+      - name: Install, initialize, restart, and smoke test API
+        run: |
+          ssh -p "$DEPLOY_SSH_PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
+            "cd '$DEPLOY_PATH/server' && \
+             node -e 'if (Number(process.versions.node.split(\".\")[0]) !== 24) { console.error(\"Node.js 24 is required; found \" + process.version); process.exit(1); }' && \
+             npm ci --omit=dev --no-audit --no-fund && \
+             npm run init-db && \
+             $DEPLOY_RESTART_COMMAND && \
+             curl --fail --silent http://127.0.0.1:3001/health"

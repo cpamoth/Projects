@@ -4,7 +4,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this';
+const configuredSecret = process.env.JWT_SECRET;
+if (process.env.NODE_ENV === 'production' && (!configuredSecret || configuredSecret.length < 32)) {
+  throw new Error('JWT_SECRET must be at least 32 characters in production');
+}
+
+if (configuredSecret && configuredSecret.length < 32) {
+  throw new Error('JWT_SECRET must be at least 32 characters');
+}
+
+const JWT_SECRET = configuredSecret || 'development-only-secret-change-me-32-characters';
 
 export function generateToken(userId, username) {
   return jwt.sign(

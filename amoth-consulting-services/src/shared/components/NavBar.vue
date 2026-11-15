@@ -55,6 +55,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { UserPlusIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/solid'
+import { clearAuthUser, getAuthUser, logout as logoutApi } from '../../services/authApi.js'
 
 const props = defineProps({
   theme: {
@@ -82,34 +83,13 @@ watch(
 
 const auth = computed(() => {
   tokenUpdate.value
-  return !!localStorage.getItem('token')
+  return !!getAuthUser()
 })
 
 const userDisplayName = computed(() => {
   tokenUpdate.value
-  const token = localStorage.getItem('token')
-  if (token) {
-    try {
-      const decoded = atob(token)
-      const parts = decoded.split(':')
-      const username = parts[0]
-      const userProfile = localStorage.getItem('userProfile')
-      if (userProfile) {
-        try {
-          const profile = JSON.parse(userProfile)
-          if (profile.fullName && profile.fullName.trim()) {
-            return profile.fullName
-          }
-        } catch (e) {
-          // fall back to username
-        }
-      }
-      return username || 'User'
-    } catch (e) {
-      return 'User'
-    }
-  }
-  return 'User'
+  const user = getAuthUser()
+  return user?.fullName || user?.username || 'User'
 })
 
 onMounted(() => {
@@ -121,8 +101,9 @@ onMounted(() => {
   })
 })
 
-function logout() {
-  localStorage.removeItem('token')
+async function logout() {
+  await logoutApi()
+  clearAuthUser()
   tokenUpdate.value++
   router.push('/login')
 }
@@ -183,8 +164,8 @@ function logout() {
 .user { display:flex; gap:.5rem; align-items:center }
 .profile-link { text-decoration: none; color: hsla(160, 100%, 37%, 1); font-weight: 600; cursor: pointer; }
 .profile-link:hover { opacity: 0.8; }
-.btn-logout { padding: .45rem .75rem; border-radius: 6px; background: var(--accent); color: var(--vt-c-white); border: 1px solid transparent; cursor: pointer; }
-.btn-logout:hover { filter: brightness(1.05); }
+.btn-logout { padding: .45rem .75rem; border-radius: 6px; background: #166534; color: var(--vt-c-white); border: 1px solid transparent; cursor: pointer; }
+.btn-logout:hover { background: #14532d; }
 @media (max-width:860px) {
   .site-nav { flex-wrap: wrap; align-items: flex-start; padding: .75rem 1rem; }
   .menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; }
